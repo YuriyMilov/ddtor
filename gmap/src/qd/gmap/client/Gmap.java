@@ -142,7 +142,7 @@ boolean red=true;
                 }
             };
 
-            timer.schedule(i * 1500);
+            timer.schedule(i * 3000);
         }
 
         // Add some controls for the zoom level
@@ -161,27 +161,9 @@ boolean red=true;
 
 
     	
-        LatLng point = LatLng.newInstance(latitude, longitude);
-        if (tmpPointList.size() == 2) {
-            tmpPointList.remove(0);
-        }
-        tmpPointList.add(point);
-        Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
-        if(red){
-        	icon.setImageURL("http://www.google.com/mapfiles/markerA.png");
-        	red=false;}
-       
-        else
-        {	icon.setImageURL("markerA.png"); red=true;}
-        
-        MarkerOptions ops = MarkerOptions.newInstance(icon);
-        ops.setIcon(icon);
-        //Marker marker = new Marker(point, ops);
-        
-        final Marker marker = new Marker(point, ops);
-
-        map.addOverlay(marker);
-        map.panTo(point);
+  //      LatLng point = LatLng.newInstance(latitude, longitude);
+  
+  //      map.panTo(point);
 
         //LatLng[] points = tmpPointList.toArray(new LatLng[0]);
 
@@ -198,10 +180,52 @@ boolean red=true;
 					public void onFailure(Throwable caught) {
 					}
 
-					public void onSuccess(String result) {
+					public void onSuccess(final String result) {
 
-					     map.getInfoWindow().open(marker,
-					                new InfoWindowContent(result));
+						Geocoder geocoder=new Geocoder();
+
+						geocoder.getLatLng("Toronto, On.", new LatLngCallback(){
+
+						public void onFailure() {
+
+
+						}
+
+						public void onSuccess(LatLng point) { 
+
+							LatLng addressLatlng = LatLng.newInstance(point.getLatitude(), point.getLongitude()); 
+
+						map.setCenter(addressLatlng);
+						
+						
+					      if (tmpPointList.size() == 2) {
+					            tmpPointList.remove(0);
+					        }
+					        tmpPointList.add(point);
+					        Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
+					        if(red){
+					        	icon.setImageURL("http://www.google.com/mapfiles/markerA.png");
+					        	red=false;}
+					       
+					        else
+					        {	icon.setImageURL("markerA.png"); red=true;}
+					        
+					        MarkerOptions ops = MarkerOptions.newInstance(icon);
+					        ops.setIcon(icon);
+					        //Marker marker = new Marker(point, ops);
+					        
+					        final Marker marker = new Marker(point, ops);
+
+					        map.addOverlay(marker);
+					        
+					        map.getInfoWindow().open(marker,
+					                new InfoWindowContent(result));						
+					
+						}
+
+						});
+						
+     
 					}
 				});
     }
