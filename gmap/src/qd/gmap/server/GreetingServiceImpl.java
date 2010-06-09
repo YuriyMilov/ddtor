@@ -16,17 +16,13 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 
 	public String greetServer(String input) {
-		
 		//return new java.util.Date().toString();
-		//String s = rfu("http://www.bankofcanada.ca/en/markets/csv/exchange_eng.csv");
-		//s=s.substring(s.indexOf("U.S. Dollar"));
-		//s=s.substring(0,s.indexOf("\r\n"));
-		//s=s.substring(s.lastIndexOf(",")+1);
-		
-		String s= String.valueOf(new Date().getTime()).substring(8);
-		//String s= new java.util.Date().toString();
-				//rfu("http://quicklydone.com/webxr/Default.aspx");
-		
+		//String.valueOf(new Date().getTime()).substring(8);
+		//rfu("http://quicklydone.com/webxr/Default.aspx");
+
+		String s= "Toronto, On." ;
+		if ((int)(Math.random()*10)+1 > 5)
+			s="New York, US";
 		return s;
 	}
 	
