@@ -16,6 +16,15 @@
     <url-pattern>/gmap/greet</url-pattern>
   </servlet-mapping>
   
+      <servlet>
+    <servlet-name>nship</servlet-name>
+    <servlet-class>qd.gmap.nship</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>nship</servlet-name>
+    <url-pattern>/nship</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>Gmap.html</welcome-file>

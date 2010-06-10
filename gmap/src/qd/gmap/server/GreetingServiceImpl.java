@@ -8,8 +8,14 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import javax.jdo.PersistenceManager;
 
 import qd.gmap.client.GreetingService;
+import qd.gmap.PMF;
+import qd.gmap.Shipper;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -21,7 +27,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 	public String[] greetServer(String input) {
 		
-		String s[]= {"Toronto","r","time"};
+		String s[]= {"Toronto","r","time",""};
 
 		if ((int)(Math.random()*10+1.0) > 2)
 			{
@@ -49,13 +55,15 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			}
 		if ((int)(Math.random()*10)+1 > 8)
 		{
-			s[0]="Mississauga, On";
+			s[0]="Ottawa, On";
 			if(Math.random()> 0.5)
 				s[1]="r";
 			else
 				s[1]="g";
 			}
 		s[2]=getDateTime();
+		
+		s[3]=get_ship();
 		return s;
 	}
 	
@@ -79,5 +87,28 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			return e.toString();
 		}
 		return s.toString();
+	}
+	
+//	public String det_ship(Long lid) {
+	
+	@SuppressWarnings("unchecked")
+	public String get_ship() {
+		String s = "";
+		try {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			String query = "select from " + Shipper.class.getName();//+ " where id == " + lid;
+			
+			List<Shipper> results = (List<Shipper>) pm.newQuery(query)
+					.execute();
+
+				Shipper sh = results.get(0);
+				s = sh.get_company_name(); //+ " " + sh.get_address1() + " "	+ sh.get_city() + " " + sh.get_prov_state() + " "	+ sh.get_country() + " " + sh.get_postal_code()	+ "<br>Conact: " + sh.get_contact() + " " + sh.get_phone();
+		
+
+		} catch (Exception e) {
+			s = e.toString();
+		}
+
+		return s;//.replaceAll("\\b\\s{2,}\\b", " ");
 	}
 }

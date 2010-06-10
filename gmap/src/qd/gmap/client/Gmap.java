@@ -20,14 +20,15 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class Gmap implements EntryPoint {
+	public static String ch="";
 	boolean red = true;
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
 
 	MapWidget map;
 	HTML info;
-	static final int TIMEOUT = 30;
-	List<LatLng> tmpPointList = new ArrayList<LatLng>();
+	//static final int TIMEOUT = 30;
+	//List<LatLng> tmpPointList = new ArrayList<LatLng>();
 
 	class LatitudeLongitude {
 		private double latitude;
@@ -47,36 +48,15 @@ public class Gmap implements EntryPoint {
 		}
 	}
 
-	// GWT module entry point method.
 	public void onModuleLoad() {
-		 
-		LatLng city = LatLng.newInstance(40.745575,-73.990855);
-
-		map = new MapWidget(city, 5);
+		LatLng place = LatLng.newInstance(40.745575,-73.990855);
+		map = new MapWidget(place, 5);
 		map.setSize("600px", "400px");
 		map.setScrollWheelZoomEnabled(true);
-		map.addControl(new MapTypeControl());
-		Timer timer;
-		int i = 0;
-		while (i++ < 100) {
-			timer = new Timer() {
-				public void run() {
-					add();
-				}
-			};
-			timer.schedule(i * 3000);
-		}
-
-		// Add some controls for the zoom level
+		//map.addControl(new MapTypeControl());
 		map.addControl(new LargeMapControl());
-
-		// Add an info window to highlight a point of interest
-		map.getInfoWindow().open(map.getCenter(),
-				new InfoWindowContent("The boss is here"));
-
-		// Add the map to the HTML host page
 		RootPanel.get().add(map);
-		
+		add();
 	}
 
 	private void add() {
@@ -87,9 +67,11 @@ public class Gmap implements EntryPoint {
 					}
 
 					public void onSuccess(final String r[]) {
-
+						//if (!r[3].equals(ch))
+						{
+							ch=r[3];
+							
 						Geocoder geocoder = new Geocoder();
-
 						geocoder.getLatLng(r[0],
 								new LatLngCallback() {
 									public void onFailure() {
@@ -100,10 +82,10 @@ public class Gmap implements EntryPoint {
 														.getLatitude(), point
 														.getLongitude());
 										map.setCenter(addressLatlng);
-										if (tmpPointList.size() == 2) {
-											tmpPointList.remove(0);
-										}
-										tmpPointList.add(point);
+										//if (tmpPointList.size() == 2) {
+										//	tmpPointList.remove(0);
+										//}
+										//tmpPointList.add(point);
 										Icon icon = Icon
 												.newInstance(Icon.DEFAULT_ICON);
 										if (r[1].equals("r")) {
@@ -122,17 +104,27 @@ public class Gmap implements EntryPoint {
 												ops);
 										map.addOverlay(marker);
 										map.getInfoWindow().open(marker,
-												new InfoWindowContent(r[0]));
+												new InfoWindowContent(r[0]+" - "+r[3]));
 										String status="red";
 										if (red)
 											status="RED";
 										else
 											status="GREEN";
-										info= new HTML(r[0]+": delivered on " + r[2] + " (status: \""+status+"\")");
+										info= new HTML(r[0]+": delivered on " + r[2] + " (status: \""+status+"\"); SHIP: " + r[3]);
 										RootPanel.get().add(info);
 									}
 								});
 					}
+					}
 				});
+		
+		Timer timer = new Timer() {
+				public void run() {
+					add();
+				}
+			};
+			timer.schedule(3000);
+		
+		
 	}
 }
