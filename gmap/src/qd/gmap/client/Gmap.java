@@ -16,6 +16,7 @@ import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class Gmap implements EntryPoint {
@@ -24,6 +25,7 @@ public class Gmap implements EntryPoint {
 			.create(GreetingService.class);
 
 	MapWidget map;
+	HTML info;
 	static final int TIMEOUT = 30;
 	List<LatLng> tmpPointList = new ArrayList<LatLng>();
 
@@ -50,8 +52,8 @@ public class Gmap implements EntryPoint {
 		 
 		LatLng city = LatLng.newInstance(40.745575,-73.990855);
 
-		map = new MapWidget(city, 6);
-		map.setSize("1000px", "600px");
+		map = new MapWidget(city, 5);
+		map.setSize("600px", "400px");
 		map.setScrollWheelZoomEnabled(true);
 		map.addControl(new MapTypeControl());
 		Timer timer;
@@ -70,24 +72,25 @@ public class Gmap implements EntryPoint {
 
 		// Add an info window to highlight a point of interest
 		map.getInfoWindow().open(map.getCenter(),
-				new InfoWindowContent("Start from here"));
+				new InfoWindowContent("The boss is here"));
 
 		// Add the map to the HTML host page
 		RootPanel.get().add(map);
+		
 	}
 
 	private void add() {
 
 		greetingService.greetServer("textToServer",
-				new AsyncCallback<String>() {
+				new AsyncCallback<String[]>() {
 					public void onFailure(Throwable caught) {
 					}
 
-					public void onSuccess(final String result) {
+					public void onSuccess(final String r[]) {
 
 						Geocoder geocoder = new Geocoder();
 
-						geocoder.getLatLng(result,
+						geocoder.getLatLng(r[0],
 								new LatLngCallback() {
 									public void onFailure() {
 									}
@@ -103,14 +106,14 @@ public class Gmap implements EntryPoint {
 										tmpPointList.add(point);
 										Icon icon = Icon
 												.newInstance(Icon.DEFAULT_ICON);
-										if (red) {
+										if (r[1].equals("r")) {
 											icon
 													.setImageURL("http://www.google.com/mapfiles/markerA.png");
-											red = false;
+											red = true;
 										}
 										else {
 											icon.setImageURL("markerA.png");
-											red = true;
+											red = false;
 										}
 										MarkerOptions ops = MarkerOptions
 												.newInstance(icon);
@@ -119,11 +122,16 @@ public class Gmap implements EntryPoint {
 												ops);
 										map.addOverlay(marker);
 										map.getInfoWindow().open(marker,
-												new InfoWindowContent(result));
+												new InfoWindowContent(r[0]));
+										String status="red";
+										if (red)
+											status="RED";
+										else
+											status="GREEN";
+										info= new HTML(r[0]+": delivered on " + r[2] + " (status: \""+status+"\")");
+										RootPanel.get().add(info);
 									}
-
 								});
-
 					}
 				});
 	}
