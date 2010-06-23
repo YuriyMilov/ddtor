@@ -11,11 +11,16 @@ import java.util.Date;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
+import javax.servlet.http.HttpServletRequest;
 
 import qd.gmap.client.GreetingService;
 import qd.gmap.PMF;
 import qd.gmap.Shipper;
+import qd.gmap.aa;
 
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -24,46 +29,25 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
-
+	
 	public String[] greetServer(String input) {
+		String ss[]= {"Toronto, ON, Canada","Mississauga, ON, Canada","Ottawa, ON, Canada","London, ON, Canada","Kitchener, ON, Canada","Hamilton, ON, Canada","North Bay, ON, Canada","Barrie, ON, Canada","Montreal, QC, Canada","Calgary, AB, Canada","Winnipeg, MB, Canada","Peterborough, ON, Canada","Ajax, ON, Canada","Barrie, ON, Canada","Vancouver, BC, Canada","Miami, FL, USA","Los Angeles, CA, USA","Markham, ON, Canada","Burlington, ON, Canada","Barrie, ON, Canada","Kingston, ON, Canada","Toronto, ON, Canada","Barrie, ON,  Canada","Oakville, ON, Canada"} ;
+		String s[]={"","","",""};
+		//if(input.equals("add")){
+		//for(int i=0;i<25;i++)
+		//	s[0]=ss[(int)(Math.random()*25)];
+		//s[1]="g";
+		//s[2]=getDateTime();
+		//s[3]=get_ship();
+		//}
+		//if(input.equals("preload"))
+			//s=ss;
+			s=aa.ss;
+		//System.out.println("======="+ s.length +"========");
 		
-		String s[]= {"Toronto","r","time",""};
-
-		if ((int)(Math.random()*10+1.0) > 2)
-			{
-			s[0]="New York, US";
-			if(Math.random()> 0.5)
-				s[1]="r";
-			else
-				s[1]="g";
-			}
-		if ((int)(Math.random()*10)+1 > 4)
-		{
-			s[0]="Boston, US";
-			if(Math.random()> 0.5)
-				s[1]="r";
-			else
-				s[1]="g";
-			}
-		if ((int)(Math.random()*10)+1 > 6)
-		{
-			s[0]="Montreal, Canada";
-			if(Math.random()> 0.5)
-				s[1]="r";
-			else
-				s[1]="g";
-			}
-		if ((int)(Math.random()*10)+1 > 8)
-		{
-			s[0]="Ottawa, On";
-			if(Math.random()> 0.5)
-				s[1]="r";
-			else
-				s[1]="g";
-			}
-		s[2]=getDateTime();
-		
-		s[3]=get_ship();
+		//for(int i=0;i<s.length;i++)
+		//	System.out.println(s[i]);
+			
 		return s;
 	}
 	
@@ -89,8 +73,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		return s.toString();
 	}
 	
-//	public String det_ship(Long lid) {
-	
 	@SuppressWarnings("unchecked")
 	public String get_ship() {
 		String s = "";
@@ -110,5 +92,26 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		}
 
 		return s;//.replaceAll("\\b\\s{2,}\\b", " ");
+	}
+	
+	public String get_user(String input) {
+
+		HttpServletRequest req = getThreadLocalRequest();
+		String s = "qqqqqqqqqqqqq";
+
+		UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser();
+		if (user != null) {
+			s = req.getUserPrincipal().getName() + " | <a href=\""
+					+ userService.createLogoutURL("/") + "\">Logout</a>";
+		} else {
+			s = "<a href=\""
+					+ userService.createLoginURL("/")
+					+ "\">Login</a> <br/>   Test account: \"guest\", password: \"123456\"";
+		}
+
+		// if (input.equals("user"))
+		// s=user.getNickname();
+		return s;
 	}
 }

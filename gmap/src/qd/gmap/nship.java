@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.jdo.PersistenceManager;
 
 import javax.jdo.Query;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,6 @@ public class nship extends HttpServlet {
 
 		PrintWriter out = resp.getWriter();		
 		String s = "",scn="";
-
 		
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
@@ -36,11 +36,17 @@ public class nship extends HttpServlet {
 					s=s.replaceAll("<!- customer_name ->", scn );
 					
 				} else {
-					s="<a href=\""
-									+ userService.createLoginURL(thisURL)
-									+ "\">Log in</a> <br/>You have to login. Or try a guest account(\"guest\", \"123456\")"
-									+ shta.rff("1.txt");
+					user=new User("test@quicklydone.com",
+						"quicklydone.com","test qq");
+					s=shta.rff("new_shipper_templ.htm");
+					s=s.replaceAll("<!- customer_name ->", scn );
+					
+					//s="<a href=\""+ userService.createLoginURL(thisURL)+ "\">Log in</a> <br/>You have to login. Or try a guest account(\"guest\", \"123456\")"+ shta.rff("1.txt");
+	
 				}
+				Cookie userCookie = new Cookie("user", "qqqqq...uid1234");
+				  resp.addCookie(userCookie);
+				  
 				out.println(s);
 	}
 	
@@ -52,8 +58,10 @@ public class nship extends HttpServlet {
 		String s = "", ss="", sq = "";
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
+		String customer_name=req.getHeader("Cookie");
 		
-		String customer_name=user.getNickname();
+		//customer_name = user.getNickname();
+		
 		String company_name=req.getParameter("TextBox1");
 		String address1=req.getParameter("TextBox2");
 		String address2=req.getParameter("TextBox3");
@@ -105,8 +113,20 @@ public class nship extends HttpServlet {
 	     s=shta.send_mail("weborder@quicklydone.com","new shipper",s);
 //	 	out.println(s+ shta.rff("1.txt"));
 	     //out.println(s+ shta.rff("2.txt"));
-resp.sendRedirect("/");
+//resp.sendRedirect("/");
+	     out.println(customer_name); 
 	    
 	}
+	
+	  public static String getCookieValue(Cookie[] cookies,
+              String cookieName,
+              String defaultValue) {
+for(int i=0; i<cookies.length; i++) {
+Cookie cookie = cookies[i];
+if (cookieName.equals(cookie.getName()))
+return(cookie.getValue());
+}
+return(defaultValue);
+}
 
 }

@@ -11,6 +11,7 @@ import com.google.gwt.maps.client.control.MapTypeControl;
 import com.google.gwt.maps.client.geocode.Geocoder;
 import com.google.gwt.maps.client.geocode.LatLngCallback;
 import com.google.gwt.maps.client.geom.LatLng;
+import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Icon;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
@@ -20,16 +21,17 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class Gmap implements EntryPoint {
+	int i=0;
 	public static String ch="";
 	boolean red = true;
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
-
+	//Geocoder geocoder = new Geocoder();
 	MapWidget map;
 	HTML info;
 	//static final int TIMEOUT = 30;
 	//List<LatLng> tmpPointList = new ArrayList<LatLng>();
-
+/*
 	class LatitudeLongitude {
 		private double latitude;
 		private double longitude;
@@ -47,21 +49,58 @@ public class Gmap implements EntryPoint {
 			return longitude;
 		}
 	}
-
+*/
+	
 	public void onModuleLoad() {
 		LatLng place = LatLng.newInstance(40.745575,-73.990855);
-		map = new MapWidget(place, 5);
+		map = new MapWidget(place, 3);
 		map.setSize("600px", "400px");
 		map.setScrollWheelZoomEnabled(true);
 		//map.addControl(new MapTypeControl());
 		map.addControl(new LargeMapControl());
+		//RootPanel.get().add(new HTML("<a href=.>Reload</a><br/><br/>"));
+		//add();
+		//preload();
 		RootPanel.get().add(map);
-		add();
+		//add();
 	}
 
+
+	private void preload() {
+
+		greetingService.greetServer("preload",
+				new AsyncCallback<String[]>() {
+					public void onFailure(Throwable caught) {
+					}
+					public void onSuccess(final String r[]) {
+
+						/////////////////////////////////////////////////////////////
+						
+						map.addOverlay(new Marker(LatLng.newInstance(40.745575,-73.990855)));
+					
+						
+						
+						//for(i=0;i<r.length; i++)
+						//	{ 
+						//	i++;i++;
+						//	double dlat=Double.parseDouble(r[i++]);
+						//	double dlng=Double.parseDouble(r[i]);
+						//	map.addOverlay(new Marker(LatLng.newInstance(dlat,dlng)));
+
+						//}
+	
+						//RootPanel.get().add(map);
+					}
+					
+				});
+						
+			//add();
+	}
+	
+	/*
 	private void add() {
 
-		greetingService.greetServer("textToServer",
+		greetingService.greetServer("add",
 				new AsyncCallback<String[]>() {
 					public void onFailure(Throwable caught) {
 					}
@@ -127,4 +166,5 @@ public class Gmap implements EntryPoint {
 		
 		
 	}
+*/
 }
