@@ -59,8 +59,7 @@ public class Gmap implements EntryPoint {
 		//map.addControl(new MapTypeControl());
 		map.addControl(new LargeMapControl());
 		//RootPanel.get().add(new HTML("<a href=.>Reload</a><br/><br/>"));
-		//add();
-		//preload();
+		preload();
 		RootPanel.get().add(map);
 		//add();
 	}
@@ -73,28 +72,17 @@ public class Gmap implements EntryPoint {
 					public void onFailure(Throwable caught) {
 					}
 					public void onSuccess(final String r[]) {
-
-						/////////////////////////////////////////////////////////////
-						
-						map.addOverlay(new Marker(LatLng.newInstance(40.745575,-73.990855)));
 					
 						
-						
-						//for(i=0;i<r.length; i++)
-						//	{ 
-						//	i++;i++;
-						//	double dlat=Double.parseDouble(r[i++]);
-						//	double dlng=Double.parseDouble(r[i]);
-						//	map.addOverlay(new Marker(LatLng.newInstance(dlat,dlng)));
-
-						//}
-	
-						//RootPanel.get().add(map);
+						for(i=0;i<r.length; i++)
+							{ 
+							i++;i++;
+							double dlat=Double.parseDouble(r[i++]);
+							double dlng=Double.parseDouble(r[i]);
+							map.addOverlay(new Marker(LatLng.newInstance(dlat,dlng)));
+							}
 					}
-					
 				});
-						
-			//add();
 	}
 	
 	/*
