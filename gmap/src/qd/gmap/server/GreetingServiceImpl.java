@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import qd.gmap.client.GreetingService;
 import qd.gmap.PMF;
 import qd.gmap.Shipper;
+import qd.gmap.a2;
 import qd.gmap.aa;
 
 import com.google.appengine.api.users.User;
@@ -42,7 +43,10 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		//}
 		//if(input.equals("preload"))
 			//s=ss;
+		if(input.equals("aa"))
 			s=aa.ss;
+		if(input.equals("a2"))
+			s=a2.s2;
 		//System.out.println("======="+ s.length +"========");
 		
 		//for(int i=0;i<s.length;i++)

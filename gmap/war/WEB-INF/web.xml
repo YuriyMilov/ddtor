@@ -25,6 +25,17 @@
     <url-pattern>/aa</url-pattern>
   </servlet-mapping>
   
+ 
+  
+      <servlet>
+    <servlet-name>a2</servlet-name>
+    <servlet-class>qd.gmap.a2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>a2</servlet-name>
+    <url-pattern>/a2</url-pattern>
+  </servlet-mapping>
+  
   
         <servlet>
     <servlet-name>nship</servlet-name>
