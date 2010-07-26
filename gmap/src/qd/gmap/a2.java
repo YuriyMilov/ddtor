@@ -29,9 +29,8 @@ import java.util.List;
 
 public class a2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static String s = "";
 	public static String[] s2 = null;
-
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
@@ -39,6 +38,7 @@ public class a2 extends HttpServlet {
 		// ///////////////////////////////////////////////////////////
 		//s = rfu("http://maps.google.com/maps/api/geocode/xml?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true");
 		// ///////////////////////////////////////////////////////////
+		String[] s2 = null;
 		if(s2!=null)
 		for (int i=0; i < s2.length; i++)
 			out.println (s2[i]);
@@ -65,21 +65,20 @@ public class a2 extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
-
-		//s = req.getParameter("cons_addr") + "\r\n"
-		//		+ req.getParameter("cons_lat") + " "
-		//		+ req.getParameter("cons_lng") + "\r\n";
 		
 		
+		try{
 		String str =req.getParameter("a");
 		String[] words = str.split("\r\n");
-		//ss=new String[words.length];
+
 		if(words==null)
-			s2 = new String[]{"","","0.0","0.0"};
+			s2 = new String[]{"","","0.0","0.0",""};
 		else
 			s2 = words;
 		for (int i=0; i < s2.length; i++)
 				out.println (s2[i]);
+		}
+		catch(Exception eee){}
 	}
 
 }

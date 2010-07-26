@@ -15,8 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import qd.gmap.client.GreetingService;
 import qd.gmap.PMF;
-import qd.gmap.Shipper;
+import qd.gmap.Mrkr4;
 import qd.gmap.a2;
+import qd.gmap.a4;
 import qd.gmap.aa;
 
 import com.google.appengine.api.users.User;
@@ -47,12 +48,54 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			s=aa.ss;
 		if(input.equals("a2"))
 			s=a2.s2;
+		
+		if(input.equals("a4"))
+			//s=a4.s4;
+		{
+			s=det_mrkr();
+			
+		}
+		
 		//System.out.println("======="+ s.length +"========");
 		
 		//for(int i=0;i<s.length;i++)
 		//	System.out.println(s[i]);
 			
 		return s;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String[] det_mrkr() {
+		try {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			//String query = "select from " + Mrkr4.class.getName()
+			//		+ " where id == " + lid;
+			
+			String query = "select from " + Mrkr4.class.getName();
+			 
+			List<Mrkr4> results = (List<Mrkr4>) pm.newQuery(query).execute();
+int i=0,n=0,k=results.size();
+String[] ss = new String[k*4];
+
+Mrkr4 mk = null;
+
+while(i<k)
+{
+	mk=results.get(i++);
+	ss[n++] = mk.get_s1();
+	ss[n++] = mk.get_s2();
+	ss[n++] = mk.get_s3();
+	ss[n++] = mk.get_s4();
+	
+}	
+
+return ss;
+
+		} catch (Exception e) {
+			return null;
+		}
+
+		
 	}
 	
 	private String getDateTime() {
@@ -75,27 +118,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			return e.toString();
 		}
 		return s.toString();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public String get_ship() {
-		String s = "";
-		try {
-			PersistenceManager pm = PMF.get().getPersistenceManager();
-			String query = "select from " + Shipper.class.getName();//+ " where id == " + lid;
-			
-			List<Shipper> results = (List<Shipper>) pm.newQuery(query)
-					.execute();
-
-				Shipper sh = results.get(0);
-				s = sh.get_company_name(); //+ " " + sh.get_address1() + " "	+ sh.get_city() + " " + sh.get_prov_state() + " "	+ sh.get_country() + " " + sh.get_postal_code()	+ "<br>Conact: " + sh.get_contact() + " " + sh.get_phone();
-		
-
-		} catch (Exception e) {
-			s = e.toString();
-		}
-
-		return s;//.replaceAll("\\b\\s{2,}\\b", " ");
 	}
 	
 	public String get_user(String input) {

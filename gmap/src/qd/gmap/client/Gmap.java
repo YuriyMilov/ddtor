@@ -27,28 +27,36 @@ public class Gmap implements EntryPoint {
 		LatLng place = LatLng.newInstance(40.745575, -73.990855);
 		map = new MapWidget(place, 3);
 		map.setSize("600px", "400px");
+		map.setSize("1200px", "800px");
 		map.setScrollWheelZoomEnabled(true);
 		map.addControl(new LargeMapControl());
-		aa();
-		a2();
+		//aa();
+		//a2();
+		a4();
 		RootPanel.get().add(map);
+		RootPanel.get().add(new HTML("<p>wewrt <a href=http://google.com>rrrrrrr</a>"));
 	}
 
-	private void aa() {
+	private void a4() {
 
-		greetingService.greetServer("aa", new AsyncCallback<String[]>() {
+		greetingService.greetServer("a4", new AsyncCallback<String[]>() {
 			public void onFailure(Throwable caught) {
 			}
 
 			public void onSuccess(final String r[]) {
-				if(r!=null)
+				try{
 				for (i = 0; i < r.length; i++) {
-					i++;
-					final String s1=r[i++];
+					final String color=r[i++];
 					final double dlat = Double.parseDouble(r[i++]);
-					final double dlng = Double.parseDouble(r[i]);
+					final double dlng = Double.parseDouble(r[i++]);
+					final String s1=r[i];
+					
 					Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
-					icon.setImageURL("marker.png");
+					if(color.equals("g"))
+						icon.setImageURL("markerGreen.png");
+					else
+						icon.setImageURL("marker.png");
+					
 					MarkerOptions ops = MarkerOptions.newInstance(icon);
 					ops.setIcon(icon);
 					final Marker mm = new Marker(LatLng.newInstance(dlat, dlng), ops);
@@ -61,6 +69,44 @@ public class Gmap implements EntryPoint {
 					map.addOverlay(mm);
 					}
 			}
+				catch(Exception eee){}
+		}
+		
+		});
+	}
+	
+	private void aa() {
+
+		greetingService.greetServer("aa", new AsyncCallback<String[]>() {
+			public void onFailure(Throwable caught) {
+			}
+
+			public void onSuccess(final String r[]) {
+				try{
+				for (i = 0; i < r.length; i++) {
+					i++;
+					i++;
+					final double dlat = Double.parseDouble(r[i++]);
+					final double dlng = Double.parseDouble(r[i++]);
+					final String s1=r[i];
+					
+					Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
+					icon.setImageURL("markerGreen.png");
+					MarkerOptions ops = MarkerOptions.newInstance(icon);
+					ops.setIcon(icon);
+					final Marker mm = new Marker(LatLng.newInstance(dlat, dlng), ops);
+					mm.addMarkerClickHandler(new MarkerClickHandler(){
+
+					public void onClick(MarkerClickEvent event) {
+						map.getInfoWindow().open(mm,
+							        new InfoWindowContent(s1));
+						}});
+					map.addOverlay(mm);
+					}
+			}
+				catch(Exception eee){}
+		}
+		
 		});
 	}
 		 
@@ -72,14 +118,17 @@ public class Gmap implements EntryPoint {
 			}
 
 			public void onSuccess(final String r[]) {
-
+				try{
 				for (i = 0; i < r.length; i++) {
+					
 					i++;
-					final String s1=r[i++];
-					double dlat = Double.parseDouble(r[i++]);
-					double dlng = Double.parseDouble(r[i]);
+					i++;
+					final double dlat = Double.parseDouble(r[i++]);
+					final double dlng = Double.parseDouble(r[i++]);
+					final String s1=r[i];
+					
 					Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
-					icon.setImageURL("markerGreen.png");
+					icon.setImageURL("marker.png");
 					MarkerOptions ops = MarkerOptions.newInstance(icon);
 					ops.setIcon(icon);
 					final Marker mm = new Marker(LatLng.newInstance(dlat, dlng), ops);
@@ -89,7 +138,10 @@ public class Gmap implements EntryPoint {
 							        new InfoWindowContent(s1));
 						}});
 					map.addOverlay(mm);
+					
 				}
+				}
+				catch(Exception eee){}
 			}
 		});
 	}

@@ -66,20 +66,22 @@ public class aa extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
-
+		
 		// s = req.getParameter("cons_addr") + "\r\n"
 		// + req.getParameter("cons_lat") + " "
 		// + req.getParameter("cons_lng") + "\r\n";
-
+try{
 		String str = req.getParameter("a");
 		String[] words = str.split("\r\n");
 		// ss=new String[words.length];
 		if(words==null)
-			ss = new String[]{"","","0.0","0.0"};
+			ss = new String[]{"","","0.0","0.0",""};
 		else
 			ss = words;
 		for (int i = 0; i < ss.length; i++)
 			out.println(ss[i]);
+	}
+	catch(Exception eee){}
 
 	}
 

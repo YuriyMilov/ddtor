@@ -58,9 +58,10 @@ public class nship extends HttpServlet {
 		String s = "", ss="", sq = "";
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
-		String customer_name=req.getHeader("Cookie");
 		
-		//customer_name = user.getNickname();
+		//String customer_name=req.getHeader("Cookie");
+		
+		String customer_name = user.getNickname();
 		
 		String company_name=req.getParameter("TextBox1");
 		String address1=req.getParameter("TextBox2");

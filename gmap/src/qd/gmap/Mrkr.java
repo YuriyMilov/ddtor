@@ -10,7 +10,7 @@ import javax.jdo.annotations.PrimaryKey;
 import com.google.appengine.api.users.User;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Marker {
+public class Mrkr {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Long id;
@@ -42,7 +42,7 @@ public class Marker {
 	@Persistent
 	private String phone;
 
-	public Marker(User user, Date date,
+	public Mrkr(User user, Date date,
 			String customer_name, String company_name, String address1,
 			String address2, String city, String prov_state,
 			String postal_code, String country, String contact, String phone) {

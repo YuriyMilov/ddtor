@@ -37,6 +37,29 @@
   </servlet-mapping>
   
   
+    
+      <servlet>
+    <servlet-name>a4</servlet-name>
+    <servlet-class>qd.gmap.a4</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>a4</servlet-name>
+    <url-pattern>/a4</url-pattern>
+  </servlet-mapping>
+  
+  
+    
+      <servlet>
+    <servlet-name>a3</servlet-name>
+    <servlet-class>qd.gmap.a3</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>a3</servlet-name>
+    <url-pattern>/a3</url-pattern>
+  </servlet-mapping>
+  
+  
+  
         <servlet>
     <servlet-name>nship</servlet-name>
     <servlet-class>qd.gmap.nship</servlet-class>

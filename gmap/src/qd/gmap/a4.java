@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.Date;
 import javax.jdo.PersistenceManager;
-import qd.gmap.Mrkr;
+
 import javax.jdo.Query;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,23 +27,36 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import java.util.List;
 
-public class a3 extends HttpServlet {
+public class a4 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static String s = "";
-	public static String[] s2 = null;
-
+	public static String[] s4 = null;
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
+		
+		
+		try{
+		String str =req.getQueryString();
+		String[] words = str.split("/");
 
-		// ///////////////////////////////////////////////////////////
-		//s = rfu("http://maps.google.com/maps/api/geocode/xml?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true");
-		// ///////////////////////////////////////////////////////////
-		if(s2!=null)
-		for (int i=0; i < s2.length; i++)
-			out.println (s2[i]);
+		if(words==null)
+			s4 = new String[]{"","50.0","-60.0","qqqq"};
 		else
-			out.println("\r\n----------- ok --------------");
+			s4 = words;
+		
+		for (int i=0; i < s4.length; i++)
+			out.println (s4[i]);
+		}		
+		catch(Exception eee){}
+		
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Mrkr4 ns = new Mrkr4(new Date(),s4[0],s4[1],s4[2],s4[3]);
+		pm.makePersistent(ns);
+		
+		//resp.sendRedirect("http://map.quicklydone.com");
+		out.println("OK<br><br><a href=http://map.quicklydone.com>http://map.quicklydone.com</a>");
+
 
 	}
 
@@ -66,30 +79,29 @@ public class a3 extends HttpServlet {
 			throws IOException {
 		PrintWriter out = resp.getWriter();
 		
-		String scn="init";
 		
-		UserService userService = UserServiceFactory.getUserService();
-		User user = userService.getCurrentUser();
-				String thisURL = req.getRequestURI();
-				if ( user != null) {
-					scn="scn = "+req.getUserPrincipal().getName();
-				} else {
-					user=new User("test@quicklydone.com",
-						"quicklydone.com","test");
-				}
-		String str =req.getParameter("b");
-		
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Mrkr ns = new Mrkr(user, new Date(),
-				str, null, 
-				null, null, 
-				null, null, 
-				null, null, 
-				null, null);
-		
-		pm.makePersistent(ns);
+		try{
+		String str =req.getParameter("a");
+		String[] words = str.split("\r\n");
 
-				out.println (scn);
+		if(words==null)
+			s4 = new String[]{"","50.0","-60.0","qqqq"};
+		else
+			s4 = words;
+		
+		//out.println("<a href=http://map.quicklydone.com>http://map.quicklydone.com</a><br><br>");
+		
+		for (int i=0; i < s4.length; i++)
+				out.println (s4[i]);
+		}
+		catch(Exception eee){}
+		//out.println("<br><a href=http://map.quicklydone.com>http://map.quicklydone.com</a><br><br>");
+
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Mrkr4 ns = new Mrkr4(new Date(),s4[0],s4[1],s4[2],s4[3]);
+		pm.makePersistent(ns);
+		
+		resp.sendRedirect("http://map.quicklydone.com");
 	}
 
 }
