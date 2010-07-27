@@ -61,8 +61,8 @@ public class Gmap implements EntryPoint {
 				if (r[0].indexOf("Logout")>-1)
 					{
 					a4();
-					RootPanel.get().add(new HTML(r[0]));
 					RootPanel.get().add(map);
+					RootPanel.get().add(new HTML(r[0]));
 					}
 				else
 					RootPanel.get().add(new HTML(r[0]));

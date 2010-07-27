@@ -95,7 +95,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				ss[n++] = mk.get_s1();
 				ss[n++] = mk.get_s2();
 				ss[n++] = mk.get_s3();
-				ss[n++] = mk.get_s4() + " <br>Location_ID: " + mk.get_s6();
+				ss[n++] = mk.get_s4() + " <br>Id: " + mk.get_s6();
 
 			}
 
@@ -136,12 +136,11 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 		if (user != null) {
-			s[0] = " "+req.getUserPrincipal().getName() + " | <b><a href=\""
+			s[0] = "<br>&nbsp;&nbsp;"+req.getUserPrincipal().getName() + " | <b><a href=\""
 					+ userService.createLogoutURL("/") + "\">Logout</a></b><br><br>";
 		} else {
-			s[0] = "<center><br><p>Please login<br><br> You may use your Google account or use the test account (4guest, qwertyui) <p><br><br> <b><a href=\""
-					+ userService.createLoginURL("/")
-					+ "\">Login</a></b></crnter>";
+			s[0] = "<center><br><br><br><br><br><b><a href=\""+ userService.createLoginURL("/")
+					+ "\">Sign In</a></b></crnter>";
 		} 
 
 		// if (input.equals("user"))
