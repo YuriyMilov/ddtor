@@ -12,7 +12,9 @@ import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class Gmap implements EntryPoint {
 	int i = 0;
@@ -23,7 +25,11 @@ public class Gmap implements EntryPoint {
 	MapWidget map;
 	HTML info;
 
+	final VerticalPanel vp = new VerticalPanel();
+	final VerticalPanel vpm = new VerticalPanel();
+	
 	public void onModuleLoad() {
+		
 		LatLng place = LatLng.newInstance(40.745575, -73.990855);
 		map = new MapWidget(place, 3);
 		map.setSize("600px", "400px");
@@ -32,11 +38,39 @@ public class Gmap implements EntryPoint {
 		map.addControl(new LargeMapControl());
 		//aa();
 		//a2();
-		a4();
-		RootPanel.get().add(map);
-		RootPanel.get().add(new HTML("<p>wewrt <a href=http://google.com>rrrrrrr</a>"));
+
+	
+
+		//RootPanel.get().add(new HTML("<p>wewrt <a href=http://google.com>rrrrrrr</a>"));
+		login();
+			
+	
+			//vpm.add(map);
+			//RootPanel.get().add(vpm);
+			
 	}
 
+	private void login() {
+
+		greetingService.greetServer("login", new AsyncCallback<String[]>() {
+			public void onFailure(Throwable caught) {
+				RootPanel.get().add(new HTML("error :( pls, contact administrator"));
+			}
+
+			public void onSuccess(final String r[]) {
+				if (r[0].indexOf("Logout")>-1)
+					{
+					a4();
+					RootPanel.get().add(new HTML(r[0]));
+					RootPanel.get().add(map);
+					}
+				else
+					RootPanel.get().add(new HTML(r[0]));
+			}
+		});
+	}
+	
+	
 	private void a4() {
 
 		greetingService.greetServer("a4", new AsyncCallback<String[]>() {
@@ -68,6 +102,7 @@ public class Gmap implements EntryPoint {
 						}});
 					map.addOverlay(mm);
 					}
+				
 			}
 				catch(Exception eee){}
 		}

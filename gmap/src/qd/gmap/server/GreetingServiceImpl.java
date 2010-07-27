@@ -54,22 +54,19 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		// }
 		// if(input.equals("preload"))
 		// s=ss;
+		
 		if (input.equals("aa"))
 			s = aa.ss;
 		if (input.equals("a2"))
 			s = a2.s2;
 
 		if (input.equals("a4"))
-		// s=a4.s4;
-		{
-			s = det_mrkr();
+				s = det_mrkr();
 
-		}
+		if (input.equals("login"))
+			s=get_user("");
 
-		// System.out.println("======="+ s.length +"========");
-
-		// for(int i=0;i<s.length;i++)
-		// System.out.println(s[i]);
+		// System.out.println("");
 
 		return s;
 	}
@@ -131,21 +128,21 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		return s.toString();
 	}
 
-	public String get_user(String input) {
+	public String[] get_user(String input) {
 
 		HttpServletRequest req = getThreadLocalRequest();
-		String s = "qqqqqqqqqqqqq";
+		String s[] = {"init"};
 
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 		if (user != null) {
-			s = req.getUserPrincipal().getName() + " | <a href=\""
-					+ userService.createLogoutURL("/") + "\">Logout</a>";
+			s[0] = " "+req.getUserPrincipal().getName() + " | <b><a href=\""
+					+ userService.createLogoutURL("/") + "\">Logout</a></b><br><br>";
 		} else {
-			s = "<a href=\""
+			s[0] = "<center><br><p>Please login<br><br> You may use your Google account or use the test account (4guest, qwertyui) <p><br><br> <b><a href=\""
 					+ userService.createLoginURL("/")
-					+ "\">Login</a> <br/>   Test account: \"guest\", password: \"123456\"";
-		}
+					+ "\">Login</a></b></crnter>";
+		} 
 
 		// if (input.equals("user"))
 		// s=user.getNickname();
