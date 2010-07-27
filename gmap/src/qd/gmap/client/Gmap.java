@@ -27,7 +27,7 @@ public class Gmap implements EntryPoint {
 		LatLng place = LatLng.newInstance(40.745575, -73.990855);
 		map = new MapWidget(place, 3);
 		map.setSize("600px", "400px");
-		map.setSize("1200px", "800px");
+		//map.setSize("1200px", "800px");
 		map.setScrollWheelZoomEnabled(true);
 		map.addControl(new LargeMapControl());
 		//aa();
