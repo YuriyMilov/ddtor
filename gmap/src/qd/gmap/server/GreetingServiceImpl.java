@@ -30,30 +30,12 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
+	
+	UserService userService = UserServiceFactory.getUserService();
+	User user = userService.getCurrentUser();
 
 	public String[] greetServer(String input) {
-		String ss[] = { "Toronto, ON, Canada", "Mississauga, ON, Canada",
-				"Ottawa, ON, Canada", "London, ON, Canada",
-				"Kitchener, ON, Canada", "Hamilton, ON, Canada",
-				"North Bay, ON, Canada", "Barrie, ON, Canada",
-				"Montreal, QC, Canada", "Calgary, AB, Canada",
-				"Winnipeg, MB, Canada", "Peterborough, ON, Canada",
-				"Ajax, ON, Canada", "Barrie, ON, Canada",
-				"Vancouver, BC, Canada", "Miami, FL, USA",
-				"Los Angeles, CA, USA", "Markham, ON, Canada",
-				"Burlington, ON, Canada", "Barrie, ON, Canada",
-				"Kingston, ON, Canada", "Toronto, ON, Canada",
-				"Barrie, ON,  Canada", "Oakville, ON, Canada" };
 		String s[] = { "", "", "", "" };
-		// if(input.equals("add")){
-		// for(int i=0;i<25;i++)
-		// s[0]=ss[(int)(Math.random()*25)];
-		// s[1]="g";
-		// s[2]=getDateTime();
-		// s[3]=get_ship();
-		// }
-		// if(input.equals("preload"))
-		// s=ss;
 		
 		if (input.equals("aa"))
 			s = aa.ss;
@@ -65,9 +47,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 		if (input.equals("login"))
 			s=get_user("");
-
-		// System.out.println("");
-
 		return s;
 	}
 
@@ -95,7 +74,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				ss[n++] = mk.get_s1();
 				ss[n++] = mk.get_s2();
 				ss[n++] = mk.get_s3();
-				ss[n++] = mk.get_s4() + " <br>Id: " + mk.get_s6();
+				ss[n++] = mk.get_s4()+"<br>"+ mk.get_s6();
 
 			}
 

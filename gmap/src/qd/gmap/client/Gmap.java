@@ -85,6 +85,7 @@ public class Gmap implements EntryPoint {
 					final double dlng = Double.parseDouble(r[i++]);
 					final String s1=r[i];
 					
+					
 					Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
 					if(color.equals("g"))
 						icon.setImageURL("markerGreen.png");
