@@ -37,7 +37,7 @@ public class a4 extends HttpServlet {
 		String s = "<html><FORM ACTION=http://map.quicklydone.com/a4 METHOD=POST><TEXTAREA NAME=a COLS=40 ROWS=6>r\r\n45\r\n-77\r\nqq\r\n1\r\nqqqqqq\r\ng\r\n40\r\n-80\r\nzz\r\n1\r\nzzzzzzz</TEXTAREA><P><INPUT TYPE=SUBMIT VALUE=submit></FORM></html>";
 		out.println(s);
 	}
-
+ 
 	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
