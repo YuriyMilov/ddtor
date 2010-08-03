@@ -42,22 +42,49 @@ public class a4 extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		UserService userService = UserServiceFactory.getUserService();
+		//
 		User user = userService.getCurrentUser();
-				if ( user == null) {
-					user=new User("test@quicklydone.com",
-						"quicklydone.com","test");
-				}
+				//if ( user == null) {
+				//	user=new User("test@quicklydone.com",
+				//		"quicklydone.com","test");
+				//}
+			//
+				
 				
 		PrintWriter out = resp.getWriter();
 		int t = 9999;
+		String s="ok";
 		try {
 			String str = req.getParameter("a");
+			String id = req.getParameter("id");
+			
+			user=new User(id, id.substring(id.indexOf("@")+1));
+			
+			
 			String[] words = str.split("\r\n");
 			PersistenceManager pm = PMF.get().getPersistenceManager();
+			
+			
+			
 			if (words == null)
 				s4 = new String[] { "r", "50.0", "-60.0", "address","2", "text" };
 			else
 				s4 = words;
+			
+				List<Mrkr4> rd = (List<Mrkr4>) pm.newQuery("SELECT FROM " + Mrkr4.class.getName()+ " WHERE s5==\""+id+"\"").execute();
+				for (int i = 0; i < rd.size(); i++)
+				{
+					Mrkr4 mr = pm.getObjectById(Mrkr4.class, rd.get(i).getId());
+					pm.deletePersistent(mr);
+				}
+				for (int i = 0; i < s4.length; i = i + 6) {
+				Mrkr4 ns = new Mrkr4(new Date(), s4[i], s4[i + 1],
+						s4[i + 2], s4[i + 3], s4[i + 4], s4[i + 5], user);
+				pm.makePersistent(ns);
+				}
+				
+				/*
+			
 			for (int i = 0; i < s4.length; i = i + 6) {
 				String query = "SELECT FROM " + Mrkr4.class.getName()
 						+ " WHERE s2 == \"" + s4[i + 1] + "\" && s3 == \""
@@ -77,12 +104,18 @@ public class a4 extends HttpServlet {
 							s4[i + 3], s4[i + 4], s4[i + 5], user);
 					pm.makePersistent(ns);
 				}
+				
+				
 			}
+				*/
+			
+			
+			
 		} catch (Exception eee) {
-			out.println(eee.toString());
+			s=eee.toString();
 		}
-		resp.sendRedirect("http://map.quicklydone.com");
-		// out.println(t);
+		//resp.sendRedirect("http://map.quicklydone.com");
+		 out.println(s);
 	}
 
 	public static String rfu(String url) {

@@ -57,10 +57,26 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			// String query = "select from " + Mrkr4.class.getName()
 			// + " where id == " + lid;
 
-			String query = "SELECT FROM " + Mrkr4.class.getName()
-					+ " WHERE s5 == \"1\"";// ORDER BY date DESC  order by s2
+			
+			
+			String query = "SELECT FROM " + Mrkr4.class.getName() + " WHERE s5 == \""+getThreadLocalRequest().getUserPrincipal().getName() +"\"";
+			
+//			String query = "SELECT FROM " + Mrkr4.class.getName() + " WHERE s5 == \"1\"";
+			
+//	+ " WHERE u = USER('test@quicklydone.com')";
 
+			
+			
+			//String query = "SELECT FROM " + Mrkr4.class.getName()
+			//		+ " WHERE s5 == \"1\"";
+			//+ " WHERE u == USER(\"test@quicklydone.com\")";
+			
+					//+" WHERE u==USER(\"test@quicklydone.com\")";// ORDER BY date DESC  order by s2
+
+			//"+user.getEmail()+"
 			//SELECT * FROM Mrkr4 where date > date('2010-06-26') order by date
+			
+			// u= USER('test@quicklydone.com')
 			
 			
 			List<Mrkr4> results = (List<Mrkr4>) pm.newQuery(query).execute();
