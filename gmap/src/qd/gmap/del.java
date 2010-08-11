@@ -27,14 +27,23 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import java.util.List;
 
-public class a4 extends HttpServlet {
+public class del extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static String[] s4 = null;
 
+	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		PrintWriter out = resp.getWriter();
-		String s = "<html><FORM ACTION=http://map.quicklydone.com/a4 METHOD=POST><TEXTAREA NAME=a COLS=40 ROWS=6>r\r\n45\r\n-77\r\nqq\r\n1\r\nqqqqqq\r\ng\r\n40\r\n-80\r\nzz\r\n1\r\nzzzzzzz</TEXTAREA><P><INPUT TYPE=SUBMIT VALUE=submit></FORM></html>";
+		PrintWriter out = resp.getWriter(); 
+		
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		List<Mrkr4> rd = (List<Mrkr4>) pm.newQuery("SELECT FROM " + Mrkr4.class.getName()+ " WHERE s5==\""+req.getQueryString()+"\"").execute();
+		String s=String.valueOf(rd.size());
+		for (int i = 0; i < rd.size(); i++)
+		{
+			Mrkr4 mr = pm.getObjectById(Mrkr4.class, rd.get(i).getId());
+			pm.deletePersistent(mr);
+		}
 		out.println(s);
 	}
  
@@ -72,6 +81,7 @@ public class a4 extends HttpServlet {
 				s4 = words;
 			
 				List<Mrkr4> rd = (List<Mrkr4>) pm.newQuery("SELECT FROM " + Mrkr4.class.getName()+ " WHERE s5==\""+id+"\"").execute();
+				s=String.valueOf(rd.size());
 				for (int i = 0; i < rd.size(); i++)
 				{
 					Mrkr4 mr = pm.getObjectById(Mrkr4.class, rd.get(i).getId());

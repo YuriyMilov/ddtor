@@ -90,7 +90,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				ss[n++] = mk.get_s1();
 				ss[n++] = mk.get_s2();
 				ss[n++] = mk.get_s3();
-				ss[n++] = mk.get_s4()+"<br>"+ mk.get_s6();
+				ss[n++] = mk.get_s6();
 
 			}
 

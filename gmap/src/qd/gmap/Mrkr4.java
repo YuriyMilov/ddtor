@@ -28,13 +28,13 @@ public class Mrkr4 {
 	private String s5;	
 	@Persistent
 	private String s6;
-	@Persistent
-	private User u;
+	//@Persistent
+	//private User u;
 
 
 	public Mrkr4(Date date,
 			String s1, String s2, String s3,
-			String s4, String s5, String s6, User u) {
+			String s4, String s5, String s6) {
 		this.date = date;
 		this.s1 = s1;
 		this.s2 = s2;
@@ -42,7 +42,7 @@ public class Mrkr4 {
 		this.s4 = s4;
 		this.s5 = s5;
 		this.s6 = s6;
-		this.u = u;
+		//this.u = u;
 
 
 	}
@@ -60,7 +60,7 @@ public class Mrkr4 {
 	public String get_s4(){return s4;}
 	public String get_s5(){return s5;}
 	public String get_s6(){return s6;}
-	public User get_u(){return u;}
+	//public User get_u(){return u;}
 
 	public void set_s1(String s){this.s1 = s;}
 	public void set_s2(String s){this.s2 = s;}
@@ -68,6 +68,6 @@ public class Mrkr4 {
 	public void set_s4(String s){this.s4 = s;}
 	public void set_s5(String s){this.s5 = s;}
 	public void set_s6(String s){this.s6 = s;}
-	public void set_user(User u){this.u = u;}
+	//public void set_user(User u){this.u = u;}
 		
 }

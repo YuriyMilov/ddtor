@@ -87,7 +87,10 @@ public class Gmap implements EntryPoint {
 					
 					
 					Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
-					if(color.equals("g"))
+					if(color.equals("b"))
+						icon.setImageURL("blue.png");
+					else					
+						if(color.equals("g"))
 						icon.setImageURL("markerGreen.png");
 					else
 						icon.setImageURL("marker.png");
