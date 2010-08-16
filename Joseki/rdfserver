@@ -1,0 +1,8 @@
+#!/bin/bash
+# Run the Joseki RDF server 
+
+JAVA_ARGS="-Dorg.mortbay.jetty.Request.maxFormContentSize=500000"
+
+[ "$JOSEKIROOT" = "" ] && { echo "JOSEKIROOT unset" 1>&2 ; exit 1 ; }
+
+"$JOSEKIROOT/bin/rdfserver" "$@"

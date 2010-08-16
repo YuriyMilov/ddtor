@@ -1,0 +1,34 @@
+/Configuration.java/1.38/Mon Jul 19 17:42:29 2010//
+/ConfigurationErrorException.java/1.5/Sun Dec 28 19:51:04 2008//
+/DatasetDesc.java/1.31/Fri Apr 24 14:30:45 2009//
+/Dispatcher.java/1.19/Fri Jun 26 16:27:43 2009//
+/ExecutionException.java/1.5/Sun Dec 28 19:51:04 2008//
+/Joseki.java/1.39/Thu Dec  3 22:13:36 2009//
+/JosekiServerException.java/1.5/Sun Dec 28 19:51:04 2008//
+/JosekiVocab.java/1.6/Sun Dec 28 19:51:04 2008//
+/Processor.java/1.5/Sun Dec 28 19:51:04 2008//
+/QueryExecutionException.java/1.5/Sun Dec 28 19:51:04 2008//
+/RDFServer.java/1.24/Fri Apr 24 14:30:44 2009//
+/Registry.java/1.6/Sun Dec 28 19:51:04 2008//
+/Request.java/1.11/Sun Jan 18 19:02:19 2009//
+/Response.java/1.16/Sun Mar 21 20:23:16 2010//
+/ResponseCallback.java/1.7/Fri Jun 26 16:27:43 2009//
+/ReturnCodes.java/1.9/Sun Dec 28 19:51:04 2008//
+/ServerInitialization.java/1.4/Sun Dec 28 19:51:04 2008//
+/Service.java/1.11/Tue Dec 30 19:48:35 2008//
+/ServiceRegistry.java/1.10/Tue Dec 30 18:34:57 2008//
+/ServiceRequest.java/1.5/Fri Apr 24 14:30:44 2009//
+/Utils.java/1.6/Sun Dec 28 19:51:04 2008//
+D/graph////
+D/http////
+D/junit////
+D/logging////
+D/module////
+D/processors////
+D/server////
+D/servlets////
+D/test////
+D/util////
+D/validator////
+D/vocabulary////
+D/webserver////

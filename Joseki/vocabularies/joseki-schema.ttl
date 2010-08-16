@@ -1,0 +1,148 @@
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix module: <http://joseki.org/2003/06/module#> .
+
+
+@prefix :       <http://joseki.org/2005/06/configuration#> .
+
+
+## ------------------------------------------------------------
+
+<> rdfs:comment "Configuration schema for Joseki" ;
+   rdfs:seeAlso <http://joseki.org/> .
+
+<> rdfs:comment "$Id: joseki-schema.ttl,v 1.4 2008/12/30 19:48:35 andy_seaborne Exp $" .
+
+## ------------------------------------------------------------
+## Configuration
+
+:include    rdf:type    rdf:Property ;
+    rdfs:comment        "Other resources to read and merge (e.g. file:...)" ;
+    .
+
+
+## ------------------------------------------------------------
+## Server
+
+:Server     rdf:type    rdfs:Class ;
+    rdfs:comment  "Server" ;
+    rdfs:label    "Server" ;
+    .
+
+:initialization  rdf:type    rdf:Property ;
+    rdfs:domain         :Server ;
+    rdfs:range          rdfs:Resource ;
+    .
+
+## ------------------------------------------------------------
+## Services
+
+:serviceRef    rdf:type    rdf:Property ;
+    rdfs:comment 
+       "URI reference for service URI (relative to where the server is)" ;
+    rdfs:label          "Service URI reference" ;
+    rdfs:domain         :ServicePoint ;
+#    rdfs:range         rdfs:literal ;  
+    .
+
+:processor     rdf:type    rdf:Property ;
+         rdfs:comment 
+       "URI reference for service URI (relative to where the server is)" ;
+    rdfs:label          "Service URI reference" ;
+    rdfs:domain         :ServicePoint ;
+    rdfs:range          :Processor ;
+    .
+
+:dataset    rdf:type    rdf:Property ;
+    rdfs:label          "dataset" ;
+    rdfs:domain         :Service ;
+    rdfs:range          :RDFDataset ;
+    .
+
+# Decorate the dataset description.
+:poolSize    rdf:type    rdf:Property ;
+    rdfs:label          "Pool size" ;
+    rdfs:domain         :RDFDataset ;
+    rdfs:range          rdfs:literal ;
+    .
+
+## ------------------------------------------------------------
+## SPARQL 
+
+:allowExplicitDataset   rdf:type    rdf:Property ;
+    rdfs:label          "allowExplicitDataset" ;
+    rdfs:domain         :ServicePoint ;
+    .
+
+:allowWebLoading       rdf:type    rdf:Property ;
+    rdfs:label          "allowWebLoading" ;
+    rdfs:domain         :ServicePoint ;
+    .
+
+:lockingPolicy          rdf:type    rdf:Property ;
+    rdfs:label          "allowWebLoading" ;
+    rdfs:domain         :ServicePoint ;
+    .
+
+:lockingPolicyMRSW      rdf:type    rdf:Resource .
+:lockingPolicyMutex     rdf:type    rdf:Resource .
+
+
+## ------------------------------------------------------------
+## Model/Graph
+## See also Jena Model Specification
+## 
+
+
+## ------------------------------------------------------------
+## Dataset
+## OLD - do not use.
+
+:RDFDataSet     rdf:type    rdfs:Class ;
+    rdfs:comment            "" ;
+    rdfs:label              "" ;
+    .
+
+:defaultGraph   rdf:type    rdf:Property ;
+    rdfs:comment            "" ;
+    rdfs:label              "" ;
+    .
+
+:namedGraph     rdf:type    rdf:Property ;
+    rdfs:comment            "" ;
+    rdfs:label              "" ;
+    .  
+
+:graphName     rdf:type     rdf:Property ;
+    rdfs:comment            "" ;
+    rdfs:label              "" ;
+    .  
+
+:graphData     rdf:type     rdf:Property ;
+    rdfs:comment            "" ;
+    rdfs:label              "" ;
+    .  
+
+## ------------------------------------------------------------
+## Processors
+
+:Processor rdf:type   rdfs:Class ;
+    rdfs:comment    "Processor" ;
+    rdfs:label      "Processor" ;
+    .
+
+:queryOperationName rdf:type   rdf:Property ; 
+    rdfs:comment                "query operation name" ;
+    rdfs:label                  "query operation name" ;
+    .
+
+## See also module:
+
+## ------------------------------------------------------------
+## 
+
+
+# Local Variables:
+# tab-width: 4
+# indent-tabs-mode: nil
+# End:

@@ -1,0 +1,61 @@
+Joseki3
+=======
+
+++ Check direct, not HTML form, POST of file.
+
+Add: robots control to forms:
+    <META NAME="ROBOTS" CONTENT="NOINDEX">
+in your HTML document, that document won't be indexed.
+
+If you do:
+    <META NAME="ROBOTS" CONTENT="NOFOLLOW">
+
+Find and close down all datasets on servlet shutdown.
+
+== Release
+
++ Graph caching.
+  Need some help from ARQ?
+
++ Documentation
+    Change examples
+    ChangeLog
+  HTTP parameters
+   webapps/WEB_INF/web.xml needs to be changed for a service
+
++ Release checking
+	Download and front page.
+
++ Other endpoint for processor requests (web form)
+
+- - - - - - - - - -
+
++ Refactor SPARQL.java to pick out the stages so the general process can be inherited.
+
++ error testing
+  No joseki:ImplSPARQL leads to silent error
+  
++ web.xml - change to explicit services and/or    http://localhost/sparql/ ...
+
++ Add a configurable output processor - default XML results / 
+  Have SELECT only processor
+
++ Need "application/sparql-query"
+
++ Teach HttpUtils about "+" as in "application/sparql-results+xml"
+
++ Add version id (build, ARQ) to HTTP headers
+
++ Add strict mode (i.e it's SPARQL and SPARQL only) q service
+  As separate processors?
+
++ Test harness
+
+- - - - - - - - - - - -
+
++ Option for server side XSLT
+  Firefox refuses to execute from a different server?
+
++ "Accept: */*" matches text/* and gets readable form.
+  Should be application/rdf+xml.
+  maybe test for application/rdf+xml, application/xml first?

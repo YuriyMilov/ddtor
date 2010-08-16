@@ -1,0 +1,11 @@
+@prefix : <http://example/> .
+
+:s :p :o .
+
+
+## :a :p :b .
+## :b :p :z .
+## :a :p :c .
+## :c :p :z .
+## :c :p :c .
+## #:z :p :X .
