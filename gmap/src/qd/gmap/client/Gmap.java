@@ -24,7 +24,7 @@ public class Gmap implements EntryPoint {
 			.create(GreetingService.class);
 	MapWidget map;
 	HTML info;
-
+ 
 	final VerticalPanel vp = new VerticalPanel();
 	final VerticalPanel vpm = new VerticalPanel();
 	
