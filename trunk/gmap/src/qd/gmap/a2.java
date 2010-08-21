@@ -38,7 +38,8 @@ public class a2 extends HttpServlet {
 		// ///////////////////////////////////////////////////////////
 		//s = rfu("http://maps.google.com/maps/api/geocode/xml?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true");
 		// ///////////////////////////////////////////////////////////
-		String[] s2 = null;
+		
+		String[] s2 = null; 
 		if(s2!=null)
 		for (int i=0; i < s2.length; i++)
 			out.println (s2[i]);
