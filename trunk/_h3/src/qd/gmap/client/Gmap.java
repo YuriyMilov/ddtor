@@ -32,7 +32,7 @@ public class Gmap implements EntryPoint {
 	//LatLng place = LatLng.newInstance(40.745575, -73.990855);
 
 	HTML info;
- //
+ // 
 	final VerticalPanel vp = new VerticalPanel();
 	final VerticalPanel vpm = new VerticalPanel();
 	
