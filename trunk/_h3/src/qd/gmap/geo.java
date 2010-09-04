@@ -21,8 +21,9 @@ public class geo extends HttpServlet {
 		String s = "";
 		try {
 			s = req.getQueryString();
-			s = rfu("http://maps.google.com/maps/api/geocode/xml?address=" + s
-					+ "&sensor=true");
+			 s = rfu("http://maps.google.com/maps/api/geocode/xml?address=" + s	+ "&sensor=true");
+
+			 
 			if (s.indexOf("</location>") > s.indexOf("<location>")) {
 				s = s.substring(s.indexOf("<location>") + 10, s
 						.indexOf("</location>"));
@@ -34,11 +35,15 @@ public class geo extends HttpServlet {
 							+ s.substring(s.indexOf("<lng>") + 5, s
 									.indexOf("</lng>"));
 			} else
-				s = "null";
+				s = "no LOCATION tag";
+				
 
 		} catch (Exception e) {
 			s = e.toString();
 		}
+		
+		// Gala privet
+		
 		out.print(s);
 	}
 
