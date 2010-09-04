@@ -39,7 +39,7 @@ public class geo extends HttpServlet {
 		} catch (Exception e) {
 			s = e.toString();
 		}
-		out.println(s);
+		out.print(s);
 	}
 
 	public static String rfu(String url) {
