@@ -42,7 +42,7 @@ public class geo extends HttpServlet {
 			s = e.toString();
 		}
 		
-		// Gala privet 2
+		// Gala privet 3
 		
 		out.print(s);
 	}
