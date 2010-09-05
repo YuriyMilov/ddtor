@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -36,6 +37,8 @@ public class Gmap implements EntryPoint {
 	final VerticalPanel vp = new VerticalPanel();
 	final VerticalPanel vpm = new VerticalPanel();
 	
+	final ListBox km = new ListBox(false);
+	
 	public void onModuleLoad() {
 		LatLng place = LatLng.newInstance(40.745575, -73.990855);
 		map = new MapWidget(place, 3);
@@ -45,7 +48,11 @@ public class Gmap implements EntryPoint {
 		map.addControl(new LargeMapControl());
 		//aa();
 		//a2();
-
+		km.addItem("");
+		km.addItem("10");
+		km.addItem("20");
+		km.addItem("50");
+		km.addItem("100");
 	
 
 		//RootPanel.get().add(new HTML("<p>wewrt <a href=http://google.com>rrrrrrr</a>"));
@@ -104,6 +111,7 @@ public class Gmap implements EntryPoint {
 					});
 					
 					layout.setWidget(0, 2, but1);
+					layout.setWidget(1, 0, km);
 					
 					RootPanel.get().add(layout);
 					RootPanel.get().add(map);
