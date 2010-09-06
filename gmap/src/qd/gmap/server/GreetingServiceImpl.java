@@ -30,75 +30,84 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
-	
+
 	UserService userService = UserServiceFactory.getUserService();
 	User user = userService.getCurrentUser();
 
-	public String[] get_r4(String s1,String s2) {
-		String s[] = { "b", "44", "-70", s1+"<br>"+s2 };
-	
-		s = det_mrkr();
+	public String[] get_r4(String s1, String s2) {
+		String ss[] = { "b", "44", "-70", s1 + "<br>" + s2 };
 
+		ss = de2_mrkr(s1, s2);
+
+		return ss;
+	}
+
+	public String get(String s) {
+		// s=rfu("http://map.quicklydone.com/geo?"+s);
 		return s;
 	}
 
-	public String get(String s){
-		//s=rfu("http://map.quicklydone.com/geo?"+s);
-		return s;} 
-	
-	
+	@SuppressWarnings("unchecked")
+	public String[] de2_mrkr(String s1, String s2) {
+		try {
+	  		String[] ss2= {"55","-88"};
+		       ss2= get_LL(s2);
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			String query = "SELECT FROM " + Mrkr4.class.getName()
+					+ " WHERE s5 == \""
+					+ getThreadLocalRequest().getUserPrincipal().getName()
+					+ "\"";
+			List<Mrkr4> results = (List<Mrkr4>) pm.newQuery(query).execute();
+			int i = 1, n = 4, k = results.size();
+			String[] ss = new String[k * 4 + 4];
+						
+			ss[0]="b";
+			ss[1]=ss2[0];
+		    ss[2]=ss2[1];
+		    ss[3]="Destination: "+s2+"<br>Radius: "+s1;
+		    
+		    Mrkr4 mk = null;
+			while (i < k+1) {
+				mk = results.get(i++);
+				ss[n++] = mk.get_s1();
+				ss[n++] = mk.get_s2();
+				ss[n++] = mk.get_s3();
+				ss[n++] = mk.get_s6();
+			}
+			return ss;	
+		} catch (Exception e) {
+			return new String[]{ "b", "44", "-70", e.toString()};
+		}
+		
+		
+	}
+
 	@SuppressWarnings("unchecked")
 	public String[] det_mrkr() {
 		try {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
-			// String query = "select from " + Mrkr4.class.getName()
-			// + " where id == " + lid;
-
-			
-			
-			String query = "SELECT FROM " + Mrkr4.class.getName() + " WHERE s5 == \""+getThreadLocalRequest().getUserPrincipal().getName() +"\"";
-			
-//			String query = "SELECT FROM " + Mrkr4.class.getName() + " WHERE s5 == \"1\"";
-			
-//	+ " WHERE u = USER('test@quicklydone.com')";
-
-			
-			
-			//String query = "SELECT FROM " + Mrkr4.class.getName()
-			//		+ " WHERE s5 == \"1\"";
-			//+ " WHERE u == USER(\"test@quicklydone.com\")";
-			
-					//+" WHERE u==USER(\"test@quicklydone.com\")";// ORDER BY date DESC  order by s2
-
-			//"+user.getEmail()+"
-			//SELECT * FROM Mrkr4 where date > date('2010-06-26') order by date
-			
-			// u= USER('test@quicklydone.com')
-			
-			
+			String query = "SELECT FROM " + Mrkr4.class.getName()
+					+ " WHERE s5 == \""
+					+ getThreadLocalRequest().getUserPrincipal().getName()
+					+ "\"";
 			List<Mrkr4> results = (List<Mrkr4>) pm.newQuery(query).execute();
 			int i = 0, n = 0, k = results.size();
 			String[] ss = new String[k * 4];
-
 			Mrkr4 mk = null;
-
 			while (i < k) {
 				mk = results.get(i++);
 				ss[n++] = mk.get_s1();
 				ss[n++] = mk.get_s2();
 				ss[n++] = mk.get_s3();
 				ss[n++] = mk.get_s6();
-
 			}
-
 			return ss;
-
 		} catch (Exception e) {
 			return null;
 		}
-
 	}
 
+	@SuppressWarnings("unused")
 	private String getDateTime() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
@@ -123,17 +132,19 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	public String[] get_user(String input) {
 
 		HttpServletRequest req = getThreadLocalRequest();
-		String s[] = {"init"};
+		String s[] = { "init" };
 
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 		if (user != null) {
-			s[0] = "<br>&nbsp;&nbsp;"+req.getUserPrincipal().getName() + " | <b><a href=\""
-					+ userService.createLogoutURL("/") + "\">Logout</a></b><br><br>";
+			s[0] = "<br>&nbsp;&nbsp;" + req.getUserPrincipal().getName()
+					+ " | <b><a href=\"" + userService.createLogoutURL("/")
+					+ "\">Logout</a></b><br><br>";
 		} else {
-			s[0] = "<center><br><br><br><br><br><b><a href=\""+ userService.createLoginURL("/")
+			s[0] = "<center><br><br><br><br><br><b><a href=\""
+					+ userService.createLoginURL("/")
 					+ "\">Sign In</a></b></crnter>";
-		} 
+		}
 
 		// if (input.equals("user"))
 		// s=user.getNickname();
@@ -142,17 +153,42 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 	public String[] greetServer(String input) {
 		String s[] = { "", "", "", "" };
-		
+
 		if (input.equals("aa"))
 			s = aa.ss;
 		if (input.equals("a2"))
 			s = a2.s2;
-	
+
 		if (input.equals("a4"))
-				s = det_mrkr();
-	
+			s = det_mrkr();
+
 		if (input.equals("login"))
-			s=get_user("");
+			s = get_user("");
 		return s;
+	}
+
+	public String[] get_LL(String s) {
+		String ss[] = { "55", "-88" };
+		
+		try {
+			s = rfu("http://maps.google.com/maps/api/geocode/xml?address=" + s
+					+ "&sensor=true");
+			if (s.indexOf("</location>") > s.indexOf("<location>")) {
+				s = s.substring(s.indexOf("<location>") + 10,
+						s.indexOf("</location>"));
+				if (s.indexOf("</lat>") > s.indexOf("<lat>")
+						&& s.indexOf("</lng>") > s.indexOf("<lng>"))
+				{
+					ss[0] = s.substring(s.indexOf("<lat>") + 5,
+							s.indexOf("</lat>"));
+					ss[1] = s
+						.substring(s.indexOf("<lng>") + 5, s.indexOf("</lng>"));
+				}
+			}
+				
+		} catch (Exception e) {
+		}
+		
+		return ss;
 	}
 }
