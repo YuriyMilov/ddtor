@@ -67,7 +67,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		    ss[3]="Destination: "+s2+"<br>Radius: "+s1;
 		    
 		    Mrkr4 mk = null;
-			while (i < k+1) {
+			while (i < k-1) {
 				mk = results.get(i++);
 				ss[n++] = mk.get_s1();
 				ss[n++] = mk.get_s2();
