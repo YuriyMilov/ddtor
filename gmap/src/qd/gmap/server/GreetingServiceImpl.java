@@ -34,24 +34,16 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	UserService userService = UserServiceFactory.getUserService();
 	User user = userService.getCurrentUser();
 
-	public String[] greetServer(String input) {
-		String s[] = { "", "", "", "" };
-		
-		if (input.equals("aa"))
-			s = aa.ss;
-		if (input.equals("a2"))
-			s = a2.s2;
+	public String[] get_r4(String s1,String s2) {
+		String s[] = { "b", "44", "-70", s1+"<br>"+s2 };
+	
+		s = det_mrkr();
 
-		if (input.equals("a4"))
-				s = det_mrkr();
-
-		if (input.equals("login"))
-			s=get_user("");
 		return s;
 	}
 
 	public String get(String s){
-		s=rfu("http://map.quicklydone.com/geo?"+s);
+		//s=rfu("http://map.quicklydone.com/geo?"+s);
 		return s;} 
 	
 	
@@ -145,6 +137,22 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 		// if (input.equals("user"))
 		// s=user.getNickname();
+		return s;
+	}
+
+	public String[] greetServer(String input) {
+		String s[] = { "", "", "", "" };
+		
+		if (input.equals("aa"))
+			s = aa.ss;
+		if (input.equals("a2"))
+			s = a2.s2;
+	
+		if (input.equals("a4"))
+				s = det_mrkr();
+	
+		if (input.equals("login"))
+			s=get_user("");
 		return s;
 	}
 }

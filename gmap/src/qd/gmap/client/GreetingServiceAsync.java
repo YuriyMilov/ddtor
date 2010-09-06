@@ -8,4 +8,5 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface GreetingServiceAsync {
 	void greetServer(String s, AsyncCallback<String[]> callback);
 	void get(String s, AsyncCallback<String> callback);
+	void get_r4(String s, String s2, AsyncCallback<String[]> callback);
 }
