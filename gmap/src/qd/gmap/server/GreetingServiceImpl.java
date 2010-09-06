@@ -58,7 +58,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 					+ getThreadLocalRequest().getUserPrincipal().getName()
 					+ "\"";
 			List<Mrkr4> results = (List<Mrkr4>) pm.newQuery(query).execute();
-			int i = 1, n = 4, k = results.size();
+			int i = 0, n = 4, k = results.size();
 			String[] ss = new String[k * 4 + 4];
 						
 			ss[0]="b";
@@ -67,7 +67,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		    ss[3]="Destination: "+s2+"<br>Radius: "+s1;
 		    
 		    Mrkr4 mk = null;
-			while (i < k-1) {
+			while (i < k) {
 				mk = results.get(i++);
 				ss[n++] = mk.get_s1();
 				ss[n++] = mk.get_s2();
