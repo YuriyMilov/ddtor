@@ -6,6 +6,7 @@ import java.net.URL; //import java.text.DateFormat;
 //import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,7 +51,8 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@SuppressWarnings("unchecked")
 	public String[] de2_mrkr(String s1, String s2) {
 		try {
-	  		String[] ss2= {"55","-88"};
+			double z=2222;
+	  		String[] ss2= {"55","-88", "init"};
 		       ss2= get_LL(s2);
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			String query = "SELECT FROM " + Mrkr4.class.getName()
@@ -61,19 +63,41 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			int i = 0, n = 4, k = results.size();
 			String[] ss = new String[k * 4 + 4];
 						
-			ss[0]="b";
-			ss[1]=ss2[0];
-		    ss[2]=ss2[1];
-		    ss[3]="Destination: "+s2+"<br>Radius: "+s1;
 		    
 		    Mrkr4 mk = null;
+		    ArrayList<Integer> ar = new ArrayList<Integer>();
+			double d1=Double.parseDouble(ss2[0]);
+			double d2=Double.parseDouble(ss2[1]);
+			
 			while (i < k) {
 				mk = results.get(i++);
 				ss[n++] = mk.get_s1();
 				ss[n++] = mk.get_s2();
 				ss[n++] = mk.get_s3();
 				ss[n++] = mk.get_s6();
+
+				double d3=Double.parseDouble(ss[n-3]);
+				double d4=Double.parseDouble(ss[n-2]);
+				double d5=Math.pow(d1-d3,2)+Math.pow(d2-d4,2);
+				z=2222;
+			           
+			            if (s1.equals("100 km"))
+			                z = 0.1;
+			            if (s1.equals("50 km"))
+			                z = 0.05;
+			            if (s1.equals("20 km"))
+			                z = 0.008;
+			            if (s1.equals("10 km"))
+			                z = 0.004;
+				if(d5<z)
+					ar.add(i);
 			}
+			ss[0]="b";
+			ss[1]=ss2[0];
+		    ss[2]=ss2[1];
+		    ss[3]="Destination: "+s2+"<br>Radius: "+s1+"<br>Array size: "+ar.size()+"<br>Z: "+String.valueOf(z)+"<br>Exc.: "+ss2[2];
+
+			
 			return ss;	
 		} catch (Exception e) {
 			return new String[]{ "b", "44", "-70", e.toString()};
@@ -168,8 +192,8 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	}
 
 	public String[] get_LL(String s) {
-		String ss[] = { "55", "-88" };
-		
+		String ss[] = { "55", "-88","init" };
+		s=s.replace(' ', '+');
 		try {
 			s = rfu("http://maps.google.com/maps/api/geocode/xml?address=" + s
 					+ "&sensor=true");
@@ -187,6 +211,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			}
 				
 		} catch (Exception e) {
+			ss = new String [] { "55", "-88", e.toString() };	
 		}
 		
 		return ss;
