@@ -42,8 +42,8 @@ public class Gmap implements EntryPoint {
 	public void onModuleLoad() {
 
 		map = new MapWidget(place, 3);
-		map.setSize("600px", "400px");
-		// map.setSize("1200px", "800px");
+		//map.setSize("600px", "400px");
+		map.setSize("1200px", "800px");
 		map.setScrollWheelZoomEnabled(true);
 		map.addControl(new LargeMapControl());
 		// aa();
@@ -139,7 +139,7 @@ public class Gmap implements EntryPoint {
 															5,
 															se12+" "+r[1]+" " +r[2]+" "+skm 
 																	+ " "
-																	+ String.valueOf((int) (r.length / 4))
+																	+ String.valueOf((int) (r.length / 4)-1)
 																	+ " markers, zoom 3");
 												} 
 												if (skm.equals("10 km")) {
@@ -149,7 +149,7 @@ public class Gmap implements EntryPoint {
 															5,
 															skm
 																	+ ", "
-																	+ String.valueOf((int) (r.length / 4))
+																	+ String.valueOf((int) (r.length / 4)-1)
 																	+ " markers, zoom 11");
 												}
 												if (skm.equals("20 km")) {
@@ -159,7 +159,7 @@ public class Gmap implements EntryPoint {
 															5,
 															skm
 																	+ ", "
-																	+ String.valueOf((int) (r.length / 4))
+																	+ String.valueOf((int) (r.length / 4)-1)
 																	+ " markers, zoom 10");
 												}
 												
@@ -170,7 +170,7 @@ public class Gmap implements EntryPoint {
 															5,
 															skm
 																	+ ", "
-																	+ String.valueOf((int) (r.length / 4))
+																	+ String.valueOf((int) (r.length / 4)-1)
 																	+ " markers, zoom 9");
 												}
 												
@@ -181,7 +181,7 @@ public class Gmap implements EntryPoint {
 															5,
 															skm
 																	+ ", "
-																	+ String.valueOf((int) (r.length / 4))
+																	+ String.valueOf((int) (r.length / 4)-1)
 																	+ " markers, zoom 8");
 												}
 												
