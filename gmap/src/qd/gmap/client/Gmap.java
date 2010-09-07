@@ -143,7 +143,7 @@ public class Gmap implements EntryPoint {
 																	+ " markers, zoom 3");
 												} 
 												if (skm.equals("10 km")) {
-													map.setCenter(place, 11);
+													 map.setCenter(place, 11);
 													layout.setHTML(
 															0,
 															5,

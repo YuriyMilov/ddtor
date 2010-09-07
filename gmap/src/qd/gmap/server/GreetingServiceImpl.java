@@ -81,7 +81,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				z = 2222;
 
 				if (s1.equals("100 km"))
-					z = 0.2;
+					z = 0.3;
 				if (s1.equals("50 km"))
 					z = 0.08;
 				if (s1.equals("20 km"))
