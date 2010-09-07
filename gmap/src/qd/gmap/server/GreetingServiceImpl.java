@@ -51,9 +51,9 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@SuppressWarnings("unchecked")
 	public String[] de2_mrkr(String s1, String s2) {
 		try {
-			double z=2222;
-	  		String[] ss2= {"55","-88", "init"};
-		       ss2= get_LL(s2);
+			double z = 2222;
+			String[] ss2 = { "70", "-88", "init" };
+			ss2 = get_LL(s2);
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			String query = "SELECT FROM " + Mrkr4.class.getName()
 					+ " WHERE s5 == \""
@@ -62,13 +62,12 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			List<Mrkr4> results = (List<Mrkr4>) pm.newQuery(query).execute();
 			int i = 0, n = 4, k = results.size();
 			String[] ss = new String[k * 4 + 4];
-						
-		    
-		    Mrkr4 mk = null;
-		    ArrayList<Integer> ar = new ArrayList<Integer>();
-			double d1=Double.parseDouble(ss2[0]);
-			double d2=Double.parseDouble(ss2[1]);
-			
+
+			Mrkr4 mk = null;
+			ArrayList<Integer> ar = new ArrayList<Integer>();
+			double d1 = Double.parseDouble(ss2[0]);
+			double d2 = Double.parseDouble(ss2[1]);
+
 			while (i < k) {
 				mk = results.get(i++);
 				ss[n++] = mk.get_s1();
@@ -76,34 +75,56 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				ss[n++] = mk.get_s3();
 				ss[n++] = mk.get_s6();
 
-				double d3=Double.parseDouble(ss[n-3]);
-				double d4=Double.parseDouble(ss[n-2]);
-				double d5=Math.pow(d1-d3,2)+Math.pow(d2-d4,2);
-				z=2222;
-			           
-			            if (s1.equals("100 km"))
-			                z = 0.1;
-			            if (s1.equals("50 km"))
-			                z = 0.05;
-			            if (s1.equals("20 km"))
-			                z = 0.008;
-			            if (s1.equals("10 km"))
-			                z = 0.004;
-				if(d5<z)
+				double d3 = Double.parseDouble(ss[n - 3]);
+				double d4 = Double.parseDouble(ss[n - 2]);
+				double d5 = Math.pow(d1 - d3, 2) + Math.pow(d2 - d4, 2);
+				z = 2222;
+
+				if (s1.equals("100 km"))
+					z = 0.2;
+				if (s1.equals("50 km"))
+					z = 0.08;
+				if (s1.equals("20 km"))
+					z = 0.04;
+				if (s1.equals("10 km"))
+					z = 0.02;
+				if (d5 < z)
 					ar.add(i);
 			}
-			ss[0]="b";
-			ss[1]=ss2[0];
-		    ss[2]=ss2[1];
-		    ss[3]="Destination: "+s2+"<br>Radius: "+s1+"<br>Array size: "+ar.size()+"<br>Z: "+String.valueOf(z)+"<br>Exc.: "+ss2[2];
-
+			ss[0] = "b";
+			ss[1] = ss2[0];
+			ss[2] = ss2[1];
+			ss[3] = "aaaaaaaaaaaaa";//"Destination: " + s2 + "<br>Radius: " + s1					+ "<br>Array size: " + ar.size() + "<br>Z: "					+ String.valueOf(z) + "<br>Exc.: " + ss2[2];
 			
-			return ss;	
+			
+			
+			k=ar.size() * 4;
+			String[] ss3 = new String[k];
+			ss3[0] = "b";
+			ss3[1] = ss2[0];
+			ss3[2] = ss2[1];
+			ss3[3] = "Destination: " + s2 + "<br>Radius: " + s1
+					+ "<br>Array size: " + ar.size();// + "<br>Z: "	+ String.valueOf(z) + "<br>Exc.: " + ss2[2];
+			ss3[3]=String.valueOf(k);
+			int j=4;
+			n = 4;
+			i = 1;
+			while (n < k-3) {
+				ss3[n++] = ss[j];
+				ss3[n++] = ss[j+1];
+				ss3[n++] = ss[j+2];
+				ss3[n++] = ss[j+3];
+				//j=j+4;
+				//ss3[3]=ss3[3]+" j="+String.valueOf(j)+" "+" i="+String.valueOf(i)+" ";
+				j=4*ar.get(i++);
+			}
+			
+			return ss3;
+			
 		} catch (Exception e) {
-			return new String[]{ "b", "44", "-70", e.toString()};
+			return new String[] { "b", "44", "-70", e.toString() };
 		}
-		
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -192,8 +213,8 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	}
 
 	public String[] get_LL(String s) {
-		String ss[] = { "55", "-88","init" };
-		s=s.replace(' ', '+');
+		String ss[] = { "70", "-88", "init" };
+		s = s.replace(' ', '+');
 		try {
 			s = rfu("http://maps.google.com/maps/api/geocode/xml?address=" + s
 					+ "&sensor=true");
@@ -201,19 +222,18 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				s = s.substring(s.indexOf("<location>") + 10,
 						s.indexOf("</location>"));
 				if (s.indexOf("</lat>") > s.indexOf("<lat>")
-						&& s.indexOf("</lng>") > s.indexOf("<lng>"))
-				{
+						&& s.indexOf("</lng>") > s.indexOf("<lng>")) {
 					ss[0] = s.substring(s.indexOf("<lat>") + 5,
 							s.indexOf("</lat>"));
-					ss[1] = s
-						.substring(s.indexOf("<lng>") + 5, s.indexOf("</lng>"));
+					ss[1] = s.substring(s.indexOf("<lng>") + 5,
+							s.indexOf("</lng>"));
 				}
 			}
-				
+
 		} catch (Exception e) {
-			ss = new String [] { "55", "-88", e.toString() };	
+			ss = new String[] { "70", "-88", e.toString() };
 		}
-		
+
 		return ss;
 	}
 }

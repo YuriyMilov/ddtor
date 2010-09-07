@@ -106,9 +106,9 @@ public class Gmap implements EntryPoint {
 					 * } });
 					 */
 
-					Button but1 = new Button("Submit3", new ClickHandler() {
+					Button but1 = new Button("Submit", new ClickHandler() {
 						public void onClick(ClickEvent event) {
-
+							map.clearOverlays();
 							layout.setHTML(0, 5, "Wait...");
 
 							greetingService.get_r4(
@@ -133,16 +133,26 @@ public class Gmap implements EntryPoint {
 												}catch(Exception e12){se12=e12.toString();}
 												
 												if (skm.equals("")) {
-													map.setCenter(place, 3);
+													map.setCenter(place, 4);
 													layout.setHTML(
 															0,
 															5,
 															se12+" "+r[1]+" " +r[2]+" "+skm 
 																	+ " "
 																	+ String.valueOf((int) (r.length / 4))
-																	+ " markers, zoom 3");
+																	+ " markers, zoom 4");
 												} 
 												if (skm.equals("10 km")) {
+													map.setCenter(place, 11);
+													layout.setHTML(
+															0,
+															5,
+															skm
+																	+ ", "
+																	+ String.valueOf((int) (r.length / 4))
+																	+ " markers, zoom 11");
+												}
+												if (skm.equals("20 km")) {
 													map.setCenter(place, 10);
 													layout.setHTML(
 															0,
@@ -152,7 +162,8 @@ public class Gmap implements EntryPoint {
 																	+ String.valueOf((int) (r.length / 4))
 																	+ " markers, zoom 10");
 												}
-												if (skm.equals("20 km")) {
+												
+												if (skm.equals("50 km")) {
 													map.setCenter(place, 9);
 													layout.setHTML(
 															0,
@@ -163,7 +174,7 @@ public class Gmap implements EntryPoint {
 																	+ " markers, zoom 9");
 												}
 												
-												if (skm.equals("50 km")) {
+												if (skm.equals("100 km")) {
 													map.setCenter(place, 8);
 													layout.setHTML(
 															0,
@@ -174,18 +185,8 @@ public class Gmap implements EntryPoint {
 																	+ " markers, zoom 8");
 												}
 												
-												if (skm.equals("100 km")) {
-													map.setCenter(place, 7);
-													layout.setHTML(
-															0,
-															5,
-															skm
-																	+ ", "
-																	+ String.valueOf((int) (r.length / 4))
-																	+ " markers, zoom 7");
-												}
-												
 
+												
 												// a4();
 												for (i = 0; i < r.length; i++) {
 													final String color = r[i++];
@@ -221,7 +222,6 @@ public class Gmap implements EntryPoint {
 																					s1));
 														}
 													});
-
 													map.addOverlay(mm);
 												}
 
