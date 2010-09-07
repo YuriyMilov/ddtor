@@ -133,14 +133,14 @@ public class Gmap implements EntryPoint {
 												}catch(Exception e12){se12=e12.toString();}
 												
 												if (skm.equals("")) {
-													map.setCenter(place, 4);
+													map.setCenter(place, 3);
 													layout.setHTML(
 															0,
 															5,
 															se12+" "+r[1]+" " +r[2]+" "+skm 
 																	+ " "
 																	+ String.valueOf((int) (r.length / 4))
-																	+ " markers, zoom 4");
+																	+ " markers, zoom 3");
 												} 
 												if (skm.equals("10 km")) {
 													map.setCenter(place, 11);

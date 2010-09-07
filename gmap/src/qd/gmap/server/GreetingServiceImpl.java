@@ -100,12 +100,15 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			
 			k=ar.size() * 4;
 			String[] ss3 = new String[k];
+			if(k==0)
+				ss3 = new String[4];
 			ss3[0] = "b";
 			ss3[1] = ss2[0];
 			ss3[2] = ss2[1];
 			ss3[3] = "Destination: " + s2 + "<br>Radius: " + s1
-					+ "<br>Array size: " + ar.size();// + "<br>Z: "	+ String.valueOf(z) + "<br>Exc.: " + ss2[2];
-			ss3[3]=String.valueOf(k);
+					+ "<br>Array size: " + ar.size();
+					// + "<br>Z: "	+ String.valueOf(z) + "<br>Exc.: " + ss2[2];
+			//ss3[3]=String.valueOf(k);
 			int j=4;
 			n = 4;
 			i = 1;
