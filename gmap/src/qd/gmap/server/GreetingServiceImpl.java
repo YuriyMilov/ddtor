@@ -23,6 +23,7 @@ import qd.gmap.aa;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -36,11 +37,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	User user = userService.getCurrentUser();
 
 	public String[] get_r4(String s1, String s2) {
-		String ss[] = { "b", "44", "-70", s1 + "<br>" + s2 };
-
-		ss = de2_mrkr(s1, s2);
-
-		return ss;
+				return get_LL(s2, s1 + " | " + s2);
 	}
 
 	public String get(String s) {
@@ -50,89 +47,13 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 	@SuppressWarnings("unchecked")
 	public String[] de2_mrkr(String s1, String s2) {
-		int j=0, i=0, k=0, n=0;
+
 		try {
-			double z = 2222;
 			String[] ss2 = { "70", "-88", "init" };
-			ss2 = get_LL(s2);
-			PersistenceManager pm = PMF.get().getPersistenceManager();
-			String query = "SELECT FROM " + Mrkr4.class.getName()
-					+ " WHERE s5 == \""
-					+ getThreadLocalRequest().getUserPrincipal().getName()
-					+ "\"";
-			List<Mrkr4> results = (List<Mrkr4>) pm.newQuery(query).execute();
-			 
-			i = 0; n = 0; k = results.size();
-			 
-			String[] ss = new String[k * 4];
-
-			Mrkr4 mk = null;
-			ArrayList<Integer> ar = new ArrayList<Integer>();
-			double d1 = Double.parseDouble(ss2[0]);
-			double d2 = Double.parseDouble(ss2[1]);
-
-			while (i < k) {
-				mk = results.get(i++);
-				ss[n++] = mk.get_s1();
-				ss[n++] = mk.get_s2();
-				ss[n++] = mk.get_s3();
-				ss[n++] = mk.get_s6();
-
-				double d3 = Double.parseDouble(ss[n - 3]);
-				double d4 = Double.parseDouble(ss[n - 2]);
-				//double d5 = Math.pow(d1 - d3, 2) + Math.pow(d2 - d4, 2);
-				double d5 = (d1 - d3)*(d1 - d3) + (d2 - d4)*(d2 - d4);
-				ss[n - 1]=ss[n - 1]+"<br>D5="+String.valueOf(d5);
-				z = 2222;
-
-				if (s1.equals("100 km"))
-					z = 0.1;
-				if (s1.equals("50 km"))
-					z = 0.05;
-				if (s1.equals("20 km"))
-					z = 0.01;
-				if (s1.equals("10 km"))
-					z = 0.005;
-				if (d5 < z)
-					ar.add(i);
-			}
-			//ar.add(1);
-			ss[0] = "b";
-			ss[1] = ss2[0];
-			ss[2] = ss2[1];
-			ss[3] = "aaaaaaaaaaaaa";//"Destination: " + s2 + "<br>Radius: " + s1					+ "<br>Array size: " + ar.size() + "<br>Z: "					+ String.valueOf(z) + "<br>Exc.: " + ss2[2];
-			
-			
-			
-			k=ar.size() * 4+4;
-			
-			String[] ss3 = new String[k];
-			//if(k==0)
-			//	ss3 = new String[4];
-			ss3[0] = "b";
-			ss3[1] = ss2[0];
-			ss3[2] = ss2[1];
-			ss3[3] = "Destination: " + s2 + "<br>Radius: " + s1
-					+ "<br>Array size: " + ar.size();
-					// + "<br>Z: "	+ String.valueOf(z) + "<br>Exc.: " + ss2[2];
-			//ss3[3]=String.valueOf(k);
-			j=4;
-			n = 4;
-			i = 0;
-			while (n < k-3) {
-				ss3[n++] = ss[j++];
-				ss3[n++] = ss[j++];
-				ss3[n++] = ss[j++];
-				ss3[n++] = ss[j++];
-				//j=j+4;
-				//ss3[3]=ss3[3]+" j="+String.valueOf(j)+" "+" i="+String.valueOf(i)+" ";
-				j=4*ar.get(i++);
-			}
-			
-			return ss3;
+			return ss2;
 			
 		} catch (Exception e) {
-			return new String[] { "b", "44", "-70", "i="+ String.valueOf(i)+" j="+String.valueOf(j)+" k="+String.valueOf(k)+" n="+String.valueOf(n)+" "+e.toString() };
+			return new String[] { "44", "-70", e.toString()};
 		}
 
 	}
@@ -222,8 +143,8 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		return s;
 	}
 
-	public String[] get_LL(String s) {
-		String ss[] = { "70", "-88", "init" };
+	public String[] get_LL(String s, String s2) {
+		String ss[] = { "70", "-88", s2 };
 		s = s.replace(' ', '+');
 		try {
 			s = rfu("http://maps.google.com/maps/api/geocode/xml?address=" + s
