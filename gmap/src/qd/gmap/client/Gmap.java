@@ -10,6 +10,8 @@ import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.event.MarkerClickHandler;
+import com.google.gwt.maps.client.geocode.Geocoder;
+import com.google.gwt.maps.client.geocode.LatLngCallback;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Icon;
 import com.google.gwt.maps.client.overlay.Marker;
@@ -41,7 +43,8 @@ public class Gmap implements EntryPoint {
 	final ArrayList<Marker> ar = new ArrayList<Marker>();;
 	final FlexTable layout = new FlexTable();
 	final TextBox tbox1 = new TextBox();
-
+	final Geocoder geo = new Geocoder();
+	
 	public void onModuleLoad() {
 		map = new MapWidget(place, 3);
 		// map.setSize("600px", "400px");
@@ -127,107 +130,104 @@ public class Gmap implements EntryPoint {
 			}
 		});
 	}
-
+	  
 	Button but1 = new Button("Submit", new ClickHandler() {
 		public void onClick(ClickEvent event) {
 			map.clearOverlays();
 			layout.setHTML(0, 5, "Wait...");
-			srv.get_r4(km.getItemText(km.getSelectedIndex()), tbox1.getText(),
-					new AsyncCallback<String[]>() {
-
-						public void onFailure(Throwable caught) {
-							layout.setHTML(0, 5, "onFailure");
-						}
-
-						public void onSuccess(String tt[]) {
-							try {
-								place = LatLng.newInstance(
-										d1 = Double.parseDouble(tt[0]),
-										d2 = Double.parseDouble(tt[1]));
-								Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
-								icon.setImageURL("blue.png");
-								MarkerOptions ops = MarkerOptions
-										.newInstance(icon);
-								ops.setIcon(icon);
-								final Marker md = new Marker(LatLng
-										.newInstance(d1, d2), ops);
-								md.addMarkerClickHandler(new MarkerClickHandler() {
-									public void onClick(MarkerClickEvent event) {
-										map.getInfoWindow()
-												.open(md,
-														new InfoWindowContent(
-																"Destination point:<br>"
-																		+ tbox1.getText()
-																		+ "<br>Latitude: "
-																		+ String.valueOf(d1)
-																		+ "<br>Longtitude: "
-																		+ String.valueOf(d2)));
-									}
-								});
-								map.addOverlay(md);
-								String skm = km.getItemText(km
-										.getSelectedIndex());
-								if (skm.equals("10 km")) {
-									map.setCenter(place, 11);
-									for (int i = 0; i < ar.size(); i++) {
-										double dis = place.distanceFrom(ar.get(
-												i).getLatLng());
-										if (dis < 10000)
-											map.addOverlay(ar.get(i));
-									}
-								}
-
-								if (skm.equals("20 km")) {
-									map.setCenter(place, 10);
-									for (int i = 0; i < ar.size(); i++) {
-										double dis = place.distanceFrom(ar.get(
-												i).getLatLng());
-										if (dis < 20000)
-											map.addOverlay(ar.get(i));
-									}
-								}
-								if (skm.equals("50 km")) {
-									map.setCenter(place, 9);
-									for (int i = 0; i < ar.size(); i++) {
-										double dis = place.distanceFrom(ar.get(
-												i).getLatLng());
-										if (dis < 100000)
-											map.addOverlay(ar.get(i));
-									}
-								}
-
-								if (skm.equals("100 km")) {
-									map.setCenter(place, 8);
-
-									for (int i = 0; i < ar.size(); i++) {
-										double dis = place.distanceFrom(ar.get(
-												i).getLatLng());
-										if (dis < 100000)
-											map.addOverlay(ar.get(i));
-									}
-								}
-								if (skm.equals("200 km")) {
-									map.setCenter(place, 7);
-
-									for (int i = 0; i < ar.size(); i++) {
-										double dis = place.distanceFrom(ar.get(
-												i).getLatLng());
-										if (dis < 100000)
-											map.addOverlay(ar.get(i));
-									}
-								}
-								if (skm.equals("all")) {
-									map.setCenter(place, 3);
-									for (int i = 0; i < ar.size(); i++)
-										map.addOverlay(ar.get(i));
-								}
-								layout.setHTML(0, 5, "");
-								
-							} catch (Exception eee) {
-								layout.setHTML(0, 5, eee.toString());
-							}
-						}
-					});
+			geo.getLatLng(tbox1.getText(), geocb);
 		}
 	});
+
+	   final LatLngCallback geocb = new LatLngCallback()
+		  {
+			@Override
+			public void onFailure() {
+				RootPanel.get().add(new HTML("no location geocoded :("));
+			}
+			@Override
+			public void onSuccess(LatLng point) {
+				try {
+					place = point;
+					Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
+					icon.setImageURL("blue.png");
+					MarkerOptions ops = MarkerOptions
+							.newInstance(icon);
+					ops.setIcon(icon);
+					final Marker md = new Marker(place, ops);
+					md.addMarkerClickHandler(new MarkerClickHandler() {
+						public void onClick(MarkerClickEvent event) {
+							map.getInfoWindow()
+									.open(md,
+											new InfoWindowContent(
+													"Destination point:<br>"
+															+ tbox1.getText()));
+						}
+					});
+					map.addOverlay(md);
+					String skm = km.getItemText(km
+							.getSelectedIndex());
+					if (skm.equals("10 km")) {
+						map.setCenter(place, 11);
+						for (int i = 0; i < ar.size(); i++) {
+							double dis = place.distanceFrom(ar.get(
+									i).getLatLng());
+							if (dis < 10000)
+								map.addOverlay(ar.get(i));
+						}
+					}
+
+					if (skm.equals("20 km")) {
+						map.setCenter(place, 10);
+						for (int i = 0; i < ar.size(); i++) {
+							double dis = place.distanceFrom(ar.get(
+									i).getLatLng());
+							if (dis < 20000)
+								map.addOverlay(ar.get(i));
+						}
+					}
+					if (skm.equals("50 km")) {
+						map.setCenter(place, 9);
+						for (int i = 0; i < ar.size(); i++) {
+							double dis = place.distanceFrom(ar.get(
+									i).getLatLng());
+							if (dis < 100000)
+								map.addOverlay(ar.get(i));
+						}
+					}
+
+					if (skm.equals("100 km")) {
+						map.setCenter(place, 8);
+
+						for (int i = 0; i < ar.size(); i++) {
+							double dis = place.distanceFrom(ar.get(
+									i).getLatLng());
+							if (dis < 100000)
+								map.addOverlay(ar.get(i));
+						}
+					}
+					if (skm.equals("200 km")) {
+						map.setCenter(place, 7);
+
+						for (int i = 0; i < ar.size(); i++) {
+							double dis = place.distanceFrom(ar.get(
+									i).getLatLng());
+							if (dis < 100000)
+								map.addOverlay(ar.get(i));
+						}
+					}
+					if (skm.equals("all")) {
+						map.setCenter(place, 3);
+						for (int i = 0; i < ar.size(); i++)
+							map.addOverlay(ar.get(i));
+					}
+					layout.setHTML(0, 5, "");
+					
+				} catch (Exception eee) {
+					layout.setHTML(0, 5, eee.toString());
+				}
+				}
+		  };
+		 
+
 }
