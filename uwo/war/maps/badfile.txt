@@ -1,0 +1,28 @@
+﻿This file is intentionally corrupted
+
+Actually I am quite proud that the CSV parser is not hurt 
+but skips all the lines that do not contain readable coordinates.
+
+alert("Hey")
+
+
+26.042145, 61.208536, Täytelähetysasema Heinola -Heinola 
+             23.896583, 60.465367, Täytelähetysasema Nummi-Pusula  Hyönölä  -Nummi-Pusula 
+25.158996, 61.706222, Täytelähetysasema Kuhmoinen  Puukkoinen -Kuhmoinen 
+25.279188, 61.347911,,,,,,,,,,,,,,,,,,,,,,,,
+24.640397, 60.1775,7,1, Pää,lähe,tysa,sema, Esp,oo, -Es,poo 
+27.047317, 60.692117, Päälähetysasema Anjalankoski -Anjalankoski 
+21.697883, 61.281367, "Pää,lähe,tys,asema", "Eur,,ajo,ki -Eurajoki "
+23.4WWWWW93117, 60.125267, Päälähetysasema Fiskars -Fiskars 
+64.1661, Päälähetysasema Haapavesi -Haapavesi 
+
+<script>
+for(var i=0; i<_mF.length; i++){
+  GLog.write('_mF['+i+'] = '+_mF[i]);
+}
+</script>
+
+
+27.074267, 63.630033, Päälähetysasema Iisalmi -Iisalmi 
+   27.123317, 68.852333, Päälähetysasema Inari -Inari
+

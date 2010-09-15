@@ -1,0 +1,79 @@
+﻿21.816188, 61.474968, McDonald's Neste-24-Pori 
+24.744003, 60.208511, McDonald's Kauniaistentie, Palomiehentie 2  Ma-Su 10.00 - 23.00 McDrive 10.00 - 23.00-Espoo 
+25.028219, 60.283735, McDonald's Drive in  Ala-Tikkurila-Helsinki 
+25.037715, 60.194242, McDonald's Herttoniemi, Laivalahdenkatu 1  Ma-To 07.00-23.00 Pe-La 07.00-24.00 Su 08.00 - 23.00 McDrive 24 h-Helsinki 
+24.97792, 60.242879, McDonald's Drive in,  Pukinmäki-Helsinki 
+24.917384, 60.189959, McDonald's Töölö, Mannerheimintie 53  Su-To 08.00 - 24.00 Pe-La 08.00 - 01.00 McDrive 24 h-Helsinki 
+25.135315, 60.205543, McDonald's Drive in  Vuosaari-Helsinki 
+24.97562, 60.272409, McDonald's Tammisto, 24 h Drive in  Kirkkotie 4-Vantaa 
+25.999138, 61.192439, McDonald's Drive in  Heinola-Heinola 
+25.102445, 60.401309, McDonald's Drive in  Kerava-Kerava 
+24.441487, 60.121488, McDonald's Drive in  Kirkkonummi-Kirkkonummi 
+24.722331, 60.163514, McDonald's Espoo Friisilä, Tähdenlennontie 3  Ma-Su 10.00 - 23.00-Espoo 
+24.657902, 60.148572, McDonald's Espoo Lippulaiva, Espoonlahdenkatu 4-6  Ma-Pe 10.00 - 21.30 La 10.00 - 21.00 Su 11.00 - 21.00-Espoo 
+24.659883, 60.218455, McDonald's Espoo Lommila, Lommilanrinne 2  Ma-Su 10.00 - 23.00-Espoo 
+24.778148, 60.170972, McDonald's Espoo Niittykumpu, Niittymaantie 6  Ma-Su 10.00 - 24.00 McDrive Ma-Ti 9.00 - 24.00 Ke-Su 24 h-Espoo 
+24.805831, 60.176058, McDonald's Espoo Tapiola, Länsituulentie 12  Ma-Pe 9.30 - 21.00 La 9.30 - 19.00 Su 12.00 - 18.00-Espoo 
+24.93971, 60.168816, McDonald's Helsinki Forum Katutaso, Mannerheimintie 16  Ma-To 07.00 - 24.00 Pe 07.00 - 05.00 La 08.00 - 05.00 Su 08.00 - 24.00-Helsinki 
+24.938544, 60.169597, McDonald's Helsinki Forum Pohjakerros, Mannerheimintie 20  Ma-Pe 07.00 - 21.00 La 08.00 - 18.00 Su 10.00 - 18.00-Helsinki 
+24.949746, 60.178363, McDonald's Helsinki Hakaniemi, Siltasaarenkatu 12  Ma-Pe 8.00 - 23.00 La 10.00 - 23.00 Su 11.00 - 23.00-Helsinki 
+24.944033, 60.164233, McDonald's Helsinki Iso-Roba, Iso Roobertinkatu 1  Ma-To 07.00 - 23.00 Pe 07.00 - 05.00 La 08.00 - 05.00 Su 08.00 - 23.00-Helsinki 
+25.083454, 60.210046, McDonald's Helsinki Itäkeskus CITY-JÄTTI, Asiakkaankatu 11  Ma-Pe 09.00 - 21.00 La 09.00 - 18.00 Su 12.00 - 18.00 (kauppakeskuksen ollessa auki)-Helsinki 
+25.08545, 60.212624, McDonald's Helsinki Itäkeskus Kauppakeskus, Itäkatu 1  Ma-Pe 09.00 - 21.00 La 09.00 - 19.00 Su 10.00 - 19.00-Helsinki 
+24.930146, 60.169035, McDonald's Helsinki Kamppi, Fredrikinkatu 46  Ma-Ti ja To 06.30 - 24.00 Ke ja Pe 06.30 - 05.00 La-Su 08.00 - 05.00-Helsinki 
+24.94758, 60.169172, McDonald's Helsinki Kluuvi, Kluuvikatu 5  Ma-Pe 07.00 - 23.00 La-Su 08.00 - 23.00-Helsinki 
+25.08359, 60.23831, McDonald's Helsinki Kontula, Ostostie 4  Ma-La 09.00 - 22.00 Su 11.00 - 22.00-Helsinki 
+24.88908, 60.195708, McDonald's Helsinki Meilahti, Paciuksenkatu 29  Ma-Pe 08.00 - 23.00 La-Su ja pyhäpäivät 10.00 - 23.00-Helsinki 
+24.87917, 60.213462, McDonald's  Pitäjänmäki Drive in,  Vanha viertotie 29  Ma-Pe 10.00 - 23.00 La-Su 11.00 - 23.00-Helsinki 
+24.91514, 60.163296, McDonald's Helsinki Ruoholahti, Itämerenkatu 14  Ma-Pe 07.00 - 23.00 La-Su 08.00 - 23.00-Helsinki 
+24.93941, 60.170445, McDonald's Helsinki Sokos, Asema-aukio 2  Ma-To 07.00 - 24.00 Pe 07.00 - 05.00 La 08.00 - 05.00 Su 08.00 - 24.00-Helsinki 
+25.517251, 60.987977, McDonald's Hollola, Kansankuja 1  Ma-To 10.00 - 21.00 Pe-La 10.00 - 22.00 Su 11.00 - 22.00-Hollola 
+24.856976, 60.629948, McDonald's Hyvinkää, Hyvinkäänkatu 3  Ma-To 10.00 - 22.00 Pe 10.00 - 23.00 La 10.00 - 22.00 Su 11.00 - 22.00-Hyvinkää 
+24.460822, 60.992504, McDonald's Hämeenlinna, Hämeensaari Hämeensaarentie 8  Su-To 10.00 - 23.00 Pe-La 10.00 - 24.00 McDrive 24 h-Hämeenlinna 
+27.190784, 63.558524, McDonald's Iisalmi, Pohjolankatu 3  Ma-To 10.00 - 22.00 Pe-La 10.00 - 23.00 Su 10.00 - 22.00-Iisalmi 
+29.7712, 62.61861, McDonald's Joensuu, Keskusta Kuurnankatu 2 A-Joensuu 
+25.746434, 62.242308, McDonald's Jyväskylä Jyväskeskus, Kauppakatu 29-31  Ma-To 10.00 - 21.30 Pe-La 10.00 - 23.00 Su 11.00 - 21.30-Jyväskylä 
+25.886042, 62.198416, McDonald's Jyväskylä Keljonkeskus, Leikkimaa Kylmälahdentie 8  Ma-La 10.00 - 21.15 Su 11.00 - 21.15-Jyväskylä 
+25.768752, 62.250817, McDonald's Jyväskylä Tourula, Vapaaherrantie 2  Ma-To 10.00 - 23.00 Pe-La 10.00 - 01.00 Su 11.00 - 23.00-Jyväskylä 
+25.088122, 60.471274, McDonald's Järvenpää, Sibeliuksenkatu 14  Su-To 10.00 - 22.00 Pe-La 10.00 - 23.00-Järvenpää 
+25.543042, 64.904201, McDonald's Kempele, Myllytie 1  Ma-La 10.30 - 21.30 Su 11.00 - 21.30-Kempele 
+23.122907, 63.833, McDonald's Kokkola, Prismantie 1  Ma-Su 10.00 - 23.00-Kokkola 
+26.927323, 60.4632, McDonald's Kotka, Merituulentie 1  Ma-La 10.00 - 22.00 Su 11.00 - 22.00 McDrive Ma-La 10.00 - 23.00 Su 11.00 - 23.00-Kotka 
+26.672149, 60.867911, McDonald's Kouvola Kellomäki, Sepänkatu 2  Ma-To 10.00 - 22.00 Pe-La 10.00 - 23.00 Su 11.00 - 22.00 McDrive Ma-To 10.00 - 23.00 Pe-La 10.00 - 05.00 Su 11.00 - 23.00-Kouvola 
+26.659426, 60.871873, McDonald's Kouvola Prisma, Tommolankatu 9  Ma-Pe 10.00 - 21.00 La 10.00 - 19.00 Kauppasunnuntaisin 11.00 - 21.00-Kouvola 
+27.676993, 62.891756, McDonald's Kuopio Keskusta, Haapaniemenkatu 22  Ma-La 10.00 - 23.00 Su 11.00 - 23.00-Kuopio 
+27.6325, 62.8875, McDonald's Kuopio Prisma, Savilahdentie 10  Ma-La 09.00 - 21.00 Kauppasunnuntaisin 11.00 - 21.00-Kuopio 
+25.653712, 60.966494, McDonald's Lahti Laune, Pohjoinen Liipolankatu  Ma-To 10.00 - 23.00 Pe-La 10.00 - 01.00 Su 11.00 - 23.00 Ma-Su McDrive 24 h-Lahti 
+25.663118, 60.982573, McDonald's Lahti Trio, Aleksanterinkatu 20  Ma-La 09.00 - 21.00 Su 11.00 - 21.00-Lahti 
+28.196785, 61.049608, McDonald's  Lappeenranta, Ratakatu Ratakatu 29  Ma-La 10.00 - 24.00 Su 11.00 - 24.00  Autokaista:Ma-To 10.00 - 24.00 Pe-La 10.00 - 05.00 Su 11.00 - 24.00-Lappeenranta 
+24.065547, 60.249228, McDonald's Lohja, Kauppakatu 5-9  Ma-To 09.00 - 22.00 Pe-La 10.00 - 23.00 Su 10.00 - 22.00-Lohja 
+27.29848, 61.686047, McDonald's  Mikkeli Graani, Graanintie 2  Ma-La 10.00 - 23.00 Su 11.00 - 23.00 McDrive Pe-La 10.00 - 05.00-Mikkeli 
+27.272625, 61.688838, McDonald's  Mikkeli Keskusta, Maaherrankatu 13  Ma-To 10.00-21.00 Pe-La 10.00-22.00 Su 11.00-22.00-Mikkeli 
+25.462903, 64.996545, McDonald's  Oulu Limingantulli, Nuottasaarentie 2  Ma-Su 10.00 - 23.00 McDrive Su-To 10.00 - 23.00 Pe-La 24 h-Oulu 
+25.469734, 65.011651, McDonald's  Oulu Rotuaari, Kirkkokatu 12  Ma-To 10.30 - 21.30 Pe-La 10.30 - 23.00 Su 11.00 - 21.30-Oulu 
+22.716431, 63.676939, McDonald's  Pietarsaari, Pajakatu 6  Su-To 10.00 - 23.00 Pe-La 10.00 - 02.00-Pietarsaari 
+21.817294, 61.474315, McDonald's  Pori Koivula, Säästäjänkatu 2  Ma-La 10.00 - 22.00 Su 11.00 - 22.00-Pori 
+25.646131, 60.389755, McDonald's  Porvoo, Näsintie 2  Ma-To 10.00 - 22.00 Pe-La 10.00 - 24.00 Su 11.00 - 22.00 McDrive Ma-To 10.00 - 23.00 Pe-La 10.00 - 01.00 Su 11.00 - 23.00-Porvoo 
+22.188162, 60.48865, McDonald's  Raisio, Haunistentie 15  Ma-To 10.00 - 23.00 Pe-La 10.00 - 24.00 Su 11.00 - 23.00-Raisio 
+24.773454, 60.738495, McDonald's  Riihimäki, Keskuskatu 9  Ma-La 10.00 - 23.00 Su 11.00 - 23.00-Riihimäki 
+25.72663, 66.50371, McDonald's  Rovaniemi, Poromiehentie 3  Ma-To 10.00 - 23.00 Pe-La 10.00 - 01.00 Pe-La Autokaista 10.00 - 05.00 Su 10.00 - 23.00-Rovaniemi 
+23.114478, 60.391529, McDonald's  Salo, Mariankatu 41  Ma-Su 10.30 - 23.00-Salo  
+22.811086, 62.792636, McDonald's  Seinäjoki, Suupohjantie 45  Ma-To 10.30-22.00 Pe-La 10.30- 23.00 Su 11.00 - 22.00-Seinäjoki 
+23.76968, 61.498263, McDonald's  Tampere, Hämeenkatu 5  Ma-Ti 09.00 - 01.00 Ke-La 09.00 - 05.00 Su 10.00 - 01.00-Tampere 
+23.873325, 61.477626, McDonald's  Tampere Kaukajärvi, Kangasalantie 36  Ma-La 09.00 - 23.00 Su 10.00 - 23.00-Tampere 
+23.75765, 61.497573, McDonald's  Tampere Keskustori, Hämeenkatu 17  Ma 08.00 - 24.00 Ti-To 08.00 - 04.00 Pe-La 08.00 - 05.00 Su 10.00 - 24.00-Tampere 
+23.669088, 61.514864, McDonald's  Tampere Lielahti, Harjuntausta 5  Ma-La 10.00 - 23.00 Su 11.00 - 23.00-Tampere 
+23.819545, 61.492116, McDonald's  Tampere Prisma, Sammonkatu Sammonkatu 75  Ma-Pe 09.00 - 21.00 La 09.00 - 18.00 Su kauppakeskuksen aukioloajat-Tampere 
+22.325755, 60.444689, McDonald's  Turku Itäharju, Prisma Jaanintie 24  Ma-La 10.00 - 22.30 Su/pyhät 11.30 - 22.00-Turku 
+25.020183, 60.397787, McDonald's  Tuusula, Hyrylänkatu 4  Ma-La 10.00 - 22.00 Su 11.00 - 22.00 McDrive Ma-To 10.00 - 23.00 Pe-La 10.00 - 24.00 Su 11.00 - 23.00-Hyrylä 
+24.872524, 60.263931, McDonald's  Vantaa Kaivoksela, Louhijantie 1  Ma-La 10.00 - 22.00 Su 11.00 - 22.00 McDrive Ma-La 10.00 - 23.00 Su 11.00 - 23.00-Vantaa 
+24.851843, 60.259899, McDonald's  Vantaa Myyrmanni, Iskoskuja 3  Ma-Pe 09.30 - 21.00 La 09.30 - 18.00 Su 12.00 - 21.00 (kauppakeskuksen aukiolopäivinä)-Vantaa 
+25.03406, 60.293446, McDonald's  Vantaa Tikkurila, Prisma Tikkuraitti 20  Ma-La 10.00 - 22.00 Su 11-22-Vantaa 
+25.099615, 60.26682, McDonald's  Vantaa Vaarala, Koivumäentie 33  Ma-Su 10.00 - 23.00-Vantaa 
+24.80379, 60.270246, McDonald's  Vantaa Varisto, Drive in Maissikuja 2  Ma-La 10.00 - 23.00 Su 11.00 - 23.00-Vantaa 
+27.858565, 62.315858, McDonald's  Varkaus, Käsityökatu 19  Ma-To 10.30 - 22.00 Pe 10.30 - 23.00 La 10.30 - 23.00 Su 11.00 - 22.00-Varkaus 
+21.614865, 63.096388, McDonald's  Vaasa -citycenter, -Vaasa 
+21.646305, 63.10339, McDonald's  Vaasa -prisma, Toukolantie 1  Ma-Pe 09.00 - 21.00 La 09.00 - 18.00 Su 12.00 - 21.00 -Vaasa 
+25.721251, 62.217283, McDonald's  Keljonkeskus, Kylmälahdentie 8-Jyväskylä 
+22.269678, 60.457281, McDonald's SataShell, Aukioloajat:Ma-Su 10.00 - 24.00McDrivePe-La 24h-Turku 
+27.668254, 62.881856, McDonalds Tasavallankatu, -Kuopio 
