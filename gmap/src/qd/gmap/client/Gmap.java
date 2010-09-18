@@ -135,15 +135,15 @@ public class Gmap implements EntryPoint {
 		public void onClick(ClickEvent event) {
 			map.clearOverlays();
 			layout.setHTML(0, 5, "Wait...");
-			geo.getLatLng(tbox1.getText(), geocb);
+			geo.getLatLng(tbox1.getText(), geoint);
 		}
 	});
 
-	   final LatLngCallback geocb = new LatLngCallback()
+	   final LatLngCallback geoint = new LatLngCallback()
 		  {
 			@Override
 			public void onFailure() {
-				RootPanel.get().add(new HTML("no location geocoded :("));
+				RootPanel.get().add(new HTML("???"));
 			}
 			@Override
 			public void onSuccess(LatLng point) {
