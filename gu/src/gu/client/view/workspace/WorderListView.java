@@ -47,7 +47,7 @@ public class WorderListView extends ListView {
 			addField(row,story.get_customer_name());
 			addField(row,story.get_ship_id());
 			addField(row,story.get_cons_id()); 
-			addField(row,story.get_equipment_description());
+			addField(row,story.getDescription());
 
 			addField(row,story.get_pieces());
 			

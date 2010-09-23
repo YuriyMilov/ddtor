@@ -34,10 +34,9 @@ public class WorderDialog extends ObjectDialogBox {
 		addField( "Name", story.get_customer_name() );
 		addField( "ShipId", story.get_ship_id());
 		addField( "ConsId", story.get_cons_id());
-		addField( "Equipm", story.get_equipment_description() );
+		addField( "Equipm", story.getDescription() );
 		addField( "Pieces", story.get_pieces() );
 		addField( "Type" , story.get_type());
-		addField( "Descr", story.getDescription() );
 		addField( "Lbs", story.get_weight_lbs() );
 		addField( "Kgs", story.get_weight_kgs() );
 		addField( "Pickup" , story.getpickup_dt());
@@ -69,15 +68,14 @@ public class WorderDialog extends ObjectDialogBox {
 		story.set_customer_name(getField(1));
 		story.set_ship_id(getField(2));
 		story.set_cons_id(getField(3)); 
-		story.set_equipment_description(getField(4));
+		story.setDescription(getField(4));
 		story.set_pieces(getField(5));
 		story.set_type(getField(6));
-		story.setDescription(getField(7));
-		story.set_weight_lbs(getField(8));
-		story.set_weight_kgs(getField(9));
-		story.set_pickup_dt(getField(10));
-		story.set_delivery_dt(getField(11));
-		story.set_bol(getField(12));
+		story.set_weight_lbs(getField(7));
+		story.set_weight_kgs(getField(8));
+		story.set_pickup_dt(getField(9));
+		story.set_delivery_dt(getField(10));
+		story.set_bol(getField(11));
 		
 		
 		//story.setUser_id( userList.getValue( userList.getSelectedIndex() ) );

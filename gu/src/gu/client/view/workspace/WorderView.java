@@ -25,7 +25,7 @@ public class WorderView extends ObjectView {
 		addField( "Name", story.get_customer_name() );
 		addField( "ShipId", story.get_ship_id() );
 		addField( "ConsId", story.get_cons_id());
-		addField( "Equipm", story.get_equipment_description() );
+		addField( "Equipm", story.getDescription() );
 		addField( "Pieces", story.get_pieces() );
 		addField( "Type", story.get_type() );
 		addField( "Descr", story.getDescription() );

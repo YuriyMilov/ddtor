@@ -25,7 +25,7 @@ public class Worder implements BaseObject {
 	
 	
 
-	public Worder(String s1, String s2, String s3, String s4, String s5, String s6, String s7, String s8, String s9, String s10, String s11, String s12, String s13) {
+	public Worder(String s1, String s2, String s3, String s4, String s5, String s6, String s7, String s8, String s9, String s10, String s11, String s12, String s13, String s14, String s15, String s16) {
 		this.wo_number = s1;
 		this.ship_id = s2;
 		this.cons_id = s3;
@@ -34,12 +34,17 @@ public class Worder implements BaseObject {
 		this.delivery_dt = s6;
 		this.pickup_dt = s7;
 		this.pieces = s8;
-		this.equipment_description = s9;
-		this.type = s10;
-		this.weight_lbs = s11;
-		this.weight_kgs = s12;
-		this.bol = s13;
-		}
+		this.type = s9;
+		this.weight_lbs = s10;
+		this.weight_kgs = s11;
+		this.bol = s12;
+		
+		String	wotype=s13;
+		String	ponum=s14;
+		String	actual_pickup_dt=s15;
+		String	actual_delivr_dt=s16;
+
+	}
 	
 	public Worder() 
 	{
@@ -50,7 +55,7 @@ public class Worder implements BaseObject {
 	@Persistent
 	private String url;
 	@Persistent
-	private String description;
+	private String equipment_description;
 	@Persistent
 	private String user_id;
 
@@ -61,10 +66,10 @@ public class Worder implements BaseObject {
 	private List<User> digs;
 	
 	public String getDescription() {
-		return description;
+		return equipment_description;
 	}
 	public void setDescription(String description) {
-		this.description = description;
+		this.equipment_description = equipment_description;
 	}	
 	public List<User> getDigs() {
 		return digs;
@@ -111,15 +116,15 @@ public String get_customer_name() {
 	}
 	
 
-	@Persistent
-	private String equipment_description;
-	public String get_equipment_description() {
-		if( equipment_description == null ) return null;
-		return equipment_description;
-	}
-	public void set_equipment_description(String equipment_description) {
-		this.equipment_description = equipment_description;
-	}
+	//@Persistent
+	//private String equipment_description;
+	//public String get_equipment_description() {
+	//	if( equipment_description == null ) return null;
+	//	return equipment_description;
+	//}
+	//public void set_equipment_description(String equipment_description) {
+	//	this.equipment_description = equipment_description;
+	//}
 	
 	@Persistent
 	private String pieces;

@@ -35,10 +35,13 @@ public class postbridge_wo extends HttpServlet {
 		String s11=req.getParameter("a11");
 		String s12=req.getParameter("a12");
 		String s13=req.getParameter("a13");
+		String s14=req.getParameter("a14");
+		String s15=req.getParameter("a15");
+		String s16=req.getParameter("a16");
 		
 		 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Worder tt = new Worder(s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13);
+		Worder tt = new Worder(s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16);
 		pm.makePersistent(tt);
 		
 		out.println("ok");
