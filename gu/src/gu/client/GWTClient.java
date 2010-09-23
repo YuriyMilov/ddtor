@@ -41,10 +41,11 @@ public class GWTClient implements EntryPoint {
 	private static String[][] tt_srv = null;
 	private static String[][] tt_clt = null;
 	private DatabaseEditorView view = new DatabaseEditorView();
-	final DecoratorPanel dp = new DecoratorPanel();
 	int rowIndex = 1;
 	MapWidget map = new MapWidget();
 	VerticalPanel pvMap=new VerticalPanel();
+	DecoratorPanel dp2 = new DecoratorPanel();
+	HorizontalPanel phSearch=new HorizontalPanel();
 	VerticalPanel pvL=new VerticalPanel();
 	VerticalPanel pvR=new VerticalPanel();
 	HorizontalPanel phTop= new HorizontalPanel();
@@ -59,12 +60,12 @@ public class GWTClient implements EntryPoint {
 	final Button but_map = new Button("Map");
 	final Button but_LoadBoard = new Button("Load Board");
 	final Button but_database = new Button("Database");
-	final Button but_search = new Button("Search");
-	final Button bb5 = new Button("Submit");
+	//final Button but_search = new Button("Search");
+	final Button but_submit = new Button("Submit");
 	final Button but_reload = new Button("Reload");
 	final FlexTable flexTable = new FlexTable();
 	final ListBox km = new ListBox(false);
-	final ListBox dropBox_shipper = new ListBox(false);
+	//final ListBox dropBox_shipper = new ListBox(false);
 	final ListBox drop_box_equip = new ListBox(false);
 	final FlexTable layout = new FlexTable();
 	final TextBox tbox1 = new TextBox();
@@ -82,7 +83,8 @@ public class GWTClient implements EntryPoint {
 		
 		pvR.add(phLogin);
 		pvR.add(phTop);
-		pvR.add(pvMap);	
+		
+		phSearch.add(dp2);
 		phMain.add(pvR);
 		
 		srv.getData("login", new AsyncCallback<String[][]>() {
@@ -112,12 +114,14 @@ public class GWTClient implements EntryPoint {
 				prep_Search_Panel_dp();
 				prepButtons();
 				
-				
+				pvR.add(phSearch);
+				pvR.add(pvMap);
+			
 				phTop.add(but_map);
 				phTop.add(but_LoadBoard);
 				phTop.add(but_database);
 				phTop.add(but_reload);
-				phTop.add(but_search);
+				//phTop.add(but_search);
 
 				set_Map_Markers(r);
 				pvMap.add(map);
@@ -221,7 +225,7 @@ public class GWTClient implements EntryPoint {
 			public void onClick(ClickEvent event) {
 
 				map.removeFromParent();
-				dp.removeFromParent();
+//				dp.removeFromParent();
 				view.removeFromParent();
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
@@ -234,7 +238,7 @@ public class GWTClient implements EntryPoint {
 			public void onClick(ClickEvent event) {
 
 				map.removeFromParent();
-				dp.removeFromParent();
+				//dp.removeFromParent();
 				view.removeFromParent();
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
@@ -249,7 +253,7 @@ public class GWTClient implements EntryPoint {
 			public void onClick(ClickEvent event) {
 
 				map.removeFromParent();
-				dp.removeFromParent();
+				//dp.removeFromParent();
 				view.removeFromParent();
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
@@ -261,6 +265,7 @@ public class GWTClient implements EntryPoint {
 				pvMap.add(view);
 			}
 		});
+	/*	
 		but_search.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -272,13 +277,14 @@ public class GWTClient implements EntryPoint {
 
 				pvMap.add(dp);
 			}
-		});
-		bb5.addClickHandler(new ClickHandler() {
+		});*/
+		
+		but_submit.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 
 				map.removeFromParent();
-				dp.removeFromParent();
+				//dp.removeFromParent();
 				view.removeFromParent();
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
@@ -294,7 +300,7 @@ public class GWTClient implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				map.removeFromParent();
-				dp.removeFromParent();
+	//			dp.removeFromParent();
 				view.removeFromParent();
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
@@ -325,7 +331,7 @@ public class GWTClient implements EntryPoint {
 			}
 		});
 	}
-
+/*
 	void load_shippers() {
 
 		srv.getData("shippers", new AsyncCallback<String[][]>() {
@@ -342,7 +348,7 @@ public class GWTClient implements EntryPoint {
 		});
 
 	}
-
+*/
 	void prep_Search_Panel_dp() {
 		tbox1.setText("Toronto");
 		tbox2.setText("Atlanta");
@@ -354,21 +360,22 @@ public class GWTClient implements EntryPoint {
 		km.addItem("all");
 		layout.setWidget(0, 0, new HTML(" "));
 		layout.setCellSpacing(7);
-		layout.setWidget(1, 1, new Label("Shipper "));
-		layout.setWidget(2, 1, dropBox_shipper);
-		drop_box_equip.addItem("Skids", "Skids");
-		drop_box_equip.addItem("Boxes", "Boxes");
-		layout.setWidget(3, 1, new Label("Equipment Type "));
-		layout.setWidget(4, 1, drop_box_equip);
-		layout.setWidget(1, 2, new Label("Origin "));
-		layout.setWidget(2, 2, tbox1);
-		layout.setWidget(3, 2, new Label("Radius"));
-		layout.setWidget(4, 2, km);
-		layout.setWidget(1, 3, new Label("Destination "));
-		layout.setWidget(2, 3, tbox2);
-		layout.setWidget(4, 3, bb5);
-		layout.setWidget(5, 0, new HTML(" "));
-		dp.add(layout);
+		//layout.setWidget(1, 1, new Label("Shipper "));
+		//layout.setWidget(2, 1, dropBox_shipper);
+		//drop_box_equip.addItem("Skids", "Skids");
+		//drop_box_equip.addItem("Boxes", "Boxes");
+		//layout.setWidget(3, 1, new Label("Equipment Type "));
+		//layout.setWidget(4, 1, drop_box_equip);
+		
+		layout.setWidget(0, 0, new Label("Origin "));
+		layout.setWidget(0, 1, tbox1);
+		layout.setWidget(0, 2, new Label("Radius"));
+		layout.setWidget(0, 3, km);
+		layout.setWidget(0, 4, new Label("Destination "));
+		layout.setWidget(0, 5, tbox2);
+		layout.setWidget(0, 6, but_submit);
+		
+		dp2.add(layout);
 	}
 
 	public void set_Map_Markers(String[][] r) {

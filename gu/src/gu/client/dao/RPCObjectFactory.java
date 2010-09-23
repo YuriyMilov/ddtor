@@ -83,9 +83,6 @@ public class RPCObjectFactory implements ObjectFactory{
 		}
 	}
 	
-	private RPCObjectDAO shipperDAO = new RPCObjectDAO("Shipper");
-	private RPCObjectDAO consigneeDAO = new RPCObjectDAO("Consignee");
-	
 	private RPCObjectFactoryServiceAsync service;
 	public RPCObjectFactory(String baseUrl) {
 		service = (RPCObjectFactoryServiceAsync) GWT.create( RPCObjectFactoryService.class );
@@ -93,21 +90,39 @@ public class RPCObjectFactory implements ObjectFactory{
 		endpoint.setServiceEntryPoint( baseUrl );	
 	}
 
-
 	public void setListener(ObjectFactoryListener listener) {
 		this.listener = listener;
 	}
-
+	
+///////////////////////////////////////////
+	
+	private RPCObjectDAO shipperDAO = new RPCObjectDAO("Shipper");
+	private RPCObjectDAO consigneeDAO = new RPCObjectDAO("Consignee");
+	private RPCObjectDAO userDAO = new RPCObjectDAO("User");
+	private RPCObjectDAO storyDAO = new RPCObjectDAO("Story");
+	private RPCObjectDAO worderDAO = new RPCObjectDAO("Worder");
+	
 	@Override
 	public ObjectDAO getShipperDAO() {
 		return shipperDAO;
 	}
 
-
 	@Override
 	public ObjectDAO getConsigneeDAO() {
 		return consigneeDAO;
 	}
+	public ObjectDAO getStoryDAO() {
+		return storyDAO;
+	}
 
+	public ObjectDAO getUserDAO() {
+		return userDAO;
+	}
+
+	@Override
+	public ObjectDAO getWorderDAO() {
+		return worderDAO;
+	}
+	
 
 }

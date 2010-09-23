@@ -13,5 +13,8 @@ public interface ObjectFactory {
 	}
 	ObjectDAO getShipperDAO();
 	ObjectDAO getConsigneeDAO();
+	ObjectDAO getUserDAO();
+	ObjectDAO getStoryDAO();
+	ObjectDAO getWorderDAO();
 	void setListener( ObjectFactoryListener listener );
 }

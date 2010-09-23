@@ -7,6 +7,10 @@ import gu.client.ui.RoundedPanel;
 import gu.client.view.treeitems.BaseTreeItem;
 import gu.client.view.treeitems.ShippersTreeItem;
 import gu.client.view.treeitems.ConsigneesTreeItem;
+import gu.client.view.treeitems.StoriesTreeItem;
+import gu.client.view.treeitems.UsersTreeItem;
+import gu.client.view.treeitems.WordersTreeItem;
+
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -30,8 +34,17 @@ public class DatabaseEditorView extends Composite implements TreeListener, Objec
 	private VerticalPanel vp1 = new VerticalPanel();
 	private DecoratorPanel vp2 = new DecoratorPanel();
 	private ObjectFactory objectFactory;
+	
+	/////////////////
+	
 	private ShippersTreeItem shipperItems = new ShippersTreeItem(this);
 	private ConsigneesTreeItem consigneeItems = new ConsigneesTreeItem(this);
+	private UsersTreeItem userItems = new UsersTreeItem(this);
+	private StoriesTreeItem storyItems = new StoriesTreeItem(this);
+	private WordersTreeItem wordersItems = new WordersTreeItem(this);
+
+	///////////////////////
+	
 	private Label loadingLabel = new Label("loading...");
 	private LoadingPanel loading = new LoadingPanel(new Label("loading..."));
 	
@@ -42,8 +55,17 @@ public class DatabaseEditorView extends Composite implements TreeListener, Objec
 		rounded.setWidget(treeList);
 		vp1.add(rounded);
 		mainPanel.add(vp1);
+		
+//////////////////////////////
+		
 		treeList.addItem( shipperItems );
 		treeList.addItem( consigneeItems );
+		treeList.addItem( wordersItems );
+		
+		//treeList.addItem( storyItems );
+		//treeList.addItem( userItems );
+		
+		//////////////////////
 		
 		treeList.addTreeListener(this);
 		RootPanel.get().add( loading);
