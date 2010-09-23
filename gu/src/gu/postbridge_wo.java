@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class postbridge extends HttpServlet {
+public class postbridge_wo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static String[] s4 = null;
 

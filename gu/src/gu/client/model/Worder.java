@@ -24,6 +24,26 @@ public class Worder implements BaseObject {
 	}
 	
 	
+
+	public Worder(String s1, String s2, String s3, String s4, String s5, String s6, String s7, String s8, String s9, String s10, String s11, String s12, String s13) {
+		this.wo_number = s1;
+		this.ship_id = s2;
+		this.cons_id = s3;
+		this.customer_name = s4;
+		this.equipment_description = s5;
+		this.delivery_dt = s6;
+		this.pickup_dt = s7;
+		this.pieces = s8;
+		this.equipment_description = s9;
+		this.type = s10;
+		this.weight_lbs = s11;
+		this.weight_kgs = s12;
+		this.bol = s13;
+		}
+	
+	public Worder() 
+	{
+		}
 	
 	@Persistent
 	private String title;

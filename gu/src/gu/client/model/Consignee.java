@@ -16,6 +16,17 @@ public class Consignee implements BaseObject {
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	protected Long id;
 
+	public Consignee() {
+	}
+	public Consignee(String s1, String s2, String s3, String s4, String s5, String s6, String s7) {
+		this.sConsId = s1;
+		this.sName = s2;
+		this.sCity = s3;
+		this.sProv = s4;
+		this.sPostalCode = s5;
+		this.sLatitude = s6;
+		this.sLongtitude = s7;
+		}
 
 	public String getId() {
 		if( id == null ) return null;
