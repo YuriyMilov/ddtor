@@ -27,6 +27,7 @@ public class ShipperDialog extends ObjectDialogBox {
 		addField( "PosalCode", story.getPostalCode());
 		addField( "Latitude", story.getLatitude());
 		addField( "Longtitude", story.getLongtitude());
+		addField( "Ship_ID", story.get_ship_id());
 		addButtons();
 	}
 
@@ -37,6 +38,7 @@ public class ShipperDialog extends ObjectDialogBox {
 		story.setPostalCode( getField(3) );
 		story.setLatitude( getField(4) );
 		story.setLongtitude( getField(5) );
+		story.set_ship_id( getField(6) );
 		getView().getObjectFactory().getShipperDAO().save( story );
 	}
 

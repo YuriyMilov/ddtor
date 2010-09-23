@@ -16,6 +16,7 @@ public class ShipperListView extends ListView {
 		addColumn( "PostalCode" );
 		addColumn( "Latitude" );
 		addColumn( "Longtitude" );
+		addColumn( "ShipId" );
 		
 		int row = 0;
 		for( Iterator it = stories.iterator(); it.hasNext();){
@@ -26,6 +27,7 @@ public class ShipperListView extends ListView {
 			addField(row,story.getPostalCode());
 			addField(row,story.getLatitude());
 			addField(row,story.getLongtitude());
+			addField(row,story.get_ship_id());
 			row++;
 		}
 	}

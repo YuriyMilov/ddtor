@@ -20,6 +20,7 @@ public class ShipperView extends ObjectView {
 		addField( "PostalCode", story.getPostalCode());
 		addField( "Latitude", story.getLatitude());
 		addField( "Longtitude", story.getLongtitude());
+		addField( "ShipID", story.get_ship_id());
 	}
 	
 	protected void onDelete() {

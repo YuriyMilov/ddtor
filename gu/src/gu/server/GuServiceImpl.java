@@ -1,7 +1,6 @@
 package gu.server;
 
 import gu.Mrkr4;
-import gu.PMF;
 import gu.a2;
 import gu.aa;
 import gu.client.GuService;

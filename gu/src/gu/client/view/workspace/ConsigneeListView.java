@@ -17,6 +17,7 @@ public class ConsigneeListView extends ListView {
 		addColumn( "PostalCode" );
 		addColumn( "Latitude" );
 		addColumn( "Longtitude" );
+		addColumn( "ConsID" );
 		
 		int row = 0;
 		for( Iterator it = stories.iterator(); it.hasNext();){
@@ -27,6 +28,7 @@ public class ConsigneeListView extends ListView {
 			addField(row,story.getPostalCode());
 			addField(row,story.getLatitude());
 			addField(row,story.getLongtitude());
+			addField(row,story.get_ConsId());
 			row++;
 		}
 	}

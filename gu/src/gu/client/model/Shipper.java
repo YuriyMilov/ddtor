@@ -78,5 +78,15 @@ public class Shipper implements BaseObject {
 		this.sLongtitude = sLongtitude;
 	}
 
+	
+	@Persistent
+	private String sShipId;
+	public String get_ship_id() {
+		return sShipId;
+	}
+	public void set_ship_id(String sShipId) {
+		this.sShipId = sShipId;
+	}
+
 
 }

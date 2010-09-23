@@ -17,6 +17,7 @@ public class ConsigneeView extends ObjectView {
 		addField( "PostalCode", story.getPostalCode());
 		addField( "Latitude", story.getLatitude());
 		addField( "Longtitude", story.getLongtitude());
+		addField( "ConsID", story.get_ConsId());
 	}
 	
 	protected void onDelete() {

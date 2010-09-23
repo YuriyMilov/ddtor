@@ -77,6 +77,15 @@ public class Consignee implements BaseObject {
 	public void setLongtitude(String sLongtitude) {
 		this.sLongtitude = sLongtitude;
 	}
-
+	
+	@Persistent
+	private String sConsId;
+	public String get_ConsId() {
+		return sConsId;
+	}
+	public void set_ConsId(String sConsId) {
+		this.sConsId = sConsId;
+	}
+	
 
 }

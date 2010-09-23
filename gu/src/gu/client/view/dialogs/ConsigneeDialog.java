@@ -27,6 +27,7 @@ public class ConsigneeDialog extends ObjectDialogBox {
 		addField( "PosalCode", story.getPostalCode());
 		addField( "Latitude", story.getLatitude());
 		addField( "Longtitude", story.getLongtitude());
+		addField( "ConsId", story.get_ConsId());
 		addButtons();
 	}
 
@@ -37,6 +38,7 @@ public class ConsigneeDialog extends ObjectDialogBox {
 		story.setPostalCode( getField(3) );
 		story.setLatitude( getField(4) );
 		story.setLongtitude( getField(5) );
+		story.set_ConsId( getField(6) );
 		getView().getObjectFactory().getConsigneeDAO().save( story );
 	}
 
