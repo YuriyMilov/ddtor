@@ -1,5 +1,6 @@
 package gu;
 
+import gu.client.model.Consignee;
 import gu.client.model.Shipper;
 import gu.client.model.Worder;
 import gu.server.PMF;
@@ -31,9 +32,16 @@ public class postbridge_ship extends HttpServlet {
 		String s6=req.getParameter("a6");
 		String s7=req.getParameter("a7");
 		
+		String s8=req.getParameter("a8");
+		String s9=req.getParameter("a9");
+		String s10=req.getParameter("a10");
+		String s11=req.getParameter("a11");
+
+		
 		 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Shipper tt = new Shipper(s1,s2,s3,s4,s5,s6,s7);
+		Shipper tt = new Shipper(s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11);
+		
 		pm.makePersistent(tt);
 		
 		out.println("ok");

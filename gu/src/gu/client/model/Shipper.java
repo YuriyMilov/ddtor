@@ -18,7 +18,7 @@ public class Shipper implements BaseObject {
 	
 	public Shipper() {
 	}
-	public Shipper(String s1, String s2, String s3, String s4, String s5, String s6, String s7) {
+	public Shipper(String s1, String s2, String s3, String s4, String s5, String s6, String s7, String s8, String s9, String s10, String s11) {
 		this.sShipId = s1;
 		this.sName = s2;
 		this.sCity = s3;
@@ -26,9 +26,52 @@ public class Shipper implements BaseObject {
 		this.sPostalCode = s5;
 		this.sLatitude = s6;
 		this.sLongtitude = s7;
+		this.address1 =s8;
+		this.address2 =s9;
+		this.contact=s10;
+		this.phone =s11;
 		}
-	
+	@Persistent
+	private String address1;
+	public String get_address1() {
+		return address1;
+	}
+	public void set_address1(String address1) {
+		this.address1 = address1;
+	}	
 
+	@Persistent
+	private String address2;
+	public String get_address2() {
+		return address2;
+	}
+	public void set_address2(String address2) {
+		this.address2 = address2;
+	}	
+
+	@Persistent
+	private String contact;
+	public String get_contact() {
+		return contact;
+	}
+	public void set_contact(String contact) {
+		this.contact = contact;
+	}	
+ 
+
+	@Persistent
+	private String phone;
+	public String get_phone() {
+		return phone;
+	}
+	public void set_phone(String phone) {
+		this.phone = phone;
+	}	
+ 
+
+ 
+	
+	 
 	
 	public String getId() {
 		if( id == null ) return null;

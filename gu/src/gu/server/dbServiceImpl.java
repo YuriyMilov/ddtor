@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import gu.client.dbService;
 import gu.client.model.Consignee;
 import gu.client.model.Shipper;
+import gu.client.model.Worder;
+
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -70,10 +72,10 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 			while (i < k) {
 				mk = results.get(i++);
 				ar.add(new String[] { "r", mk.getLatitude(),
-						mk.getLongtitude(), "","", "", "", "", mk.getName(),
+						mk.getLongtitude(), "", "", "", "", "", mk.getName(),
 						mk.getCity(), mk.getProv(), mk.getPostalCode(),
-						mk.getLatitude(),mk.getLongtitude(), mk.getId(), "Skids",
-						"Comment is here", "", "5 765", "2 279",
+						mk.getLatitude(), mk.getLongtitude(), mk.getId(),
+						"Skids", "Comment is here", "", "5 765", "2 279",
 						"8/25/10 2:00 p.m.", "8/26/10 10:00 a.m." });
 			}
 
@@ -108,10 +110,10 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 			while (i < k) {
 				mk = results.get(i++);
 				ar.add(new String[] { "g", mk.getLatitude(),
-						mk.getLongtitude(), "","", "", "", "", mk.getName(),
+						mk.getLongtitude(), "", "", "", "", "", mk.getName(),
 						mk.getCity(), mk.getProv(), mk.getPostalCode(),
-						mk.getLatitude(),mk.getLongtitude(), mk.getId(), "Skids",
-						"Comment is here", "", "5 765", "2 279",
+						mk.getLatitude(), mk.getLongtitude(), mk.getId(),
+						"Skids", "Comment is here", "", "5 765", "2 279",
 						"8/25/10 2:00 p.m.", "8/26/10 10:00 a.m." });
 			}
 			return ar;
@@ -156,17 +158,137 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 
 		if (input.equals("all")) {
 			ar.clear();
-			ar = getShippers(ar);
-			ar = getConsignees(ar);
-			sss = new String[ar.size()][ar.get(0).length];
-			for (int n = 0; n < ar.size(); n++) {
-				sss[n] = ar.get(n);
-			}
-		for (int n = 0; n < sss[0].length; n++) {
-				System.out.print(sss[0][n] + " ");
+			 //ar = getShippers(ar);
+			// ar = getConsignees(ar);
+
+			ar = getWorders(ar);
+
+			if (ar.size() > 0) {
+				sss = new String[ar.size()][ar.get(0).length];
+				for (int n = 0; n < ar.size(); n++) {
+					sss[n] = ar.get(n);
+				}
+				//for (int n = 0; n < sss[0].length; n++) {
+				//	System.out.print(sss[0][n] + " ");
+				//}
+				return sss;
 			}
 			return sss;
 		}
 		return sss;
 	}
+
+	public ArrayList<String[]> getWorders(ArrayList<String[]> ar) {
+
+		try {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			@SuppressWarnings("unchecked")
+			List<Worder> woList = (List<Worder>) pm.newQuery(
+					"SELECT FROM " + Worder.class.getName()).execute();
+			@SuppressWarnings("unchecked")
+			List<Shipper> shipList = (List<Shipper>) pm.newQuery(
+					"SELECT FROM " + Shipper.class.getName()).execute();
+			@SuppressWarnings("unchecked")
+			List<Consignee> consList = (List<Consignee>) pm.newQuery(
+					"SELECT FROM " + Consignee.class.getName()).execute();
+			Worder ww = null;
+			Shipper sh = null;
+			Consignee cn = null;
+
+			// ////////////////////////////////////////////////////////
+
+			ar = new ArrayList<String[]>();
+			int is = 0;
+			int ks = shipList.size();
+			while (is < ks) {
+				sh = shipList.get(is++);
+
+				// ////////////////////////////////////////////////////////
+
+				int iw = 0;
+				int kw = woList.size();
+				String[] zz = null;
+				while (iw < kw) {
+					
+					ww = woList.get(iw++);
+					String ship_id = ww.get_ship_id();
+					if (ship_id.equals(sh.get_ship_id())) {
+						String cons_id = ww.get_cons_id();
+
+						// ////////////////////
+
+						int ic = 0;
+						int kc = consList.size();
+						while (ic < kc) {
+							cn = consList.get(ic++);
+							
+							if (cons_id.equals(cn.get_ConsId())) {
+
+								zz = new String[] {
+										
+										"r",
+										sh.getLatitude(),
+										sh.getLongtitude(),
+										"InfoWindow for shipper "
+												+ sh.getName(),
+										"g",
+										cn.getLatitude(),
+										cn.getLongtitude(),
+										"InfoWindow for shipper "
+												+ cn.getName(),
+										ww.get_wo_number(),
+										" ",
+										sh.getCity() + ", " + sh.getProv()
+												, " ",
+										cn.getCity() + ", " + cn.getProv(),
+										ww.getDescription(), ww.get_pieces(),
+										ww.get_type(), ww.getDescription(),
+										" ", ww.get_weight_lbs(),
+										ww.get_weight_kgs(), ww.getpickup_dt(),
+										ww.get_delivery_dt() };
+										
+							
+								
+
+							}
+						}
+
+						// //////////////////
+
+						// ar.add(new String[] { "r", sh.getLatitude(),
+						// sh.getLongtitude(),"numbers of WOs",
+						// "----WO----->",ww.get_customer_name(),
+						// "8/25/10 2:00 p.m.", "8/26/10 10:00 a.m." });
+
+					}
+
+				}
+
+				// //////////////////////////////////////////////////
+				if(zz!=null)
+					ar.add(zz);
+			}
+			String[][] sss = null;
+			if (ar.size() != 0) {
+
+				sss = new String[ar.size()][ar.get(0).length];
+				for (int n = 0; n < ar.size(); n++) {
+					sss[n] = ar.get(n);
+				}
+			}
+			//if (sss != null)
+			//	for (int m = 0; m < ar.size(); m++) {
+				//	for (int n = 0; n < sss[0].length; n++) {
+				//		System.out.print(sss[m][n] + " ");
+				//	}
+					//System.out.println();
+				//}
+			// //////////////////////////////////////////////////
+
+			return ar;
+		} catch (Exception e) {
+			return ar;
+		}
+	}
+
 }
