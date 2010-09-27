@@ -156,8 +156,28 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 			return sss;
 		}
 
+		
+		if (input.equals("qq")) {
+			ar.clear();
+			ar=get_qq(ar);
+			if (ar.size() > 0) {
+				sss = new String[ar.size()][ar.get(0).length];
+				for (int n = 0; n < ar.size(); n++) {
+					sss[n] = ar.get(n);
+				}
+			}
+			return sss;
+		}
+		
+
+		
+		
 		if (input.equals("all")) {
 			ar.clear();
+			
+			//ar=get_qq(ar);
+			
+			
 			 //ar = getShippers(ar);
 			// ar = getConsignees(ar);
 
@@ -291,4 +311,78 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 		}
 	}
 
+	public ArrayList<String[]> get_qq(ArrayList<String[]> ar) {
+
+		try {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			@SuppressWarnings("unchecked")
+			List<Worder> woList = (List<Worder>) pm.newQuery(
+					"SELECT FROM " + Worder.class.getName()).execute();
+
+
+			Worder ww = null;
+			Shipper sh = null;
+			Consignee cn = null;
+
+			// ////////////////////////////////////////////////////////
+
+			ar = new ArrayList<String[]>();
+
+
+				// ////////////////////////////////////////////////////////
+
+				int iw = 0;
+				int kw = woList.size();
+				String[] zz = null;
+				while (iw < kw) {
+					
+					ww = woList.get(iw++);
+					String ship_id = ww.get_ship_id();
+					String cons_id = ww.get_cons_id();
+					
+					@SuppressWarnings("unchecked")
+					List<Shipper> shipList = (List<Shipper>) pm.newQuery(
+							"SELECT FROM " + Shipper.class.getName() +" WHERE sShipId == '"+ship_id+"'").execute();
+
+					
+					@SuppressWarnings("unchecked")
+					List<Consignee> consList = (List<Consignee>) pm.newQuery(
+					"SELECT FROM " + Consignee.class.getName()+" WHERE sConsId == '"+cons_id+"'").execute();
+					
+					if(shipList==null || consList==null)
+						break;
+					
+					String wo_number="", ship_lat="",ship_long="",ship_prov="",ship_city="",cons_lat="",cons_long="",cons_prov="",cons_city="";
+					
+					ship_lat=shipList.get(0).getLatitude();
+					ship_long=shipList.get(0).getLongtitude();
+					cons_lat=consList.get(0).getLatitude();
+					cons_long=consList.get(0).getLongtitude();
+
+					wo_number=ww.get_wo_number();
+					ship_city=shipList.get(0).getCity();
+					cons_city=consList.get(0).getCity();
+					
+					
+					zz = new String[] {
+							ship_lat,ship_long,cons_lat,cons_long,wo_number,ship_city,cons_city
+					};
+										
+								
+								ar.add(zz);
+				}
+
+			String[][] sss = null;
+			if (ar.size() != 0) {
+
+				sss = new String[ar.size()][ar.get(0).length];
+				for (int n = 0; n < ar.size(); n++) {
+					sss[n] = ar.get(n);
+				}
+			}
+			return ar;
+		} catch (Exception e) {
+			return ar;
+		}
+	}
 }
