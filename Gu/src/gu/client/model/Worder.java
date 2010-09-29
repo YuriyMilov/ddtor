@@ -38,11 +38,12 @@ public class Worder implements BaseObject {
 		this.weight_lbs = s10;
 		this.weight_kgs = s11;
 		this.bol = s12;
+		this.desc = s16;
 		
-		String	wotype=s13;
-		String	ponum=s14;
-		String	actual_pickup_dt=s15;
-		String	actual_delivr_dt=s16;
+		//String	wotype=s13;
+		//String	ponum=s14;
+		//String	actual_pickup_dt=s15;
+		//String	actual_delivr_dt=s16;
 
 	}
 	
@@ -68,7 +69,7 @@ public class Worder implements BaseObject {
 	public String getDescription() {
 		return equipment_description;
 	}
-	public void setDescription(String description) {
+	public void setDescription(String equipment_description) {
 		this.equipment_description = equipment_description;
 	}	
 	public List<User> getDigs() {
@@ -125,6 +126,16 @@ public String get_customer_name() {
 	//public void set_equipment_description(String equipment_description) {
 	//	this.equipment_description = equipment_description;
 	//}
+	
+	@Persistent
+	private String desc;
+	public String get_desc() {
+		if( desc == null ) return null;
+		return desc;
+	}
+	public void set_desc(String desc) {
+		this.desc = desc;
+	}
 	
 	@Persistent
 	private String pieces;

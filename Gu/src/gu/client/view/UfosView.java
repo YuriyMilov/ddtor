@@ -68,41 +68,46 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 	private ObjectFactory objectFactory;
 	private DecoratorPanel dp2 = new DecoratorPanel();
 	private LoadingPanel loading = new LoadingPanel(new Label("loading..."));
-
 	// //////////
 
 	private static final int HeaderRowIndex = 0;
 	private final dbServiceAsync srv = GWT.create(dbService.class);
 	final ArrayList<Marker> ar = new ArrayList<Marker>();
+	ArrayList<Marker> ar2 = new ArrayList<Marker>();
 	final ArrayList<Integer> aritab = new ArrayList<Integer>();
+	final ArrayList<Integer> aritab2 = new ArrayList<Integer>();
 	LatLng place = LatLng.newInstance(44, -77);
 	private static String[][] tt_srv = null;
 	private static String[][] tt_clt = null;
+	private static String[][] tt_clt2 = null;
 	private DatabaseEditorView view = new DatabaseEditorView();
 	int rowIndex = 1;
 
 	VerticalPanel mainPanel = new VerticalPanel();
-	VerticalPanel pvMap = new VerticalPanel();
-	HorizontalPanel phSearch = new HorizontalPanel();
+	//VerticalPanel pvMap = new VerticalPanel();
+	HorizontalPanel phGap = new HorizontalPanel();
 	VerticalPanel pvL = new VerticalPanel();
 	VerticalPanel pvR = new VerticalPanel();
 	HorizontalPanel phTop = new HorizontalPanel();
-	HorizontalPanel phMain = new HorizontalPanel();
+	HorizontalPanel phGlav = new HorizontalPanel();
 	HorizontalPanel phLogin = new HorizontalPanel();
-	HTML sign=new HTML();
+	HTML sign = new HTML();
 	final Geocoder geo = new Geocoder();
 	final LatLng gde = LatLng.newInstance(44, -77);
 
 	final Button but_map = new Button("Map");
-	final Button but_qq = new Button("Board");
+	final Button but_board = new Button("Board");
 
-	//final Button but_LoadBoard = new Button("Board");
+	// final Button but_LoadBoard = new Button("Board");
 	final Button but_database = new Button("Database");
 	// final Button but_search = new Button("Search");
-	final Button but_submit = new Button("Submit");
+	final Button but_submit = new Button("Sserach");
 	final Button but_reload = new Button("Update");
 	final FlexTable flexTable = new FlexTable();
-	final ListBox km = new ListBox(false);
+
+	final ListBox dropBox1 = new ListBox(false);
+	final ListBox km1 = new ListBox(false);
+	final ListBox km2 = new ListBox(false);
 	// final ListBox dropBox_shipper = new ListBox(false);
 	final ListBox drop_box_equip = new ListBox(false);
 	final FlexTable layout = new FlexTable();
@@ -112,9 +117,11 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 	public UfosView() {
 		RootPanel.get().add(loading);
 		initWidget(mainPanel);
+		
 		mainPanel.add(phLogin);
-		mainPanel.add(phTop);
-		mainPanel.add(pvMap);
+		mainPanel.add(phGlav);
+			
+		//mainPanel.add(pvMap);
 		setStyleName("databaseEditorView");
 		map = new MapWidget(LatLng.newInstance(44, -77), 3);
 		map.setSize("600px", "400px");
@@ -130,17 +137,17 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 
 			public void onSuccess(final String r[][]) {
 
-				if (r[0][0].indexOf("Logout") > -1) {
-					//onSigned(r[0][0]);
-					onSigned_qq(r[0][0]);
-					
+				onSigned_qq("<br>");
 
-				} else {
-					sign=new HTML("<center>"+r[0][0]+"</center>");
-					sign.setWidth("400px");
-					phLogin.add(sign);
-					onLoadingFinish();
-				}
+				/*
+				 * if (r[0][0].indexOf("Logout") > -1) { //onSigned(r[0][0]);
+				 * onSigned_qq(r[0][0]);
+				 * 
+				 * 
+				 * } else { sign=new HTML("<center>"+r[0][0]+"</center>");
+				 * sign.setWidth("400px"); phLogin.add(sign); onLoadingFinish();
+				 * }
+				 */
 
 			}
 		});
@@ -161,7 +168,7 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 
 	public void onSigned_qq(String logout) {
 		phLogin.add(new HTML(logout));
-		
+
 		onLoadingStart();
 		srv.getData("qq", new AsyncCallback<String[][]>() {
 			public void onFailure(Throwable caught) {
@@ -174,22 +181,27 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 				prep_Search_Panel_dp();
 				prepButtons();
 
-				pvR.add(phSearch);
-				pvR.add(map);
-
-				phTop.add(but_qq);
+				
+				pvL.setWidth("22px");
+				phGlav.add(pvL);
+				phTop.add(but_board);
 				phTop.add(but_map);
 				phTop.add(but_database);
 				phTop.add(but_reload);
+				pvR.add(phTop);
+				pvR.add(dp2);
+				phGap.setWidth("22px");
+				pvR.add(phGap);
+				pvR.add(map);
+				phGlav.add(pvR);
+				
 
 				setMarkers(r);
-				pvMap.add(dp2);
-				pvMap.add(pvR);
+				
 				onLoadingFinish();
 			}
 		});
 	}
-
 
 	private void addColumn(Object columnHeading) {
 		Widget widget = createCellWidget(columnHeading);
@@ -238,30 +250,9 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 		}
 	}
 
-	public void set_data_for_flexTable() {
-		try {
-			tt_clt = new String[tt_srv.length][tt_srv[0].length - 8];
-			for (int row = 0; row < tt_srv.length; row++) {
-				for (int col = 0; col < tt_srv[row].length - 8; col++) {
-					tt_clt[row][col] = tt_srv[row][col + 8];
-				}
-				if (aritab.contains(row))
-					addRow(tt_clt[row++]);
-			}
-
-			applyDataRowStyles();
-
-			flexTable.setCellSpacing(0);
-			flexTable.addStyleName("FlexTable");
-		} catch (Exception aa) {
-			phLogin.add(new HTML("getData *** " + aa.toString()));
-		}
-
-	}
-
 	void prepButtons() {
 
-		but_qq.addClickHandler(new ClickHandler() {
+		but_board.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 
@@ -271,18 +262,14 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
 
-	/*			String s="";
-				for(int i=0;i<tt_srv.length;i++){
-					for(int j=0;j<tt_srv[0].length;j++){
-						s=	s+tt_srv[i][j];
-					}
-					s=s+"<br>";
-					}
-				
-				info = new HTML(s);
-				mainPanel.add(info);*/
-				
-				
+				/*
+				 * String s=""; for(int i=0;i<tt_srv.length;i++){ for(int
+				 * j=0;j<tt_srv[0].length;j++){ s= s+tt_srv[i][j]; } s=s+"<br>";
+				 * }
+				 * 
+				 * info = new HTML(s); mainPanel.add(info);
+				 */
+
 				flexTable.insertRow(HeaderRowIndex);
 				flexTable.getRowFormatter().addStyleName(HeaderRowIndex,
 						"FlexTable-Header");
@@ -300,63 +287,79 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 				addColumn("kgs");
 				addColumn("Pickup");
 				addColumn("Delivery");
-				
-				
-				
-				try {
-					tt_clt = new String[tt_srv.length][tt_srv[0].length];
-					for (int row = 0; row < tt_srv.length; row++) {
-						for (int col = 0; col < tt_srv[row].length; col++) {
-							tt_clt[row][col] = tt_srv[row][col];
+
+				if (tt_srv != null)
+					if (tt_srv.length > 0)
+						if (tt_srv[0].length > 4) {
+							try {
+								tt_clt = new String[tt_srv.length][tt_srv[0].length - 4];
+								for (int row = 0; row < tt_srv.length; row++) {
+									for (int col = 0; col < tt_srv[row].length - 4; col++) {
+										tt_clt[row][col] = tt_srv[row][col + 4];
+									}
+									if (aritab.contains(row))
+											{
+										
+										addRow(tt_clt[row++]);
+											
+											
+						
+										}
+								}
+								if (tt_clt[0].length > 4) {
+									tt_clt2 = new String[tt_clt.length][tt_clt[0].length - 4];
+									for (int row2 = 0; row2 < tt_clt.length; row2++) {
+										for (int col = 0; col < tt_srv[row2].length - 4; col++) {
+											tt_clt2[row2][col] = tt_clt[row2][col + 4];
+										}
+										if (aritab2.contains(row2))
+												addRow(tt_clt2[row2++]);
+									}
+								}
+	
+								
+
+								applyDataRowStyles();
+
+								flexTable.setCellSpacing(0);
+								flexTable.addStyleName("FlexTable");
+								
+								
+							} catch (Exception aa) {
+								phLogin.add(new HTML("getData *** "
+										+ aa.toString()));
+							}
+
+							pvR.add(flexTable);
 						}
-						if (aritab.contains(row))
-							addRow(tt_clt[row++]);
-					}
-
-					applyDataRowStyles();
-
-					flexTable.setCellSpacing(0);
-					flexTable.addStyleName("FlexTable");
-				} catch (Exception aa) {
-					phLogin.add(new HTML("getData *** " + aa.toString()));
-				}
-				
-				pvR.add(flexTable);
-
 			}
 		});
-		
+
 		but_map.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 
-
-				
 				//
 				map.removeFromParent();
 				view.removeFromParent();
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
 				//
-				
 
 				pvR.add(map);
 			}
 		});
-		
+
 		but_database.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 
-
-				
 				//
 				map.removeFromParent();
 				view.removeFromParent();
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
 				//
-				
 
 				RPCObjectFactory objectFactory = new RPCObjectFactory(GWT
 						.getModuleBaseURL() + "objectFactory");
@@ -365,8 +368,7 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 				pvR.add(view);
 			}
 		});
-		
-		
+
 		but_reload.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -388,12 +390,11 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 						flexTable.removeAllRows();
 						flexTable.removeFromParent();
 						//
-												map = new MapWidget(LatLng.newInstance(44, -77), 3);
+						map = new MapWidget(LatLng.newInstance(44, -77), 3);
 						map.setSize("600px", "400px");
 						map.setScrollWheelZoomEnabled(true);
 						map.addControl(new LargeMapControl());
 						map.addMapClickHandler(h);
-
 
 						setMarkers(r);
 						onLoadingFinish();
@@ -402,8 +403,7 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 				});
 			}
 		});
-		
-		
+
 		/*
 		 * but_search.addClickHandler(new ClickHandler() {
 		 * 
@@ -419,18 +419,23 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 			@Override
 			public void onClick(ClickEvent event) {
 				onLoadingStart();
-	
-				
+
 				//
 				map.removeFromParent();
 				view.removeFromParent();
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
 				//
-				
-				
+
 				map.clearOverlays();
-				geo.getLatLng(tbox1.getText(), geoint);
+				String sorig = tbox1.getText();
+				 if(sorig.length()>1)
+					 geo.getLatLng(sorig, geoint);
+				 
+				 String sdist = tbox2.getText();
+				 if(sdist.length()>1)
+					 geo.getLatLng(sdist, geoint2);
+				  
 				onLoadingFinish();
 				pvR.add(map);
 			}
@@ -438,19 +443,32 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 	}
 
 	void prep_Search_Panel_dp() {
-		tbox1.setText("Toronto");
+		tbox1.setText("Toronto, on");
+		tbox2.setText("Edmonton, ab");
 		// tbox2.setText("Atlanta");
-		km.addItem("all");
-		km.addItem("10 km");
-		km.addItem("20 km");
-		km.addItem("50 km");
-		km.addItem("100 km");
-		km.addItem("200 km");
+		km1.addItem("");
+		km1.addItem("10 km");
+		km1.addItem("20 km");
+		km1.addItem("50 km");
+		km1.addItem("100 km");
+		km1.addItem("200 km");
+		
+		km2.addItem("");
+		km2.addItem("10 km");
+		km2.addItem("20 km");
+		km2.addItem("50 km");
+		km2.addItem("100 km");
+		km2.addItem("200 km");
 
 		layout.setWidget(0, 0, new HTML(" "));
 		layout.setCellSpacing(7);
-		// layout.setWidget(1, 1, new Label("Shipper "));
-		// layout.setWidget(2, 1, dropBox_shipper);
+		//layout.setWidget(1, 0, new Label("Province "));
+
+		//layout.setWidget(1, 1, dropBox1);
+		//dropBox1.addItem("", "");
+		//dropBox1.addItem("ON", "ON");
+		//dropBox1.addItem("BC", "BC");
+
 		// drop_box_equip.addItem("Skids", "Skids");
 		// drop_box_equip.addItem("Boxes", "Boxes");
 		// layout.setWidget(3, 1, new Label("Equipment Type "));
@@ -458,122 +476,124 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 
 		layout.setWidget(0, 0, new Label("Origin "));
 		layout.setWidget(0, 1, tbox1);
-		layout.setWidget(0, 2, new Label("Radius"));
-		layout.setWidget(0, 3, km);
+		layout.setWidget(0, 2, new Label("O-Radius"));
+		layout.setWidget(0, 3, km1);
 		// layout.setWidget(0, 4, new Label("Destination "));
 		// layout.setWidget(0, 5, tbox2);
-		layout.setWidget(0, 4, but_submit);
+		//layout.setWidget(0, 4, but_submit);
 
+		
+		layout.setWidget(1, 0, new Label("Destination"));
+		layout.setWidget(1, 1, tbox2);
+		layout.setWidget(1, 2, new Label("D-Radius"));
+		layout.setWidget(1, 3, km2);
+		// layout.setWidget(0, 4, new Label("Destination "));
+		// layout.setWidget(0, 5, tbox2);
+		layout.setWidget(1, 4, but_submit);
+		
 		dp2.add(layout);
 	}
 
 	public void setMarkers(String[][] r) {
-		try {
-			tt_srv=r;
-			double d0=0,d1=0,d2=0,d3=0;
-			for (int i = 0; i < r.length; i++) {
-				final String s1 = "WO#: " + r[i][4]+
-				"<br>" + r[i][5]+
-				"<br>" + r[i][6];
-				try{
-						d0=Double.parseDouble(r[i][0]);
-						d1=Double.parseDouble(r[i][1]);
-				}catch(Exception e){}
-				
-				
-				final Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
-				icon.setImageURL("marker.png");
-				//	icon.setImageURL("markerGreen.png");
-				MarkerOptions ops = MarkerOptions.newInstance(icon);
-				ops.setIcon(icon);
-				final Marker mm = new Marker(LatLng.newInstance(d0,d1),
-						ops);
+		if (r.length > 0)
+			if (r[0].length > 6)
+				try {
+					tt_srv = r;
+					double d0 = 0, d1 = 0, d2 = 0, d3 = 0;
+					for (int i = 0; i < r.length; i++) {
+						final String s1 = String.valueOf(r.length) + " WO#: "
+								+ r[i][4] + "<br>" + r[i][6] + "<br>" + r[i][8];
+						try {
+							d0 = Double.parseDouble(r[i][0]);
+							d1 = Double.parseDouble(r[i][1]);
+						} catch (Exception e) {
+						}
 
-				mm.addMarkerMouseOverHandler(new MarkerMouseOverHandler(){
+						final Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
+						icon.setImageURL("marker.png");
+						// icon.setImageURL("markerGreen.png");
+						MarkerOptions ops = MarkerOptions.newInstance(icon);
+						ops.setIcon(icon);
+						final Marker mm1 = new Marker(
+								LatLng.newInstance(d0, d1), ops);
 
-					@Override
-					public void onMouseOver(MarkerMouseOverEvent event) {
-						map.getInfoWindow().open(mm, new InfoWindowContent(s1));
-					}});
-				
-				mm.addMarkerClickHandler(new MarkerClickHandler() {
+						mm1.addMarkerMouseOverHandler(new MarkerMouseOverHandler() {
 
-					public void onClick(MarkerClickEvent event) {
-						map.removeOverlay(mm);
-						//map.getInfoWindow().open(mm, new InfoWindowContent(s1));
+							@Override
+							public void onMouseOver(MarkerMouseOverEvent event) {
+								map.getInfoWindow().open(mm1,
+										new InfoWindowContent(s1));
+							}
+						});
+
+						mm1.addMarkerClickHandler(new MarkerClickHandler() {
+
+							public void onClick(MarkerClickEvent event) {
+								map.removeOverlay(mm1);
+								// map.getInfoWindow().open(mm, new
+								// InfoWindowContent(s1));
+							}
+						});
+
+						ar.add(mm1);
+						aritab.add(i);
+
+						map.addOverlay(mm1);
+
 					}
-				});
-				//mm.addMarkerDoubleClickHandler(new MarkerDoubleClickHandler() {
 
-				//	public void onDoubleClick(MarkerDoubleClickEvent event) {
-				//		map.removeOverlay(mm);
-				//	}
-				//});
-				ar.add(mm);
-				aritab.add(i);
-				
-				map.addOverlay(mm);
-				
-				
-			}
-			
-			for (int i = 0; i < r.length; i++) {
-				final String s1 = "WO#: " + r[i][4]+
-				"<br>" + r[i][5]+
-				"<br>" + r[i][6];
-				
-				try{
-					d2=Double.parseDouble(r[i][2]);
-					d3=Double.parseDouble(r[i][3]);
-			}catch(Exception e){}
-			
-			
-				final Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
-				//icon.setImageURL("marker.png");
-					icon.setImageURL("markerGreen.png");
-				MarkerOptions ops = MarkerOptions.newInstance(icon);
-				ops.setIcon(icon);
-				final Marker mm = new Marker(LatLng.newInstance(d2, d3),
-						ops);
-				mm.addMarkerMouseOverHandler(new MarkerMouseOverHandler(){
+					for (int i = 0; i < r.length; i++) {
+						final String s2 = "WO#: " + r[i][4] + "<br>" + r[i][6]
+								+ "<br>" + r[i][8];
 
-					@Override
-					public void onMouseOver(MarkerMouseOverEvent event) {
-						map.getInfoWindow().open(mm, new InfoWindowContent(s1));
-					}});
-				
-				mm.addMarkerClickHandler(new MarkerClickHandler() {
+						try {
+							d2 = Double.parseDouble(r[i][2]);
+							d3 = Double.parseDouble(r[i][3]);
+						} catch (Exception e) {
+						}
 
-					public void onClick(MarkerClickEvent event) {
-						map.removeOverlay(mm);
-						//map.getInfoWindow().open(mm, new InfoWindowContent(s1));
+						final Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
+						// icon.setImageURL("marker.png");
+						icon.setImageURL("markerGreen.png");
+						MarkerOptions ops = MarkerOptions.newInstance(icon);
+						ops.setIcon(icon);
+						final Marker mm2 = new Marker(
+								LatLng.newInstance(d2, d3), ops);
+						mm2.addMarkerMouseOverHandler(new MarkerMouseOverHandler() {
+
+							@Override
+							public void onMouseOver(MarkerMouseOverEvent event) {
+								
+								map.getInfoWindow().open(mm2,
+										new InfoWindowContent(s2));
+							}
+						});
+
+						mm2.addMarkerClickHandler(new MarkerClickHandler() {
+
+							public void onClick(MarkerClickEvent event) {
+								map.removeOverlay(mm2);
+							}
+						});
+
+						ar2.add(mm2);
+						aritab.add(i);
+
+						map.addOverlay(mm2);
+
 					}
-				});
-				//mm.addMarkerDoubleClickHandler(new MarkerDoubleClickHandler() {
 
-				//	public void onDoubleClick(MarkerDoubleClickEvent event) {
-				//		map.removeOverlay(mm);
-				//	}
-				//});
-				ar.add(mm);
-				aritab.add(i);
-				map.addOverlay(mm);
-				
-				
-			}
-			
-		} catch (Exception eee) {
-			phLogin.add(new HTML(String.valueOf(r.length)+" "+ eee.toString()));
-		}
+				} catch (Exception eee) {
+					phLogin.add(new HTML(String.valueOf(r.length) + " "
+							+ eee.toString()));
+				}
 
 	}
 
-
-	
 	final LatLngCallback geoint = new LatLngCallback() {
 		@Override
 		public void onFailure() {
-			phLogin.add(new HTML("???"));
+			phLogin.add(new HTML("geoint1 failure"));
 		}
 
 		@Override
@@ -596,7 +616,7 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 					}
 				});
 				map.addOverlay(md);
-				String skm = km.getItemText(km.getSelectedIndex());
+				String skm = km1.getItemText(km1.getSelectedIndex());
 				if (skm.equals("10 km")) {
 					map.setCenter(place, 11);
 					for (int i = 0; i < ar.size(); i++) {
@@ -607,7 +627,7 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 						}
 					}
 				}
-
+				else
 				if (skm.equals("20 km")) {
 					map.setCenter(place, 10);
 					for (int i = 0; i < ar.size(); i++) {
@@ -619,6 +639,7 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 
 					}
 				}
+				else
 				if (skm.equals("50 km")) {
 					map.setCenter(place, 9);
 					for (int i = 0; i < ar.size(); i++) {
@@ -630,7 +651,7 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 
 					}
 				}
-
+				else
 				if (skm.equals("100 km")) {
 					map.setCenter(place, 8);
 
@@ -643,6 +664,7 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 
 					}
 				}
+				else
 				if (skm.equals("200 km")) {
 					map.setCenter(place, 7);
 
@@ -655,7 +677,8 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 
 					}
 				}
-				if (skm.equals("all")) {
+				else
+				if (skm.equals("")) {
 					map.setCenter(place, 3);
 					for (int i = 0; i < ar.size(); i++) {
 						map.addOverlay(ar.get(i));
@@ -663,14 +686,122 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 					}
 
 				}
-				layout.setHTML(0, 5, "");
-
+				//layout.setHTML(0, 5, "");
+			
 			} catch (Exception eee) {
 				layout.setHTML(0, 5, eee.toString());
 			}
 		}
 	};
 
+	// TODO
+	
+	final LatLngCallback geoint2 = new LatLngCallback() {
+		@Override
+		public void onFailure() {
+			phLogin.add(new HTML("geoint2 failure"));
+		}
+
+		@Override
+		public void onSuccess(LatLng point) {
+			try {
+
+				aritab2.clear();
+
+				place = point;
+				Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
+				icon.setImageURL("blue.png");
+				MarkerOptions ops = MarkerOptions.newInstance(icon);
+				ops.setIcon(icon);
+				final Marker md = new Marker(place, ops);
+				md.addMarkerClickHandler(new MarkerClickHandler() {
+					public void onClick(MarkerClickEvent event) {
+						map.getInfoWindow().open(
+								md,
+								new InfoWindowContent("Destination point:<br>"
+										+ tbox2.getText()));
+					}
+				});
+				map.addOverlay(md);
+				String skm = km2.getItemText(km2.getSelectedIndex());
+				if (skm.equals("10 km")) {
+					map.setCenter(place, 11);
+					for (int i = 0; i < ar2.size(); i++) {
+						double dis = place.distanceFrom(ar2.get(i).getLatLng());
+						if (dis < 10000) {
+							map.addOverlay(ar2.get(i));
+							aritab2.add(i);
+						}
+					}
+				}
+				else
+				if (skm.equals("20 km")) {
+					map.setCenter(place, 10);
+					for (int i = 0; i < ar2.size(); i++) {
+						double dis = place.distanceFrom(ar2.get(i).getLatLng());
+						if (dis < 20000) {
+							map.addOverlay(ar2.get(i));
+							aritab2.add(i);
+						}
+
+					}
+				}
+				else
+				if (skm.equals("50 km")) {
+					map.setCenter(place, 9);
+					for (int i = 0; i < ar2.size(); i++) {
+						double dis = place.distanceFrom(ar2.get(i).getLatLng());
+						if (dis < 100000) {
+							map.addOverlay(ar2.get(i));
+							aritab2.add(i);
+						}
+
+					}
+				}
+				else
+
+				if (skm.equals("100 km")) {
+					map.setCenter(place, 8);
+
+					for (int i = 0; i < ar2.size(); i++) {
+						double dis = place.distanceFrom(ar2.get(i).getLatLng());
+						if (dis < 100000) {
+							map.addOverlay(ar2.get(i));
+							aritab2.add(i);
+						}
+
+					}
+				}
+				else
+				if (skm.equals("200 km")) {
+					map.setCenter(place, 7);
+
+					for (int i = 0; i < ar2.size(); i++) {
+						double dis = place.distanceFrom(ar2.get(i).getLatLng());
+						if (dis < 100000) {
+							map.addOverlay(ar2.get(i));
+							aritab2.add(i);
+						}
+
+					}
+				}
+				else
+				if (skm.equals("")) {
+					map.setCenter(place, 3);
+					for (int i = 0; i < ar2.size(); i++) {
+						map.addOverlay(ar2.get(i));
+						aritab2.add(i);
+					}
+
+				}
+				
+
+			} catch (Exception eee) {
+				layout.setHTML(0, 5, eee.toString());
+			}
+		}
+	};
+	
 	public ObjectFactory getObjectFactory() {
 		return objectFactory;
 	}
@@ -702,4 +833,16 @@ public class UfosView extends Composite implements ObjectFactoryListener {
 
 	}
 
+	/*
+	 * void load_shippers() {
+	 * 
+	 * srv.getData("shippers", new AsyncCallback<String[][]>() { public void
+	 * onFailure(Throwable caught) { pvR.add(new HTML(caught.toString())); }
+	 * 
+	 * public void onSuccess(String r[][]) { dropBox_shipper.addItem("", "");
+	 * for (int i = 0; i < r.length; i++) { dropBox_shipper.addItem(r[i][0],
+	 * r[i][3]); } } });
+	 * 
+	 * }
+	 */
 }

@@ -28,7 +28,7 @@ public class WorderView extends ObjectView {
 		addField( "Equipm", story.getDescription() );
 		addField( "Pieces", story.get_pieces() );
 		addField( "Type", story.get_type() );
-		addField( "Descr", story.getDescription() );
+		addField( "Descr", story.get_desc() );
 		addField( "Lbs", story.get_weight_lbs() );
 		addField( "Kgs", story.get_weight_kgs() );
 		addField( "Pickup", story.getpickup_dt() );

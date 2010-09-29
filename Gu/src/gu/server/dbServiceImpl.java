@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import gu.client.dbService;
 import gu.client.model.Consignee;
 import gu.client.model.Shipper;
@@ -32,21 +34,28 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 	public String[][] getUser(String input) {
 
 		HttpServletRequest req = getThreadLocalRequest();
-		String[][] sss = { { "b", "44", "-77", "INIT" } };
+		HttpServletResponse res = getThreadLocalResponse();
+
+		String[][] sss = { { "b", "44", "-77", "INIT" },
+				{ "b", "44", "-77", "INIT" } };
 
 		UserService userService = UserServiceFactory.getUserService();
+
 		User user = userService.getCurrentUser();
 		if (user != null) {
 			sss[0][0] = "<br>&nbsp;&nbsp;" + req.getUserPrincipal().getName()
 					+ " | <b><a href=\"" + userService.createLogoutURL("/")
 					+ "\">Logout</a></b><br><br>";
+			return sss;
 		} else {
+
 			sss[0][0] = "<center><br><br><br><br><br><b><a href=\""
 					+ userService.createLoginURL("/")
-					+ "\">Sign In</a></b></crnter>";
-		}
+					+ "\">Sign In</a></b></center>";
 
+		}
 		return sss;
+
 	}
 
 	public ArrayList<String[]> getShippers(ArrayList<String[]> ar) {
@@ -152,14 +161,14 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 				{ "", "", "", "" } };
 
 		if (input.equals("login")) {
-			sss = getUser("");
+			//sss = getUser("");
+			sss[0][0]="Logout";
 			return sss;
 		}
 
-		
 		if (input.equals("qq")) {
 			ar.clear();
-			ar=get_qq(ar);
+			ar = get_qq(ar);
 			if (ar.size() > 0) {
 				sss = new String[ar.size()][ar.get(0).length];
 				for (int n = 0; n < ar.size(); n++) {
@@ -168,17 +177,13 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 			}
 			return sss;
 		}
-		
 
-		
-		
 		if (input.equals("all")) {
 			ar.clear();
-			
-			//ar=get_qq(ar);
-			
-			
-			 //ar = getShippers(ar);
+
+			// ar=get_qq(ar);
+
+			// ar = getShippers(ar);
 			// ar = getConsignees(ar);
 
 			ar = getWorders(ar);
@@ -188,9 +193,9 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 				for (int n = 0; n < ar.size(); n++) {
 					sss[n] = ar.get(n);
 				}
-				//for (int n = 0; n < sss[0].length; n++) {
-				//	System.out.print(sss[0][n] + " ");
-				//}
+				// for (int n = 0; n < sss[0].length; n++) {
+				// System.out.print(sss[0][n] + " ");
+				// }
 				return sss;
 			}
 			return sss;
@@ -229,7 +234,7 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 				int kw = woList.size();
 				String[] zz = null;
 				while (iw < kw) {
-					
+
 					ww = woList.get(iw++);
 					String ship_id = ww.get_ship_id();
 					if (ship_id.equals(sh.get_ship_id())) {
@@ -241,11 +246,11 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 						int kc = consList.size();
 						while (ic < kc) {
 							cn = consList.get(ic++);
-							
+
 							if (cons_id.equals(cn.get_ConsId())) {
 
 								zz = new String[] {
-										
+
 										"r",
 										sh.getLatitude(),
 										sh.getLongtitude(),
@@ -256,19 +261,15 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 										cn.getLongtitude(),
 										"InfoWindow for shipper "
 												+ cn.getName(),
-										ww.get_wo_number(),
+										ww.get_wo_number(), " ",
+										sh.getCity() + ", " + sh.getProv(),
 										" ",
-										sh.getCity() + ", " + sh.getProv()
-												, " ",
 										cn.getCity() + ", " + cn.getProv(),
 										ww.getDescription(), ww.get_pieces(),
 										ww.get_type(), ww.getDescription(),
 										" ", ww.get_weight_lbs(),
 										ww.get_weight_kgs(), ww.getpickup_dt(),
 										ww.get_delivery_dt() };
-										
-							
-								
 
 							}
 						}
@@ -285,7 +286,7 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 				}
 
 				// //////////////////////////////////////////////////
-				if(zz!=null)
+				if (zz != null)
 					ar.add(zz);
 			}
 			String[][] sss = null;
@@ -296,13 +297,13 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 					sss[n] = ar.get(n);
 				}
 			}
-			//if (sss != null)
-			//	for (int m = 0; m < ar.size(); m++) {
-				//	for (int n = 0; n < sss[0].length; n++) {
-				//		System.out.print(sss[m][n] + " ");
-				//	}
-					//System.out.println();
-				//}
+			// if (sss != null)
+			// for (int m = 0; m < ar.size(); m++) {
+			// for (int n = 0; n < sss[0].length; n++) {
+			// System.out.print(sss[m][n] + " ");
+			// }
+			// System.out.println();
+			// }
 			// //////////////////////////////////////////////////
 
 			return ar;
@@ -317,8 +318,8 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			@SuppressWarnings("unchecked")
 			List<Worder> woList = (List<Worder>) pm.newQuery(
-					"SELECT FROM " + Worder.class.getName()).execute();
-
+					"SELECT FROM " + Worder.class.getName()
+							+ " ORDER BY wo_number").execute();
 
 			Worder ww = null;
 			Shipper sh = null;
@@ -328,49 +329,63 @@ public class dbServiceImpl extends RemoteServiceServlet implements dbService {
 
 			ar = new ArrayList<String[]>();
 
+			// ////////////////////////////////////////////////////////
 
-				// ////////////////////////////////////////////////////////
+			int iw = 0;
+			int kw = woList.size();
+			String[] zz = null;
+			while (iw < kw) {
 
-				int iw = 0;
-				int kw = woList.size();
-				String[] zz = null;
-				while (iw < kw) {
-					
-					ww = woList.get(iw++);
-					String ship_id = ww.get_ship_id();
-					String cons_id = ww.get_cons_id();
-					
-					@SuppressWarnings("unchecked")
-					List<Shipper> shipList = (List<Shipper>) pm.newQuery(
-							"SELECT FROM " + Shipper.class.getName() +" WHERE sShipId == '"+ship_id+"'").execute();
+				ww = woList.get(iw++);
+				String ship_id = ww.get_ship_id();
+				String cons_id = ww.get_cons_id();
 
-					
-					@SuppressWarnings("unchecked")
-					List<Consignee> consList = (List<Consignee>) pm.newQuery(
-					"SELECT FROM " + Consignee.class.getName()+" WHERE sConsId == '"+cons_id+"'").execute();
-					
-					if(shipList==null || consList==null)
-						break;
-					
-					String wo_number="", ship_lat="",ship_long="",ship_prov="",ship_city="",cons_lat="",cons_long="",cons_prov="",cons_city="";
-					
-					ship_lat=shipList.get(0).getLatitude();
-					ship_long=shipList.get(0).getLongtitude();
-					cons_lat=consList.get(0).getLatitude();
-					cons_long=consList.get(0).getLongtitude();
+				@SuppressWarnings("unchecked")
+				List<Shipper> shipList = (List<Shipper>) pm.newQuery(
+						"SELECT FROM " + Shipper.class.getName()
+								+ " WHERE sShipId == '" + ship_id + "'")
+						.execute();
 
-					wo_number=ww.get_wo_number();
-					ship_city=shipList.get(0).getCity();
-					cons_city=consList.get(0).getCity();
-					
-					
-					zz = new String[] {
-							ship_lat,ship_long,cons_lat,cons_long,wo_number,ship_city,cons_city
-					};
-										
-								
-								ar.add(zz);
-				}
+				@SuppressWarnings("unchecked")
+				List<Consignee> consList = (List<Consignee>) pm.newQuery(
+						"SELECT FROM " + Consignee.class.getName()
+								+ " WHERE sConsId == '" + cons_id + "'")
+						.execute();
+
+				if (shipList == null || consList == null)
+					break;
+
+				String wo_number = "", ship_lat = "", ship_long = "", ship_prov = "", ship_city = "", cons_lat = "", cons_long = "", cons_prov = "", cons_city = "",
+
+				sEquipmqnt = "", sPieces = "", sType = "", sDesc = "", slbs = "", skgs = "", sPickup = "", sDelivery = "";
+
+				ship_lat = shipList.get(0).getLatitude();
+				ship_long = shipList.get(0).getLongtitude();
+				cons_lat = consList.get(0).getLatitude();
+				cons_long = consList.get(0).getLongtitude();
+
+				wo_number = ww.get_wo_number();
+				ship_city = shipList.get(0).getCity();
+				ship_prov = shipList.get(0).getProv();
+				cons_city = consList.get(0).getCity();
+				cons_prov = consList.get(0).getProv();
+
+				sEquipmqnt = ww.getDescription();
+				sPieces = ww.get_pieces();
+				sType = ww.get_type();
+				sDesc = ww.get_desc();
+				slbs = ww.get_weight_lbs();
+				skgs = ww.get_weight_kgs();
+				sPickup = ww.getpickup_dt();
+				sDelivery = ww.get_delivery_dt();
+
+				zz = new String[] { ship_lat, ship_long, cons_lat, cons_long,
+						wo_number, "", ship_city + ", " + ship_prov, "",
+						cons_city + ", " + cons_prov, sEquipmqnt, sPieces,
+						sType, sDesc, "",slbs, skgs, sPickup, sDelivery };
+
+				ar.add(zz);
+			}
 
 			String[][] sss = null;
 			if (ar.size() != 0) {

@@ -1,5 +1,8 @@
 package gu;
 
+import gu.client.model.Consignee;
+import gu.client.model.Shipper;
+import gu.client.model.Worder;
 import gu.server.PMF;
 
 import java.io.IOException;
@@ -37,18 +40,81 @@ public class del extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter(); 
+	
 		
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-		List<Mrkr4> rd = (List<Mrkr4>) pm.newQuery("SELECT FROM " + Mrkr4.class.getName()+ " WHERE s5==\""+req.getQueryString()+"\"").execute();
-		String s=String.valueOf(rd.size());
-		for (int i = 0; i < rd.size(); i++)
-		{
-			Mrkr4 mr = pm.getObjectById(Mrkr4.class, rd.get(i).getId());
-			pm.deletePersistent(mr);
-		}
+		String s=req.getQueryString(); 
+		if(s.equals("word"))			
+			s="Worders deleted " +deleteWorder("");
+		if(s.equals("ship"))			
+			s="Shippers deleted " +deleteShipper("");
+		if(s.equals("cons"))			
+			s="Consignees deleted " +deleteConsignee("");
+		
 		out.println(s);
 	}
  
+@SuppressWarnings("unchecked")
+String deleteWorder (String s){
+	
+	try{PersistenceManager pm = PMF.get().getPersistenceManager();
+	
+	
+	List<Worder> rd = (List<Worder>) pm.newQuery("SELECT FROM " + Worder.class.getName() ).execute();//+ " WHERE s5==\""+req.getQueryString()+"\""
+	
+	s= String.valueOf(rd.size());
+	
+	
+	
+	int i = 0;
+	
+		
+		while(i<rd.size())
+				pm.deletePersistent(rd.get(i++));
+	
+		return s;
+	} catch ( Exception e){
+		s=e.toString();
+	}
+	return s;
+}	
+
+String deleteShipper (String s){
+	
+	try{PersistenceManager pm = PMF.get().getPersistenceManager();
+	@SuppressWarnings("unchecked")
+	List<Shipper> rd = (List<Shipper>) pm.newQuery("SELECT FROM " + Shipper.class.getName() ).execute();//+ " WHERE s5==\""+req.getQueryString()+"\""
+	s= String.valueOf(rd.size());
+	int i = 0;
+	
+		
+		while(i<rd.size())
+				pm.deletePersistent(rd.get(i++));
+	
+		return s;
+	} catch ( Exception e){
+		s=e.toString();
+	}
+	return s;
+}	
+@SuppressWarnings("unchecked")
+String deleteConsignee (String s){
+	
+	try{PersistenceManager pm = PMF.get().getPersistenceManager();
+	List<Consignee> rd = (List<Consignee>) pm.newQuery("SELECT FROM " + Consignee.class.getName() ).execute();//+ " WHERE s5==\""+req.getQueryString()+"\""
+	s= String.valueOf(rd.size());
+	int i = 0;
+	
+		
+		while(i<rd.size())
+				pm.deletePersistent(rd.get(i++));
+	
+		return s;
+	} catch ( Exception e){
+		s=e.toString();
+	}
+	return s;
+}	
+	
 	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
