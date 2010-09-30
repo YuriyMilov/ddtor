@@ -65,8 +65,10 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.PopupPanel;
 
 public class UfosView extends Composite {
-	private HTML load = new HTML("<font color=\"#DF0101\">&nbsp;&nbsp;loading...&nbsp;</font>");
-	//private LoadingPanel load = new LoadingPanel(new HTML("<font color=\"#DF0101\">&nbsp;loading...&nbsp;</font>"));
+	private HTML load = new HTML(
+			"<font color=\"#DF0101\">&nbsp;&nbsp;loading...&nbsp;</font>");
+	// private LoadingPanel load = new LoadingPanel(new
+	// HTML("<font color=\"#DF0101\">&nbsp;loading...&nbsp;</font>"));
 
 	boolean bo = true;
 	LatLng a1 = LatLng.newInstance(44, -77);
@@ -75,13 +77,15 @@ public class UfosView extends Composite {
 	HTML info = new HTML(s);
 	private MapWidget map;
 	// private VerticalPanel mm = new VerticalPanel();
-	private ObjectFactory objectFactory = new RPCObjectFactory(GWT
-			.getModuleBaseURL() + "objectFactory");
+	private ObjectFactory objectFactory = new RPCObjectFactory(
+			GWT.getModuleBaseURL() + "objectFactory");
 
 	private static final int HeaderRowIndex = 0;
 	private final dbServiceAsync srv = GWT.create(dbService.class);
 	final ArrayList<Marker> ar = new ArrayList<Marker>();
 	ArrayList<Marker> ar2 = new ArrayList<Marker>();
+	ArrayList<Marker> ar3 = new ArrayList<Marker>();
+	ArrayList<Marker> ar4 = new ArrayList<Marker>();
 	final ArrayList<Integer> aritab = new ArrayList<Integer>();
 	final ArrayList<Integer> aritab2 = new ArrayList<Integer>();
 	final ArrayList<String> arwo = new ArrayList<String>();
@@ -130,7 +134,7 @@ public class UfosView extends Composite {
 		initWidget(mainPanel);
 		mainPanel.add(load);
 		mainPanel.add(phLogin);
-		
+
 		mainPanel.add(phGlav);
 
 		// mainPanel.add(pvMap);
@@ -181,7 +185,7 @@ public class UfosView extends Composite {
 
 	public void onSigned(String logout) {
 		phLogin.add(new HTML(logout));
-		
+
 		srv.getData("qq", new AsyncCallback<String[][]>() {
 			public void onFailure(Throwable caught) {
 				fin();
@@ -189,7 +193,7 @@ public class UfosView extends Composite {
 			}
 
 			public void onSuccess(String[][] r) {
-				
+
 				prepButtons();
 
 				pvL.setWidth("11px");
@@ -203,7 +207,7 @@ public class UfosView extends Composite {
 				phd.setHeight("11px");
 				phd.add(info);
 				pvR.add(phd);
-				//pvR.add(map);
+				// pvR.add(map);
 				phGlav.add(pvR);
 
 				setMarkers(r);
@@ -291,6 +295,7 @@ public class UfosView extends Composite {
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
 				//
+				get_map();
 
 				pvR.add(map);
 				fin();
@@ -346,7 +351,7 @@ public class UfosView extends Composite {
 						fin();
 					}
 				});
-				
+
 			}
 		});
 
@@ -358,13 +363,13 @@ public class UfosView extends Composite {
 				view.removeFromParent();
 
 				map.clearOverlays();
-				if(tbox1.getText().length()>0 && tbox2.getText().length()>0)
-				{
-				geo.getLatLng(tbox1.getText(), geoint);
-				geo.getLatLng(tbox2.getText(), geoint);
-				qqqq();
-				}
-				else Window.alert("Please fill in a location");
+				if (tbox1.getText().length() > 0
+						&& tbox2.getText().length() > 0) {
+					geo.getLatLng(tbox1.getText(), geoint);
+					geo.getLatLng(tbox2.getText(), geoint);
+					qqqq();
+				} else
+					Window.alert("Please fill in a location");
 
 				flexTable.removeAllRows();
 				flexTable.removeAllRows();
@@ -439,7 +444,8 @@ public class UfosView extends Composite {
 					double d0 = 0, d1 = 0, d2 = 0, d3 = 0;
 					for (int i = 0; i < r.length; i++) {
 						final String s1 = String.valueOf(r.length) + " WO#: "
-								+ r[i][4] + "<br>" + r[i][6] + "<br>" + r[i][8];
+								+ r[i][4] + "<br>From: " + r[i][6] + "<br>To: "
+								+ r[i][8];
 						try {
 							d0 = Double.parseDouble(r[i][0]);
 							d1 = Double.parseDouble(r[i][1]);
@@ -481,8 +487,8 @@ public class UfosView extends Composite {
 					}
 
 					for (int i = 0; i < r.length; i++) {
-						final String s2 = "WO#: " + r[i][4] + "<br>" + r[i][6]
-								+ "<br>" + r[i][8];
+						final String s2 = "WO#: " + r[i][4] + "<br>From: "
+								+ r[i][6] + "<br>To: " + r[i][8];
 
 						try {
 							d2 = Double.parseDouble(r[i][2]);
@@ -531,6 +537,53 @@ public class UfosView extends Composite {
 				}
 
 	}
+
+	void get_map() {
+		ar3.clear();
+		ar4.clear();
+		if (tt_srv != null)
+		if (tt_srv.length > 0)
+		if (tt_srv[0].length > 4) {
+			try {
+				tt_clt = new String[tt_srv.length][tt_srv[0].length - 4];
+				for (int row = 0; row < tt_srv.length; row++) {
+					for (int col = 0; col < tt_srv[row].length - 4; col++) {
+						tt_clt[row][col] = tt_srv[row][col + 4];
+					}
+					if (aritab.contains(row))
+						arwo.add(tt_clt[row][0]);
+				}
+
+				if (tt_clt[0].length > 4) {
+					tt_clt2 = new String[tt_clt.length][tt_clt[0].length];
+					for (int row2 = 0; row2 < tt_clt.length; row2++) {
+						for (int col = 0; col < tt_clt[row2].length; col++) {
+							tt_clt2[row2][col] = tt_clt[row2][col];
+						}
+						if (aritab2.contains(row2))
+							if (arwo.contains(tt_clt2[row2][0]))
+							{
+								ar3.add(ar.get(row2));
+								ar4.add(ar2.get(row2));
+														
+							}
+
+					}
+				}
+				map.clearOverlays();
+				for(int i=0;i<ar3.size();i++)
+					map.addOverlay(ar3.get(i));
+				for(int i=0;i<ar4.size();i++)
+					map.addOverlay(ar4.get(i));
+				s="";
+				
+			} catch (Exception aa) {
+				phLogin.add(new HTML("getMap *** " + aa.toString()));
+			}
+		}
+	}
+
+
 
 	void get_board() {
 		rowIndex = 1;
@@ -606,7 +659,7 @@ public class UfosView extends Composite {
 			}
 		}
 	};
-
+	
 	void qqqq() {
 
 		aritab.clear();
@@ -628,7 +681,7 @@ public class UfosView extends Composite {
 		map.addOverlay(md);
 		String skm = km1.getItemText(km1.getSelectedIndex());
 		if (skm.equals("10 km")) {
-			//map.setCenter(place, 11);
+			// map.setCenter(place, 11);
 			for (int i = 0; i < ar.size(); i++) {
 				double dis = place.distanceFrom(ar.get(i).getLatLng());
 				if (dis < 10000) {
@@ -637,7 +690,7 @@ public class UfosView extends Composite {
 				}
 			}
 		} else if (skm.equals("20 km")) {
-			//map.setCenter(place, 10);
+			// map.setCenter(place, 10);
 			for (int i = 0; i < ar.size(); i++) {
 				double dis = place.distanceFrom(ar.get(i).getLatLng());
 				if (dis < 20000) {
@@ -647,7 +700,7 @@ public class UfosView extends Composite {
 
 			}
 		} else if (skm.equals("50 km")) {
-			//map.setCenter(place, 9);
+			// map.setCenter(place, 9);
 			for (int i = 0; i < ar.size(); i++) {
 				double dis = place.distanceFrom(ar.get(i).getLatLng());
 				if (dis < 50000) {
@@ -657,7 +710,7 @@ public class UfosView extends Composite {
 
 			}
 		} else if (skm.equals("100 km")) {
-			//map.setCenter(place, 8);
+			// map.setCenter(place, 8);
 
 			for (int i = 0; i < ar.size(); i++) {
 				double dis = place.distanceFrom(ar.get(i).getLatLng());
@@ -668,7 +721,7 @@ public class UfosView extends Composite {
 
 			}
 		} else if (skm.equals("200 km")) {
-			//map.setCenter(place, 7);
+			// map.setCenter(place, 7);
 
 			for (int i = 0; i < ar.size(); i++) {
 				double dis = place.distanceFrom(ar.get(i).getLatLng());
@@ -679,7 +732,7 @@ public class UfosView extends Composite {
 
 			}
 		} else if (skm.equals("")) {
-			//map.setCenter(place, 3);
+			// map.setCenter(place, 3);
 			for (int i = 0; i < ar.size(); i++) {
 				map.addOverlay(ar.get(i));
 				aritab.add(i);
@@ -768,7 +821,6 @@ public class UfosView extends Composite {
 		}
 
 	}
-
 
 	public void start() {
 		phLogin.add(load);
