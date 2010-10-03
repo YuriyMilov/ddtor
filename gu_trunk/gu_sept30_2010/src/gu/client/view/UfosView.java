@@ -65,27 +65,29 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.PopupPanel;
 
 public class UfosView extends Composite {
+	
 	private HTML load = new HTML(
 			"<font color=\"#DF0101\">&nbsp;&nbsp;loading...&nbsp;</font>");
-	// private LoadingPanel load = new LoadingPanel(new
-	// HTML("<font color=\"#DF0101\">&nbsp;loading...&nbsp;</font>"));
-
+	String[][] ss = null;
+	String sbox1 = "toronto", sbox2 = "calgary";
 	boolean bo = true;
 	LatLng a1 = LatLng.newInstance(44, -77);
 	LatLng a2 = LatLng.newInstance(44, -77);
-	String s = "";
+	public String s = "";
 	HTML info = new HTML(s);
 	private MapWidget map;
-	// private VerticalPanel mm = new VerticalPanel();
 	private ObjectFactory objectFactory = new RPCObjectFactory(
 			GWT.getModuleBaseURL() + "objectFactory");
-
 	private static final int HeaderRowIndex = 0;
 	private final dbServiceAsync srv = GWT.create(dbService.class);
-	final ArrayList<Marker> ar = new ArrayList<Marker>();
+	final ArrayList<String> ar = new ArrayList<String>();
+	final ArrayList<Marker> ar1 = new ArrayList<Marker>();
 	ArrayList<Marker> ar2 = new ArrayList<Marker>();
 	ArrayList<Marker> ar3 = new ArrayList<Marker>();
 	ArrayList<Marker> ar4 = new ArrayList<Marker>();
+	ArrayList<Marker> ar5 = new ArrayList<Marker>();
+	ArrayList<Marker> ar6 = new ArrayList<Marker>();
+	ArrayList<String[]> ar7 = new ArrayList<String[]>();
 	final ArrayList<Integer> aritab = new ArrayList<Integer>();
 	final ArrayList<Integer> aritab2 = new ArrayList<Integer>();
 	final ArrayList<String> arwo = new ArrayList<String>();
@@ -95,9 +97,7 @@ public class UfosView extends Composite {
 	private static String[][] tt_clt2 = null;
 	private DatabaseEditorView view = new DatabaseEditorView();
 	int rowIndex = 1;
-
 	VerticalPanel mainPanel = new VerticalPanel();
-	// VerticalPanel pvMap = new VerticalPanel();
 	HorizontalPanel phd = new HorizontalPanel();
 	VerticalPanel pvL = new VerticalPanel();
 	VerticalPanel pvR = new VerticalPanel();
@@ -108,21 +108,16 @@ public class UfosView extends Composite {
 	HTML sign = new HTML();
 	final Geocoder geo = new Geocoder();
 	final LatLng gde = LatLng.newInstance(44, -77);
-
-	final Button but_map = new Button("Map");
+	final Button but_map = new Button(" Map ");
 	final Button but_board = new Button("Board");
-
-	// final Button but_LoadBoard = new Button("Board");
 	final Button but_database = new Button("Database");
-	// final Button but_search = new Button("Search");
 	final Button but_search = new Button("Search");
+	final Button but_all = new Button("All");
 	final Button but_reload = new Button("Update");
 	final FlexTable flexTable = new FlexTable();
-
 	final ListBox dropBox1 = new ListBox(false);
 	final ListBox km1 = new ListBox(false);
 	final ListBox km2 = new ListBox(false);
-	// final ListBox dropBox_shipper = new ListBox(false);
 	final ListBox drop_box_equip = new ListBox(false);
 	final FlexTable layout = new FlexTable();
 	final TextBox tbox1 = new TextBox();
@@ -140,10 +135,10 @@ public class UfosView extends Composite {
 		// mainPanel.add(pvMap);
 		setStyleName("databaseEditorView");
 		map = new MapWidget(LatLng.newInstance(44, -77), 3);
-		map.setSize("600px", "400px");
+		map.setSize("1200px", "800px");
 		map.setScrollWheelZoomEnabled(true);
 		map.addControl(new LargeMapControl());
-		map.addMapClickHandler(h);
+		// map.addMapClickHandler(h);
 		prepSearchPanel();
 		onSigned("<br>");
 
@@ -171,19 +166,18 @@ public class UfosView extends Composite {
 		 */
 	}
 
-	final MapClickHandler h = new MapClickHandler() {
-		public void onClick(MapClickEvent event) {
-			info.removeFromParent();
-			if (event.getLatLng() != null)
-				info = new HTML(String.valueOf(event.getLatLng()));
-			if (event.getOverlayLatLng() != null)
-				info = new HTML(String.valueOf(event.getOverlayLatLng()));
-			phd.add(info);
+	/*
+	 * final MapClickHandler h = new MapClickHandler() { public void
+	 * onClick(MapClickEvent event) { info.removeFromParent(); if
+	 * (event.getLatLng() != null) info = new
+	 * HTML(String.valueOf(event.getLatLng())); if (event.getOverlayLatLng() !=
+	 * null) info = new HTML(String.valueOf(event.getOverlayLatLng()));
+	 * phd.add(info);
+	 * 
+	 * } };
+	 */
 
-		}
-	};
-
-	public void onSigned(String logout) {
+	void onSigned(String logout) {
 		phLogin.add(new HTML(logout));
 
 		srv.getData("qq", new AsyncCallback<String[][]>() {
@@ -198,11 +192,6 @@ public class UfosView extends Composite {
 
 				pvL.setWidth("11px");
 				phGlav.add(pvL);
-				phTop.add(but_board);
-				phTop.add(but_map);
-				phTop.add(but_database);
-				phTop.add(but_reload);
-				pvR.add(phTop);
 				pvR.add(pDecor);
 				phd.setHeight("11px");
 				phd.add(info);
@@ -211,9 +200,38 @@ public class UfosView extends Composite {
 				phGlav.add(pvR);
 
 				setMarkers(r);
-				geo.getLatLng(tbox1.getText(), geoint);
-				geo.getLatLng(tbox2.getText(), geoint);
-				qqqq();
+				ss = new String[r.length + r.length][2];
+				for (int i = 0; i < r.length; i++) {
+					try{
+					String s3=r[i][0].trim();
+					s3=String.valueOf(Double.parseDouble(s3));
+					String s4=r[i][1].trim();
+					s4=String.valueOf(Double.parseDouble(s4));
+					ss[i][0] =  s3+ s4;
+					}catch(Exception e){
+						ss[i][0] =  "";
+					}
+					ss[i][1] = r[i][4].trim();
+				}
+				for (int i = 0; i < r.length; i++) {
+					try{
+						
+					
+					String s3=r[i][2].trim();
+					s3=String.valueOf(Double.parseDouble(s3));
+					String s4=r[i][3].trim();
+					s4=String.valueOf(Double.parseDouble(s4));
+
+					ss[r.length + i][0] = s3 + s4;
+					
+					}catch(Exception e){
+						ss[r.length + i][0] =  "";
+					}
+					ss[r.length + i][1] = r[i][4].trim();
+				}
+				for (int i = 0; i < ss.length; i++)
+					ar7.add(ss[i]);
+
 				fin();
 			}
 		});
@@ -266,7 +284,7 @@ public class UfosView extends Composite {
 		}
 	}
 
-	void prepButtons() {
+	public void prepButtons() {
 
 		but_board.addClickHandler(new ClickHandler() {
 			@Override
@@ -323,7 +341,7 @@ public class UfosView extends Composite {
 			public void onClick(ClickEvent event) {
 				start();
 				map.clearOverlays();
-				ar.clear();
+				ar1.clear();
 				srv.getData("qq", new AsyncCallback<String[][]>() {
 					public void onFailure(Throwable caught) {
 
@@ -340,10 +358,10 @@ public class UfosView extends Composite {
 						flexTable.removeFromParent();
 						//
 						map = new MapWidget(LatLng.newInstance(44, -77), 3);
-						map.setSize("600px", "400px");
+						map.setSize("1200px", "800px");
 						map.setScrollWheelZoomEnabled(true);
 						map.addControl(new LargeMapControl());
-						map.addMapClickHandler(h);
+						// map.addMapClickHandler(h);
 
 						setMarkers(r);
 
@@ -363,21 +381,44 @@ public class UfosView extends Composite {
 				view.removeFromParent();
 
 				map.clearOverlays();
-				if (tbox1.getText().length() > 0
-						&& tbox2.getText().length() > 0) {
-					geo.getLatLng(tbox1.getText(), geoint);
-					geo.getLatLng(tbox2.getText(), geoint);
-					qqqq();
-				} else
-					Window.alert("Please fill in a location");
+				sbox1 = tbox1.getText();
+				sbox2 = tbox2.getText();
+				bo = true;
+				if (sbox1.length() == 0 && sbox2.length() == 0) {
+					km1.setSelectedIndex(0);
+					km2.setSelectedIndex(0);
+					sbox1 = "toronto";
+					sbox2 = "toronto";
 
-				flexTable.removeAllRows();
-				flexTable.removeAllRows();
-				get_board();
+				} else if (sbox1.length() > 0 && sbox2.length() == 0) {
+					km2.setSelectedIndex(0);
+					sbox2 = "toronto";
+				} else if (sbox1.length() == 0 && sbox2.length() > 0) {
+					km1.setSelectedIndex(0);
+					sbox1 = "toronto";
+				}
 
+				geo.getLatLng(sbox1, geoint);
+
+			}
+		});
+
+		but_all.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+
+				//
+				map.removeFromParent();
+				view.removeFromParent();
+				flexTable.removeAllRows();
 				flexTable.removeFromParent();
-				flexTable.removeFromParent();
-				pvR.add(flexTable);
+				//
+				map.clearOverlays();
+				for (int i = 0; i < ar5.size(); i++)
+					map.addOverlay(ar5.get(i));
+				for (int i = 0; i < ar6.size(); i++)
+					map.addOverlay(ar6.get(i));
+				pvR.add(map);
 				fin();
 			}
 		});
@@ -402,36 +443,28 @@ public class UfosView extends Composite {
 		km2.addItem("100 km");
 		km2.addItem("200 km");
 		km2.setItemSelected(5, true);
-
 		layout.setWidget(0, 0, new HTML(" "));
 		layout.setCellSpacing(7);
-		// layout.setWidget(1, 0, new Label("Province "));
-
-		// layout.setWidget(1, 1, dropBox1);
-		// dropBox1.addItem("", "");
-		// dropBox1.addItem("ON", "ON");
-		// dropBox1.addItem("BC", "BC");
-
-		// drop_box_equip.addItem("Skids", "Skids");
-		// drop_box_equip.addItem("Boxes", "Boxes");
-		// layout.setWidget(3, 1, new Label("Equipment Type "));
-		// layout.setWidget(4, 1, drop_box_equip);
-
-		layout.setWidget(0, 0, new Label("Origin "));
+		layout.setWidget(0, 0, new Label("Origin"));
+		layout.setWidget(1, 0, new Label("Destin"));
 		layout.setWidget(0, 1, tbox1);
-		layout.setWidget(0, 2, new Label("O-Radius"));
-		layout.setWidget(0, 3, km1);
-		// layout.setWidget(0, 4, new Label("Destination "));
-		// layout.setWidget(0, 5, tbox2);
-		// layout.setWidget(0, 4, but_submit);
-
-		layout.setWidget(1, 0, new Label("Destination"));
 		layout.setWidget(1, 1, tbox2);
-		layout.setWidget(1, 2, new Label("D-Radius"));
+		layout.setWidget(0, 2, new Label("Orig-R"));
+		layout.setWidget(1, 2, new Label("Dest-R"));
+		layout.setWidget(0, 3, km1);
 		layout.setWidget(1, 3, km2);
-		// layout.setWidget(0, 4, new Label("Destination "));
-		// layout.setWidget(0, 5, tbox2);
-		layout.setWidget(1, 4, but_search);
+		but_search.setWidth("77px");
+		but_board.setWidth("77px");
+		but_map.setWidth("77px");
+		but_all.setWidth("77px");
+		but_database.setWidth("77px");
+		but_reload.setWidth("77px");
+		layout.setWidget(0, 4, but_search);
+		layout.setWidget(1, 4, but_board);
+		layout.setWidget(0, 5, but_map);
+		layout.setWidget(1, 5, but_all);
+		layout.setWidget(0, 6, but_database);
+		layout.setWidget(1, 6, but_reload);
 
 		pDecor.add(layout);
 	}
@@ -441,11 +474,14 @@ public class UfosView extends Composite {
 			if (r[0].length > 6)
 				try {
 					tt_srv = r;
+
 					double d0 = 0, d1 = 0, d2 = 0, d3 = 0;
 					for (int i = 0; i < r.length; i++) {
+
 						final String s1 = String.valueOf(r.length) + " WO#: "
 								+ r[i][4] + "<br>From: " + r[i][6] + "<br>To: "
 								+ r[i][8];
+
 						try {
 							d0 = Double.parseDouble(r[i][0]);
 							d1 = Double.parseDouble(r[i][1]);
@@ -457,6 +493,8 @@ public class UfosView extends Composite {
 						// icon.setImageURL("markerGreen.png");
 						MarkerOptions ops = MarkerOptions.newInstance(icon);
 						ops.setIcon(icon);
+						ops.setTitle(new String(String.valueOf(i)));
+
 						final Marker mm1 = new Marker(
 								LatLng.newInstance(d0, d1), ops);
 
@@ -470,16 +508,10 @@ public class UfosView extends Composite {
 						 * InfoWindowContent(s1)); } });
 						 */
 
-						mm1.addMarkerClickHandler(new MarkerClickHandler() {
+						mm1.addMarkerClickHandler(mmh);
 
-							public void onClick(MarkerClickEvent event) {
-								// map.removeOverlay(mm1);
-								map.getInfoWindow().open(mm1,
-										new InfoWindowContent(s1));
-							}
-						});
-
-						ar.add(mm1);
+						ar1.add(mm1);
+						ar5.add(mm1);
 						// aritab.add(i);
 
 						map.addOverlay(mm1);
@@ -487,6 +519,7 @@ public class UfosView extends Composite {
 					}
 
 					for (int i = 0; i < r.length; i++) {
+						
 						final String s2 = "WO#: " + r[i][4] + "<br>From: "
 								+ r[i][6] + "<br>To: " + r[i][8];
 
@@ -497,10 +530,10 @@ public class UfosView extends Composite {
 						}
 
 						final Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
-						// icon.setImageURL("marker.png");
 						icon.setImageURL("markerGreen.png");
 						MarkerOptions ops = MarkerOptions.newInstance(icon);
 						ops.setIcon(icon);
+						ops.setTitle(new String(String.valueOf(r.length + i)));
 						final Marker mm2 = new Marker(
 								LatLng.newInstance(d2, d3), ops);
 						/*
@@ -514,17 +547,10 @@ public class UfosView extends Composite {
 						 * InfoWindowContent(s2)); } });
 						 */
 
-						mm2.addMarkerClickHandler(new MarkerClickHandler() {
-
-							public void onClick(MarkerClickEvent event) {
-								// map.removeOverlay(mm2);
-								map.getInfoWindow().open(mm2,
-										new InfoWindowContent(s2));
-
-							}
-						});
+						mm2.addMarkerClickHandler(mmh);
 
 						ar2.add(mm2);
+						ar6.add(mm2);
 						// aritab2.add(i);
 
 						map.addOverlay(mm2);
@@ -538,54 +564,109 @@ public class UfosView extends Composite {
 
 	}
 
-	void get_map() {
+	public void get_map() {
+		ar.clear();
 		ar3.clear();
 		ar4.clear();
 		if (tt_srv != null)
-		if (tt_srv.length > 0)
-		if (tt_srv[0].length > 4) {
-			try {
-				tt_clt = new String[tt_srv.length][tt_srv[0].length - 4];
-				for (int row = 0; row < tt_srv.length; row++) {
-					for (int col = 0; col < tt_srv[row].length - 4; col++) {
-						tt_clt[row][col] = tt_srv[row][col + 4];
-					}
-					if (aritab.contains(row))
-						arwo.add(tt_clt[row][0]);
-				}
-
-				if (tt_clt[0].length > 4) {
-					tt_clt2 = new String[tt_clt.length][tt_clt[0].length];
-					for (int row2 = 0; row2 < tt_clt.length; row2++) {
-						for (int col = 0; col < tt_clt[row2].length; col++) {
-							tt_clt2[row2][col] = tt_clt[row2][col];
-						}
-						if (aritab2.contains(row2))
-							if (arwo.contains(tt_clt2[row2][0]))
-							{
-								ar3.add(ar.get(row2));
-								ar4.add(ar2.get(row2));
-														
+			if (tt_srv.length > 0)
+				if (tt_srv[0].length > 4) {
+					try {
+						tt_clt = new String[tt_srv.length][tt_srv[0].length - 4];
+						for (int row = 0; row < tt_srv.length; row++) {
+							for (int col = 0; col < tt_srv[row].length - 4; col++) {
+								tt_clt[row][col] = tt_srv[row][col + 4];
 							}
+							if (aritab.contains(row))
+								arwo.add(tt_clt[row][0]);
+						}
 
+						if (tt_clt[0].length > 4) {
+							tt_clt2 = new String[tt_clt.length][tt_clt[0].length];
+							for (int row2 = 0; row2 < tt_clt.length; row2++) {
+								for (int col = 0; col < tt_clt[row2].length; col++) {
+									tt_clt2[row2][col] = tt_clt[row2][col];
+								}
+								if (aritab2.contains(row2))
+									if (arwo.contains(tt_clt2[row2][0])) {
+										ar3.add(ar1.get(row2));
+										ar4.add(ar2.get(row2));
+
+										ar.add(tt_clt2[row2][0]);
+
+									}
+
+							}
+						}
+
+						s = "";
+						int n=0;
+
+						map.clearOverlays();
+						for (int i = 0; i < ar3.size(); i++) {
+							String s2 = "";
+							s = String.valueOf(ar3.get(i).getLatLng()
+									.getLatitude())
+									+ String.valueOf(ar3.get(i).getLatLng()
+											.getLongitude());
+							for (int j = 0; j < ar7.size(); j++) {
+								if (ar7.get(j)[0].equals(s)) {
+									//s2 = s2 + c + " ";
+									
+									for(int k = 0; k < ar.size(); k++)
+									{
+										//TODO
+										if (ar.get(k).equals(ar7.get(j)[1]))
+										{
+											s2 = s2 + ar7.get(j)[1] + " ";
+											ss[j][1]=s2;
+										}
+									}
+								}
+							}
+			
+							map.addOverlay(ar3.get(i));
+						}
+						for (int i = 0; i < ar4.size(); i++) {
+								String s2 = "";
+								
+								
+								s = String.valueOf(ar4.get(i).getLatLng()
+										.getLatitude())
+										+ String.valueOf(ar4.get(i).getLatLng()
+												.getLongitude());
+								
+								
+								
+								for (int j = 0; j < ar7.size(); j++) {
+
+									if (ar7.get(j)[0].equals(s)) {
+										//s2 = s2 + c + " ";
+										
+										for(int k = 0; k < ar.size(); k++)
+										{
+											//TODO
+											if (ar.get(k).equals(ar7.get(j)[1]))
+											{
+												s2 = s2 + ar7.get(j)[1] + " ";
+												ss[j][1]=s2;
+											}
+											
+										}
+									}
+								}
+								
+							map.addOverlay(ar4.get(i));
+
+						}
+
+					} catch (Exception aa) {
+						phLogin.add(new HTML("getMap *** " + aa.toString()));
 					}
 				}
-				map.clearOverlays();
-				for(int i=0;i<ar3.size();i++)
-					map.addOverlay(ar3.get(i));
-				for(int i=0;i<ar4.size();i++)
-					map.addOverlay(ar4.get(i));
-				s="";
-				
-			} catch (Exception aa) {
-				phLogin.add(new HTML("getMap *** " + aa.toString()));
-			}
-		}
 	}
 
-
-
-	void get_board() {
+	public void get_board() {
 		rowIndex = 1;
 		flexTable.insertRow(HeaderRowIndex);
 		flexTable.getRowFormatter().addStyleName(HeaderRowIndex,
@@ -616,6 +697,9 @@ public class UfosView extends Composite {
 					}
 					if (aritab.contains(row))
 						arwo.add(tt_clt[row][0]);
+					
+					
+					
 				}
 
 				if (tt_clt[0].length > 4) {
@@ -624,12 +708,22 @@ public class UfosView extends Composite {
 						for (int col = 0; col < tt_clt[row2].length; col++) {
 							tt_clt2[row2][col] = tt_clt[row2][col];
 						}
+						
 						if (aritab2.contains(row2))
 							if (arwo.contains(tt_clt2[row2][0]))
-								addRow(tt_clt2[row2++]);
-
+								addRow(tt_clt2[row2]);
+						
 					}
 				}
+	/*			for (int row2 = 0; row2 < tt_clt.length; row2++) {
+//					for (int col = 0; col < tt_clt[row2].length; col++) {
+						if (aritab2.contains(row2))
+							if (arwo.contains(tt_clt2[row2][0]))
+								addRow(tt_clt2[row2]);
+	
+//					}
+				}*/
+
 				applyDataRowStyles();
 				flexTable.setCellSpacing(0);
 				flexTable.addStyleName("FlexTable");
@@ -651,16 +745,30 @@ public class UfosView extends Composite {
 				a1 = LatLng.newInstance(point.getLatitude(),
 						point.getLongitude());
 				bo = false;
+				geo.getLatLng(sbox2, geoint);
+
 			} else {
 				a2 = LatLng.newInstance(point.getLatitude(),
 						point.getLongitude());
 
 				bo = true;
+
+				qqqq();
+				qqqq();
+
+				// flexTable.removeAllRows();
+				flexTable.removeAllRows();
+				get_board();
+
+				// flexTable.removeFromParent();
+				flexTable.removeFromParent();
+				pvR.add(flexTable);
+				fin();
 			}
 		}
 	};
-	
-	void qqqq() {
+
+	public void qqqq() {
 
 		aritab.clear();
 
@@ -672,39 +780,37 @@ public class UfosView extends Composite {
 		final Marker md = new Marker(place, ops);
 		md.addMarkerClickHandler(new MarkerClickHandler() {
 			public void onClick(MarkerClickEvent event) {
-				map.getInfoWindow().open(
-						md,
-						new InfoWindowContent("Origin point:<br>"
-								+ tbox1.getText()));
+				map.getInfoWindow().open(md,
+						new InfoWindowContent("Origin point:<br>" + sbox1));
 			}
 		});
 		map.addOverlay(md);
 		String skm = km1.getItemText(km1.getSelectedIndex());
 		if (skm.equals("10 km")) {
 			// map.setCenter(place, 11);
-			for (int i = 0; i < ar.size(); i++) {
-				double dis = place.distanceFrom(ar.get(i).getLatLng());
+			for (int i = 0; i < ar1.size(); i++) {
+				double dis = place.distanceFrom(ar1.get(i).getLatLng());
 				if (dis < 10000) {
-					map.addOverlay(ar.get(i));
+					map.addOverlay(ar1.get(i));
 					aritab.add(i);
 				}
 			}
 		} else if (skm.equals("20 km")) {
 			// map.setCenter(place, 10);
-			for (int i = 0; i < ar.size(); i++) {
-				double dis = place.distanceFrom(ar.get(i).getLatLng());
+			for (int i = 0; i < ar1.size(); i++) {
+				double dis = place.distanceFrom(ar1.get(i).getLatLng());
 				if (dis < 20000) {
-					map.addOverlay(ar.get(i));
+					map.addOverlay(ar1.get(i));
 					aritab.add(i);
 				}
 
 			}
 		} else if (skm.equals("50 km")) {
 			// map.setCenter(place, 9);
-			for (int i = 0; i < ar.size(); i++) {
-				double dis = place.distanceFrom(ar.get(i).getLatLng());
+			for (int i = 0; i < ar1.size(); i++) {
+				double dis = place.distanceFrom(ar1.get(i).getLatLng());
 				if (dis < 50000) {
-					map.addOverlay(ar.get(i));
+					map.addOverlay(ar1.get(i));
 					aritab.add(i);
 				}
 
@@ -712,10 +818,10 @@ public class UfosView extends Composite {
 		} else if (skm.equals("100 km")) {
 			// map.setCenter(place, 8);
 
-			for (int i = 0; i < ar.size(); i++) {
-				double dis = place.distanceFrom(ar.get(i).getLatLng());
+			for (int i = 0; i < ar1.size(); i++) {
+				double dis = place.distanceFrom(ar1.get(i).getLatLng());
 				if (dis < 100000) {
-					map.addOverlay(ar.get(i));
+					map.addOverlay(ar1.get(i));
 					aritab.add(i);
 				}
 
@@ -723,18 +829,18 @@ public class UfosView extends Composite {
 		} else if (skm.equals("200 km")) {
 			// map.setCenter(place, 7);
 
-			for (int i = 0; i < ar.size(); i++) {
-				double dis = place.distanceFrom(ar.get(i).getLatLng());
+			for (int i = 0; i < ar1.size(); i++) {
+				double dis = place.distanceFrom(ar1.get(i).getLatLng());
 				if (dis < 200000) {
-					map.addOverlay(ar.get(i));
+					map.addOverlay(ar1.get(i));
 					aritab.add(i);
 				}
 
 			}
 		} else if (skm.equals("")) {
 			// map.setCenter(place, 3);
-			for (int i = 0; i < ar.size(); i++) {
-				map.addOverlay(ar.get(i));
+			for (int i = 0; i < ar1.size(); i++) {
+				map.addOverlay(ar1.get(i));
 				aritab.add(i);
 			}
 
@@ -750,10 +856,10 @@ public class UfosView extends Composite {
 		final Marker md2 = new Marker(place, ops);
 		md2.addMarkerClickHandler(new MarkerClickHandler() {
 			public void onClick(MarkerClickEvent event) {
-				map.getInfoWindow().open(
-						md2,
-						new InfoWindowContent("Destination point:<br>"
-								+ tbox2.getText()));
+				map.getInfoWindow()
+						.open(md2,
+								new InfoWindowContent("Destination point:<br>"
+										+ sbox2));
 			}
 		});
 		map.addOverlay(md2);
@@ -817,17 +923,27 @@ public class UfosView extends Composite {
 				map.addOverlay(ar2.get(i));
 				aritab2.add(i);
 			}
-
 		}
 
 	}
 
-	public void start() {
+	void start() {
 		phLogin.add(load);
 	}
 
-	public void fin() {
+	void fin() {
 		load.removeFromParent();
 	}
 
+	MarkerClickHandler mmh = new MarkerClickHandler() {
+
+		public void onClick(MarkerClickEvent event) {
+			// map.removeOverlay(mm2);
+			map.getInfoWindow().open(
+					event.getSender().getLatLng(),
+					new InfoWindowContent(ss[Integer.valueOf(event.getSender()
+							.getTitle())][1]));
+
+		}
+	};
 }
