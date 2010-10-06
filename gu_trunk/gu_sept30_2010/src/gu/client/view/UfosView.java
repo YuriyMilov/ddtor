@@ -445,12 +445,12 @@ public class UfosView extends Composite {
 		km2.setItemSelected(5, true);
 		layout.setWidget(0, 0, new HTML(" "));
 		layout.setCellSpacing(7);
-		layout.setWidget(0, 0, new Label("Origin"));
-		layout.setWidget(1, 0, new Label("Destin"));
+		layout.setWidget(0, 0, new Label("Origination:"));
+		layout.setWidget(1, 0, new Label("Destination:"));
 		layout.setWidget(0, 1, tbox1);
 		layout.setWidget(1, 1, tbox2);
-		layout.setWidget(0, 2, new Label("Orig-R"));
-		layout.setWidget(1, 2, new Label("Dest-R"));
+		layout.setWidget(0, 2, new Label("Origin-Radius:"));
+		layout.setWidget(1, 2, new Label("Destin-Radius:"));
 		layout.setWidget(0, 3, km1);
 		layout.setWidget(1, 3, km2);
 		but_search.setWidth("77px");
@@ -459,12 +459,12 @@ public class UfosView extends Composite {
 		but_all.setWidth("77px");
 		but_database.setWidth("77px");
 		but_reload.setWidth("77px");
-		layout.setWidget(0, 4, but_search);
+		layout.setWidget(2, 2, but_search);
+		layout.setWidget(0, 4, but_map);
 		layout.setWidget(1, 4, but_board);
-		layout.setWidget(0, 5, but_map);
-		layout.setWidget(1, 5, but_all);
-		layout.setWidget(0, 6, but_database);
-		layout.setWidget(1, 6, but_reload);
+		layout.setWidget(0, 5, but_all);
+		layout.setWidget(1, 5, but_database);
+		//layout.setWidget(1, 6, but_reload);
 
 		pDecor.add(layout);
 	}
@@ -618,7 +618,7 @@ public class UfosView extends Composite {
 										//TODO
 										if (ar.get(k).equals(ar7.get(j)[1]))
 										{
-											s2 = s2 + ar7.get(j)[1] + " ";
+											s2 = s2 + ar7.get(j)[1] + "<br>";
 											ss[j][1]=s2;
 										}
 									}
@@ -648,7 +648,7 @@ public class UfosView extends Composite {
 											//TODO
 											if (ar.get(k).equals(ar7.get(j)[1]))
 											{
-												s2 = s2 + ar7.get(j)[1] + " ";
+												s2 = s2 + ar7.get(j)[1] + "<br>";
 												ss[j][1]=s2;
 											}
 											
