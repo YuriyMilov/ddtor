@@ -2,20 +2,7 @@ package gu.client.view;
 
 import java.util.ArrayList;
 
-import gu.client.dbService;
-import gu.client.dbServiceAsync;
-import gu.client.dao.ObjectFactory;
-import gu.client.dao.ObjectFactoryListener;
-import gu.client.dao.RPCObjectFactory;
-import gu.client.ui.GoogleMap;
-import gu.client.ui.LoadingPanel;
-import gu.client.ui.RoundedPanel;
-import gu.client.view.treeitems.BaseTreeItem;
-import gu.client.view.treeitems.ShippersTreeItem;
-import gu.client.view.treeitems.ConsigneesTreeItem;
-import gu.client.view.treeitems.StoriesTreeItem;
-import gu.client.view.treeitems.UsersTreeItem;
-import gu.client.view.treeitems.WordersTreeItem;
+
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -64,10 +51,53 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.PopupPanel;
 
-public class UfosView extends Composite {
+public class PanView extends Composite {
+	final LatLng place = LatLng.newInstance(44, -77);
+	final MapWidget map = new MapWidget(place, 3);
+	final VerticalPanel panv = new VerticalPanel();
+	final Button but_map = new Button("Map");
+	final HorizontalPanel panh = new HorizontalPanel();
+	final HorizontalPanel hpr = new HorizontalPanel();
+	final HTML loading = new HTML(
+			"<table border=0 cellspacing=0 cellpadding=0 width=100%><tr width=100%><td align=right><font color=red>&nbsp;&nbsp;Loading...&nbsp;&nbsp;</font></td></tr></table>");
+	final DecoratorPanel decpan = new DecoratorPanel();
+	
+	public PanView() {
+		
+		map.setSize("600px", "400px");
+		map.setScrollWheelZoomEnabled(true);
+		map.addControl(new LargeMapControl());
+		panh.setWidth("100%");
+		hpr.setWidth("100%");
+		//hp1.add(loading);
+		panh.add(panv);
+		panh.add(hpr);
+		but_map.addClickHandler(clh_but_map);
+		//panv.add(decpan);
+		//decpan.add(but_map);
+		panv.add(map);
+		panh.add(but_map);
+		initWidget(panh);
+
+
+	}
+	
+	ClickHandler clh_but_map = new ClickHandler() {
+		
+		public void onClick(ClickEvent event) {
+			//loading.removeFromParent();
+		}
+	};
+	
+	
+	
+	
+	
+	
+	/*
 	
 	private HTML load = new HTML(
-			"<font color=\"#DF0101\">&nbsp;&nbsp;&nbsp;Loading data...&nbsp;&nbsp;&nbsp;</font>");
+			"<font color=\"#DF0101\">&nbsp;&nbsp;loading...&nbsp;</font>");
 	String[][] ss = null;
 	String sbox1 = "toronto", sbox2 = "calgary";
 	boolean bo = true;
@@ -76,8 +106,8 @@ public class UfosView extends Composite {
 	public String s = "";
 	HTML info = new HTML(s);
 	private MapWidget map;
-	private ObjectFactory objectFactory = new RPCObjectFactory(
-			GWT.getModuleBaseURL() + "objectFactory");
+	//private ObjectFactory objectFactory = new RPCObjectFactory(
+	//		GWT.getModuleBaseURL() + "objectFactory");
 	private static final int HeaderRowIndex = 0;
 	private final dbServiceAsync srv = GWT.create(dbService.class);
 	final ArrayList<String> ar = new ArrayList<String>();
@@ -95,7 +125,7 @@ public class UfosView extends Composite {
 	private static String[][] tt_srv = null;
 	private static String[][] tt_clt = null;
 	private static String[][] tt_clt2 = null;
-	private DatabaseEditorView view = new DatabaseEditorView();
+	//private DatabaseEditorView view = new DatabaseEditorView();
 	int rowIndex = 1;
 	VerticalPanel mainPanel = new VerticalPanel();
 	HorizontalPanel phd = new HorizontalPanel();
@@ -124,7 +154,7 @@ public class UfosView extends Composite {
 	final TextBox tbox2 = new TextBox();
 
 	public UfosView() {
-		view.setObjectFactory(objectFactory);
+		//view.setObjectFactory(objectFactory);
 
 		initWidget(mainPanel);
 		mainPanel.add(load);
@@ -142,7 +172,7 @@ public class UfosView extends Composite {
 		prepSearchPanel();
 		onSigned("<br>");
 
-		/*
+		
 		 * srv.getData("login", new AsyncCallback<String[][]>() { public void
 		 * onFailure(Throwable caught) { phLogin.add(new
 		 * HTML(caught.toString()));
@@ -163,10 +193,10 @@ public class UfosView extends Composite {
 		 * 
 		 * 
 		 * } });
-		 */
+		 
 	}
 
-	/*
+	
 	 * final MapClickHandler h = new MapClickHandler() { public void
 	 * onClick(MapClickEvent event) { info.removeFromParent(); if
 	 * (event.getLatLng() != null) info = new
@@ -175,7 +205,7 @@ public class UfosView extends Composite {
 	 * phd.add(info);
 	 * 
 	 * } };
-	 */
+	 
 
 	void onSigned(String logout) {
 		phLogin.add(new HTML(logout));
@@ -498,7 +528,7 @@ public class UfosView extends Composite {
 						final Marker mm1 = new Marker(
 								LatLng.newInstance(d0, d1), ops);
 
-						/*
+						
 						 * mm1.addMarkerMouseOverHandler(new
 						 * MarkerMouseOverHandler() {
 						 * 
@@ -506,7 +536,7 @@ public class UfosView extends Composite {
 						 * onMouseOver(MarkerMouseOverEvent event) {
 						 * map.getInfoWindow().open(mm1, new
 						 * InfoWindowContent(s1)); } });
-						 */
+						 
 
 						mm1.addMarkerClickHandler(mmh);
 
@@ -536,7 +566,7 @@ public class UfosView extends Composite {
 						ops.setTitle(new String(String.valueOf(r.length + i)));
 						final Marker mm2 = new Marker(
 								LatLng.newInstance(d2, d3), ops);
-						/*
+						
 						 * mm2.addMarkerMouseOverHandler(new
 						 * MarkerMouseOverHandler() {
 						 * 
@@ -545,7 +575,7 @@ public class UfosView extends Composite {
 						 * 
 						 * map.getInfoWindow().open(mm2, new
 						 * InfoWindowContent(s2)); } });
-						 */
+						 
 
 						mm2.addMarkerClickHandler(mmh);
 
@@ -715,14 +745,14 @@ public class UfosView extends Composite {
 						
 					}
 				}
-	/*			for (int row2 = 0; row2 < tt_clt.length; row2++) {
+				for (int row2 = 0; row2 < tt_clt.length; row2++) {
 //					for (int col = 0; col < tt_clt[row2].length; col++) {
 						if (aritab2.contains(row2))
 							if (arwo.contains(tt_clt2[row2][0]))
 								addRow(tt_clt2[row2]);
 	
 //					}
-				}*/
+				}
 
 				applyDataRowStyles();
 				flexTable.setCellSpacing(0);
@@ -945,5 +975,5 @@ public class UfosView extends Composite {
 							.getTitle())][1]));
 
 		}
-	};
+	};*/
 }
