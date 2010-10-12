@@ -384,6 +384,17 @@ public class UfosView extends Composite {
 				sbox1 = tbox1.getText();
 				sbox2 = tbox2.getText();
 				bo = true;
+				int h=km1.getSelectedIndex();
+				if(h==0)
+					{sbox1 = "";
+					tbox1.setText("");
+					}
+				h=km2.getSelectedIndex();
+				if(h==0)
+				{sbox2 = "";
+				tbox2.setText("");
+				}
+				
 				if (sbox1.length() == 0 && sbox2.length() == 0) {
 					km1.setSelectedIndex(0);
 					km2.setSelectedIndex(0);
@@ -445,7 +456,7 @@ public class UfosView extends Composite {
 		km2.setItemSelected(5, true);
 		layout.setWidget(0, 0, new HTML(" "));
 		layout.setCellSpacing(7);
-		layout.setWidget(0, 0, new Label("Origination:"));
+		layout.setWidget(0, 0, new Label("Origin:"));
 		layout.setWidget(1, 0, new Label("Destination:"));
 		layout.setWidget(0, 1, tbox1);
 		layout.setWidget(1, 1, tbox2);
