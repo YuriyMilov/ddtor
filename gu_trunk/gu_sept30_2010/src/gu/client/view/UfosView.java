@@ -68,6 +68,9 @@ public class UfosView extends Composite {
 	
 	private HTML load = new HTML(
 			"<font color=\"#DF0101\">&nbsp;&nbsp;&nbsp;Loading data...&nbsp;&nbsp;&nbsp;</font>");
+	
+	private HTML fail = new HTML("<font color=\"#DF0101\">&nbsp;&nbsp;&nbsp;Cannot resolve the Origin/Destination...&nbsp;&nbsp;&nbsp;</font>");
+	
 	String[][] ss = null;
 	String sbox1 = "toronto", sbox2 = "calgary";
 	boolean bo = true;
@@ -376,6 +379,7 @@ public class UfosView extends Composite {
 		but_search.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
+
 				start();
 				map.removeFromParent();
 				view.removeFromParent();
@@ -384,7 +388,7 @@ public class UfosView extends Composite {
 				sbox1 = tbox1.getText();
 				sbox2 = tbox2.getText();
 				bo = true;
-				int h=km1.getSelectedIndex();
+		/*		int h=km1.getSelectedIndex();
 				if(h==0)
 					{sbox1 = "";
 					tbox1.setText("");
@@ -408,8 +412,14 @@ public class UfosView extends Composite {
 					km1.setSelectedIndex(0);
 					sbox1 = "toronto";
 				}
-
-				geo.getLatLng(sbox1, geoint);
+*/
+				if (sbox1.length() != 0 && sbox2.length() != 0)
+					geo.getLatLng(sbox1, geoint);
+				else
+				{
+					Window.alert("Please fill in Origin/Destination");
+					//phLogin.add(new HTML("Please fill in the Origin/Destination "));
+				}
 
 			}
 		});
@@ -439,21 +449,21 @@ public class UfosView extends Composite {
 		tbox1.setText("toronto");
 		tbox2.setText("calgary");
 
-		km1.addItem("");
+		//km1.addItem("");
 		km1.addItem("10 km");
 		km1.addItem("20 km");
 		km1.addItem("50 km");
 		km1.addItem("100 km");
 		km1.addItem("200 km");
-		km1.setItemSelected(3, true);
+		km1.setItemSelected(2, true);
 
-		km2.addItem("");
+		//km2.addItem("");
 		km2.addItem("10 km");
 		km2.addItem("20 km");
 		km2.addItem("50 km");
 		km2.addItem("100 km");
 		km2.addItem("200 km");
-		km2.setItemSelected(5, true);
+		km2.setItemSelected(2, true);
 		layout.setWidget(0, 0, new HTML(" "));
 		layout.setCellSpacing(7);
 		layout.setWidget(0, 0, new Label("Origin:"));
@@ -747,11 +757,14 @@ public class UfosView extends Composite {
 	final LatLngCallback geoint = new LatLngCallback() {
 		@Override
 		public void onFailure() {
-			phLogin.add(new HTML("geoint failure; "));
+			fail.removeFromParent();
+			phLogin.add(fail);
 		}
 
 		@Override
 		public void onSuccess(LatLng point) {
+			fail.removeFromParent();
+			
 			if (bo) {
 				a1 = LatLng.newInstance(point.getLatitude(),
 						point.getLongitude());
