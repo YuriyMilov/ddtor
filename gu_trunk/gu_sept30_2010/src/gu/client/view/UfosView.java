@@ -63,6 +63,7 @@ import com.google.gwt.user.client.ui.TreeListener;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.datepicker.client.DateBox;
 
 public class UfosView extends Composite {
 	
@@ -480,7 +481,26 @@ public class UfosView extends Composite {
 		but_all.setWidth("77px");
 		but_database.setWidth("77px");
 		but_reload.setWidth("77px");
-		layout.setWidget(2, 2, but_search);
+		layout.setWidget(2, 0, new Label("Delivery on: "));	
+		final DateBox dtb = new DateBox();
+
+		layout.setWidget(2, 1, dtb);
+		
+		final ListBox km3 = new ListBox(false);
+		km3.addItem("");
+		km3.addItem("53' VAN");
+		km3.addItem("REEFER");
+		km3.addItem("HI-CUBE VAN");
+		km3.addItem("TRI-AXLE VAN");
+		
+		
+		
+		km3.setItemSelected(0, true);
+		layout.setWidget(2, 2, new Label("Equipment: "));	
+		
+		
+		layout.setWidget(2, 3, km3);
+		layout.setWidget(2, 4, but_search);
 		layout.setWidget(0, 4, but_map);
 		layout.setWidget(1, 4, but_board);
 		layout.setWidget(0, 5, but_all);
