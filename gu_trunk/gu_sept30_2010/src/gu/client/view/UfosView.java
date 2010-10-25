@@ -215,7 +215,7 @@ public class UfosView extends Composite {
 					}catch(Exception e){
 						ss[i][0] =  "";
 					}
-					ss[i][1] = r[i][4].trim();
+					ss[i][1] = "<b>WO#:</b> "+r[i][4].trim() +"<br><b>From:</b> "+r[i][6].trim()+"<br><b>To:</b> "+r[i][8].trim()+"<br>"+r[i][9].trim()+" "+r[i][10].trim()+" "+r[i][11].trim()+" "+r[i][14].trim()+" LBS<br><b>Pick up:</b> "+r[i][16].trim()+"<br><b>Delivery:</b> "+r[i][17].trim();
 				}
 				for (int i = 0; i < r.length; i++) {
 					try{
@@ -231,7 +231,7 @@ public class UfosView extends Composite {
 					}catch(Exception e){
 						ss[r.length + i][0] =  "";
 					}
-					ss[r.length + i][1] = r[i][4].trim();
+					ss[r.length + i][1] = "<b>WO#:</b> "+r[i][4].trim() +"<br><b>From:</b> "+r[i][6].trim()+"<br><b>To:</b> "+r[i][8].trim()+"<br>"+r[i][9].trim()+" "+r[i][10].trim()+" "+r[i][11].trim()+" "+r[i][14].trim()+" LBS<br><b>Pick up:</b> "+r[i][16].trim()+"<br><b>Delivery:</b> "+r[i][17].trim();
 				}
 				for (int i = 0; i < ss.length; i++)
 					ar7.add(ss[i]);
@@ -717,7 +717,7 @@ public class UfosView extends Composite {
 		addColumn("Origin");
 		addColumn("To:");
 		addColumn("Destination");
-		addColumn("Equipmqnt");
+		addColumn("Equipment");
 		addColumn("Pieces");
 		addColumn("Type");
 		addColumn("Description");
