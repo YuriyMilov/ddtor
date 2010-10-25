@@ -28,8 +28,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 @SuppressWarnings("serial")
 public class dbServiceImpl extends RemoteServiceServlet implements dbService {
-	UserService userService = UserServiceFactory.getUserService();
-	User user = userService.getCurrentUser();
+	//UserService userService = UserServiceFactory.getUserService();
+	//User user = userService.getCurrentUser();
 
 	public String[][] getUser(String input) {
 
