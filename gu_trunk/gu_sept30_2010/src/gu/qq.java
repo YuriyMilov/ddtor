@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.jdo.PersistenceManager;
 
@@ -29,162 +30,276 @@ import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.smartgwt.client.data.fields.DataSourceIntegerField;
+import com.smartgwt.client.data.fields.DataSourceTextField;
 
 import java.util.List;
 
 public class qq extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static String[] s4 = null;
+	String s = rfu("http://localhost:8888/ds/test_data/world.data.xml");
 
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		PrintWriter out = resp.getWriter(); 
+		PrintWriter out = resp.getWriter();
 
-		out.println("qqqqqqqqqqqqq");
-	}
- 
-@SuppressWarnings("unchecked")
-String deleteWorder (String s){
-	
-	try{PersistenceManager pm = PMF.get().getPersistenceManager();
-	
-	
-	List<Worder> rd = (List<Worder>) pm.newQuery("SELECT FROM " + Worder.class.getName() ).execute();//+ " WHERE s5==\""+req.getQueryString()+"\""
-	
-	s= String.valueOf(rd.size());
-	
-	
-	
-	int i = 0;
-	
-		
-		while(i<rd.size())
-				pm.deletePersistent(rd.get(i++));
-	
-		return s;
-	} catch ( Exception e){
-		s=e.toString();
-	}
-	return s;
-}	
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		@SuppressWarnings("unchecked")
+		List<Worder> woList = (List<Worder>) pm.newQuery(
+				"SELECT FROM " + Worder.class.getName()).execute();
+		@SuppressWarnings("unchecked")
+		List<Shipper> shipList = (List<Shipper>) pm.newQuery(
+				"SELECT FROM " + Shipper.class.getName()).execute();
+		@SuppressWarnings("unchecked")
+		List<Consignee> consList = (List<Consignee>) pm.newQuery(
+				"SELECT FROM " + Consignee.class.getName()).execute();
+		Worder ww = null;
+		Shipper sh = null;
+		Consignee cn = null;
 
-String deleteShipper (String s){
-	
-	try{PersistenceManager pm = PMF.get().getPersistenceManager();
+		// ////////////////////////////////////////////////////////
+
+		ArrayList<String[]> ar = new ArrayList<String[]>();
+		int is = 0;
+		int ks = shipList.size();
+		while (is < ks) {
+			sh = shipList.get(is++);
+
+			// ////////////////////////////////////////////////////////
+
+			int iw = 0;
+			int kw = woList.size();
+			String[] zz = null;
+			while (iw < kw) {
+
+				ww = woList.get(iw++);
+				String ship_id = ww.get_ship_id();
+				if (ship_id.equals(sh.get_ship_id())) {
+					String cons_id = ww.get_cons_id();
+
+					// ////////////////////
+
+					int ic = 0;
+					int kc = consList.size();
+					while (ic < kc) {
+						cn = consList.get(ic++);
+
+						if (cons_id.equals(cn.get_ConsId())) {
+
+							zz = new String[] {
+
+							"r", sh.getLatitude(), sh.getLongtitude(),
+									"InfoWindow for shipper " + sh.getName(),
+									"g", cn.getLatitude(), cn.getLongtitude(),
+									"InfoWindow for shipper " + cn.getName(),
+									ww.get_wo_number(), " ",
+									sh.getCity() + ", " + sh.getProv(), " ",
+									cn.getCity() + ", " + cn.getProv(),
+									ww.getDescription(), ww.get_pieces(),
+									ww.get_type(), ww.getDescription(), " ",
+									ww.get_weight_lbs(), ww.get_weight_kgs(),
+									ww.getpickup_dt(), ww.get_delivery_dt() };
+
+						}
+					}
+
+					// //////////////////
+
+					// ar.add(new String[] { "r", sh.getLatitude(),
+					// sh.getLongtitude(),"numbers of WOs",
+					// "----WO----->",ww.get_customer_name(),
+					// "8/25/10 2:00 p.m.", "8/26/10 10:00 a.m." });
+
+				}
+
+			}
+
+			// //////////////////////////////////////////////////
+			if (zz != null)
+				ar.add(zz);
+		}
+		String[][] sss = null;
+		s="";
+		if (ar.size() != 0) {
+
+			sss = new String[ar.size()][ar.get(0).length];
+			for (int n = 0; n < ar.size(); n++) {
+				sss[n] = ar.get(n);
+				
+				String ssh=ar.get(n)[20].trim();
+				String sdd=ar.get(n)[21].trim();
+				//09/16/10
+				if(sdd.length()>7)
+					sdd="\r\n<dd>"+"20"+sdd.substring(6,8)+"-"+sdd.substring(0,2)+"-"+sdd.substring(3,5)+"</dd>";
+				else
+					sdd="";
+
+				
+				if(ssh.length()>7)
+					ssh="\r\n<shd>"+"20"+ssh.substring(6,8)+"-"+ssh.substring(0,2)+"-"+ssh.substring(3,5)+"</shd>";
+				else
+					ssh="";
+				
+				s=s+"\r\n<country>"+
+				"\r\n<prefix>"+ar.get(n)[8].trim().substring(0,3)+"</prefix>"+
+				"\r\n<woNumber>"+ar.get(n)[8].trim().substring(3)+"</woNumber>"+
+				"\r\n<from>"+ar.get(n)[10].trim()+"</from>"+
+				"\r\n<to>"+ar.get(n)[12].trim()+"</to>"+sdd+ssh+
+				"\r\n<equipment>"+ar.get(n)[13].trim()+"</equipment>"+
+				"\r\n<pieces>"+ar.get(n)[14].trim()+"</pieces>"+
+				"\r\n<type>"+ar.get(n)[15].trim()+"</type>"+
+				"\r\n<description>"+ar.get(n)[17].trim()+"</description>"+
+				"\r\n<lbs>"+ar.get(n)[18].trim()+"</lbs>"+
+				"\r\n</country>\r\n";		
+			}
+		}
+		s="<List>"+s+"</List>";
+		out.println(s);
+        //equipment 13 (16)
+        //pieces 14
+        //type 15 
+        //description 17
+		//lbs 18
+
+	}
+
 	@SuppressWarnings("unchecked")
-	List<Shipper> rd = (List<Shipper>) pm.newQuery("SELECT FROM " + Shipper.class.getName() ).execute();//+ " WHERE s5==\""+req.getQueryString()+"\""
-	s= String.valueOf(rd.size());
-	int i = 0;
-	
-		
-		while(i<rd.size())
+	String deleteWorder(String s) {
+
+		try {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+
+			List<Worder> rd = (List<Worder>) pm.newQuery(
+					"SELECT FROM " + Worder.class.getName()).execute();// +
+																		// " WHERE s5==\""+req.getQueryString()+"\""
+
+			s = String.valueOf(rd.size());
+
+			int i = 0;
+
+			while (i < rd.size())
 				pm.deletePersistent(rd.get(i++));
-	
+
+			return s;
+		} catch (Exception e) {
+			s = e.toString();
+		}
 		return s;
-	} catch ( Exception e){
-		s=e.toString();
 	}
-	return s;
-}	
-@SuppressWarnings("unchecked")
-String deleteConsignee (String s){
-	
-	try{PersistenceManager pm = PMF.get().getPersistenceManager();
-	List<Consignee> rd = (List<Consignee>) pm.newQuery("SELECT FROM " + Consignee.class.getName() ).execute();//+ " WHERE s5==\""+req.getQueryString()+"\""
-	s= String.valueOf(rd.size());
-	int i = 0;
-	
-		
-		while(i<rd.size())
+
+	String deleteShipper(String s) {
+
+		try {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			@SuppressWarnings("unchecked")
+			List<Shipper> rd = (List<Shipper>) pm.newQuery(
+					"SELECT FROM " + Shipper.class.getName()).execute();// +
+																		// " WHERE s5==\""+req.getQueryString()+"\""
+			s = String.valueOf(rd.size());
+			int i = 0;
+
+			while (i < rd.size())
 				pm.deletePersistent(rd.get(i++));
-	
+
+			return s;
+		} catch (Exception e) {
+			s = e.toString();
+		}
 		return s;
-	} catch ( Exception e){
-		s=e.toString();
 	}
-	return s;
-}	
-	
+
+	@SuppressWarnings("unchecked")
+	String deleteConsignee(String s) {
+
+		try {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			List<Consignee> rd = (List<Consignee>) pm.newQuery(
+					"SELECT FROM " + Consignee.class.getName()).execute();// +
+																			// " WHERE s5==\""+req.getQueryString()+"\""
+			s = String.valueOf(rd.size());
+			int i = 0;
+
+			while (i < rd.size())
+				pm.deletePersistent(rd.get(i++));
+
+			return s;
+		} catch (Exception e) {
+			s = e.toString();
+		}
+		return s;
+	}
+
 	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		//UserService userService = UserServiceFactory.getUserService();
+		// UserService userService = UserServiceFactory.getUserService();
 		//
-		//User user = userService.getCurrentUser();
-				//if ( user == null) {
-				//	user=new User("test@quicklydone.com",
-				//		"quicklydone.com","test");
-				//}
-			//
-				
-				
+		// User user = userService.getCurrentUser();
+		// if ( user == null) {
+		// user=new User("test@quicklydone.com",
+		// "quicklydone.com","test");
+		// }
+		//
+
 		PrintWriter out = resp.getWriter();
 		int t = 9999;
-		String s="ok";
+		String s = "ok";
 		try {
 			String str = req.getParameter("a");
 			String id = req.getParameter("id");
-			
-			//user=new User(id, id.substring(id.indexOf("@")+1));
-			
-			
+
+			// user=new User(id, id.substring(id.indexOf("@")+1));
+
 			String[] words = str.split("\r\n");
 			PersistenceManager pm = PMF.get().getPersistenceManager();
-			
-			
-			
+
 			if (words == null)
-				s4 = new String[] { "r", "50.0", "-60.0", "address","2", "text" };
+				s4 = new String[] { "r", "50.0", "-60.0", "address", "2",
+						"text" };
 			else
 				s4 = words;
-			
-				List<Mrkr4> rd = (List<Mrkr4>) pm.newQuery("SELECT FROM " + Mrkr4.class.getName()+ " WHERE s5==\""+id+"\"").execute();
-				s=String.valueOf(rd.size());
-				for (int i = 0; i < rd.size(); i++)
-				{
-					Mrkr4 mr = pm.getObjectById(Mrkr4.class, rd.get(i).getId());
-					pm.deletePersistent(mr);
-				}
-				for (int i = 0; i < s4.length; i = i + 6) {
-				Mrkr4 ns = new Mrkr4(new Date(), s4[i], s4[i + 1],
-						s4[i + 2], s4[i + 3], s4[i + 4], s4[i + 5]);
-				pm.makePersistent(ns);
-				}
-				
-				/*
-			
-			for (int i = 0; i < s4.length; i = i + 6) {
-				String query = "SELECT FROM " + Mrkr4.class.getName()
-						+ " WHERE s2 == \"" + s4[i + 1] + "\" && s3 == \""
-						+ s4[i + 2] + "\"";
-				List<Mrkr4> rr = (List<Mrkr4>) pm.newQuery(query).execute();
-				t = rr.size();
-				if (rr.size() == 0) {
-					Mrkr4 ns = new Mrkr4(new Date(), s4[i], s4[i + 1],
-							s4[i + 2], s4[i + 3], s4[i + 4], s4[i + 5], user);
-					pm.makePersistent(ns);
-				} else {
 
-					Mrkr4 ns = pm.getObjectById(Mrkr4.class, rr.get(0).getId());
-					pm.deletePersistent(ns);
-
-					ns = new Mrkr4(new Date(), s4[i], s4[i + 1], s4[i + 2],
-							s4[i + 3], s4[i + 4], s4[i + 5], user);
-					pm.makePersistent(ns);
-				}
-				
-				
+			List<Mrkr4> rd = (List<Mrkr4>) pm.newQuery(
+					"SELECT FROM " + Mrkr4.class.getName() + " WHERE s5==\""
+							+ id + "\"").execute();
+			s = String.valueOf(rd.size());
+			for (int i = 0; i < rd.size(); i++) {
+				Mrkr4 mr = pm.getObjectById(Mrkr4.class, rd.get(i).getId());
+				pm.deletePersistent(mr);
 			}
-				*/
-			
-			
-			
+			for (int i = 0; i < s4.length; i = i + 6) {
+				Mrkr4 ns = new Mrkr4(new Date(), s4[i], s4[i + 1], s4[i + 2],
+						s4[i + 3], s4[i + 4], s4[i + 5]);
+				pm.makePersistent(ns);
+			}
+
+			/*
+			 * 
+			 * for (int i = 0; i < s4.length; i = i + 6) { String query =
+			 * "SELECT FROM " + Mrkr4.class.getName() + " WHERE s2 == \"" + s4[i
+			 * + 1] + "\" && s3 == \"" + s4[i + 2] + "\""; List<Mrkr4> rr =
+			 * (List<Mrkr4>) pm.newQuery(query).execute(); t = rr.size(); if
+			 * (rr.size() == 0) { Mrkr4 ns = new Mrkr4(new Date(), s4[i], s4[i +
+			 * 1], s4[i + 2], s4[i + 3], s4[i + 4], s4[i + 5], user);
+			 * pm.makePersistent(ns); } else {
+			 * 
+			 * Mrkr4 ns = pm.getObjectById(Mrkr4.class, rr.get(0).getId());
+			 * pm.deletePersistent(ns);
+			 * 
+			 * ns = new Mrkr4(new Date(), s4[i], s4[i + 1], s4[i + 2], s4[i +
+			 * 3], s4[i + 4], s4[i + 5], user); pm.makePersistent(ns); }
+			 * 
+			 * 
+			 * }
+			 */
+
 		} catch (Exception eee) {
-			s=eee.toString();
+			s = eee.toString();
 		}
-		//resp.sendRedirect("http://map.quicklydone.com");
-		 out.println(s);
+		// resp.sendRedirect("http://map.quicklydone.com");
+		out.println(s);
 	}
 
 	public static String rfu(String url) {

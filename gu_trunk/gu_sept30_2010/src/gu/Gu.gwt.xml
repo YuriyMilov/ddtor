@@ -15,6 +15,9 @@
 
   <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABSR1SkFigx4Uz1ZbtiHA5KON9cKPBRagjkQ4oIzjOWVsG4-JKEBtUS1Qw" />
  
+     <inherits name="com.smartgwt.SmartGwtNoScript"/>
+    <inherits name="com.smartgwt.tools.SmartGwtTools"/>
+    <inherits name="com.smartclient.theme.enterprise.EnterpriseResources"/>
  
 <!--  
  
