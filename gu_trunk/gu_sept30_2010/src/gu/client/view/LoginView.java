@@ -69,14 +69,16 @@ public class LoginView extends Composite {
 
 				public void onSuccess(String r) {
 					//PanView view = new PanView();
-					UfosView view = new UfosView();
-					pan.add(view);
+					
+					UfosView view2 = new UfosView();
+					pan.add(view2);
+					
+				
 					loading.removeFromParent();
 					hp1.setWidth("100%");
 					hp1.add(new HTML(r));
 					RootPanel.get().add(hp1);
 					RootPanel.get().add(new HTML("<hr/>"));				}
-
 					
 			});
 		}

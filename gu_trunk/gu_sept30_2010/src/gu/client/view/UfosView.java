@@ -67,6 +67,8 @@ import com.google.gwt.user.datepicker.client.DateBox;
 
 public class UfosView extends Composite {
 	
+	ZgalaView  view1=null;
+	
 	private HTML load = new HTML(
 			"<font color=\"#DF0101\">&nbsp;&nbsp;&nbsp;Loading data...&nbsp;&nbsp;&nbsp;</font>");
 	
@@ -112,12 +114,13 @@ public class UfosView extends Composite {
 	HTML sign = new HTML();
 	final Geocoder geo = new Geocoder();
 	final LatLng gde = LatLng.newInstance(44, -77);
-	final Button but_map = new Button(" Map ");
-	final Button but_board = new Button("Board");
+	final Button but_map = new Button("View Map");
+	final Button but_board = new Button("View Board");
 	final Button but_database = new Button("Database");
-	final Button but_search = new Button("Search");
-	final Button but_all = new Button("All");
+	final Button but_search = new Button("Search Map");
+	final Button but_all = new Button("All Markers");
 	final Button but_reload = new Button("Update");
+	final Button but_ds = new Button("Search Grid");
 	final FlexTable flexTable = new FlexTable();
 	final ListBox dropBox1 = new ListBox(false);
 	final ListBox km1 = new ListBox(false);
@@ -128,6 +131,7 @@ public class UfosView extends Composite {
 	final TextBox tbox2 = new TextBox();
 
 	public UfosView() {
+
 		view.setObjectFactory(objectFactory);
 
 		initWidget(mainPanel);
@@ -297,6 +301,9 @@ public class UfosView extends Composite {
 				map.removeFromParent();
 				// dp.removeFromParent();
 				view.removeFromParent();
+				if(view1!=null)
+					view1.removeFromParent();
+			
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
 
@@ -314,6 +321,9 @@ public class UfosView extends Composite {
 				//
 				map.removeFromParent();
 				view.removeFromParent();
+				if(view1!=null)
+					view1.removeFromParent();
+			
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
 				//
@@ -331,11 +341,34 @@ public class UfosView extends Composite {
 				//
 				map.removeFromParent();
 				view.removeFromParent();
+				if(view1!=null)
+					view1.removeFromParent();
+			
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
 				//
 
 				pvR.add(view);
+				fin();
+			}
+		});
+		
+		but_ds.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				start();
+				//
+				map.removeFromParent();
+				view.removeFromParent();
+				if(view1!=null)
+					view1.removeFromParent();
+				
+				flexTable.removeAllRows();
+				flexTable.removeFromParent();
+				//
+				
+				view1=new ZgalaView();
+				pvR.add(view1);
 				fin();
 			}
 		});
@@ -358,6 +391,9 @@ public class UfosView extends Composite {
 						//
 						map.removeFromParent();
 						view.removeFromParent();
+						if(view1!=null)
+							view1.removeFromParent();
+											
 						flexTable.removeAllRows();
 						flexTable.removeFromParent();
 						//
@@ -384,6 +420,9 @@ public class UfosView extends Composite {
 				start();
 				map.removeFromParent();
 				view.removeFromParent();
+				if(view1!=null)
+					view1.removeFromParent();
+				
 
 				map.clearOverlays();
 				sbox1 = tbox1.getText();
@@ -432,6 +471,9 @@ public class UfosView extends Composite {
 				//
 				map.removeFromParent();
 				view.removeFromParent();
+				if(view1!=null)
+					view1.removeFromParent();
+			
 				flexTable.removeAllRows();
 				flexTable.removeFromParent();
 				//
@@ -475,39 +517,41 @@ public class UfosView extends Composite {
 		layout.setWidget(1, 2, new Label("Destin-Radius:"));
 		layout.setWidget(0, 3, km1);
 		layout.setWidget(1, 3, km2);
-		but_search.setWidth("77px");
-		but_board.setWidth("77px");
-		but_map.setWidth("77px");
-		but_all.setWidth("77px");
-		but_database.setWidth("77px");
-		but_reload.setWidth("77px");
-		layout.setWidget(2, 0, new Label("Delivery on: "));	
-		final DateBox dtb = new DateBox();
+		but_search.setWidth("88px");
+		but_board.setWidth("88px");
+		but_map.setWidth("88px");
+		but_all.setWidth("88px");
+		but_database.setWidth("88px");
+		but_reload.setWidth("88px");
+		but_ds.setWidth("88px");
+		//layout.setWidget(2, 0, new Label("Delivery on: "));	
+		//final DateBox dtb = new DateBox();
 
-		layout.setWidget(2, 1, dtb);
+		//layout.setWidget(2, 1, dtb);
 		
-		final ListBox km3 = new ListBox(false);
-		km3.addItem("");
-		km3.addItem("53' VAN");
-		km3.addItem("REEFER");
-		km3.addItem("HI-CUBE VAN");
-		km3.addItem("TRI-AXLE VAN");
-		
-		
-		
-		km3.setItemSelected(0, true);
-		layout.setWidget(2, 2, new Label("Equipment: "));	
+		//final ListBox km3 = new ListBox(false);
+		//km3.addItem("");
+		//km3.addItem("53' VAN");
+		//km3.addItem("REEFER");
+		//km3.addItem("HI-CUBE VAN");
+		//km3.addItem("TRI-AXLE VAN");
 		
 		
-		layout.setWidget(2, 3, km3);
-		layout.setWidget(2, 4, but_search);
-		layout.setWidget(0, 4, but_map);
-		layout.setWidget(1, 4, but_board);
-		layout.setWidget(0, 5, but_all);
-		layout.setWidget(1, 5, but_database);
-		//layout.setWidget(1, 6, but_reload);
+		
+		//km3.setItemSelected(0, true);
+		//layout.setWidget(2, 2, new Label("Equipment: "));	
+		
+		
+		//layout.setWidget(2, 3, km3);
+		layout.setWidget(0, 4, but_search);
+		layout.setWidget(1, 4, but_ds);
+		layout.setWidget(0, 5, but_map);
+		layout.setWidget(1, 5, but_board);
+		layout.setWidget(0, 6, but_all);
+		layout.setWidget(1, 6, but_database);
 
 		pDecor.add(layout);
+		
 	}
 
 	public void setMarkers(String[][] r) {
