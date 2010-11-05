@@ -1,8 +1,12 @@
 package gu.client.view;
 
 import java.util.ArrayList;
+
+import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
+import com.google.gwt.maps.client.event.MarkerClickHandler;
+import com.google.gwt.maps.client.event.MarkerClickHandler.MarkerClickEvent;
 import com.google.gwt.maps.client.geocode.Geocoder;
 import com.google.gwt.maps.client.geocode.LatLngCallback;
 import com.google.gwt.maps.client.geom.LatLng;
@@ -240,24 +244,43 @@ public class ZgalaView extends Composite {
 			MarkerOptions ops = MarkerOptions.newInstance(icon);
 			ops = MarkerOptions.newInstance(icon);
 			ops.setIcon(icon);
-			ops.setTitle(grid1.getRecord(i).getAttribute("woNumber"));
+			//from, to, shd, dd, equipment, pieces, type, lbs
+			String s="";
+			s=s+"WO#: "+grid1.getRecord(i).getAttribute("prefix")+"-"+grid1.getRecord(i).getAttribute("woNumber")+"\r\n";
+			s=s+"From: "+grid1.getRecord(i).getAttribute("from")+"\r\n";
+			s=s+" "+grid1.getRecord(i).getAttribute("equipment");
+			s=s+" "+grid1.getRecord(i).getAttribute("pieces");
+			s=s+" "+grid1.getRecord(i).getAttribute("type")+"\r\n";
+			s=s+"Weight: "+grid1.getRecord(i).getAttribute("lbs")+" LBS\r\n";
+					
+			ops.setTitle(s);//
 			m = new Marker(LatLng.newInstance(
 					Double.parseDouble(grid1.getRecord(i).getAttribute(
 							"shiplat")),
 					Double.parseDouble(grid1.getRecord(i).getAttribute(
 							"shiplng"))), ops);
 
+			m.addMarkerClickHandler(mch);
 			map.addOverlay(m);
 
 			icon.setImageURL("markerGreen.png");
 			ops = MarkerOptions.newInstance(icon);
 			ops.setIcon(icon);
-			ops.setTitle(grid1.getRecord(i).getAttribute("woNumber"));
+			
+			s="";
+			s=s+"WO#: "+grid1.getRecord(i).getAttribute("prefix")+"-"+grid1.getRecord(i).getAttribute("woNumber")+"\r\n";
+			s=s+"To: "+grid1.getRecord(i).getAttribute("to")+"\r\n";
+			s=s+" "+grid1.getRecord(i).getAttribute("equipment");
+			s=s+" "+grid1.getRecord(i).getAttribute("pieces");
+			s=s+" "+grid1.getRecord(i).getAttribute("type")+"\r\n";
+			s=s+"Weight: "+grid1.getRecord(i).getAttribute("lbs")+" LBS\r\n";
+			ops.setTitle(s);//
 			m = new Marker(LatLng.newInstance(
 					Double.parseDouble(grid1.getRecord(i).getAttribute(
 							"conslat")),
 					Double.parseDouble(grid1.getRecord(i).getAttribute(
 							"conslng"))), ops);
+			m.addMarkerClickHandler(mch);
 			map.addOverlay(m);
 		}
 	}
@@ -382,6 +405,18 @@ public class ZgalaView extends Composite {
 			map.clearOverlays();
 			get_map();
 			// TODO Auto-generated method stub
+		}
+	};
+	
+	MarkerClickHandler mch = new MarkerClickHandler() {
+
+		public void onClick(MarkerClickEvent event) {
+			Marker m=event.getSender();
+			
+			map.getInfoWindow().open(
+					m.getLatLng(),
+					new InfoWindowContent(m.getTitle().replace("\r\n", "<br>")));
+
 		}
 	};
 
