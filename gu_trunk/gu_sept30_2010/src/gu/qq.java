@@ -98,7 +98,7 @@ public class qq extends HttpServlet {
 									sh.getCity() + ", " + sh.getProv(), " ",
 									cn.getCity() + ", " + cn.getProv(),
 									ww.getDescription(), ww.get_pieces(),
-									ww.get_type(), ww.getDescription(), " ",
+									ww.get_type(), ww.get_desc(), " ",
 									ww.get_weight_lbs(), ww.get_weight_kgs(),
 									ww.getpickup_dt(), ww.get_delivery_dt() };
 
@@ -143,15 +143,30 @@ public class qq extends HttpServlet {
 					ssh="";
 				
 				s=s+"\r\n<country>"+
+				//"\r\n<r>"+ar.get(n)[0].trim()+"</r>"+
+				
+				//"\r\n<dist></dist>"+
+				"\r\n<shiplat>"+ar.get(n)[1].trim()+"</shiplat>"+
+				"\r\n<shiplng>"+ar.get(n)[2].trim()+"</shiplng>"+
+				
+				//"\r\n<shipinf>"+ar.get(n)[3].trim()+"</shipinf>"+
+				//"\r\n<g>"+ar.get(n)[4].trim()+"</g>"+
+				
+				"\r\n<conslat>"+ar.get(n)[5].trim()+"</conslat>"+
+				"\r\n<conslng>"+ar.get(n)[6].trim()+"</conslng>"+
+				
+				//"\r\n<consinf>"+ar.get(n)[7].trim()+"</consinf>"+
+				
 				"\r\n<prefix>"+ar.get(n)[8].trim().substring(0,3)+"</prefix>"+
-				"\r\n<woNumber>"+ar.get(n)[8].trim().substring(3)+"</woNumber>"+
+				"\r\n<woNumber>"+ar.get(n)[8].trim().substring(4)+"</woNumber>"+
 				"\r\n<from>"+ar.get(n)[10].trim()+"</from>"+
 				"\r\n<to>"+ar.get(n)[12].trim()+"</to>"+sdd+ssh+
 				"\r\n<equipment>"+ar.get(n)[13].trim()+"</equipment>"+
 				"\r\n<pieces>"+ar.get(n)[14].trim()+"</pieces>"+
 				"\r\n<type>"+ar.get(n)[15].trim()+"</type>"+
-				"\r\n<description>"+ar.get(n)[17].trim()+"</description>"+
+				"\r\n<description>"+ar.get(n)[16].trim()+"</description>"+
 				"\r\n<lbs>"+ar.get(n)[18].trim()+"</lbs>"+
+				"\r\n<kgs>"+ar.get(n)[19].trim()+"</kgs>"+
 				"\r\n</country>\r\n";		
 			}
 		}

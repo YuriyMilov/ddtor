@@ -1,6 +1,7 @@
 package gu.client;
 
 import gu.client.view.LoginView;
+import gu.client.view.ZgalaView;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -16,8 +17,12 @@ import com.google.gwt.user.client.ui.TextBox;
 public class Gu2 implements EntryPoint {
 
 	  public void onModuleLoad() {
-	      LoginView login_view=new LoginView();
-	      RootPanel.get().add(login_view,5,30);
+	      //LoginView view=new LoginView();
+			//RootPanel.get().add(view,5,30);
+					
+	      ZgalaView view = new ZgalaView();
+			RootPanel.get().add(view);
+			
 		  }
 
 }

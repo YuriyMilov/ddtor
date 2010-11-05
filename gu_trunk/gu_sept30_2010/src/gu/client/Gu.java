@@ -4,6 +4,7 @@ package gu.client;
 import gu.client.dao.RPCObjectFactory;
 import gu.client.view.DatabaseEditorView;
 import gu.client.view.UfosView;
+import gu.client.view.ZgalaView;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -18,7 +19,10 @@ public class Gu implements EntryPoint {
 				
 		//create view
 		UfosView view = new UfosView();
+		
 		//DatabaseEditorView view = new DatabaseEditorView();
+		
+		
 		RootPanel.get().add(view );
 	
 			 

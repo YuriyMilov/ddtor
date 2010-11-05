@@ -1,5 +1,6 @@
 package gu.client.view;
 
+import com.google.gwt.maps.client.MapWidget;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.data.fields.*;
 
@@ -21,7 +22,17 @@ public class DaSo extends DataSource {
         DataSourceIntegerField pkField = new DataSourceIntegerField("pk");
         pkField.setHidden(true);
         pkField.setPrimaryKey(true);
+        
+        DataSourceIntegerField orig = new DataSourceIntegerField("orig", "orig");
+        DataSourceIntegerField dest = new DataSourceIntegerField("dest", "dest");
+        
+        DataSourceFloatField shiplat = new DataSourceFloatField("shiplat", "ShipLat");
+        DataSourceFloatField shiplng = new DataSourceFloatField("shiplng", "ShipLng");
 
+        DataSourceFloatField conslat = new DataSourceFloatField("conslat", "ConsLat");
+        DataSourceFloatField conslng = new DataSourceFloatField("conslng", "ConsLng");
+
+        
         DataSourceTextField prefix = new DataSourceTextField("prefix", "Prefix");
         prefix.setRequired(true);
         
@@ -55,10 +66,14 @@ public class DaSo extends DataSource {
        // DataSourceFloatField areaField = new DataSourceFloatField("area", "Area (km&sup2;)");
        // DataSourceIntegerField populationField = new DataSourceIntegerField("population", "Population");
         //DataSourceFloatField gdpField = new DataSourceFloatField("gdp", "GDP ($M)");
-        
-        setFields(pkField, prefix, woNumber, from, to, shd, dd, equipment, pieces, type, lbs, description);
+      //  map.setCanEdit(true);
+		//       setFields(pkField, prefix, woNumber, from, to, shd, dd, equipment, pieces, type, lbs, description);
 
+        //setFields(pkField, orig, dest, shiplat, shiplng, conslat, conslng, prefix, woNumber, from, to, shd, dd, equipment, pieces, type, lbs, description);
+
+        setFields(pkField, prefix, woNumber, from, to, shd, dd, equipment, pieces, type, lbs, description);
         setDataURL("qq");
         setClientOnly(true);
+        
     }
 }

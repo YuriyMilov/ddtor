@@ -72,6 +72,8 @@ public class LoginView extends Composite {
 					
 					UfosView view2 = new UfosView();
 					pan.add(view2);
+					//ZgalaView view1 = new ZgalaView();
+					//pan.add(view1);
 					
 				
 					loading.removeFromParent();
