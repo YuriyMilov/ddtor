@@ -159,11 +159,13 @@ public class ZgalaView extends Composite {
 		vah1.addMember(grid1);
 		bTab.setPane(vah1);
 
-		vahdb.addMember(new DatabaseEditorView());
+		vahdb.addMember(new Application());
 		dbTab.setPane(vahdb);
 
 		tabSet.setTabs(rTab, dTab, sTab, dbTab);
+		tabSet.setHeight(133);
 		tabSet1.setTabs(mTab, bTab);
+		
 
 		bmSec.setTitle("Board & Map");
 		bmSec.setExpanded(true);
@@ -172,9 +174,8 @@ public class ZgalaView extends Composite {
 		bmSec.setResizeable(true);
 
 		sdrSec.setTitle("Search");
-		sdrSec.setExpanded(true);
+		sdrSec.setExpanded(false);
 		sdrSec.setItems(tabSet);
-
 		sectionStack.setSections(sdrSec, bmSec);
 		sectionStack.draw();
 
@@ -248,10 +249,12 @@ public class ZgalaView extends Composite {
 			String s="";
 			s=s+"WO#: "+grid1.getRecord(i).getAttribute("prefix")+"-"+grid1.getRecord(i).getAttribute("woNumber")+"\r\n";
 			s=s+"From: "+grid1.getRecord(i).getAttribute("from")+"\r\n";
+			s=s+"To: "+grid1.getRecord(i).getAttribute("to")+"\r\n";
 			s=s+" "+grid1.getRecord(i).getAttribute("equipment");
 			s=s+" "+grid1.getRecord(i).getAttribute("pieces");
 			s=s+" "+grid1.getRecord(i).getAttribute("type")+"\r\n";
-			s=s+"Weight: "+grid1.getRecord(i).getAttribute("lbs")+" LBS\r\n";
+			if(grid1.getRecord(i).getAttribute("lbs").trim().length()>1)
+				s=s+"Weight: "+grid1.getRecord(i).getAttribute("lbs")+" LBS\r\n";
 					
 			ops.setTitle(s);//
 			m = new Marker(LatLng.newInstance(
@@ -269,11 +272,13 @@ public class ZgalaView extends Composite {
 			
 			s="";
 			s=s+"WO#: "+grid1.getRecord(i).getAttribute("prefix")+"-"+grid1.getRecord(i).getAttribute("woNumber")+"\r\n";
+			s=s+"From: "+grid1.getRecord(i).getAttribute("from")+"\r\n";
 			s=s+"To: "+grid1.getRecord(i).getAttribute("to")+"\r\n";
 			s=s+" "+grid1.getRecord(i).getAttribute("equipment");
 			s=s+" "+grid1.getRecord(i).getAttribute("pieces");
 			s=s+" "+grid1.getRecord(i).getAttribute("type")+"\r\n";
-			s=s+"Weight: "+grid1.getRecord(i).getAttribute("lbs")+" LBS\r\n";
+			if(grid1.getRecord(i).getAttribute("lbs").trim().length()>1)
+				s=s+"Weight: "+grid1.getRecord(i).getAttribute("lbs")+" LBS\r\n";
 			ops.setTitle(s);//
 			m = new Marker(LatLng.newInstance(
 					Double.parseDouble(grid1.getRecord(i).getAttribute(

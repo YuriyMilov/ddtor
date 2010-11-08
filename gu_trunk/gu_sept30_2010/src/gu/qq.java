@@ -159,8 +159,8 @@ public class qq extends HttpServlet {
 				
 				"\r\n<prefix>"+ar.get(n)[8].trim().substring(0,3)+"</prefix>"+
 				"\r\n<woNumber>"+ar.get(n)[8].trim().substring(4)+"</woNumber>"+
-				"\r\n<from>"+ar.get(n)[10].trim()+"</from>"+
-				"\r\n<to>"+ar.get(n)[12].trim()+"</to>"+sdd+ssh+
+				"\r\n<from>"+ar.get(n)[10].trim().replace(" ", "").replace(",", ", ")+"</from>"+
+				"\r\n<to>"+ar.get(n)[12].trim().replace(" ", "").replace(",", ", ")+"</to>"+sdd+ssh+
 				"\r\n<equipment>"+ar.get(n)[13].trim()+"</equipment>"+
 				"\r\n<pieces>"+ar.get(n)[14].trim()+"</pieces>"+
 				"\r\n<type>"+ar.get(n)[15].trim()+"</type>"+

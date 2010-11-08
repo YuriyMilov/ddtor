@@ -1,5 +1,7 @@
 package gu.client;
 
+import gu.client.view.Application;
+import gu.client.view.DatabaseEditorView;
 import gu.client.view.LoginView;
 import gu.client.view.ZgalaView;
 
@@ -21,7 +23,8 @@ public class Gu2 implements EntryPoint {
 			//RootPanel.get().add(view,5,30);
 					
 	      ZgalaView view = new ZgalaView();
-			RootPanel.get().add(view);
+	      RootPanel.get().add(view);
+	     // RootPanel.get().add(new Application());
 			
 		  }
 
