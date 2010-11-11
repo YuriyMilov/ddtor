@@ -121,62 +121,79 @@ public class qq extends HttpServlet {
 				ar.add(zz);
 		}
 		String[][] sss = null;
-		s="";
+		s = "";
 		if (ar.size() != 0) {
 
 			sss = new String[ar.size()][ar.get(0).length];
 			for (int n = 0; n < ar.size(); n++) {
 				sss[n] = ar.get(n);
-				
-				String ssh=ar.get(n)[20].trim();
-				String sdd=ar.get(n)[21].trim();
-				//09/16/10
-				if(sdd.length()>7)
-					sdd="\r\n<dd>"+"20"+sdd.substring(6,8)+"-"+sdd.substring(0,2)+"-"+sdd.substring(3,5)+"</dd>";
-				else
-					sdd="";
 
-				
-				if(ssh.length()>7)
-					ssh="\r\n<shd>"+"20"+ssh.substring(6,8)+"-"+ssh.substring(0,2)+"-"+ssh.substring(3,5)+"</shd>";
+				String ssh = ar.get(n)[20].trim();
+				String sdd = ar.get(n)[21].trim();
+				// 09/16/10
+				if (sdd.length() > 7)
+					sdd = "\r\n<dd>" + "20" + sdd.substring(6, 8) + "-"
+							+ sdd.substring(0, 2) + "-" + sdd.substring(3, 5)
+							+ "</dd>";
 				else
-					ssh="";
-				
-				s=s+"\r\n<country>"+
-				//"\r\n<r>"+ar.get(n)[0].trim()+"</r>"+
-				
-				//"\r\n<dist></dist>"+
-				"\r\n<shiplat>"+ar.get(n)[1].trim()+"</shiplat>"+
-				"\r\n<shiplng>"+ar.get(n)[2].trim()+"</shiplng>"+
-				
-				//"\r\n<shipinf>"+ar.get(n)[3].trim()+"</shipinf>"+
-				//"\r\n<g>"+ar.get(n)[4].trim()+"</g>"+
-				
-				"\r\n<conslat>"+ar.get(n)[5].trim()+"</conslat>"+
-				"\r\n<conslng>"+ar.get(n)[6].trim()+"</conslng>"+
-				
-				//"\r\n<consinf>"+ar.get(n)[7].trim()+"</consinf>"+
-				
-				"\r\n<prefix>"+ar.get(n)[8].trim().substring(0,3)+"</prefix>"+
-				"\r\n<woNumber>"+ar.get(n)[8].trim().substring(4)+"</woNumber>"+
-				"\r\n<from>"+ar.get(n)[10].trim().replace(" ", "").replace(",", ", ")+"</from>"+
-				"\r\n<to>"+ar.get(n)[12].trim().replace(" ", "").replace(",", ", ")+"</to>"+sdd+ssh+
-				"\r\n<equipment>"+ar.get(n)[13].trim()+"</equipment>"+
-				"\r\n<pieces>"+ar.get(n)[14].trim()+"</pieces>"+
-				"\r\n<type>"+ar.get(n)[15].trim()+"</type>"+
-				"\r\n<description>"+ar.get(n)[16].trim()+"</description>"+
-				"\r\n<lbs>"+ar.get(n)[18].trim()+"</lbs>"+
-				"\r\n<kgs>"+ar.get(n)[19].trim()+"</kgs>"+
-				"\r\n</country>\r\n";		
+					sdd = "";
+
+				if (ssh.length() > 7)
+					ssh = "\r\n<shd>" + "20" + ssh.substring(6, 8) + "-"
+							+ ssh.substring(0, 2) + "-" + ssh.substring(3, 5)
+							+ "</shd>";
+				else
+					ssh = "";
+
+				String from1 = "", from2 = "";
+				from1 = ar.get(n)[10];
+				if (from1.indexOf(",") > -1) {
+						from2 = from1.substring(from1.indexOf(","))
+							.replace(",", "");
+						from1 = from1.substring(0, from1.indexOf(","));
+			} else {
+					from1 = "Nowhere";
+					from2 = "??";
+				}
+
+				String to1 = "", to2 = "";
+				to1 = ar.get(n)[12];
+				if (to1.indexOf(",") > -1) {
+					to2 = to1.substring(to1.indexOf(",")).replace(",", "");
+					to1 = to1.substring(0, to1.indexOf(","));
+				} else {
+					to1 = "Nowhere";
+					to2 = "??";
+				}
+
+				s = s + "\r\n<country>" + "\r\n<shiplat>" + ar.get(n)[1]
+						+ "</shiplat>" + "\r\n<shiplng>" + ar.get(n)[2]
+						+ "</shiplng>" + "\r\n<conslat>" + ar.get(n)[5]
+						+ "</conslat>" + "\r\n<conslng>" + ar.get(n)[6]
+						+ "</conslng>" + "\r\n<prefix>"
+						+ ar.get(n)[8].substring(0, 3) + "</prefix>"
+						+ "\r\n<woNumber>" + ar.get(n)[8].substring(4)
+						+ "</woNumber>" + "\r\n<from1>" + from1 + "</from1>"
+						+ "\r\n<from2>" + from2 + "</from2>" + "\r\n<to1>"
+						+ to1 + "</to1>" + "\r\n<to2>" + to2 + "</to2>" + sdd
+						+ ssh + "\r\n<equipment>" + ar.get(n)[13]
+						+ "</equipment>" + "\r\n<pieces>" + ar.get(n)[14]
+						+ "</pieces>" + "\r\n<type>" + ar.get(n)[15]
+						+ "</type>" + "\r\n<description>" + ar.get(n)[16]
+						+ "</description>" + "\r\n<lbs>" + ar.get(n)[18]
+						+ "</lbs>" + "\r\n<kgs>" + ar.get(n)[19] + "</kgs>"
+						+ "\r\n</country>\r\n";
 			}
 		}
-		s="<List>"+s+"</List>";
+		s = "<List>" + s + "</List>";
+
+		s = s.replaceAll("\\s+", " ");
 		out.println(s);
-        //equipment 13 (16)
-        //pieces 14
-        //type 15 
-        //description 17
-		//lbs 18
+		// equipment 13 (16)
+		// pieces 14
+		// type 15
+		// description 17
+		// lbs 18
 
 	}
 

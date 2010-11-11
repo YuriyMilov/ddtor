@@ -46,8 +46,8 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 public class ZgalaView extends Composite {
-	//hi test
-	Window ww=new Window();
+	// hi test
+	Window ww = new Window();
 	boolean bol = true;
 	Geocoder geo = new Geocoder();
 	Icon icon = Icon.newInstance(Icon.DEFAULT_ICON);
@@ -125,7 +125,7 @@ public class ZgalaView extends Composite {
 		br.addClickHandler(hbt);
 		ba.addClickHandler(hbc);
 		bm.addClickHandler(hbm);
-		
+
 		layout.setWidth(500);
 		vahr.addMember(layout);
 		vahr.addMember(br);
@@ -277,9 +277,9 @@ public class ZgalaView extends Composite {
 				s = s + "WO#: " + grid1.getRecord(i).getAttribute("prefix")
 						+ "-" + grid1.getRecord(i).getAttribute("woNumber")
 						+ "\r\n";
-				s = s + "From: " + grid1.getRecord(i).getAttribute("from")
+				s = s + "From: " + grid1.getRecord(i).getAttribute("from1")+", "+grid1.getRecord(i).getAttribute("from2")
 						+ "\r\n";
-				s = s + "To: " + grid1.getRecord(i).getAttribute("to") + "\r\n";
+				s = s + "To: " + grid1.getRecord(i).getAttribute("to1") +", "+grid1.getRecord(i).getAttribute("to2")+ "\r\n";
 				s = s + " " + grid1.getRecord(i).getAttribute("equipment");
 				s = s + " " + grid1.getRecord(i).getAttribute("pieces");
 				s = s + " " + grid1.getRecord(i).getAttribute("type") + "\r\n";
@@ -306,10 +306,9 @@ public class ZgalaView extends Composite {
 				s = s + "WO#: " + grid1.getRecord(i).getAttribute("prefix")
 						+ "-" + grid1.getRecord(i).getAttribute("woNumber")
 						+ "\r\n";
-				s = s + "From: " + grid1.getRecord(i).getAttribute("from")
-						+ "\r\n";
-				s = s + "To: " + grid1.getRecord(i).getAttribute("to") + "\r\n";
-				s = s + " " + grid1.getRecord(i).getAttribute("equipment");
+				s = s + "From: " + grid1.getRecord(i).getAttribute("from1")+", "+grid1.getRecord(i).getAttribute("from2")					+ "\r\n";
+				s = s + "To: " + grid1.getRecord(i).getAttribute("to1") +", "+grid1.getRecord(i).getAttribute("to2")+ "\r\n";
+							s = s + " " + grid1.getRecord(i).getAttribute("equipment");
 				s = s + " " + grid1.getRecord(i).getAttribute("pieces");
 				s = s + " " + grid1.getRecord(i).getAttribute("type") + "\r\n";
 				if (grid1.getRecord(i).getAttribute("lbs").trim().length() > 1)
@@ -352,9 +351,9 @@ public class ZgalaView extends Composite {
 				s = s + "WO#: " + grid1.getRecord(i).getAttribute("prefix")
 						+ "-" + grid1.getRecord(i).getAttribute("woNumber")
 						+ "\r\n";
-				s = s + "From: " + grid1.getRecord(i).getAttribute("from")
-						+ "\r\n";
-				s = s + "To: " + grid1.getRecord(i).getAttribute("to") + "\r\n";
+				s = s + "From: " + grid1.getRecord(i).getAttribute("from1")+", "+grid1.getRecord(i).getAttribute("from2")
+				+ "\r\n";
+				s = s + "To: " + grid1.getRecord(i).getAttribute("to1") +", "+grid1.getRecord(i).getAttribute("to2")+ "\r\n";
 				s = s + " " + grid1.getRecord(i).getAttribute("equipment");
 				s = s + " " + grid1.getRecord(i).getAttribute("pieces");
 				s = s + " " + grid1.getRecord(i).getAttribute("type") + "\r\n";
@@ -363,14 +362,22 @@ public class ZgalaView extends Composite {
 							+ " LBS\r\n";
 
 				ops.setTitle(s);//
-				m = new Marker(LatLng.newInstance(
-						Double.parseDouble(grid1.getRecord(i).getAttribute(
-								"shiplat")),
-						Double.parseDouble(grid1.getRecord(i).getAttribute(
-								"shiplng"))), ops);
+				try {
+					m = new Marker(LatLng.newInstance(
+							Double.parseDouble(grid1.getRecord(i).getAttribute(
+									"shiplat")),
+							Double.parseDouble(grid1.getRecord(i).getAttribute(
+									"shiplng"))), ops);
 
-				m.addMarkerClickHandler(mch);
-				map.addOverlay(m);
+					m.addMarkerClickHandler(mch);
+					map.addOverlay(m);
+				} catch (Exception e) {
+					//ops.setTitle(e.toString());
+					//m = new Marker(LatLng.newInstance(0, 0), ops);
+					//m.addMarkerClickHandler(mch);
+					//map.addOverlay(m);
+					grid1.getRecord(i).setAttribute("ii", false);
+				}
 
 				icon.setImageURL("markerGreen.png");
 				ops = MarkerOptions.newInstance(icon);
@@ -380,9 +387,9 @@ public class ZgalaView extends Composite {
 				s = s + "WO#: " + grid1.getRecord(i).getAttribute("prefix")
 						+ "-" + grid1.getRecord(i).getAttribute("woNumber")
 						+ "\r\n";
-				s = s + "From: " + grid1.getRecord(i).getAttribute("from")
-						+ "\r\n";
-				s = s + "To: " + grid1.getRecord(i).getAttribute("to") + "\r\n";
+				s = s + "From: " + grid1.getRecord(i).getAttribute("from1")+", "+grid1.getRecord(i).getAttribute("from2")
+				+ "\r\n";
+				s = s + "To: " + grid1.getRecord(i).getAttribute("to1") +", "+grid1.getRecord(i).getAttribute("to2")+ "\r\n";
 				s = s + " " + grid1.getRecord(i).getAttribute("equipment");
 				s = s + " " + grid1.getRecord(i).getAttribute("pieces");
 				s = s + " " + grid1.getRecord(i).getAttribute("type") + "\r\n";
@@ -390,26 +397,39 @@ public class ZgalaView extends Composite {
 					s = s + "Weight: " + grid1.getRecord(i).getAttribute("lbs")
 							+ " LBS\r\n";
 				ops.setTitle(s);//
-				m = new Marker(LatLng.newInstance(
-						Double.parseDouble(grid1.getRecord(i).getAttribute(
-								"conslat")),
-						Double.parseDouble(grid1.getRecord(i).getAttribute(
-								"conslng"))), ops);
-				m.addMarkerClickHandler(mch);
-				map.addOverlay(m);
+				try {
+					m = new Marker(LatLng.newInstance(
+							Double.parseDouble(grid1.getRecord(i).getAttribute(
+									"conslat")),
+							Double.parseDouble(grid1.getRecord(i).getAttribute(
+									"conslng"))), ops);
+					m.addMarkerClickHandler(mch);
+					map.addOverlay(m);
+				} catch (Exception e) {
+					//ops.setTitle(e.toString());
+					//m = new Marker(LatLng.newInstance(0, 0), ops);
+					//m.addMarkerClickHandler(mch);
+					//map.addOverlay(m);
+					grid1.getRecord(i).setAttribute("ii", false);
+				}
 				grid1.getRecord(i).setAttribute("ii", true);
 
 			} else
 				grid1.getRecord(i).setAttribute("ii", false);
 		}
-		//Criterion crit = new Criterion("ii", OperatorId.EQUALS, true);
-		//grid1.fetchData(crit);
+		// Criterion crit = new Criterion("ii", OperatorId.EQUALS, true);
+		// grid1.fetchData(crit);
 
 	}
 
 	final LatLngCallback geoint1 = new LatLngCallback() {
 		@Override
 		public void onFailure() {
+			int i = grid1.getDataAsRecordList().getLength();
+			while (i-- > 0)
+				grid1.getRecord(i).setAttribute("orig", 0);
+
+			geo.getLatLng(textItem2.getDisplayValue(), geoint2);
 		}
 
 		@Override
@@ -439,6 +459,18 @@ public class ZgalaView extends Composite {
 	final LatLngCallback geoint2 = new LatLngCallback() {
 		@Override
 		public void onFailure() {
+			int i = grid1.getDataAsRecordList().getLength();
+			while (i-- > 0)
+				grid1.getRecord(i).setAttribute("dest", 0);
+
+			String skm = sliderItem1.getDisplayValue() + "000";
+			int i1 = Integer.parseInt(skm);
+			skm = sliderItem2.getDisplayValue() + "000";
+
+			int i2 = Integer.parseInt(skm);
+			map.clearOverlays();
+			get_map2(i1, i2);
+
 		}
 
 		@Override
@@ -464,7 +496,7 @@ public class ZgalaView extends Composite {
 			String skm = sliderItem1.getDisplayValue() + "000";
 			int i1 = Integer.parseInt(skm);
 			skm = sliderItem2.getDisplayValue() + "000";
-			;
+
 			int i2 = Integer.parseInt(skm);
 			map.clearOverlays();
 			get_map2(i1, i2);
@@ -492,23 +524,22 @@ public class ZgalaView extends Composite {
 			get_map();
 		}
 	};
-	
+
 	ClickHandler hbm = new ClickHandler() {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			Criterion crit = new Criterion("ii", OperatorId.EQUALS, true);			grid1.fetchData(crit);
+			Criterion crit = new Criterion("ii", OperatorId.EQUALS, true);
+			grid1.fetchData(crit);
 			grid1.fetchData(crit);
 			map.clearOverlays();
 			get_map();
 		}
 	};
 
-	//Criterion crit = new Criterion("ii", OperatorId.EQUALS, true);
-	//grid1.fetchData(crit);
+	// Criterion crit = new Criterion("ii", OperatorId.EQUALS, true);
+	// grid1.fetchData(crit);
 
-	
-	
 	MarkerClickHandler mch = new MarkerClickHandler() {
 
 		public void onClick(MarkerClickEvent event) {
@@ -522,7 +553,6 @@ public class ZgalaView extends Composite {
 		}
 	};
 
-	
 	ClickHandler hbt = new ClickHandler() {
 
 		@Override
@@ -531,21 +561,20 @@ public class ZgalaView extends Composite {
 			grid1.fetchData(crit);
 			geo.getLatLng(textItem1.getDisplayValue(), geoint1);
 
-			
 		}
 	};
-	
-	ChangedHandler hslide = new ChangedHandler(){
+
+	ChangedHandler hslide = new ChangedHandler() {
 
 		@Override
 		public void onChanged(ChangedEvent event) {
 			Criterion crit = new Criterion();
 			grid1.fetchData(crit);
 			geo.getLatLng(textItem1.getDisplayValue(), geoint1);
-			
-		}};
-	
-	
+
+		}
+	};
+
 	/*
 	 * CellClickHandler cch=new CellClickHandler(){
 	 * 
