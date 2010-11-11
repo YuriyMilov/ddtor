@@ -46,6 +46,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 
 public class ZgalaView extends Composite {
+	//hi test
 	Window ww=new Window();
 	boolean bol = true;
 	Geocoder geo = new Geocoder();
