@@ -23,8 +23,9 @@ public class DaSo extends DataSource {
         pkField.setHidden(true);
         pkField.setPrimaryKey(true);
         
-        DataSourceIntegerField orig = new DataSourceIntegerField("orig", "orig");
-        DataSourceIntegerField dest = new DataSourceIntegerField("dest", "dest");
+        DataSourceBooleanField ii = new DataSourceBooleanField("ii", "Mapped");
+        DataSourceIntegerField orig = new DataSourceIntegerField("orig", "kms to Orig");
+        DataSourceIntegerField dest = new DataSourceIntegerField("dest", "kms to Dest");
         
         DataSourceFloatField shiplat = new DataSourceFloatField("shiplat", "ShipLat");
         DataSourceFloatField shiplng = new DataSourceFloatField("shiplng", "ShipLng");
@@ -71,7 +72,7 @@ public class DaSo extends DataSource {
 
         //setFields(pkField, orig, dest, shiplat, shiplng, conslat, conslng, prefix, woNumber, from, to, shd, dd, equipment, pieces, type, lbs, description);
 
-        setFields(pkField, prefix, woNumber, from, to, shd, dd, equipment, pieces, type, lbs, description);
+        setFields(pkField, ii, orig, dest, prefix, woNumber, from, to, shd, dd, equipment, pieces, type, lbs, description);
         setDataURL("qq");
         setClientOnly(true);
         
