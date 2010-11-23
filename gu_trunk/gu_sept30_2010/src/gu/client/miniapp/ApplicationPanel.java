@@ -38,7 +38,8 @@ class ApplicationPanel extends HLayout {
 
     private SearchForm searchForm;
     private CategoryTreeGrid categoryTree;
-    private ItemListGrid itemList;
+    //private ShipperTreeGrid shipperTree;
+       private ItemListGrid itemList;
     private ItemDetailTabPane itemDetailTabPane;
     private Menu itemListMenu;
 
@@ -47,9 +48,11 @@ class ApplicationPanel extends HLayout {
         setHeight100();
         setLayoutMargin(20);
 
+        //DataSource shipperDS = ShipperXmlDS.getInstance();
         DataSource supplyCategoryDS = SupplyCategoryXmlDS.getInstance();
         DataSource supplyItemDS = ItemSupplyXmlDS.getInstance();
 
+        //shipperTree = new ShipperTreeGrid(shipperDS);
         categoryTree = new CategoryTreeGrid(supplyCategoryDS);
         categoryTree.setAutoFetchData(true);
         categoryTree.addNodeClickHandler(new NodeClickHandler() {

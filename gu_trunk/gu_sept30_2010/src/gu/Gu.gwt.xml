@@ -37,7 +37,6 @@
   <!-- Specify the app entry point class.                         -->
   <!-- <entry-point class='gu.client.Gu'/>  -->
   
-  
   <entry-point class='gu.client.Gu2'/>
   
   <!-- Specify the paths for translatable code                    -->
@@ -45,3 +44,4 @@
   <source path='shared'/>
 
 </module>
+

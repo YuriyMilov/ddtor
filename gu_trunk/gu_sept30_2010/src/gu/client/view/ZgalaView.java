@@ -117,13 +117,18 @@ public class ZgalaView extends Composite {
 		sliderItem2.setMinValue(0);
 		sliderItem2.setMaxValue(500);
 		sliderItem2.setDefaultValue(50);
+		
+		
 		sliderItem2.addChangedHandler(hslide);
-
+		sliderItem1.setTitleOrientation(TitleOrientation.TOP);
+		sliderItem2.setTitleOrientation(TitleOrientation.TOP);
 		formr.setFields(textItem1, sliderItem1, textItem2, sliderItem2);
 		formr.setTitleOrientation(TitleOrientation.TOP);
 		layout.addMember(formr);
 		br.addClickHandler(hbt);
 		ba.addClickHandler(hbc);
+		
+		
 		bm.addClickHandler(hbm);
 
 		layout.setWidth(500);

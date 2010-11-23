@@ -6,7 +6,7 @@ import com.smartgwt.client.widgets.form.validator.FloatPrecisionValidator;
 import com.smartgwt.client.widgets.form.validator.FloatRangeValidator;
 
 public class ItemSupplyXmlDS extends DataSource {
-
+	
     private static ItemSupplyXmlDS instance = null;
 
     public static ItemSupplyXmlDS getInstance() {
@@ -52,7 +52,8 @@ public class ItemSupplyXmlDS extends DataSource {
         setFields(pkField, itemNameField, skuField, descriptionField, categoryField, unitsField,
                   unitCostField, inStockField, nextShipmentField);
 
-        setDataURL("ds/test_data/supplyItem.data.xml");
-        setClientOnly(true);        
+        //setDataURL("http://127.0.0.1:8888/ds/test_data/supplyItem.data.xml");
+        setDataURL("http://127.0.0.1:8888/qq2");
+         //setClientOnly(true);        
     }
 }
