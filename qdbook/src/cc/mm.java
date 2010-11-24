@@ -37,12 +37,9 @@ public class mm extends HttpServlet {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		String msgBody = "testing cron job at cron"
-				+ ""
-				+ "cron.xml in WEB-INF"
-				+ ""
-				+ "<?xml version=\"1.0\" encoding=\"utf-8\"?><cronentries>  <cron>    <url>/mm</url>    <description>Mail out</description>    <schedule>every day 06:55</schedule> <timezone>America/New_York</timezone></cron><cron>    <url>/mm</url>    <description>Mail out</description>    <schedule>every 30 minutes</schedule> <timezone>America/New_York</timezone></cron></cronentries>";
+		String msgBody = "";//"testing cron job at cron cron.xml in WEB-INF <?xml version=\"1.0\" encoding=\"utf-8\"?><cronentries>  <cron>    <url>/mm</url>    <description>Mail out</description>    <schedule>every day 06:55</schedule> <timezone>America/New_York</timezone></cron><cron>    <url>/mm</url>    <description>Mail out</description>    <schedule>every 30 minutes</schedule> <timezone>America/New_York</timezone></cron></cronentries>";
 
+		msgBody=rfu("http://code.google.com/p/ddtor/source/list");
 		Message msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress("ymdata@gmail.com", "Admin"));
 		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
