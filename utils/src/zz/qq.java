@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 public class qq {
+	
+	//pdf charset setup проверка фонтов
 
 	/**
 	 * @param args
