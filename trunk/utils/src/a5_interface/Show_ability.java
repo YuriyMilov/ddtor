@@ -8,6 +8,6 @@ public static void main(String[] args) {
 	tab.tell();
 	
 	tab = new Q2_with_ability();
-	tab.tell();
+	tab.tell(); 
 }
 }
