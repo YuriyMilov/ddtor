@@ -40,11 +40,20 @@ public class mm extends HttpServlet {
 		String msgBody = "";//"testing cron job at cron cron.xml in WEB-INF <?xml version=\"1.0\" encoding=\"utf-8\"?><cronentries>  <cron>    <url>/mm</url>    <description>Mail out</description>    <schedule>every day 06:55</schedule> <timezone>America/New_York</timezone></cron><cron>    <url>/mm</url>    <description>Mail out</description>    <schedule>every 30 minutes</schedule> <timezone>America/New_York</timezone></cron></cronentries>";
 
 		msgBody=rfu("http://code.google.com/p/ddtor/source/list");
+		msgBody="Hi Erick,\r\n\r\n" +
+				"" +
+				"Please take a look the last updates with the changed source saved and comments at http://code.google.com/p/ddtor/source/list \r\n\r\n" +
+				"Regards \r\n" +
+				"Yuri \r\n\r\nP.S. This notification has been scheduled for daily updates and generated authomaticly by qdbook mailing system based on the current project updates.";
+		
+		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
+		
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymdata@gmail.com", "Admin"));
+		msg.setFrom(new InternetAddress("ymdata@gmail.com", "Yuriy Milov"));
 		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-				"qdone@rogers.com", "test1"));
+				"cron_job_update@quicklydone.com", "Erick Marroquin"));
 		msg.setSubject("cron job " + new Date().toString());
+		msg.setHeader("Content-type:","text/html;charset=ISO-8859-1");
 		msg.setText(msgBody);
 		Transport.send(msg);
 
