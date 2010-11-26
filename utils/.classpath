@@ -2,5 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="C:/_2_eclipse/_workspace/zzz/lib/activation.jar"/>
+	<classpathentry kind="lib" path="C:/_2_eclipse/_workspace/zzz/lib/dsn.jar"/>
+	<classpathentry kind="lib" path="C:/_2_eclipse/_workspace/zzz/lib/imap.jar"/>
+	<classpathentry kind="lib" path="C:/_2_eclipse/_workspace/zzz/lib/mail.jar"/>
+	<classpathentry kind="lib" path="C:/_2_eclipse/_workspace/zzz/lib/mailapi.jar"/>
+	<classpathentry kind="lib" path="C:/_2_eclipse/_workspace/zzz/lib/pop3.jar"/>
+	<classpathentry kind="lib" path="C:/_2_eclipse/_workspace/zzz/lib/smtp.jar"/>
+	<classpathentry kind="lib" path="C:/_2_eclipse/_workspace/zzz/lib/servlet.jar"/>
+	<classpathentry kind="lib" path="C:/_2_eclipse/_workspace/zzz/lib/gdataplus.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
