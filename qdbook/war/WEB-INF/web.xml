@@ -8,6 +8,15 @@
   <!-- Servlets -->
   
    <servlet>
+    <servlet-name>mat</servlet-name>
+    <servlet-class>cc.mat</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>mat</servlet-name>
+    <url-pattern>/mat</url-pattern>
+  </servlet-mapping>
+  
+     <servlet>
     <servlet-name>mm</servlet-name>
     <servlet-class>cc.mm</servlet-class>
   </servlet>
