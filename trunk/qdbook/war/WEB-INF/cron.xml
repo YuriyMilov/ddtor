@@ -2,15 +2,8 @@
 <cronentries>
 	<cron>
 		<url>/mm</url>
-		<description>Mail out test1</description>
+		<description>Mail out updates at ddtor.googlecode.com</description>
 		<schedule>every day 06:55</schedule>
-		<timezone>America/New_York</timezone>
-	</cron>
-
-	<cron>
-		<url>/mm</url>
-		<description>Mail out test2</description>
-		<schedule>every day 22:30</schedule>
 		<timezone>America/New_York</timezone>
 	</cron>
 </cronentries>
