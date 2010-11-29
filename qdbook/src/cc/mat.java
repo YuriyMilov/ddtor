@@ -32,12 +32,18 @@ public class mat extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String s = "OK";
+		String subj = "attachments test  " + new Date().toString();
+		String text = "Hi guys,<br><br> Regards";
+
 		try {
-		
+
 			byte[] ad = brff("1.jpg");
-			String subj="cron job " + new Date().toString();
-			String text="Hi guys,<br><br> Regards";
-			sm(ad,"ymdata@gmail.com","Yuriy Milov","qdone@rogers.com","Recipient", subj, text);
+			sm(ad, "1.jpg", "image/jpeg",  "ymdata@gmail.com", "Yuriy Milov",
+					"qdone@rogers.com", "Recipient", subj, text);
+
+			ad = brff("1.doc");
+			sm(ad,  "1.doc","application/msword", "ymdata@gmail.com",
+					"Yuriy Milov", "qdone@rogers.com", "Recipient", subj, text);
 
 		} catch (Exception e) {
 			s = e.toString();
@@ -62,10 +68,10 @@ public class mat extends HttpServlet {
 		msg.setText(msgBody);
 		Multipart mp = new MimeMultipart();
 
-		//MimeBodyPart htmlPart = new MimeBodyPart();
-		//String htmlBody = rfu("http://www.google.ca");
-		//htmlPart.setContent(htmlBody, "text/html");
-		//mp.addBodyPart(htmlPart);
+		// MimeBodyPart htmlPart = new MimeBodyPart();
+		// String htmlBody = rfu("http://www.google.ca");
+		// htmlPart.setContent(htmlBody, "text/html");
+		// mp.addBodyPart(htmlPart);
 
 		// MimeBodyPart mbp2 = new MimeBodyPart();
 
@@ -79,13 +85,14 @@ public class mat extends HttpServlet {
 		byte[] attachmentData = brff("1.jpg"); // ...
 		msg.setText("***" + attachmentData.length + "***");
 
-		//DataSource src = new ByteArrayDataSource(attachmentData, "image/1.jpeg");
-		
+		// DataSource src = new ByteArrayDataSource(attachmentData,
+		// "image/1.jpeg");
+
 		FileDataSource fds = new FileDataSource("1.jpg");
 		attachment.setDataHandler(new DataHandler(fds));
 		attachment.setFileName("1.jpg");
 		attachment.setDisposition(Part.ATTACHMENT);
-		
+
 		mp.addBodyPart(attachment);
 		msg.setContent(mp);
 		Transport.send(msg);
@@ -153,40 +160,82 @@ public class mat extends HttpServlet {
 		is.close();
 		return bytes;
 	}
-	
-	private static void sm(byte[] data, String from_a, String from_n, String to_a, String to_n, String subj, String textBody) throws Exception{
-Properties props = new Properties();
-Session session = Session.getDefaultInstance(props, null);
 
-Message message = new MimeMessage(session);
-message.setFrom(new InternetAddress(from_a, from_n));
+	private static void sm(byte[] data, String ff, String mimeType,
+			String from_a, String from_n, String to_a, String to_n,
+			String subj, String textBody) throws Exception {
+		Properties props = new Properties();
+		Session session = Session.getDefaultInstance(props, null);
 
-message.addRecipient(Message.RecipientType.TO, new InternetAddress(to_a, to_n));
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress(from_a, from_n));
 
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(
+				to_a, to_n));
 
-Multipart mp = new MimeMultipart();
+		Multipart mp = new MimeMultipart();
 
-MimeBodyPart textPart = new MimeBodyPart();
-textPart.setContent(textBody, "text/html");
-mp.addBodyPart(textPart);
+		MimeBodyPart textPart = new MimeBodyPart();
+		textPart.setContent(textBody, "text/html");
+		mp.addBodyPart(textPart);
 
-MimeBodyPart attachment = new MimeBodyPart();
-String fileName = "1.jpg";
-String filename = URLEncoder.encode(fileName, "UTF-8");
-attachment.setFileName(filename);
-attachment.setDisposition(Part.ATTACHMENT);
+		MimeBodyPart attachment = new MimeBodyPart();
+		String fileName = ff;
+		String filename = URLEncoder.encode(fileName, "UTF-8");
+		attachment.setFileName(filename);
+		attachment.setDisposition(Part.ATTACHMENT);
 
-//DataSource src = new ByteArrayDataSource(spreadSheetData, "application/x-ms-excel");
-DataSource src = new ByteArrayDataSource(data, "image/jpeg");
-DataHandler handler = new DataHandler(src);
-attachment.setDataHandler(handler);
-mp.addBodyPart(attachment);
+		// DataSource src = new ByteArrayDataSource(spreadSheetData,
+		// "application/x-ms-excel");
+		DataSource src = new ByteArrayDataSource(data, mimeType);
+		DataHandler handler = new DataHandler(src);
+		attachment.setDataHandler(handler);
+		mp.addBodyPart(attachment);
 
-message.setContent(mp);
-message.setSubject(String.format(subj));
+		message.setContent(mp);
+		message.setSubject(String.format(subj));
 
-Transport.send(message);
+		Transport.send(message);
+
+	}
 
 }
+//MIME Type	Filename Extensions
 
-}
+//application/msword	doc
+//application/pdf	pdf
+//application/rss+xml	rss
+//application/vnd.ms-excel	xls
+//application/vnd.ms-powerpoint	pps ppt
+//application/vnd.oasis.opendocument.presentation	odp
+//application/vnd.oasis.opendocument.spreadsheet	ods
+//application/vnd.oasis.opendocument.text	odt
+//application/vnd.sun.xml.calc	sxc
+//application/vnd.sun.xml.writer	sxw
+//audio/basic	au snd
+//audio/flac	flac
+//audio/mid	mid rmi
+//audio/mp4	m4a
+//audio/mpeg	mp3
+//audio/ogg	oga ogg
+//audio/x-aiff	aif aifc aiff
+//audio/x-wav	wav
+//image/gif	gif
+//image/jpeg	jpeg jpg jpe
+//image/png	png
+//image/tiff	tiff tif
+//image/vnd.wap.wbmp	wbmp
+//image/x-ms-bmp	bmp
+//text/calendar	ics
+//text/comma-separated-values	csv
+//text/css	css
+//text/html	htm html
+//text/plain	text txt asc diff pot
+//text/x-vcard	vcf
+//video/mp4	mp4
+//video/mpeg	mpeg mpg mpe
+//video/ogg	ogv
+//video/quicktime	qt mov
+//video/x-msvideo	avi
+
+
