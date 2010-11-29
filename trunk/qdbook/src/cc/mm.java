@@ -37,12 +37,9 @@ public class mm extends HttpServlet {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		String msgBody = "";//"testing cron job at cron cron.xml in WEB-INF <?xml version=\"1.0\" encoding=\"utf-8\"?><cronentries>  <cron>    <url>/mm</url>    <description>Mail out</description>    <schedule>every day 06:55</schedule> <timezone>America/New_York</timezone></cron><cron>    <url>/mm</url>    <description>Mail out</description>    <schedule>every 30 minutes</schedule> <timezone>America/New_York</timezone></cron></cronentries>";
-
-		msgBody=rfu("http://code.google.com/p/ddtor/source/list");
-		msgBody="Hi Erick,\r\n\r\n" +
+		String msgBody = "Hi Erick,\r\n\r\n" +
 				"" +
-				"Please take a look the last updates with the changed source saved and comments at http://code.google.com/p/ddtor/source/list \r\n\r\n" +
+				"Please take a look at the last updates with the changed source saved and comments at http://code.google.com/p/ddtor/source/list \r\n\r\n" +
 				"Regards \r\n" +
 				"Yuri \r\n\r\nP.S. This notification has been scheduled for daily updates and generated authomaticly by qdbook mailing system based on the current project updates.";
 		
