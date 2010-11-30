@@ -1,7 +1,9 @@
 package cc;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -26,6 +28,10 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 public class mat extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,13 +43,23 @@ public class mat extends HttpServlet {
 
 		try {
 
-			byte[] ad = brff("1.jpg");
-			sm(ad, "1.jpg", "image/jpeg",  "ymdata@gmail.com", "Yuriy Milov",
-					"qdone@rogers.com", "Recipient", subj, text);
+			byte[] ad =null;
+			
+			ad=getbb();
+			sm(ad, "1.pdf", "application/pdf",  "ymdata@gmail.com", "Yuriy Milov",
+				"qdone@rogers.com", "Recipient", subj, text);
+			
+			//ad=brff("1.jpg");
+			//sm(ad, "1.jpg", "image/jpeg",  "ymdata@gmail.com", "Yuriy Milov",
+			//		"qdone@rogers.com", "Recipient", subj, text);
 
-			ad = brff("1.doc");
-			sm(ad,  "1.doc","application/msword", "ymdata@gmail.com",
-					"Yuriy Milov", "qdone@rogers.com", "Recipient", subj, text);
+			//ad = brff("1.gif");
+			//sm(ad,  "1.gif","image/gif", "ymdata@gmail.com",
+			//		"Yuriy Milov", "qdone@rogers.com", "Recipient", subj, text);
+
+			//ad = brff("1.doc");
+			//sm(ad,  "1.doc","application/msword", "ymdata@gmail.com",
+			//		"Yuriy Milov", "qdone@rogers.com", "Recipient", subj, text);
 
 		} catch (Exception e) {
 			s = e.toString();
@@ -82,6 +98,8 @@ public class mat extends HttpServlet {
 		// mp.addBodyPart(mbp2);
 
 		MimeBodyPart attachment = new MimeBodyPart();
+		
+		
 		byte[] attachmentData = brff("1.jpg"); // ...
 		msg.setText("***" + attachmentData.length + "***");
 
@@ -197,6 +215,20 @@ public class mat extends HttpServlet {
 
 		Transport.send(message);
 
+	}
+	
+	byte[] getbb()throws Exception {
+		Document doc = new Document();
+		ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
+		PdfWriter docWriter = null;
+		docWriter = PdfWriter.getInstance(doc, baosPDF);
+		doc.open();
+		doc.add(new Paragraph("This is a pdf document."));
+		doc.add(new Paragraph("This document was created on "
+				+ new java.util.Date()));
+		doc.close();
+		docWriter.close();
+		return baosPDF.toByteArray();
 	}
 
 }
