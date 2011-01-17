@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+  
+  <!-- Servlets -->
+  
+    <servlet>
+    <servlet-name>get_ip</servlet-name>
+    <servlet-class>test.get_ip</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>get_ip</servlet-name>
+    <url-pattern>/servlet/get_ip</url-pattern>
+  </servlet-mapping>
+  
+    
+    <servlet>
+    <servlet-name>get_rate</servlet-name>
+    <servlet-class>test.get_rate</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>get_rate</servlet-name>
+    <url-pattern>/servlet/get_rate</url-pattern>
+  </servlet-mapping>
+  
+    
+    
+    <servlet>
+    <servlet-name>serg</servlet-name>
+    <servlet-class>test.serg</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>serg</servlet-name>
+    <url-pattern>/servlet/cn.serg</url-pattern>
+  </servlet-mapping>
+  
+    
+    <servlet>
+    <servlet-name>gmap</servlet-name>
+    <servlet-class>test.gmap</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>gmap</servlet-name>
+    <url-pattern>/servlet/cn.gmap</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  <servlet>
+    <servlet-name>qq</servlet-name>
+    <servlet-class>test.qq</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qq</servlet-name>
+    <url-pattern>/qq</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>Test_g1.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>
