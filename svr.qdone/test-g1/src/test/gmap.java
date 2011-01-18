@@ -22,7 +22,7 @@ public class gmap extends HttpServlet {
 		String to = req.getParameter("to");
 		s = rep(s, "42 Queen St. S.Mississauga, Ontario", from);
 		s = rep(s, "Toronto, On, Canada", to);
-
+ 
 		//s = rep(s, "Fargo, ND", from);
 		//s = rep(s, "Salt Lake City, UT", to);
 
