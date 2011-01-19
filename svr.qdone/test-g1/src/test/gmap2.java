@@ -19,9 +19,19 @@ public class gmap2 extends HttpServlet {
 		String s = rff("6.htm");
 		String from = req.getParameter("from");
 		String to = req.getParameter("to");
+		String via = req.getParameter("via");
+		if (from == null)
+			from = "";
+		if (to == null)
+			to = "";
+		if (via == null)
+			via = "";
+
 		s = rep(s, "Fargo, ND", from);
 		s = rep(s, "Salt Lake City, UT", to);
+		s = rep(s, "Chicago,IL;Fargo,ND;Billings,MT", via);
 
+		
 		// System.out.println(from);
 
 		out.println(s);
