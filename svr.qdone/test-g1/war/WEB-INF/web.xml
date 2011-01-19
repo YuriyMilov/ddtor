@@ -52,6 +52,17 @@
   </servlet-mapping>
   
   
+     <servlet>
+    <servlet-name>gmap2</servlet-name>
+    <servlet-class>test.gmap2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>gmap2</servlet-name>
+    <url-pattern>/gmap2</url-pattern>
+  </servlet-mapping>
+  
+  
   
   
   
