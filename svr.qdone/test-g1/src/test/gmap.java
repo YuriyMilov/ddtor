@@ -20,8 +20,11 @@ public class gmap extends HttpServlet {
 //		String s = rff("6.htm");
 		String from = req.getParameter("from");
 		String to = req.getParameter("to");
+		String via = req.getParameter("via");
 		s = rep(s, "42 Queen St. S.Mississauga, Ontario", from);
 		s = rep(s, "Toronto, On, Canada", to);
+		if (via!=null) 
+			s = rep(s, "qqqq", via);
  
 		//s = rep(s, "Fargo, ND", from);
 		//s = rep(s, "Salt Lake City, UT", to);
