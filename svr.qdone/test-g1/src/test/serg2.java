@@ -3,6 +3,8 @@ package test;
 import java.io.*;
 import java.net.URL;
 import java.text.*;
+import java.util.StringTokenizer;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -26,40 +28,43 @@ public class serg2 extends HttpServlet {
 		from = rep(from, " ", "%20");
 		to = rep(to, " ", "%20");
 		via = rep(via, " ", "%20");
-		String s = "from:%20" + from + "%20to:%20" + via;
-		String s2 = "from:%20" + via + "%20to:%20" + to;
-		System.out.println(rep(s, "%20", " ") + "\r\n\r\n");
-		System.out.println(rep(s2, "%20", " ") + "\r\n\r\n");
-		s = rfu("http://maps.google.com/maps/nav?key=ABQIAAAACI6Ap2jcQ1oqProEJaR56RQK5EEH2t0xEwQ4uv9AyPUz7NEyYxQvir4iiXU1B5zMsah16FswrqdssA&output=txt&doflg=ptj&hl=en&gl=US&q="
-				+ s);
-
-		s2 = rfu("http://maps.google.com/maps/nav?key=ABQIAAAACI6Ap2jcQ1oqProEJaR56RQK5EEH2t0xEwQ4uv9AyPUz7NEyYxQvir4iiXU1B5zMsah16FswrqdssA&output=txt&doflg=ptj&hl=en&gl=US&q="
-				+ s2);
-
-		String str = "";
-		String fmt = "0.#";
-		DecimalFormat df = new DecimalFormat(fmt);
-		double dd=0,dd2=0;
-
-		try {
-
-			s = s.substring(s.indexOf("Distance") + 20);
-			s = s.substring(0, s.indexOf(","));
-			dd = Double.parseDouble(s);
-			dd = dd / 1609.344;
-			
-			///////////
-
-			s2 = s2.substring(s2.indexOf("Distance") + 20);
-			s2 = s2.substring(0, s2.indexOf(","));
-			dd2 = Double.parseDouble(s2);
-			dd2 = dd2 / 1609.344;
-
-			str = df.format(dd+dd2);
-		} catch (Exception ee) {
-			str = "0";
+		int idx = 0;
+		int tokenCount;
+		String c[] = new String[500];
+		StringTokenizer st = new StringTokenizer(via, ";");
+		tokenCount = st.countTokens();
+		System.out.println("Number of tokens = " + tokenCount);
+		while (st.hasMoreTokens()) // is there stuff to get?
+		{
+			c[idx] = st.nextToken();
+			idx++;
 		}
-		out.println(str);
+		String f=from;
+		String t=c[0];
+		double d=get_d(f,t);
+		System.out.println(f+" "+t);
+		System.out.println(d);
+		
+		for (idx = 0; idx < tokenCount; idx++) {
+			f=c[idx];
+			if(idx < tokenCount-1)
+				t=c[idx+1];
+			else
+				t=to;
+
+			d=d+get_d(f,t);
+
+			System.out.println(f+" "+t);
+			System.out.println(d);
+			
+
+		}
+		
+		d = d / 1609.344;
+		System.out.println(d);
+		DecimalFormat df = new DecimalFormat("0.#");
+		String s = df.format(d);
+		out.println(s);
 		out.flush();
 		out.close();
 	}
@@ -89,4 +94,23 @@ public class serg2 extends HttpServlet {
 		return s.toString();
 	}
 
+	public static double get_d(String f,String t) {
+		String s = "from:%20" + f + "%20to:%20" + t;
+		s = rfu("http://maps.google.com/maps/nav?key=ABQIAAAACI6Ap2jcQ1oqProEJaR56RQK5EEH2t0xEwQ4uv9AyPUz7NEyYxQvir4iiXU1B5zMsah16FswrqdssA&output=txt&doflg=ptj&hl=en&gl=US&q="
+				+ s);
+		double d=0;
+		try {
+
+			s = s.substring(s.indexOf("Distance") + 20);
+			s = s.substring(0, s.indexOf(","));
+			d = Double.parseDouble(s);
+			//d = d / 1609.344;
+			
+		} catch (Exception ee) {
+			d= -1;
+		}
+		
+		return d;
+	}
+	
 }
