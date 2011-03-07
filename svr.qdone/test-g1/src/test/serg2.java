@@ -19,7 +19,8 @@ public class serg2 extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 
-		
+		boolean er = false;
+
 		ServletOutputStream out = res.getOutputStream();
 		res.setContentType("text/html");
 		String from = req.getParameter("from");
@@ -39,31 +40,28 @@ public class serg2 extends HttpServlet {
 			c[idx] = st.nextToken();
 			idx++;
 		}
-		String f=from;
-		String t=c[0];
-		double d=get_d(f,t);
-		System.out.println(f+" "+t);
-		System.out.println(d);
-		
+		String f = from;
+		String t = c[0];
+		double d = get_d(f, t);
+		if (d < 0)
+			er = true;
 		for (idx = 0; idx < tokenCount; idx++) {
-			f=c[idx];
-			if(idx < tokenCount-1)
-				t=c[idx+1];
+			f = c[idx];
+			if (idx < tokenCount - 1)
+				t = c[idx + 1];
 			else
-				t=to;
-
-			d=d+get_d(f,t);
-
-			System.out.println(f+" "+t);
-			System.out.println(d);
-			
-
+				t = to;
+			double d2 = get_d(f, t);
+			if (d2 < 0)
+				er = true;
+			d = d + d2;
 		}
-		
+
 		d = d / 1609.344;
-		System.out.println(d);
 		DecimalFormat df = new DecimalFormat("0.#");
-		String s = df.format(d);
+		String s = "0";
+		if (!er)
+			s=df.format(d);
 		out.println(s);
 		out.flush();
 		out.close();
@@ -94,23 +92,23 @@ public class serg2 extends HttpServlet {
 		return s.toString();
 	}
 
-	public static double get_d(String f,String t) {
+	public static double get_d(String f, String t) {
 		String s = "from:%20" + f + "%20to:%20" + t;
 		s = rfu("http://maps.google.com/maps/nav?key=ABQIAAAACI6Ap2jcQ1oqProEJaR56RQK5EEH2t0xEwQ4uv9AyPUz7NEyYxQvir4iiXU1B5zMsah16FswrqdssA&output=txt&doflg=ptj&hl=en&gl=US&q="
 				+ s);
-		double d=0;
+		double d = 0;
 		try {
 
 			s = s.substring(s.indexOf("Distance") + 20);
 			s = s.substring(0, s.indexOf(","));
 			d = Double.parseDouble(s);
-			//d = d / 1609.344;
-			
+			// d = d / 1609.344;
+
 		} catch (Exception ee) {
-			d= -1;
+			d = -1;
 		}
-		
+
 		return d;
 	}
-	
+
 }
