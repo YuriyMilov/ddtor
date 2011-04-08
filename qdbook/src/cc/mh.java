@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class mm extends HttpServlet {
+public class mh extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -31,6 +31,20 @@ public class mm extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+	
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+	throws IOException {
+String s = "OK";
+try {
+	send_mail();
+} catch (Exception e) {
+	s = e.toString();
+}
+PrintWriter out = resp.getWriter();
+out.write(s);
+out.flush();
+out.close();
+}
 
 	public void send_mail() throws Exception {
 
