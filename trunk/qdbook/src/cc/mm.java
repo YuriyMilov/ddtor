@@ -42,7 +42,7 @@ public class mm extends HttpServlet {
 		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
 		
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymdata@gmail.com", "Yuriy Milov"));
+		msg.setFrom(new InternetAddress("ymdata@gmail.com", "Yriy Milov"));
 		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 				"cron_job_update@quicklydone.com", "Admin"));
 		msg.setSubject("cron job " + new Date().toString());
