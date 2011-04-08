@@ -22,7 +22,7 @@ public class mh extends HttpServlet {
 			throws IOException {
 		String s = "OK";
 		try {
-			send_mail();
+			send_mail(s);
 		} catch (Exception e) {
 			s = e.toString();
 		}
@@ -34,9 +34,9 @@ public class mh extends HttpServlet {
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException {
-String s = "OK";
+String s = req.getParameter("a1");
 try {
-	send_mail();
+	send_mail(s);
 } catch (Exception e) {
 	s = e.toString();
 }
@@ -46,22 +46,22 @@ out.flush();
 out.close();
 }
 
-	public void send_mail() throws Exception {
+	public void send_mail(String s) throws Exception {
 
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		String msgBody = "This notification has been scheduled for daily updates and generated authomaticly by qdbook mailing system based on the current project updates.";
+		String ss = "test " + new Date().toString();
 		
 		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
 		
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymdata@gmail.com", "Yuriy Milov"));
+		msg.setFrom(new InternetAddress("ymdata@gmail.com", "EMDCI Admin"));
 		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 				"cron_job_update@quicklydone.com", "Admin"));
-		msg.setSubject("cron job " + new Date().toString());
+		msg.setSubject(ss);
 		msg.setHeader("Content-type:","text/html;charset=ISO-8859-1");
-		msg.setText(msgBody);
+		msg.setText(s);
 		Transport.send(msg);
 
 	}
