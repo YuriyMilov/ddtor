@@ -16,16 +16,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class mm extends HttpServlet {
+public class qq extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String s = "OK";
-		try {
-			send_mail();
-		} catch (Exception e) {
-			s = e.toString();
-		}
+	
 		PrintWriter out = resp.getWriter();
 		out.write(s);
 		out.flush();
