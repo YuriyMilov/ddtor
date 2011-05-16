@@ -16,34 +16,62 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class mm extends HttpServlet {
+public class rate extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String s = "";
-		
+		String s = "OK";
+		try {
+			send_mail("qdone@rogers.com", "rate	" + new java.util.Date().toString(), "rate");
+		} catch (Exception e) {
+			s = e.toString();
+		}
 		PrintWriter out = resp.getWriter();
 		out.write(s);
 		out.flush();
 		out.close();
 	}
+	
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+	throws IOException {
+		String s = "OK";
+		
+		String s1 = req.getParameter("a1");
+		String s2 = req.getParameter("a2");
+		String s3 = req.getParameter("a3");
+try {
+	
+	send_mail(s1,s2,s3);
+} catch (Exception e) {
+	s = e.toString();
+}
+PrintWriter out = resp.getWriter();
+out.write(s);
+out.flush();
+out.close();
+}
 
-	public void send_mail() throws Exception {
+	public void send_mail(String s1, String s2, String s3) throws Exception {
+		String[] tt = s1.split(",");
 
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		String msgBody = "This notification has been scheduled for daily updates and generated authomaticly by qdbook mailing system based on the current project updates.";
+		s2 = s2 + " "+ new Date().toString();
 		
 		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
 		
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymdata@gmail.com", "Test"));
+		//msg.setFrom(new InternetAddress("ymdata@gmail.com", "EM DATA"));
+		msg.setFrom(new InternetAddress("lowrisk.terryfoxfoundation@gmail.com", "LowRisk Admin"));
+		
+		for (int i = 0; i < tt.length; i++)
 		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-				"cron_job_update@quicklydone.com", "Admin"));
-		msg.setSubject("cron job " + new Date().toString());
+				tt[i], tt[i]));
+		
+		msg.setSubject(s2);
 		msg.setHeader("Content-type:","text/html;charset=ISO-8859-1");
-		msg.setText(msgBody);
+		msg.setText(s3);
 		Transport.send(msg);
 
 	}
