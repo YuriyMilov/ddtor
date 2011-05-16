@@ -15,10 +15,28 @@ public class get_rate extends HttpServlet {
 
 		res.setContentType("text/html");
 		PrintWriter out = res.getWriter();
+		//String s = rfu("http://www.bankofcanada.ca/en/markets/csv/exchange_eng.csv");
+		//s=s.substring(s.indexOf("U.S. Dollar"));
+		//s=s.substring(0,s.indexOf("\r\n"));
+		//s=s.substring(s.lastIndexOf(",")+1);
+		
 		String s = rfu("http://www.bankofcanada.ca/en/markets/csv/exchange_eng.csv");
-		s=s.substring(s.indexOf("U.S. Dollar"));
-		s=s.substring(0,s.indexOf("\r\n"));
+		
+		
+		
+		
+//		s=s.substring(s.indexOf("U.S. Dollar"));
+		s=s.substring(s.indexOf("USD"));
+		
+		//s=s.substring(0,s.indexOf("\r\n"));
+		s=s.substring(3,111);
+		
+		int n=s.indexOf("U");
+		s=s.substring(0,n);
+		
 		s=s.substring(s.lastIndexOf(",")+1);
+		s=s.replace("\r", "");
+		s=s.replace("\n", "");
 		out.println(s);
 		//out.println("1.2323");
 		 System.out.println(s + "  U.S. Dollar _ @ _  http://www.bankofcanada.ca/en/markets/csv/exchange_eng.csv");
