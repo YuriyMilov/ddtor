@@ -22,7 +22,7 @@ public class mh extends HttpServlet {
 			throws IOException {
 		String s = "OK";
 		try {
-			send_mail(s);
+			send_mail("qdone@rogers.com", "test", "test");
 		} catch (Exception e) {
 			s = e.toString();
 		}
@@ -34,9 +34,14 @@ public class mh extends HttpServlet {
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException {
-String s = req.getParameter("a1");
+		String s = "OK";
+		
+		String s1 = req.getParameter("a1");
+		String s2 = req.getParameter("a2");
+		String s3 = req.getParameter("a3");
 try {
-	send_mail(s);
+	
+	send_mail(s1,s2,s3);
 } catch (Exception e) {
 	s = e.toString();
 }
@@ -46,22 +51,27 @@ out.flush();
 out.close();
 }
 
-	public void send_mail(String s) throws Exception {
+	public void send_mail(String s1, String s2, String s3) throws Exception {
+		String[] tt = s1.split(",");
 
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		String ss = "test " + new Date().toString();
+		s2 = s2 + " "+ new Date().toString();
 		
 		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
 		
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymdata@gmail.com", "EMDCI Admin"));
+		//msg.setFrom(new InternetAddress("ymdata@gmail.com", "EM DATA"));
+		msg.setFrom(new InternetAddress("lowrisk.terryfoxfoundation@gmail.com", "LowRisk Admin"));
+		
+		for (int i = 0; i < tt.length; i++)
 		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-				"cron_job_update@quicklydone.com", "Admin"));
-		msg.setSubject(ss);
+				tt[i], tt[i]));
+		
+		msg.setSubject(s2);
 		msg.setHeader("Content-type:","text/html;charset=ISO-8859-1");
-		msg.setText(s);
+		msg.setText(s3);
 		Transport.send(msg);
 
 	}
