@@ -1,6 +1,5 @@
 package gu.client;
 
-
 import gu.client.dao.RPCObjectFactory;
 import gu.client.view.DatabaseEditorView;
 import gu.client.view.UfosView;
@@ -16,14 +15,21 @@ public class Gu implements EntryPoint {
 
 
 	public void onModuleLoad() {
-				
+			
+		
+		
+		LoginView login_view=new LoginView();
+	    RootPanel.get().add(login_view,5,30);
+	    
+	    
 		//create view
-		UfosView view = new UfosView();
-		
+		//UfosView view = new UfosView();
 		//DatabaseEditorView view = new DatabaseEditorView();
-		
-		
-		RootPanel.get().add(view );
+		//RootPanel.get().add(view );
+
+	    
+	  
+	    
 	
 			 
 		//RPCObjectFactory objectFactory = new RPCObjectFactory( 
