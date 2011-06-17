@@ -1,6 +1,7 @@
 package gu.client.view;
 import com.smartgwt.client.data.Criteria;  
 import com.smartgwt.client.data.DataSource;  
+import com.smartgwt.client.data.XJSONDataSource;
 import com.smartgwt.client.types.VisibilityMode;  
 import com.smartgwt.client.widgets.form.fields.ComboBoxItem;  
 import com.smartgwt.client.widgets.form.fields.FilterCriteriaFunction;  
@@ -34,8 +35,9 @@ public class Application extends HLayout {
         setLayoutMargin(20);  
   
         DataSource supplyCategoryDS = SupplyCategoryXmlDS.getInstance();  
+        //DataSource supplyItemDS = ItemSupplyXmlDS.getInstance();  
         DataSource supplyItemDS = ItemSupplyXmlDS.getInstance();  
-  
+         
         categoryTree = new CategoryTreeGrid(supplyCategoryDS);  
         categoryTree.setAutoFetchData(true);  
         categoryTree.addNodeClickHandler(new NodeClickHandler() {  

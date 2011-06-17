@@ -1,6 +1,7 @@
 package gu.client.view;
 
 import com.smartgwt.client.data.DataSource;
+import com.smartgwt.client.data.XJSONDataSource;
 import com.smartgwt.client.data.fields.*;
 import com.smartgwt.client.widgets.form.validator.FloatPrecisionValidator;
 import com.smartgwt.client.widgets.form.validator.FloatRangeValidator;
@@ -52,8 +53,10 @@ public class ItemSupplyXmlDS extends DataSource {
         setFields(pkField, itemNameField, skuField, descriptionField, categoryField, unitsField,
                   unitCostField, inStockField, nextShipmentField);
 
-        //setDataURL("http://127.0.0.1:8888/ds/test_data/supplyItem.data.xml");
-        setDataURL("http://127.0.0.1:8888/qq2");
+       // setDataURL("ds/test_data/supplyItem.data.xml");
+        setDataURL("/qq2");
+         
+      
          //setClientOnly(true);        
     }
 }
