@@ -15,6 +15,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class shta {
+	
+	public static String test(){
+		return rfu("http://174.117.66.8/3.htm?"+new Date().getTime());
+		}
 
 	public static String sendTransaction(String pXml, String pUsername,
 			String pPassword, String pServerUrl) {

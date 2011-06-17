@@ -2,6 +2,8 @@ package gu;
 
 import gu.server.PMF;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -43,8 +45,14 @@ public class qq2 extends HttpServlet {
 
 		System.out.println(req.getQueryString());
 		PrintWriter out = resp.getWriter();
-		String s = rfu("http://localhost:8888/ds/test_data/supplyItem.data.xml");
-		out.println(s);
+		//String s = rfu("http://localhost:8888/ds/test_data/supplyItem.data.xml");
+		String s = rfu("http://beska.quicklydone.com/ds/test_data/supplyItem.data.xml");
+		
+//s=shta.test();
+        
+out.println(s);
+
+//System.out.println(s);
 
 		// /////////////// adding work order
 		/*
