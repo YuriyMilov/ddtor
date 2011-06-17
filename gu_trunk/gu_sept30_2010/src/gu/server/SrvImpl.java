@@ -17,6 +17,7 @@ public class SrvImpl extends RemoteServiceServlet implements Srv {
 	s=(String) getThreadLocalRequest().getSession().getAttribute("name");
 	User uu=new User(s+"@quicklydone.com","quicklydone.com");
 	return "&nbsp;Id:-> "+uu.getNickname();
+	//	return "2222222222222222222";
 	}
 	
 	public String set_id(String name) throws IllegalArgumentException {
