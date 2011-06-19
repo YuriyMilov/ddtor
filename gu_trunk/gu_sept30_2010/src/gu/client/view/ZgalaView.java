@@ -194,7 +194,9 @@ public class ZgalaView extends Composite {
 		dbTab.setPane(vahdb);
 
 		tabSet.setTabs(rTab, dTab, sTab, dbTab);
-		tabSet.setHeight(444);
+		
+		tabSet.setDefaultHeight(444);
+		tabSet.setHeight(50);
 		tabSet1.setTabs(mTab, bTab);
 
 		bmSec.setTitle("Board & Map");

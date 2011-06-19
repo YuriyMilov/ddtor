@@ -3,7 +3,7 @@ package gu.client;
 import gu.client.view.Application;
 import gu.client.view.Application2;
 import gu.client.view.DatabaseEditorView;
-import gu.client.view.LoginView;
+//import gu.client.view.LoginView;
 import gu.client.view.ZgalaView;
 import gu.client.view.ZgalaView2;
 

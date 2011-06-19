@@ -8,6 +8,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("srv")
 public interface Srv extends RemoteService {
-	String set_id(String name) throws IllegalArgumentException;
-	String get(String name) throws IllegalArgumentException;
+	String set_id(String name, String psw) throws IllegalArgumentException;
+	String get(String name, String psw) throws IllegalArgumentException;
 }
