@@ -44,7 +44,11 @@ public class qq extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
-
+		//String user=req.getQueryString();
+		
+		String user=(String)req.getSession().getAttribute("name");
+		
+		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		@SuppressWarnings("unchecked")
 		List<Worder> woList = (List<Worder>) pm.newQuery(
@@ -165,13 +169,14 @@ public class qq extends HttpServlet {
 					to1 = "Nowhere";
 					to2 = "??";
 				}
-
+String prefix=ar.get(n)[8].substring(0, 3);
+if(user.equals(prefix))
 				s = s + "\r\n<country>" + "\r\n<shiplat>" + ar.get(n)[1]
 						+ "</shiplat>" + "\r\n<shiplng>" + ar.get(n)[2]
 						+ "</shiplng>" + "\r\n<conslat>" + ar.get(n)[5]
 						+ "</conslat>" + "\r\n<conslng>" + ar.get(n)[6]
 						+ "</conslng>" + "\r\n<prefix>"
-						+ ar.get(n)[8].substring(0, 3) + "</prefix>"
+						+ prefix + "</prefix>"
 						+ "\r\n<woNumber>" + ar.get(n)[8].substring(4)
 						+ "</woNumber>" + "\r\n<from1>" + from1 + "</from1>"
 						+ "\r\n<from2>" + from2 + "</from2>" + "\r\n<to1>"
