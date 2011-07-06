@@ -23,6 +23,7 @@ public class SrvImpl extends RemoteServiceServlet implements Srv {
 	public String set_id(String name, String psw)
 			throws IllegalArgumentException {
 
+		
 		String s2 = "";
 		String s = shta.rff("3.txt");
 
