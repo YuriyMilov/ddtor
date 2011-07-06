@@ -170,7 +170,7 @@ public class qq extends HttpServlet {
 					to2 = "??";
 				}
 String prefix=ar.get(n)[8].substring(0, 3);
-if(user.equals(prefix))
+if(user.equals(prefix)||user.equals("guest"))
 				s = s + "\r\n<country>" + "\r\n<shiplat>" + ar.get(n)[1]
 						+ "</shiplat>" + "\r\n<shiplng>" + ar.get(n)[2]
 						+ "</shiplng>" + "\r\n<conslat>" + ar.get(n)[5]
