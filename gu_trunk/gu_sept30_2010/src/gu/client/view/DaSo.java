@@ -1,10 +1,17 @@
 package gu.client.view;
 
+import gu.client.Srv;
+import gu.client.SrvAsync;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.data.fields.*;
 
 public class DaSo extends DataSource {
-
+	private final SrvAsync srv = GWT.create(Srv.class);
 	private static DaSo instance = null;
 
 	public static DaSo getInstance() {
@@ -15,6 +22,8 @@ public class DaSo extends DataSource {
 	}
 
 	public DaSo(String id) {
+	
+
 		setID(id);
 		setRecordXPath("/List/country");
 		DataSourceIntegerField pkField = new DataSourceIntegerField("pk");
@@ -60,5 +69,6 @@ public class DaSo extends DataSource {
 				to2, shd, dd, equipment, pieces, type, lbs, description);
 		setDataURL("qq");
 		setClientOnly(true);
+
 	}
 }
