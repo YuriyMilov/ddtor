@@ -14,7 +14,16 @@
 <inherits name="com.google.gwt.maps.GoogleMaps" />
 
   <!-- script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABSR1SkFigx4Uz1ZbtiHA5KON9cKPBRagjkQ4oIzjOWVsG4-JKEBtUS1Qw" / -->
-  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABRuHs-UY4aPu7zE2T6ckTrD_5eGoxTRjdva81yYY47CKV4fxtoxsyISZw" />
+  <!--   
+  
+  beska (beskashy):
+  
+  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABRuHs-UY4aPu7zE2T6ckTrD_5eGoxTRjdva81yYY47CKV4fxtoxsyISZw" /> 
+  
+  map (qdgmap):
+  -->
+  
+  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABSR1SkFigx4Uz1ZbtiHA5KON9cKPBRagjkQ4oIzjOWVsG4-JKEBtUS1Qw" />
  
  
  
@@ -26,6 +35,8 @@
 <!--  
  
    <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAACI6Ap2jcQ1oqProEJaR56RSiwqmfCauNEiVBDhgSOy4TPOszVRS1Yixi2AWZmF6-PkPMqXeYkg-PrA" />
+   
+
 
 --> 
 
