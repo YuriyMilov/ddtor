@@ -14,15 +14,112 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class shta {
-	
-	public static String test(){
-		return rfu("http://174.117.66.8/3.htm?"+new Date().getTime());
-		}
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
-	public static String sendTransaction(String pXml, String pUsername,
+public class shta {
+
+	public static String s = "", s3 = "";
+	public static int k = 1, j = 1, j_max = 5;
+
+
+	public static String test() {
+		//return rfu("http://174.117.66.8/gu/gu/aspx?" + new Date().getTime());
+	
+try {
+	
+	//URL u = new URL("http://174.117.66.8:8888/4.txt");
+	//BufferedReader br = new BufferedReader(new InputStreamReader(u.openStream()));
+	
+	//System.out.println("------------\r\n"+br.readLine()+"\r\n------------");
+
+	
+	
+	//BufferedWriter bw = new BufferedWriter(new PrintWriter(System.out));
+	//postData(br,new URL("http://174.117.66.8/gu/gu.aspx"),bw);
+	//postData(br,new URL("http://174.117.66.8:4444"),bw);
+	
+	
+	s=post("a=qqqqqqqqqqqqq","user","password","http://174.117.66.8/gu/gu.aspx");
+	System.err.println(s);
+	
+	
+} catch (Exception e) {
+	e.printStackTrace();
+}
+		return s;
+	
+	}
+
+
+	
+
+	public static void postData(Reader data, URL endpoint, Writer output)
+			throws Exception {
+		HttpURLConnection urlc = null;
+		try {
+			urlc = (HttpURLConnection) endpoint.openConnection();
+			try {
+				urlc.setRequestMethod("POST");
+			} catch (ProtocolException e) {
+				throw new Exception(
+						"Shouldn't happen: HttpURLConnection doesn't support POST??",
+						e);
+			}
+			urlc.setDoOutput(true);
+			urlc.setDoInput(true);
+			urlc.setUseCaches(false);
+			urlc.setAllowUserInteraction(false);
+			urlc.setRequestProperty("Content-type", "text/xml; charset="
+					+ "UTF-8");
+			OutputStream out = urlc.getOutputStream();
+			try {
+				Writer writer = new OutputStreamWriter(out, "UTF-8");
+				pipe(data, writer);
+				writer.close();
+			} catch (IOException e) {
+				throw new Exception("IOException while posting data", e);
+			} finally {
+				if (out != null)
+					out.close();
+			}
+			InputStream in = urlc.getInputStream();
+			try {
+				Reader reader = new InputStreamReader(in);
+				pipe(reader, output);
+				reader.close();
+			} catch (IOException e) {
+				throw new Exception("IOException while reading response", e);
+			} finally {
+				if (in != null)
+					in.close();
+			}
+		} catch (IOException e) {
+			throw new Exception("Connection error (is server running at "
+					+ endpoint + " ?): " + e);
+		} finally {
+			if (urlc != null)
+				urlc.disconnect();
+		}
+	}
+
+	/**
+	 * Pipes everything from the reader to the writer via a buffer
+	 */
+	private static void pipe(Reader reader, Writer writer) throws IOException {
+		char[] buf = new char[1024];
+		int read = 0;
+		while ((read = reader.read(buf)) >= 0) {
+			writer.write(buf, 0, read);
+		}
+		writer.flush();
+	}
+
+	public static String post(String pXml, String pUsername,
 			String pPassword, String pServerUrl) {
-		
+
 		StringBuffer wResult = new StringBuffer();
 		try {
 			URL wUrl;
@@ -31,19 +128,67 @@ public class shta {
 			// Authentification
 			String wUser = new String(pUsername + ":" + pPassword);
 			String wEncodedPassword = URLEncoder.encode(wUser, "UTF-8");
-		//	String wEncoding = new sun.misc.BASE64Encoder().encode(wUser
-		//			.getBytes());
-			wConn.setRequestProperty("Authorization", "Basic " + wEncodedPassword);
-//			wConn.setRequestProperty("Content-Type", "text/xml; charset=UTF8");
-			//wConn.setRequestProperty("Content-Type", "text/xml; charset=UTF8; application/x-www-form-urlencoded");
+			// String wEncoding = new sun.misc.BASE64Encoder().encode(wUser
+			// .getBytes());
+			wConn.setRequestProperty("Authorization", "Basic "
+					+ wEncodedPassword);
+			// wConn.setRequestProperty("Content-Type",
+			// "text/xml; charset=UTF8");
+			// wConn.setRequestProperty("Content-Type",
+			// "text/xml; charset=UTF8; application/x-www-form-urlencoded");
 			wConn.setDoOutput(true);
 			// Write the transaction
 			PrintWriter wPw = new PrintWriter(wConn.getOutputStream());
 			wPw.println(pXml);
 			wPw.close();
 			// Read the result
-			InputStreamReader wReader = new InputStreamReader(wConn
-					.getInputStream());
+			InputStreamReader wReader = new InputStreamReader(
+					wConn.getInputStream());
+			BufferedReader wBuff = new BufferedReader(wReader);
+			String wUrlContent = null;
+			while ((wUrlContent = wBuff.readLine()) != null) {
+				wResult.append(wUrlContent);
+				wResult.append("\n");
+			}
+			wBuff.close();
+		} catch (IOException ioe) {
+			System.out.println("Error reading URL: " + ioe.getMessage());
+			ioe.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("EXCEPTION CAUGHT e=" + e);
+			e.printStackTrace();
+		}
+
+		return wResult.toString();
+	}
+	
+	public static String sendTransaction(String pXml, String pUsername,
+			String pPassword, String pServerUrl) {
+
+		StringBuffer wResult = new StringBuffer();
+		try {
+			URL wUrl;
+			wUrl = new URL(pServerUrl);
+			HttpURLConnection wConn = (HttpURLConnection) wUrl.openConnection();
+			// Authentification
+			String wUser = new String(pUsername + ":" + pPassword);
+			String wEncodedPassword = URLEncoder.encode(wUser, "UTF-8");
+			// String wEncoding = new sun.misc.BASE64Encoder().encode(wUser
+			// .getBytes());
+			wConn.setRequestProperty("Authorization", "Basic "
+					+ wEncodedPassword);
+			// wConn.setRequestProperty("Content-Type",
+			// "text/xml; charset=UTF8");
+			// wConn.setRequestProperty("Content-Type",
+			// "text/xml; charset=UTF8; application/x-www-form-urlencoded");
+			wConn.setDoOutput(true);
+			// Write the transaction
+			PrintWriter wPw = new PrintWriter(wConn.getOutputStream());
+			wPw.println(pXml);
+			wPw.close();
+			// Read the result
+			InputStreamReader wReader = new InputStreamReader(
+					wConn.getInputStream());
 			BufferedReader wBuff = new BufferedReader(wReader);
 			String wUrlContent = null;
 			while ((wUrlContent = wBuff.readLine()) != null) {
@@ -62,32 +207,25 @@ public class shta {
 		return wResult.toString();
 	}
 
-	
-	
-	public static String send_mail(String send_to, String subj, String msgBody){
-String s="OK";
-try{
-	    Properties props = new Properties();
-	    Session session = Session.getDefaultInstance(props, null);
+	public static String send_mail(String send_to, String subj, String msgBody) {
+		String s = "OK";
+		try {
+			Properties props = new Properties();
+			Session session = Session.getDefaultInstance(props, null);
 
-	   
+			Message msg = new MimeMessage(session);
+			msg.setFrom(new InternetAddress("ymdata@gmail.com"));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
+					send_to));
+			msg.setSubject(subj);
+			msg.setText(msgBody);
+			Transport.send(msg);
+		} catch (Exception e) {
+			s = e.toString();
+		}
+		return s;
 
-	        Message msg = new MimeMessage(session);
-	        msg.setFrom(new InternetAddress("ymdata@gmail.com"));
-	        msg.addRecipient(Message.RecipientType.TO,
-	                         new InternetAddress(send_to));
-	        msg.setSubject(subj);
-	        msg.setText(msgBody);
-	        Transport.send(msg);
-}catch(Exception e){s=e.toString();}
-return s;
-	   
 	}
-	
-
-	public static String s = "", s3 = "";
-
-	public static int k = 1, j = 1, j_max = 5;
 
 	public static String set_google_cookie(String s) {
 		String sid = s.substring(s.indexOf("SID="));
@@ -160,8 +298,8 @@ return s;
 		// try {
 		URL u = new URL(url);
 
-		BufferedReader in = new BufferedReader(new InputStreamReader(u
-				.openStream(), enc));// enc - CP1251, UTF-8, so on
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+				u.openStream(), enc));// enc - CP1251, UTF-8, so on
 		while ((str = in.readLine()) != null) {
 			s = s + str + "\r\n";
 		}
@@ -176,7 +314,7 @@ return s;
 		return s;
 	}
 
-	public static String rff(String str)  {
+	public static String rff(String str) {
 		String s = "";
 		try {
 
@@ -223,8 +361,8 @@ return s;
 
 		try {
 			URL u = new URL(url);
-			BufferedReader in = new BufferedReader(new InputStreamReader(u
-					.openStream(), "CP1251"));// enc - CP1251, UTF-8, so on
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					u.openStream(), "CP1251"));// enc - CP1251, UTF-8, so on
 			while ((str = in.readLine()) != null) {
 				s = s + str;
 			}
@@ -240,8 +378,8 @@ return s;
 
 		try {
 			URL u = new URL(url);
-			BufferedReader in = new BufferedReader(new InputStreamReader(u
-					.openStream(), "UTF-8"));// enc - CP1251, UTF-8, so on
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					u.openStream(), "UTF-8"));// enc - CP1251, UTF-8, so on
 			while ((str = in.readLine()) != null) {
 				s = s + str;
 			}
@@ -280,13 +418,13 @@ return s;
 		}
 		// --------------------------------------------------------------
 		s = "";
-		int i = Integer.parseInt(sz.substring(sz.indexOf("-") + 1, sz
-				.indexOf(".")));
+		int i = Integer.parseInt(sz.substring(sz.indexOf("-") + 1,
+				sz.indexOf(".")));
 		int k = (int) (i * Math.random()) + 1;
 		ZipFile zipFile = new ZipFile(new File(zips + "/" + sz));
 		ZipEntry entry = zipFile.getEntry(k + ".txt");
-		BufferedReader br = new BufferedReader(new InputStreamReader(zipFile
-				.getInputStream(entry), "UTF-8"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				zipFile.getInputStream(entry), "UTF-8"));
 		while ((ss = br.readLine()) != null) {
 			s = s + ss;
 		}
