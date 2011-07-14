@@ -31,9 +31,9 @@ public class DaSo extends DataSource {
 		pkField.setPrimaryKey(true);
 		DataSourceBooleanField ii = new DataSourceBooleanField("ii", "Mapped");
 		DataSourceIntegerField orig = new DataSourceIntegerField("orig",
-				"kms to Orig");
+				"ms to Orig");
 		DataSourceIntegerField dest = new DataSourceIntegerField("dest",
-				"kms to Dest");
+				"ms to Dest");
 		DataSourceFloatField shiplat = new DataSourceFloatField("shiplat",
 				"ShipLat");
 		DataSourceFloatField shiplng = new DataSourceFloatField("shiplng",
