@@ -25,37 +25,39 @@ public class qq2 extends HttpServlet {
 		doGet(req, resp);
 	}
 
-
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 
 		PrintWriter out = resp.getWriter();
-		
-		System.out.println(req.getQueryString());
-		
-		
-		//String s = rfu("http://localhost:8888/ds/test_data/supplyItem.data.xml");
-		//String s = rfu("http://beska.quicklydone.com/ds/test_data/supplyItem.data.xml");
-		
-//String s=shta.post("a=qqqqqqqqqqqq","user","password","http://174.117.66.8/gu/gu.aspx");
-        
 
-		String s="";
-		
-		try{
-			s=shta.post("a=qq","user","password","http://174.117.66.8/gu/gu.aspx");
-			}
-		catch(Exception e){
-			s=e.toString();
-			}
-if(s.indexOf("<!-- UFOS server is running -->")!=0)		
+		System.out.println(req.getQueryString());
+
+		// String s =
+		// rfu("http://localhost:8888/ds/test_data/supplyItem.data.xml");
+		// String s =
+		// rfu("http://beska.quicklydone.com/ds/test_data/supplyItem.data.xml");
+
+		// String
+		// s=shta.post("a=qqqqqqqqqqqq","user","password","http://174.117.66.8/gu/gu.aspx");
+
+		String s = "";
+
 		s = rfu("http://beska.quicklydone.com/ds/test_data/supplyItem.data.xml");
 
-		//System.out.println(s);
+/*		try {
+			s = shta.post("a=qq", "user", "password",
+					"http://174.117.66.8/gu/gu.aspx");
+		} catch (Exception e) {
+			s = e.toString();
+		}
+		if (s.indexOf("<!-- UFOS server is running -->") != 0)
+			s = rfu("http://beska.quicklydone.com/ds/test_data/supplyItem.data.xml");
+*/
+		// System.out.println(s);
 
-out.println(s);
+		out.println(s);
 
-//System.out.println(s);
+		// System.out.println(s);
 
 		// /////////////// adding work order
 		/*
@@ -105,7 +107,7 @@ out.println(s);
 		 */
 
 	}
-	
+
 	public static String rfu(String url) {
 		StringBuffer s = new StringBuffer();
 		try {
@@ -120,6 +122,5 @@ out.println(s);
 		}
 		return s.toString();
 	}
-
 
 }

@@ -30,7 +30,7 @@ public class LoginView extends Composite {
 	final Grid grid = new Grid(6, 4);
 	final DecoratorPanel dp1 = new DecoratorPanel();
 	final VerticalPanel pan = new VerticalPanel();
-	final HorizontalPanel hp1 = new HorizontalPanel();
+	//final HorizontalPanel hp1 = new HorizontalPanel();
 	// final Button but2 = new Button("GetID");
 	final Button but_login = new Button(" Login ");
 	final HTML loading = new HTML(
@@ -72,10 +72,10 @@ public class LoginView extends Composite {
 
 			String name = txtLogin.getText();
 			String psw = txtPassword.getText();
-			if (name.equals(""))
-				name = "guest";
-			if (psw.equals(""))
-				psw = "guest";
+			//if (name.equals(""))
+			//	name = "guest";
+			//if (psw.equals(""))
+			//	psw = "guest";
 			srv.set_id(name, psw, new AsyncCallback<String>() {
 
 				public void onFailure(Throwable caught) {
@@ -86,9 +86,9 @@ public class LoginView extends Composite {
 					if (!r.equals("qqq")) {
 						qqq.removeFromParent();
 						loading.removeFromParent();
-						hp1.setWidth("100%");
-						hp1.add(new HTML(r));
-						RootPanel.get().add(hp1);
+						//hp1.setWidth("100%");
+						//hp1.add(new HTML(r));
+						//RootPanel.get().add(hp1);
 						ZgalaView view1 = new ZgalaView();
 						pan.add(view1);
 					} else {

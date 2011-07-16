@@ -16,6 +16,7 @@ import com.google.gwt.maps.client.overlay.Icon;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.smartgwt.client.data.Criterion;
@@ -82,7 +83,7 @@ public class ZgalaView extends Composite {
 	Tab dTab = new Tab("Delivery Date");
 	Tab sTab = new Tab("Shipping Date");
 	Tab rTab = new Tab("Radius");
-	Tab dbTab = new Tab("Database");
+	Tab dbTab = new Tab("<a href=/qq_quit>Sign out</a>");
 	SectionStackSection bmSec = new SectionStackSection();
 	SectionStackSection sdrSec = new SectionStackSection();
 	DateRange dateRange = new DateRange();
@@ -189,11 +190,13 @@ public class ZgalaView extends Composite {
 
 		vah1.addMember(grid1);
 		bTab.setPane(vah1);
-		vahdb.addMember(new Application());
+//		vahdb.addMember(new Application());
+		vahdb.addMember(new HTML("<table border=0 cellspacing=0 cellpadding=0 width=100%><tr width=100% ><td align=right>&nbsp;<a href=/qq_quit>Logout</a>&nbsp;&nbsp;</td></tr></table>"));
 
 		dbTab.setPane(vahdb);
 
 		tabSet.setTabs(rTab, dTab, sTab, dbTab);
+		//tabSet.setTabs(rTab, dTab, sTab);
 		
 		tabSet.setDefaultHeight(444);
 		tabSet.setHeight(50);

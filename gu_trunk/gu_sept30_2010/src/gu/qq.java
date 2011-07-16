@@ -38,17 +38,16 @@ import java.util.List;
 public class qq extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static String[] s4 = null;
-	String s = "";//rfu("http://localhost:8888/qq");
+	String s = "";// rfu("http://localhost:8888/qq");
 
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
-		//String user=req.getQueryString();
-		
-		String user=(String)req.getSession().getAttribute("name");
-		
-		
+		// String user=req.getQueryString();
+
+		String user = (String) req.getSession().getAttribute("name");
+
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		@SuppressWarnings("unchecked")
 		List<Worder> woList = (List<Worder>) pm.newQuery(
@@ -129,6 +128,9 @@ public class qq extends HttpServlet {
 		if (ar.size() != 0) {
 
 			sss = new String[ar.size()][ar.get(0).length];
+			
+			
+			
 			for (int n = 0; n < ar.size(); n++) {
 				sss[n] = ar.get(n);
 
@@ -152,10 +154,10 @@ public class qq extends HttpServlet {
 				String from1 = "", from2 = "";
 				from1 = ar.get(n)[10];
 				if (from1.indexOf(",") > -1) {
-						from2 = from1.substring(from1.indexOf(","))
+					from2 = from1.substring(from1.indexOf(","))
 							.replace(",", "");
-						from1 = from1.substring(0, from1.indexOf(","));
-			} else {
+					from1 = from1.substring(0, from1.indexOf(","));
+				} else {
 					from1 = "Nowhere";
 					from2 = "??";
 				}
@@ -169,14 +171,15 @@ public class qq extends HttpServlet {
 					to1 = "Nowhere";
 					to2 = "??";
 				}
-String prefix=ar.get(n)[8].substring(0, 3);
-if(user.equals(prefix)||user.equals("guest"))
+				String prefix = ar.get(n)[8].substring(0, 3);
+
+				// if(user.equals(prefix)||user.equals("guest"))
+
 				s = s + "\r\n<country>" + "\r\n<shiplat>" + ar.get(n)[1]
 						+ "</shiplat>" + "\r\n<shiplng>" + ar.get(n)[2]
 						+ "</shiplng>" + "\r\n<conslat>" + ar.get(n)[5]
 						+ "</conslat>" + "\r\n<conslng>" + ar.get(n)[6]
-						+ "</conslng>" + "\r\n<prefix>"
-						+ prefix + "</prefix>"
+						+ "</conslng>" + "\r\n<prefix>" + prefix + "</prefix>"
 						+ "\r\n<woNumber>" + ar.get(n)[8].substring(4)
 						+ "</woNumber>" + "\r\n<from1>" + from1 + "</from1>"
 						+ "\r\n<from2>" + from2 + "</from2>" + "\r\n<to1>"

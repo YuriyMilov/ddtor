@@ -47,7 +47,18 @@ public class postbridge_wo extends HttpServlet {
 		Worder tt = new Worder(s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16);
 		pm.makePersistent(tt);
 		bb=false;
+/*
+		System.out.println("--------------------");
 		System.out.println(s1);
+		System.out.println(s2);
+		System.out.println(s3);
+		System.out.println(s4);
+		System.out.println(s5);
+		System.out.println(s6);
+		System.out.println(s7);
+		System.out.println("--------------------");
+*/
+			
 			}catch(Exception e){
 				try {
 					Thread.sleep(111);

@@ -9,6 +9,15 @@
   
 
      <servlet>
+    <servlet-name>qq_quit</servlet-name>
+    <servlet-class>gu.qq_quit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>qq_quit</servlet-name>
+    <url-pattern>/qq_quit</url-pattern>
+  </servlet-mapping>
+  
+       <servlet>
     <servlet-name>qq2</servlet-name>
     <servlet-class>gu.qq2</servlet-class>
   </servlet>
@@ -62,6 +71,38 @@
   
   
  
+  <servlet>
+    <servlet-name>del_wo</servlet-name>
+    <servlet-class>gu.del_wo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>del_wo</servlet-name>
+    <url-pattern>/del_wo</url-pattern>
+  </servlet-mapping>
+ 
+ 
+  <servlet>
+    <servlet-name>del_cons</servlet-name>
+    <servlet-class>gu.del_cons</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>del_cons</servlet-name>
+    <url-pattern>/del_cons</url-pattern>
+  </servlet-mapping>
+  
+ 
+  
+  <servlet>
+    <servlet-name>del_ship</servlet-name>
+    <servlet-class>gu.del_ship</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>del_ship</servlet-name>
+    <url-pattern>/del_ship</url-pattern>
+  </servlet-mapping>
+  
+  
+  
   <servlet>
     <servlet-name>del_marker</servlet-name>
     <servlet-class>gu.del_marker</servlet-class>
