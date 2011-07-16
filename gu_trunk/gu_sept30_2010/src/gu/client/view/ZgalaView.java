@@ -83,7 +83,7 @@ public class ZgalaView extends Composite {
 	Tab dTab = new Tab("By Delivery Date");
 	Tab sTab = new Tab("By Shipping Date");
 	Tab rTab = new Tab("By Radius");
-	Tab dbTab = new Tab("<a href=/qq_quit>Sign out</a>");
+	//Tab dbTab = new Tab("<a href=/qq_quit>Sign out</a>");
 	SectionStackSection bmSec = new SectionStackSection();
 	SectionStackSection sdrSec = new SectionStackSection();
 	DateRange dateRange = new DateRange();
@@ -208,7 +208,7 @@ public class ZgalaView extends Composite {
 		bmSec.addItem(tabSet1);
 		bmSec.setResizeable(true);
 
-		sdrSec.setTitle("Search Section &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<a href=/qq_quit>Sign out</a>");
+		sdrSec.setTitle("&nbsp;|&nbsp;<a href=/qq_quit>Sign out</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search Section");
 		sdrSec.setExpanded(true);
 		sdrSec.setItems(tabSet);
 		sectionStack.setSections(sdrSec, bmSec);
