@@ -65,7 +65,7 @@ public class ZgalaView extends Composite {
 	IButton br = new IButton("Search");
 	IButton bf = new IButton("Search");
 	IButton bf1 = new IButton("Search");
-	IButton bdbe = new IButton("Database Editor");
+	//IButton bdbe = new IButton("Database Editor");
 	DateRangeItem rangeItem = new DateRangeItem("dd");
 	DateRangeItem rangeItem1 = new DateRangeItem("shd");
 	VLayout layoutV = new VLayout(11);
@@ -80,9 +80,9 @@ public class ZgalaView extends Composite {
 	Tab mTab = new Tab("Map");
 	Tab bTab = new Tab("Board");
 	TabSet tabSet1 = new TabSet();
-	Tab dTab = new Tab("Delivery Date");
-	Tab sTab = new Tab("Shipping Date");
-	Tab rTab = new Tab("Radius");
+	Tab dTab = new Tab("By Delivery Date");
+	Tab sTab = new Tab("By Shipping Date");
+	Tab rTab = new Tab("By Radius");
 	Tab dbTab = new Tab("<a href=/qq_quit>Sign out</a>");
 	SectionStackSection bmSec = new SectionStackSection();
 	SectionStackSection sdrSec = new SectionStackSection();
@@ -191,24 +191,24 @@ public class ZgalaView extends Composite {
 		vah1.addMember(grid1);
 		bTab.setPane(vah1);
 //		vahdb.addMember(new Application());
-		vahdb.addMember(new HTML("<table border=0 cellspacing=0 cellpadding=0 width=100%><tr width=100% ><td align=right>&nbsp;<a href=/qq_quit>Logout</a>&nbsp;&nbsp;</td></tr></table>"));
+		//vahdb.addMember(new HTML("<table border=0 cellspacing=0 cellpadding=0 width=100%><tr width=100% ><td align=right>&nbsp;<a href=/qq_quit>Logout</a>&nbsp;&nbsp;</td></tr></table>"));
 
-		dbTab.setPane(vahdb);
+		//dbTab.setPane(vahdb);
 
-		tabSet.setTabs(rTab, dTab, sTab, dbTab);
-		//tabSet.setTabs(rTab, dTab, sTab);
+		//tabSet.setTabs(rTab, dTab, sTab, dbTab);
+		tabSet.setTabs(rTab, dTab, sTab);
 		
 		tabSet.setDefaultHeight(444);
 		tabSet.setHeight(50);
 		tabSet1.setTabs(mTab, bTab);
 
-		bmSec.setTitle("Board & Map");
+		bmSec.setTitle("Board & Map Section");
 		bmSec.setExpanded(true);
 		bmSec.setResizeable(true);
 		bmSec.addItem(tabSet1);
 		bmSec.setResizeable(true);
 
-		sdrSec.setTitle("Search");
+		sdrSec.setTitle("Search Section &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<a href=/qq_quit>Sign out</a>");
 		sdrSec.setExpanded(true);
 		sdrSec.setItems(tabSet);
 		sectionStack.setSections(sdrSec, bmSec);
