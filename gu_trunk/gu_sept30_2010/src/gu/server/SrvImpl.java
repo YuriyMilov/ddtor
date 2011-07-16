@@ -19,7 +19,7 @@ public class SrvImpl extends RemoteServiceServlet implements Srv {
 		if(s==null)
 			s="qqq";
 
-		System.out.println(s);
+		//System.out.println(s);
 
 		User uu = new User(s + "@quicklydone.com", "quicklydone.com");
 		return uu.getNickname();
