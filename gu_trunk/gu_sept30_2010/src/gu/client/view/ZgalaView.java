@@ -208,7 +208,7 @@ public class ZgalaView extends Composite {
 		bmSec.addItem(tabSet1);
 		bmSec.setResizeable(true);
 
-		sdrSec.setTitle("&nbsp;|&nbsp;<a href=/qq_quit>Sign out</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search Section");
+		sdrSec.setTitle("&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=/qq_quit>Sign out</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search Section");
 		sdrSec.setExpanded(true);
 		sdrSec.setItems(tabSet);
 		sectionStack.setSections(sdrSec, bmSec);
