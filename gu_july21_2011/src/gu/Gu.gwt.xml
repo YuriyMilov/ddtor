@@ -13,19 +13,27 @@
   <!-- Other module inherits                                      -->
 <inherits name="com.google.gwt.maps.GoogleMaps" />
 
-  <!--   beska (beskashy): <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABRuHs-UY4aPu7zE2T6ckTrD_5eGoxTRjdva81yYY47CKV4fxtoxsyISZw" />   -->
+  <!--   beska_qd (beskashy): -->    
+  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABRuHs-UY4aPu7zE2T6ckTrD_5eGoxTRjdva81yYY47CKV4fxtoxsyISZw" />
+  
+  
+  
   <!-- script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABRuHs-UY4aPu7zE2T6ckTrD_5eGoxTRjdva81yYY47CKV4fxtoxsyISZw" /  -->
  
   
   
-<!-- MAP_QD  qdgmap : -->
-  <!-- script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABSR1SkFigx4Uz1ZbtiHA5KON9cKPBRagjkQ4oIzjOWVsG4-JKEBtUS1Qw" / -->
+ <!-- map_qd  (qdgmap): 
+ <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABSR1SkFigx4Uz1ZbtiHA5KON9cKPBRagjkQ4oIzjOWVsG4-JKEBtUS1Qw" />
 
-
+-->
   
- <!-- UFOS_QD uwoswo : -->
+ <!-- ufos_qd (uwoswo) :
+ 
  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABQK0XOBk2jVWc9pokbSIJxhYXtpOhRzeTwbJ6WBvehVf0D6RhTcGzeqKg" />
  
+  -->
+  
+  
      <inherits name="com.smartgwt.SmartGwtNoScript"/>
     <inherits name="com.smartgwt.tools.SmartGwtTools"/>
     <inherits name="com.smartclient.theme.enterprise.EnterpriseResources"/>

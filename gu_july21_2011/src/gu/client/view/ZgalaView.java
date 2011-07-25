@@ -269,8 +269,14 @@ public class ZgalaView extends Composite {
 
 	void get_map() {
 		int i = grid1.getDataAsRecordList().getLength();
+		String swon="",sship="",scons="";
+		
 		while (i-- > 0) {
 			try {
+				sship=grid1.getRecord(i).getAttribute("shiplat")+grid1.getRecord(i).getAttribute("shiplng");
+				scons=grid1.getRecord(i).getAttribute("consplat")+grid1.getRecord(i).getAttribute("conslng");
+				
+				
 				icon.setImageURL("marker.png");
 				MarkerOptions ops = MarkerOptions.newInstance(icon);
 				ops = MarkerOptions.newInstance(icon);
@@ -289,6 +295,9 @@ public class ZgalaView extends Composite {
 				if (grid1.getRecord(i).getAttribute("lbs").trim().length() > 1)
 					s = s + "Weight: " + grid1.getRecord(i).getAttribute("lbs")
 							+ " LBS\r\n";
+			
+				if (swon.indexOf(sship)>-1)
+					s=s+"\r\nSee more orders on the board for this location";
 
 				ops.setTitle(s);//
 
@@ -317,6 +326,10 @@ public class ZgalaView extends Composite {
 				if (grid1.getRecord(i).getAttribute("lbs").trim().length() > 1)
 					s = s + "Weight: " + grid1.getRecord(i).getAttribute("lbs")
 							+ " LBS\r\n";
+				
+				if (swon.indexOf(scons)>-1)
+					s=s+"\r\nSee more orders on the board for this location";
+				
 				ops.setTitle(s);//
 				m = new Marker(LatLng.newInstance(
 						Double.parseDouble(grid1.getRecord(i).getAttribute(
@@ -325,6 +338,8 @@ public class ZgalaView extends Composite {
 								"conslng"))), ops);
 				m.addMarkerClickHandler(mch);
 				map.addOverlay(m);
+				swon=swon+sship+scons;
+				
 			} catch (Exception e) {
 			}
 		}
@@ -332,7 +347,11 @@ public class ZgalaView extends Composite {
 
 	void get_map2(int i1, int i2) {
 		int i = grid1.getDataAsRecordList().getLength();
+		//String swon="",scons="";
+
 		while (i-- > 0) {
+
+			//scons=grid1.getRecord(i).getAttribute("conslat")+grid1.getRecord(i).getAttribute("conslng");
 
 			boolean boolrad = false;
 			try {
@@ -399,6 +418,11 @@ public class ZgalaView extends Composite {
 				if (grid1.getRecord(i).getAttribute("lbs").trim().length() > 1)
 					s = s + "Weight: " + grid1.getRecord(i).getAttribute("lbs")
 							+ " LBS\r\n";
+				
+				//if (swon.indexOf(scons)>-1)
+				//	s=s+"\r\nSee more orders on the board for this location";
+
+				
 				ops.setTitle(s);//
 				try {
 					m = new Marker(LatLng.newInstance(
@@ -408,6 +432,8 @@ public class ZgalaView extends Composite {
 									"conslng"))), ops);
 					m.addMarkerClickHandler(mch);
 					map.addOverlay(m);
+					//swon=swon+scons;
+					
 				} catch (Exception e) {
 					//ops.setTitle(e.toString());
 					//m = new Marker(LatLng.newInstance(0, 0), ops);
@@ -521,6 +547,7 @@ public class ZgalaView extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			
 			Criterion crit = new Criterion();
 			grid1.fetchData(crit);
 			map.clearOverlays();
