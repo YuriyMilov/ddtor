@@ -52,7 +52,7 @@ public class CopyOfpostbridge_wo extends HttpServlet {
 				try {
 					Thread.sleep(111);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 				out.println(e.toString());

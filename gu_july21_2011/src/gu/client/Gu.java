@@ -66,7 +66,7 @@ public class Gu implements EntryPoint {
 					// pan.add(dp1);
 					but_login.addClickHandler(clh_but_login);
 					RootPanel.get().add(dp1, 5, 30);
-					grid.setWidget(3, 2, er_mes1);
+					//grid.setWidget(3, 2, er_mes1);
 				}
 			}
 		});

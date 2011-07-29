@@ -645,7 +645,7 @@ public class PanView extends Composite {
 									
 									for(int k = 0; k < ar.size(); k++)
 									{
-										//TODO
+										
 										if (ar.get(k).equals(ar7.get(j)[1]))
 										{
 											s2 = s2 + ar7.get(j)[1] + "<br>";
@@ -675,7 +675,7 @@ public class PanView extends Composite {
 										
 										for(int k = 0; k < ar.size(); k++)
 										{
-											//TODO
+											
 											if (ar.get(k).equals(ar7.get(j)[1]))
 											{
 												s2 = s2 + ar7.get(j)[1] + "<br>";
