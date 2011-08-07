@@ -56,9 +56,9 @@ public class qq extends HttpServlet {
 						cn = consList.get(ic++);
 
 						if (cons_id.equals(cn.get_ConsId())) {
-							System.out.println("ww: "+iw);
-							System.out.println("sh: "+is);
-							System.out.println("cn: "+ic);
+							//System.out.println("ww: "+iw);
+							//System.out.println("sh: "+is);
+							//System.out.println("cn: "+ic);
 
 							String prefix=(ww.get_wo_number()).substring(0,3);
 							
@@ -94,7 +94,7 @@ public class qq extends HttpServlet {
 		s = "<List>" + s + "</List>";
 		//s = s.replaceAll("\\s+", " ");
 		out.println(s);
-		System.out.println(s);
+		//System.out.println(s);
 
 	}
 }
