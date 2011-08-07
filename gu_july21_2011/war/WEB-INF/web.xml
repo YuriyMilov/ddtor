@@ -9,6 +9,16 @@
   
 
      <servlet>
+    <servlet-name>admin</servlet-name>
+    <servlet-class>gu.admin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>admin</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
+  
+  
+     <servlet>
     <servlet-name>qq_quit</servlet-name>
     <servlet-class>gu.qq_quit</servlet-class>
   </servlet>
