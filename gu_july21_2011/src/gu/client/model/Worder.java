@@ -64,7 +64,7 @@ public class Worder implements BaseObject {
     private List<Long> digKeys;
     
 	@NotPersistent
-	private List<User> digs;
+	private List<User2> digs;
 	
 	public String getDescription() {
 		return equipment_description;
@@ -72,10 +72,10 @@ public class Worder implements BaseObject {
 	public void setDescription(String equipment_description) {
 		this.equipment_description = equipment_description;
 	}	
-	public List<User> getDigs() {
+	public List<User2> getDigs() {
 		return digs;
 	}
-	public void setDigs(List<User> digs) {
+	public void setDigs(List<User2> digs) {
 		this.digs = digs;
 	}
 	public String getTitle() {

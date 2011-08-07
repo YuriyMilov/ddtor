@@ -1,6 +1,6 @@
 package gu;
 
-import gu.client.model.User;
+import gu.client.model.User2;
 import gu.server.PMF;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,7 +27,7 @@ public class admin extends HttpServlet {
 				else {
 					PersistenceManager pm = PMF.get().getPersistenceManager();
 
-					User u = new User();
+					User2 u = new User2();
 					u.setName(req.getParameter("name"));
 					u.setPassword(req.getParameter("psw"));
 					pm.makePersistent(u);
@@ -39,33 +39,35 @@ public class admin extends HttpServlet {
 				try {
 					PersistenceManager pm = PMF.get().getPersistenceManager();
 					@SuppressWarnings("unchecked")
-					List<User> usrs = (List<User>) pm.newQuery(
-							"SELECT FROM " + User.class.getName()
+					List<User2> usrs = (List<User2>) pm.newQuery(
+							"SELECT FROM " + User2.class.getName()
 									+ " WHERE name==\""
-									+ req.getParameter("name") + "\"")
+									+ req.getParameter("name").trim() + "\" & password==\"" + req.getParameter("psw").trim() + "\"")
 							.execute();
-					pm.deletePersistent(usrs.get(0));
+					if(usrs.size()<1)
+						{
+						s = "<html><body>No such entry <p> <a href=/admin> go back </a></body></html>";
+						}
+					else
+						{
+						pm.deletePersistent(usrs.get(0));
 
 					s = "<html><body>The user '" + req.getParameter("name")
 							+ "' has been deleted <p> <a href=/admin> go back </a></body></html>";
+						}
 				} catch (Exception e) {
 					s = e.toString();
 				}
 			}
 			if (req.getParameter("btn").equals("users")) {
-				s = "<html><body>Users:<br/>_____________<br/>";
+				s = "<html><body>users - passwords<br/>_____________<br/>";
 				PersistenceManager pm = PMF.get().getPersistenceManager();
 				@SuppressWarnings("unchecked")
-				List<User> usrs = (List<User>) pm.newQuery(
-						"SELECT FROM " + User.class.getName()).execute();
-				;
-				// + " WHERE name==\""
-				// + req.getParameter("name")
-				// + "\"")
-				// .execute();
-
+				List<User2> usrs = (List<User2>) pm.newQuery(
+						"SELECT FROM " + User2.class.getName()).execute();
+	
 				for (int i = 0; i < usrs.size(); i++) {
-					s = s + "<br/> " + usrs.get(i).getName();
+					s = s + "<br/> " + usrs.get(i).getName()+ " - "+ usrs.get(i).getPassword();
 				}
 				s = s
 						+ "<br/>_____________<p><a href=/admin> go back </a></body></html>";
