@@ -62,7 +62,7 @@ public class qq extends HttpServlet {
 
 							String prefix=(ww.get_wo_number()).substring(0,3);
 							
-							//if(user.equals(prefix))
+							if(user.equals(prefix))
 								
 							s = s + "\r\n<country>" +
 							  "\r\n<shiplat>"+sh.getLatitude()+"</shiplat>" +

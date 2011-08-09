@@ -13,25 +13,18 @@
   <!-- Other module inherits                                      -->
 <inherits name="com.google.gwt.maps.GoogleMaps" />
 
-  <!--   beska_qd (beskashy): -->    
-  <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABRuHs-UY4aPu7zE2T6ckTrD_5eGoxTRjdva81yYY47CKV4fxtoxsyISZw" />
-  
-  
-  
-  <!-- script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABRuHs-UY4aPu7zE2T6ckTrD_5eGoxTRjdva81yYY47CKV4fxtoxsyISZw" /  -->
- 
-  
-  
- <!-- map_qd  (qdgmap): 
- <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABSR1SkFigx4Uz1ZbtiHA5KON9cKPBRagjkQ4oIzjOWVsG4-JKEBtUS1Qw" />
-
+<!--   beska_qd (beskashy):    
+<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABRuHs-UY4aPu7zE2T6ckTrD_5eGoxTRjdva81yYY47CKV4fxtoxsyISZw" />
+--> 
+   
+<!-- map_qd  (qdgmap): 
+<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABSR1SkFigx4Uz1ZbtiHA5KON9cKPBRagjkQ4oIzjOWVsG4-JKEBtUS1Qw" />
 -->
   
- <!-- ufos_qd (uwoswo) :
- 
- <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABQK0XOBk2jVWc9pokbSIJxhYXtpOhRzeTwbJ6WBvehVf0D6RhTcGzeqKg" />
- 
-  -->
+<!-- ufos_qd (ufoswo) + uncomment //if(user.equals(prefix)) AT qq.java : --> 
+<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABQK0XOBk2jVWc9pokbSIJxhYXtpOhRzeTwbJ6WBvehVf0D6RhTcGzeqKg" />
+
+  
   
   
      <inherits name="com.smartgwt.SmartGwtNoScript"/>
