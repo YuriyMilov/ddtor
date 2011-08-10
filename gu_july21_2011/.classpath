@@ -5,9 +5,7 @@
 	<classpathentry exported="true" kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/_eclipse/gwt-maps-1.1.0/gwt-maps.jar"/>
-	<classpathentry kind="lib" path="C:/_eclipse/_workspace/gu/war/WEB-INF/lib/smartgwt-skins.jar"/>
 	<classpathentry kind="lib" path="C:/_eclipse/_workspace/gu/war/WEB-INF/lib/smartgwt.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gu.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
