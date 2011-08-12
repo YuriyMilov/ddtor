@@ -20,7 +20,7 @@ public class admin extends HttpServlet {
 		if (!req.getParameter("key").equals("admin"))
 			s = "<html><body>Incorrect key <p> Please <a href=/admin> try again </a></body></html>";
 		else {
-			if (req.getParameter("btn").equals("add"))
+			if (req.getParameter("btn").equals("Add"))
 
 				if (req.getParameter("name").trim().length() < 1)
 					s = "<html><body>Enter a name <p> <a href=/admin> go back </a></body></html>";
@@ -34,7 +34,7 @@ public class admin extends HttpServlet {
 					s = "<html><body>New user '" + req.getParameter("name")
 							+ "' has been added <p> <a href=/admin> go back </a></body></html>";
 				}
-			if (req.getParameter("btn").equals("del")) {
+			if (req.getParameter("btn").equals("Delete")) {
 
 				try {
 					PersistenceManager pm = PMF.get().getPersistenceManager();
@@ -59,7 +59,7 @@ public class admin extends HttpServlet {
 					s = e.toString();
 				}
 			}
-			if (req.getParameter("btn").equals("users")) {
+			if (req.getParameter("btn").equals("List")) {
 				s = "<html><body>users - passwords<br/>_____________<br/>";
 				PersistenceManager pm = PMF.get().getPersistenceManager();
 				@SuppressWarnings("unchecked")
