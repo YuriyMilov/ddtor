@@ -46,6 +46,16 @@
   
   
        <servlet>
+    <servlet-name>get_rate</servlet-name>
+    <servlet-class>cc.get_rate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>get_rate</servlet-name>
+    <url-pattern>/get_rate</url-pattern>
+  </servlet-mapping>
+  
+  
+       <servlet>
     <servlet-name>mh</servlet-name>
     <servlet-class>cc.mh</servlet-class>
   </servlet>

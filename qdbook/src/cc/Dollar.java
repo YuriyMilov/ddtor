@@ -13,13 +13,16 @@ import javax.jdo.annotations.PrimaryKey;
 public class Dollar implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	@PrimaryKey
-	@Persistent
-	private Date d;
 
+	@PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	protected Long ident;
+	
 	@Persistent
 	private String s;
+	
+	@Persistent
+	private Date d;
 
 	public Dollar(String s2, Date d2) {
 		this.s = s2;
