@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
-
+import javax.jdo.PersistenceManager;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -18,11 +18,27 @@ import javax.servlet.http.HttpServletResponse;
 
 public class rate extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String s = "OK";
+		String s = rfu("http://www.bankofcanada.ca/en/markets/csv/exchange_eng.csv");
+		s=s.substring(s.indexOf("USD"));
+		s=s.substring(3,111);
+		
+		int n=s.indexOf("U");
+		s=s.substring(0,n);
+		
+		s=s.substring(s.lastIndexOf(",")+1);
+		s=s.replace("\r", "");
+		s=s.replace("\n", "");
+		
 		try {
-			send_mail("qdone@rogers.com", "rate	" + new java.util.Date().toString(), "rate");
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			Dollar tt = new Dollar(s, new Date());
+			pm.makePersistent(tt);
+			
+			send_mail("qdone@rogers.com", "rate	" + new Date().toString(), s);
 		} catch (Exception e) {
 			s = e.toString();
 		}
@@ -62,8 +78,8 @@ out.close();
 		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
 		
 		Message msg = new MimeMessage(session);
-		//msg.setFrom(new InternetAddress("ymdata@gmail.com", "EM DATA"));
-		msg.setFrom(new InternetAddress("lowrisk.terryfoxfoundation@gmail.com", "LowRisk Admin"));
+		msg.setFrom(new InternetAddress("ymdata@gmail.com", "EM DATA"));
+		//msg.setFrom(new InternetAddress("lowrisk.terryfoxfoundation@gmail.com", "LowRisk Admin"));
 		
 		for (int i = 0; i < tt.length; i++)
 		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
