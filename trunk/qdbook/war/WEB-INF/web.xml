@@ -7,6 +7,28 @@
   
   <!-- Servlets -->
   
+  <servlet>
+  <servlet-name>mailhandler</servlet-name>
+  <servlet-class>cc.MailHandlerServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>mailhandler</servlet-name>
+  <url-pattern>/_ah/mail/*</url-pattern>
+</servlet-mapping>
+<security-constraint>
+
+  <web-resource-collection>
+    <url-pattern>/_ah/mail/*</url-pattern>
+  </web-resource-collection>
+  
+  <auth-constraint>
+    <role-name>admin</role-name>
+  </auth-constraint>
+</security-constraint>
+
+
+
+
    <servlet>
     <servlet-name>mat</servlet-name>
     <servlet-class>cc.mat</servlet-class>
