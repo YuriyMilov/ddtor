@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+  
+  <!-- Servlets -->
+  
+  <servlet>
+    <servlet-name>admin</servlet-name>
+    <servlet-class>tmr.admin</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>admin</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
+  
+  
+
+  <servlet>
+    <servlet-name>srv</servlet-name>
+    <servlet-class>tmr.server.SrvImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>srv</servlet-name>
+    <url-pattern>/tmr/srv</url-pattern>
+  </servlet-mapping>
+ 
+ 
+  <servlet>
+    <servlet-name>greet</servlet-name>
+    <servlet-class>tmr.server.GreetingServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>greet</servlet-name>
+    <url-pattern>/tmr/greet</url-pattern>
+  </servlet-mapping>
+ 
+   
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>Tmr.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>
