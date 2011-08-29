@@ -20,6 +20,7 @@ public class qq extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
+		s="";
 		doPost(req, resp);
 
 	}
@@ -28,7 +29,7 @@ public class qq extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
-
+		s="";
 		String user = (String) req.getSession().getAttribute("name");
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
