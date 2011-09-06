@@ -25,8 +25,6 @@ public class Cps extends Composite {
 
 	MapWidget map = new MapWidget(LatLng.newInstance(44, -77), 3);
 
-	// private static final List<Info> iii = Arrays.asList(new Info("",
-	// ""));
 	public static String sx = "";
 	public static String sx2 = "";
 
@@ -34,7 +32,7 @@ public class Cps extends Composite {
 		map.setSize("800px", "600px");
 		map.setScrollWheelZoomEnabled(true);
 		map.addControl(new LargeMapControl());
-		icon.setImageURL("markerGreen.png");
+		icon.setImageURL("gr.png");
 		widget.add(map);
 		initWidget(widget);
 		timer.run();

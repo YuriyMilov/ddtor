@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import tmr.server.PMF;
 
-public class mail extends HttpServlet {
+public class pcmws extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)

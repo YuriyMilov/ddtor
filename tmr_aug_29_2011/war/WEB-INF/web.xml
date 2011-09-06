@@ -8,6 +8,17 @@
   <!-- Servlets -->
   
   <servlet>
+    <servlet-name>pcmws</servlet-name>
+    <servlet-class>tmr.pcmws</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>pcmws</servlet-name>
+    <url-pattern>/pcmws</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
     <servlet-name>admin</servlet-name>
     <servlet-class>tmr.admin</servlet-class>
   </servlet>
@@ -16,8 +27,6 @@
     <servlet-name>admin</servlet-name>
     <url-pattern>/admin</url-pattern>
   </servlet-mapping>
-  
-  
 
   <servlet>
     <servlet-name>srv</servlet-name>
