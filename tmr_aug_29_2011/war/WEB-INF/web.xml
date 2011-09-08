@@ -7,6 +7,18 @@
   
   <!-- Servlets -->
   
+   <servlet>
+    <servlet-name>mh</servlet-name>
+    <servlet-class>tmr.mh</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>mh</servlet-name>
+    <url-pattern>/mh</url-pattern>
+  </servlet-mapping>
+  
+  
+  
   <servlet>
     <servlet-name>pcmws</servlet-name>
     <servlet-class>tmr.pcmws</servlet-class>
