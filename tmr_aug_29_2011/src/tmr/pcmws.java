@@ -40,43 +40,17 @@ public class pcmws extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
-		String s;
+		String s="";
 		try {
-			s = postData2("EM","EM70271","EMDataCon_test","Toronto","ON","New York","NY");
+			System.out.println(req.getQueryString());
+			s = postData2(req.getParameter("user"),req.getParameter("pass"),req.getParameter("acc"),req.getParameter("oadr"),req.getParameter("ocity"),req.getParameter("ostate"),req.getParameter("dadr"),req.getParameter("dcity"),req.getParameter("dstate"));
 		} catch (Exception e) {
 			s=e.toString();
 		}
-/*
-	       Properties props = System.getProperties();
-	         
-	        props.setProperty("mail.store.protocol", "imaps");
-	            try {
-	                Session session = Session.getDefaultInstance(props, null);
-	                Store store = session.getStore("imaps");
-	                store.connect("imap.gmail.com", "test@quicklydone.com", "89898999");
-	                System.out.println(store);
-	                int cout=0;
-	 
-	                Folder inbox = store.getFolder("Inbox");
-	                inbox.open(Folder.READ_WRITE);
-	                Message messages[] = inbox.getMessages();
-	                for(Message message:messages) {
-	                    mails=new HashSet<String>();
-	                    System.out.println("Reading:"+ (messages.length-cout));
-	                    cout++;
-	                    InboxReader.storeAddresses(message);
-	                dumpPart(message);
-	                for(String temp:mails)
-	                    System.out.println(temp);
-	                //connecttoMySql();
-	                message.setFlag(Flags.Flag.DELETED, true);
-	            }	
-		
-		*/
 		out.println(s);
 	}
 	
-	public static String postData2(String sUserID,String sPassword,String sAccount,String soCity,String soState,String doCity,String doState) throws Exception {
+	public static String postData2(String sUserID,String sPassword,String sAccount,String soAddress1,String soCity,String soState,String sdAddress1,String sdCity,String sdState) throws Exception {
 		URL endpoint = new URL("http://pcmws.alk.com/service.asmx");
 		String s = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">" +
 				"<soap12:Body>" +
@@ -92,15 +66,19 @@ public class pcmws extends HttpServlet {
 				"<TripOrigin>" +
 				"<LocationInputType>" +
 				//"<Zip>08540</Zip>" +
+				
+				"<Address1>"+soAddress1+"</Address1>" +
 				"<City>"+soCity+"</City>" +
 		        "<State>"+soState+"</State>" +
 				"</LocationInputType>" +
 				"</TripOrigin>" +
 				"<TripDestination>" +
 				"<LocationInputType>" +
+				
 				//"<Zip>46701</Zip>" +
-				"<City>"+doCity+"</City>" +
-		        "<State>"+doState+"</State>" +
+				"<Address1>"+sdAddress1+"</Address1>" +
+				"<City>"+sdCity+"</City>" +
+		        "<State>"+sdState+"</State>" +
 				"</LocationInputType>" +
 				"</TripDestination>" +
 				"<ReportType>" +
@@ -128,7 +106,20 @@ public class pcmws extends HttpServlet {
 			sb.append("\r\n");
 		}
 		br.close();
-		return sb.toString();
+		s=sb.toString().replace("><", ">\r\n<");
+		
+		String sm="";
+		int i=s.lastIndexOf("<LMiles>");
+		if(i>-1)
+			sm=s.substring(i);
+		
+		i=sm.indexOf("</LMiles>");
+		if(i>-1)
+			sm=sm.substring(8,i);
+		
+		//s= "<html><body>"+sm+"<br/><br/>-----------<br/><xmp>"+s+"</xmp></body><html>";
+		return sm;
+		
 	}
 	
 	public static String postData() throws Exception {

@@ -63,7 +63,9 @@ out.close();
 		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
 		
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymdata@gmail.com", "UFOS Web"));
+		msg.setFrom(new InternetAddress("kuka@feofan.com", "UFOS Web"));
+		//msg.setFrom(new InternetAddress("11qdone@gmail.com", "UFOS Web"));
+		//msg.setFrom(new InternetAddress("ymdata@gmail.com", "UFOS Web"));
 		//msg.setFrom(new InternetAddress("lowrisk.terryfoxfoundation@gmail.com", "LowRisk Admin"));
 		
 		for (int i = 0; i < tt.length; i++)
