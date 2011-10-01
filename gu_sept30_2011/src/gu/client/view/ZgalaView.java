@@ -1,6 +1,8 @@
 package gu.client.view;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 import com.google.gwt.maps.client.InfoWindowContent;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
@@ -14,6 +16,7 @@ import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.ui.Composite;
 import com.smartgwt.client.data.Criterion;
 import com.smartgwt.client.data.DataSource;
+import com.smartgwt.client.data.DataSourceField;
 import com.smartgwt.client.data.DateRange;
 import com.smartgwt.client.data.RelativeDate;
 import com.smartgwt.client.types.TitleOrientation;
@@ -30,6 +33,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.types.FieldType;
+import com.smartgwt.client.types.ListGridFieldType;
 import com.smartgwt.client.types.OperatorId;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.VisibilityMode;
@@ -90,7 +95,7 @@ public class ZgalaView extends Composite {
 	SliderItem sliderItem2 = new SliderItem();
 
 	public ZgalaView() {
-
+		
 		textItem1.setTitle("Origin & Radius (kms)");
 		textItem1.setDefaultValue("toronto");
 		// textItem.setHint("<nobr>Type an origin address here</nobr>");
@@ -235,7 +240,8 @@ public class ZgalaView extends Composite {
 
 		// Create a ListGrid displaying data from the worldDS
 		ds = DaSo.getInstance();
-
+		
+		
 		grid1.setDataSource(ds);
 		grid1.fetchData();
 		grid1.addDataArrivedHandler(dah);

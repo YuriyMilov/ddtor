@@ -30,6 +30,10 @@ public class qq extends HttpServlet {
 			throws IOException {
 		PrintWriter out = resp.getWriter();
 		s="";
+
+
+		//System.out.println(s);
+		
 		String user = (String) req.getSession().getAttribute("name");
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
@@ -45,6 +49,9 @@ public class qq extends HttpServlet {
 		int iw = 0;
 		while (iw < woList.size()) {
 			ww = woList.get(iw++);
+			
+
+			
 			int is = 0;
 			while (is < shipList.size()) {
 				sh = shipList.get(is++);
@@ -63,8 +70,28 @@ public class qq extends HttpServlet {
 
 							String prefix=(ww.get_wo_number()).substring(0,3);
 							
-							//if(user.equals(prefix))
+							
+							
+							//////////////////////////
+							//  07/25/11
+							//  2011-11-25
+							
+							String sdd=ww.get_delivery_dt();
+							if(sdd.trim().length()==0)
+								sdd="11/11/11";
+							sdd = "20"+sdd.substring(6,8)+"-"+sdd.substring(0,2)+"-"+sdd.substring(3,5);
 								
+							String sshd=ww.get_delivery_dt();
+							if(sshd.trim().length()==0)
+								sshd="11/11/11";
+							sshd = "20"+sshd.substring(6,8)+"-"+sshd.substring(0,2)+"-"+sshd.substring(3,5);
+								
+							
+							
+							
+							//if(user.equals(prefix))
+							
+
 							s = s + "\r\n<country>" +
 							  "\r\n<shiplat>"+sh.getLatitude()+"</shiplat>" +
 							  "\r\n<shiplng>"+sh.getLongtitude()+"</shiplng>" +
@@ -76,8 +103,14 @@ public class qq extends HttpServlet {
 							  "\r\n<from2>"+sh.getProv()+"</from2>" +
 							  "\r\n<to1>"+cn.getCity()+"</to1>" + 
 							  "\r\n<to2>"+cn.getProv()+"</to2>" +
-							  "\r\n<dd>"+ww.get_delivery_dt()+"</dd>" + 
-							  "\r\n<shd>"+ww.getpickup_dt()+"</shd>" + 
+							 // "\r\n<dd>"+ww.get_delivery_dt()+"</dd>" + 
+							 //"\r\n<shd>"+ww.getpickup_dt()+"</shd>" + 
+			
+							  
+							  "\r\n<dd>"+sdd+"</dd>" + 
+							  "\r\n<shd>"+sshd+"</shd>" + 
+			
+							  
 							  "\r\n<equipment>"+ww.getDescription()+"</equipment>"+ 
 							  "\r\n<pieces>"+ww.get_pieces()+"</pieces>"+
 							  "\r\n<type>"+ww.get_type()+"</type>" +

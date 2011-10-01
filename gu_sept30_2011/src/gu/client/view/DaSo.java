@@ -9,6 +9,8 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.data.fields.*;
+import com.smartgwt.client.types.FieldType;
+import com.smartgwt.client.types.ListGridFieldType;
 
 public class DaSo extends DataSource {
 	private final SrvAsync srv = GWT.create(Srv.class);
@@ -59,17 +61,23 @@ public class DaSo extends DataSource {
 				"Equipment");
 		DataSourceIntegerField pieces = new DataSourceIntegerField("pieces",
 				"Pieces");
+		pieces.setType(FieldType.INTEGER);
 		DataSourceTextField type = new DataSourceTextField("type", "Type");
 		DataSourceTextField description = new DataSourceTextField(
 				"description", "Description");
 		DataSourceIntegerField lbs = new DataSourceIntegerField("lbs",
 				"Weight (Lbs)");
+		lbs.setType(FieldType.INTEGER);
 		DataSourceDateField dd = new DataSourceDateField("dd", "Delivery Date");
+		dd.setType(FieldType.DATE);
 		dd.setRequired(false);
 		DataSourceDateField shd = new DataSourceDateField("shd",
 				"Shipping Date");
+		shd.setType(FieldType.DATE);
 		shd.setRequired(false);
-		setFields(pkField, ii, orig, dest, prefix, woNumber, from1, from2, to1,
+//		setFields(pkField, ii, orig, dest, prefix, woNumber, from1, from2, to1,
+//				to2, shd, dd, equipment, pieces, type, lbs, description);
+		setFields(pkField, ii, prefix, woNumber, from1, from2, to1,
 				to2, shd, dd, equipment, pieces, type, lbs, description);
 		setDataURL("qq");
 		setClientOnly(true);
