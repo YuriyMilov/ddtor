@@ -1,0 +1,38 @@
+<List> 
+<supplyItem> 
+    <SKU>58074602</SKU> 
+    <units>Ea</units> 
+    <category>Office Paper Products</category> 
+    <itemName>Pens Stabiliner 808 Ballpoint Fine Black</itemName> 
+    <unitCost>0.24</unitCost> 
+    <description>Schwan Stabilo 808 colours.</description> 
+</supplyItem> 
+<supplyItem> 
+    <units>Ea</units> 
+    <itemName>Pens Stabiliner 808 Ballpoint Fine Blue</itemName> 
+    <category>Office Paper Products</category> 
+    <SKU>58074604</SKU> 
+    <unitCost>0.24</unitCost> 
+</supplyItem> 
+<supplyItem> 
+    <units>Ea</units> 
+    <itemName>Pens Stabiliner 808 Ballpoint Fine Red</itemName> 
+    <category>Office Paper Products</category> 
+    <SKU>58074605</SKU> 
+    <unitCost>0.24</unitCost> 
+</supplyItem> 
+<supplyItem> 
+    <units>Ea</units> 
+    <itemName>Pens Stabiliner 808 Ballpoint Fine Green</itemName> 
+    <category>Office Paper Products</category> 
+    <SKU>58074606</SKU> 
+    <unitCost>0.24</unitCost> 
+</supplyItem> 
+<supplyItem> 
+    <units>Pkt</units> 
+    <itemName>U-Tac UHU Pkt 75gm</itemName> 
+    <category>U-Tac</category> 
+    <SKU>1087100</SKU> 
+    <unitCost>1.43</unitCost> 
+</supplyItem> 
+</List> 
