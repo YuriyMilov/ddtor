@@ -21,7 +21,7 @@ public class qq extends HttpServlet {
 			throws IOException {
 		s = "";
 		doPost(req, resp);
-
+ 
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
