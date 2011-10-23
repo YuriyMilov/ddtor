@@ -1,0 +1,21 @@
+Usage: pellet <subcommand> [options]  <file URI>...
+Pellet command-line client, version 2.3.0.
+Type 'pellet help <subcommand>' for help on a specific subcommand.
+
+Available subcommands:
+	classify
+	consistency
+	dig
+	entail
+	explain
+	extract
+	info
+	lint
+	modularity
+	query
+	realize
+	trans-tree
+	unsat
+
+Pellet is an OWL ontology reasoner.
+For more information, see http://clarkparsia.com/pellet

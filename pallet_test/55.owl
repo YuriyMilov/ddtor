@@ -1,0 +1,1819 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://cohse.semanticweb.org/ontologies/people"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://cohse.semanticweb.org/ontologies/people">
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="ns0" IRI="http://cohse.semanticweb.org/ontologies/people#"/>
+    <Prefix name="" IRI="http://cohse.semanticweb.org/ontologies/people#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#adult"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#animal"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#animal+lover"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#bicycle"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#bone"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#brain"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#broadsheet"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#bus"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#bus+company"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#bus+driver"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#car"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#cat"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#cat+liker"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#cat+owner"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#company"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#cow"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#dog"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#dog+liker"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#dog+owner"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#driver"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#duck"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#elderly"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#female"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#giraffe"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#grass"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#grownup"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#haulage+company"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#haulage+truck+driver"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#haulage+worker"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#kid"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#leaf"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#lorry"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#lorry+driver"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#mad+cow"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#magazine"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#male"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#man"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#newspaper"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#old+lady"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#person"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#pet"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#pet+owner"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#plant"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#publication"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#quality+broadsheet"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#red+top"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#sheep"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#tabloid"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#tiger"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#tree"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#truck"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#van"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#van+driver"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#vegetarian"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#vehicle"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#white+thing"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#white+van+man"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#woman"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#young"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#drives"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eaten_by"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eats"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has_child"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has_father"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has_mother"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has_parent"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has_part"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#has_pet"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#is_pet_of"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#likes"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#part_of"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#reads"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#works_for"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#service_number"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#animal+lover"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <ObjectMinCardinality cardinality="3">
+                <ObjectProperty IRI="#has_pet"/>
+            </ObjectMinCardinality>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#bus+driver"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#drives"/>
+                <Class IRI="#bus"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#cat+liker"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#likes"/>
+                <Class IRI="#cat"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#cat+owner"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#has_pet"/>
+                <Class IRI="#cat"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#dog+liker"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#likes"/>
+                <Class IRI="#dog"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#dog+owner"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#has_pet"/>
+                <Class IRI="#dog"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#driver"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#drives"/>
+                <Class IRI="#vehicle"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#grownup"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#adult"/>
+            <Class IRI="#person"/>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#haulage+truck+driver"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#drives"/>
+                <Class IRI="#truck"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#works_for"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#part_of"/>
+                    <Class IRI="#haulage+company"/>
+                </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#haulage+worker"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#works_for"/>
+            <ObjectUnionOf>
+                <Class IRI="#haulage+company"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#part_of"/>
+                    <Class IRI="#haulage+company"/>
+                </ObjectSomeValuesFrom>
+            </ObjectUnionOf>
+        </ObjectSomeValuesFrom>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#kid"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <Class IRI="#young"/>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#lorry+driver"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#drives"/>
+                <Class IRI="#lorry"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#mad+cow"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#cow"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eats"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#brain"/>
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty IRI="#part_of"/>
+                        <Class IRI="#sheep"/>
+                    </ObjectSomeValuesFrom>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#man"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#adult"/>
+            <Class IRI="#male"/>
+            <Class IRI="#person"/>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#old+lady"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#elderly"/>
+            <Class IRI="#female"/>
+            <Class IRI="#person"/>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#pet"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#is_pet_of"/>
+            <Class abbreviatedIRI="owl:Thing"/>
+        </ObjectSomeValuesFrom>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#pet+owner"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#has_pet"/>
+                <Class IRI="#animal"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#van+driver"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#person"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#drives"/>
+                <Class IRI="#van"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#vegetarian"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#animal"/>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#eats"/>
+                <ObjectComplementOf>
+                    <Class IRI="#animal"/>
+                </ObjectComplementOf>
+            </ObjectAllValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#eats"/>
+                <ObjectComplementOf>
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty IRI="#part_of"/>
+                        <Class IRI="#animal"/>
+                    </ObjectSomeValuesFrom>
+                </ObjectComplementOf>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#white+van+man"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#man"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#drives"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#van"/>
+                    <Class IRI="#white+thing"/>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#woman"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#adult"/>
+            <Class IRI="#female"/>
+            <Class IRI="#person"/>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#animal"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#eats"/>
+            <Class abbreviatedIRI="owl:Thing"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#bicycle"/>
+        <Class IRI="#vehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#broadsheet"/>
+        <Class IRI="#newspaper"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#bus"/>
+        <Class IRI="#vehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#bus+company"/>
+        <Class IRI="#company"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#car"/>
+        <Class IRI="#vehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#cat"/>
+        <Class IRI="#animal"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#cow"/>
+        <Class IRI="#vegetarian"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#dog"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#eats"/>
+            <Class IRI="#bone"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#driver"/>
+        <Class IRI="#adult"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#duck"/>
+        <Class IRI="#animal"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#elderly"/>
+        <Class IRI="#adult"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#giraffe"/>
+        <Class IRI="#animal"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#giraffe"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#eats"/>
+            <Class IRI="#leaf"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#grass"/>
+        <Class IRI="#plant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#haulage+company"/>
+        <Class IRI="#company"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#leaf"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#part_of"/>
+            <Class IRI="#tree"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#lorry"/>
+        <Class IRI="#vehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#magazine"/>
+        <Class IRI="#publication"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#newspaper"/>
+        <Class IRI="#publication"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#newspaper"/>
+        <ObjectUnionOf>
+            <Class IRI="#broadsheet"/>
+            <Class IRI="#tabloid"/>
+        </ObjectUnionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#old+lady"/>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#has_pet"/>
+                <Class IRI="#animal"/>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectProperty IRI="#has_pet"/>
+                <Class IRI="#cat"/>
+            </ObjectAllValuesFrom>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#person"/>
+        <Class IRI="#animal"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#quality+broadsheet"/>
+        <Class IRI="#broadsheet"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#red+top"/>
+        <Class IRI="#tabloid"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#sheep"/>
+        <Class IRI="#animal"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#sheep"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#eats"/>
+            <Class IRI="#grass"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#tabloid"/>
+        <Class IRI="#newspaper"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#tiger"/>
+        <Class IRI="#animal"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#tree"/>
+        <Class IRI="#plant"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#truck"/>
+        <Class IRI="#vehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#van"/>
+        <Class IRI="#vehicle"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#white+van+man"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#reads"/>
+            <Class IRI="#tabloid"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#adult"/>
+        <Class IRI="#young"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#broadsheet"/>
+        <Class IRI="#tabloid"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#cat"/>
+        <Class IRI="#dog"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <ObjectUnionOf>
+            <Class IRI="#animal"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#part_of"/>
+                <Class IRI="#animal"/>
+            </ObjectSomeValuesFrom>
+        </ObjectUnionOf>
+        <ObjectUnionOf>
+            <Class IRI="#plant"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#part_of"/>
+                <Class IRI="#plant"/>
+            </ObjectSomeValuesFrom>
+        </ObjectUnionOf>
+    </DisjointClasses>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="#Daily+Mirror"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#duck"/>
+        <NamedIndividual IRI="#Dewey"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#dog"/>
+        <NamedIndividual IRI="#Fido"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#cow"/>
+        <NamedIndividual IRI="#Flossie"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#tiger"/>
+        <NamedIndividual IRI="#Fluffy"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#person"/>
+        <NamedIndividual IRI="#Fred"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#duck"/>
+        <NamedIndividual IRI="#Huey"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#person"/>
+        <NamedIndividual IRI="#Joe"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="#has_pet"/>
+        </ObjectMaxCardinality>
+        <NamedIndividual IRI="#Joe"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#person"/>
+        <NamedIndividual IRI="#Kevin"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#duck"/>
+        <NamedIndividual IRI="#Louie"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#male"/>
+        <NamedIndividual IRI="#Mick"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#elderly"/>
+        <NamedIndividual IRI="#Minnie"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#female"/>
+        <NamedIndividual IRI="#Minnie"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#van"/>
+        <NamedIndividual IRI="#Q123+ABC"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#white+thing"/>
+        <NamedIndividual IRI="#Q123+ABC"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#dog"/>
+        <NamedIndividual IRI="#Rex"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#broadsheet"/>
+        <NamedIndividual IRI="#The+Guardian"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#tabloid"/>
+        <NamedIndividual IRI="#The+Sun"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#broadsheet"/>
+        <NamedIndividual IRI="#The+Times"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#bus"/>
+        <NamedIndividual IRI="#The42"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#cat"/>
+        <NamedIndividual IRI="#Tibbs"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="#Tom"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#person"/>
+        <NamedIndividual IRI="#Walt"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#has_pet"/>
+        <NamedIndividual IRI="#Fred"/>
+        <NamedIndividual IRI="#Tibbs"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#has_pet"/>
+        <NamedIndividual IRI="#Joe"/>
+        <NamedIndividual IRI="#Fido"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#drives"/>
+        <NamedIndividual IRI="#Mick"/>
+        <NamedIndividual IRI="#Q123+ABC"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#reads"/>
+        <NamedIndividual IRI="#Mick"/>
+        <NamedIndividual IRI="#Daily+Mirror"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#has_pet"/>
+        <NamedIndividual IRI="#Minnie"/>
+        <NamedIndividual IRI="#Tom"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#is_pet_of"/>
+        <NamedIndividual IRI="#Rex"/>
+        <NamedIndividual IRI="#Mick"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#has_pet"/>
+        <NamedIndividual IRI="#Walt"/>
+        <NamedIndividual IRI="#Dewey"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#has_pet"/>
+        <NamedIndividual IRI="#Walt"/>
+        <NamedIndividual IRI="#Louie"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#has_pet"/>
+        <NamedIndividual IRI="#Walt"/>
+        <NamedIndividual IRI="#Huey"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#service_number"/>
+        <NamedIndividual IRI="#The42"/>
+        <Literal datatypeIRI="&xsd;integer">42</Literal>
+    </DataPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#has_father"/>
+        <ObjectProperty IRI="#has_parent"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#has_mother"/>
+        <ObjectProperty IRI="#has_parent"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#has_pet"/>
+        <ObjectProperty IRI="#likes"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#eats"/>
+        <ObjectProperty IRI="#eaten_by"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#has_part"/>
+        <ObjectProperty IRI="#part_of"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#is_pet_of"/>
+        <ObjectProperty IRI="#has_pet"/>
+    </InverseObjectProperties>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eats"/>
+        <Class IRI="#animal"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#has_pet"/>
+        <Class IRI="#person"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has_father"/>
+        <Class IRI="#man"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has_mother"/>
+        <Class IRI="#woman"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#has_pet"/>
+        <Class IRI="#animal"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#reads"/>
+        <Class IRI="#publication"/>
+    </ObjectPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#service_number"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Daily+Mirror</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">The paper read by Mick (a white van man). </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Daily+Mirror</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Daily Mirror</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Dewey</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Dewey</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Dewey</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Fido</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Fido</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Fido</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Flossie</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Flossie</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Flossie</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Fluffy</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Fluffy</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Fluffy</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Fred</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Fred</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Fred</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Huey</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Huey</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Huey</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Joe</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Joe</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Joe</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Kevin</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Kevin</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Kevin</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Louie</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Louie</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Louie</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Mick</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Mick is male and drives a white van. Due to the axiom concerning drivers, we know that Mick must be a man, and is therefore a white van man. The axiom about the reading material of a white van man then allows us to infer things about the Daily Mirror.  </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Mick</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Mick</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Minnie</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Minnie</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Minnie</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Q123+ABC</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">A white van</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Q123+ABC</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Q123 ABC</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Rex</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Rex</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Rex</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#The+Guardian</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#The+Guardian</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">The Guardian</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#The+Sun</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#The+Sun</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">The Sun</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#The+Times</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#The+Times</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">The Times</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#The42</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#The42</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">The42</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Tibbs</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Tibbs</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Tibbs</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Tom</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Tom</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Tom</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Walt</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Walt</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Walt</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#adult</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Things that are adult.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#adult</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">adult</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#animal</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#animal</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">animal</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#animal+lover</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Someone who really likes animals   </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#animal+lover</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">animal lover</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#bicycle</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">A human propelled vehicle, with two wheels   </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#bicycle</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">bicycle</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#bone</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#bone</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">bone</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#brain</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#brain</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">brain</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#broadsheet</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">A newspaper. Broadsheets are usually considered to be more &quot;high-brow&quot; than tabloids.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#broadsheet</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">broadsheet</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#bus</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#bus</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">bus</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#bus+company</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#bus+company</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">bus company</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#bus+driver</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Someone who drives a bus.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#bus+driver</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">bus driver</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#car</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#car</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">car</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#cat</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#cat</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">cat</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#cat+liker</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#cat+liker</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">cat liker</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#cat+owner</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#cat+owner</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">cat owner</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#company</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#company</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">company</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#cow</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Cows are naturally vegetarians.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#cow</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">cow</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#dog</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#dog</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">dog</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#dog+liker</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#dog+liker</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">dog liker</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#dog+owner</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#dog+owner</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">dog owner</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#driver</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#driver</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">driver</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#drives</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#drives</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">drives</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#duck</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#duck</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">duck</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#eaten_by</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#eaten_by</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">eaten_by</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#eats</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#eats</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">eats</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#elderly</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#elderly</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">elderly</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#female</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#female</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">female</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#giraffe</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#giraffe</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">giraffe</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#grass</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#grass</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">grass</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#grownup</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#grownup</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">grownup</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#has_child</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#has_child</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">has_child</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#has_father</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#has_father</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">has_father</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#has_mother</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#has_mother</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">has_mother</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#has_parent</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#has_parent</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">has_parent</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#has_part</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#has_part</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">has_part</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#has_pet</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Anyone that has a pet must like that pet. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#has_pet</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">has_pet</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#haulage+company</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#haulage+company</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">haulage company</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#haulage+truck+driver</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#haulage+truck+driver</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">haulage truck driver</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#haulage+worker</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#haulage+worker</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">haulage worker</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#is_pet_of</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#is_pet_of</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">is_pet_of</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#kid</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#kid</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">kid</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#leaf</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#leaf</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">leaf</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#likes</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#likes</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">likes</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#lorry</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#lorry</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">lorry</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#lorry+driver</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#lorry+driver</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">lorry driver</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#mad+cow</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">A mad cow is a cow that has been eating the brains of sheep.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#mad+cow</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">mad cow</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#magazine</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#magazine</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">magazine</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#male</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">The class of all male things.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#male</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">male</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#man</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#man</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">man</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#newspaper</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">All newspapers are either broadsheets or tabloids.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#newspaper</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">newspaper</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#old+lady</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#old+lady</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">old lady</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#part_of</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#part_of</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">part_of</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#person</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#person</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">person</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#pet</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#pet</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">pet</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#pet+owner</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#pet+owner</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">pet owner</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#plant</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#plant</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">plant</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#publication</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#publication</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">publication</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#quality+broadsheet</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#quality+broadsheet</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">quality broadsheet</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#reads</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#reads</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">reads</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#red+top</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#red+top</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">red top</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#service_number</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#service_number</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">service_number</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#sheep</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#sheep</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">sheep</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#tabloid</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">A newspaper. Tabloids are usually thought of as more &quot;down-market&quot; than broadsheets.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#tabloid</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">tabloid</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#tiger</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#tiger</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">tiger</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#tree</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#tree</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">tree</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#truck</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#truck</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">truck</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#van</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#van</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">van</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#van+driver</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#van+driver</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">van driver</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#vegetarian</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">A vegetarian is defined as an animal that eats no other animals, or parts of animals.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#vegetarian</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">vegetarian</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#vehicle</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#vehicle</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">vehicle</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#white+thing</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#white+thing</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">white thing</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#white+van+man</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">A white van man is a man who drives a white van.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#white+van+man</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">white van man</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#woman</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#woman</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">woman</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#works_for</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#works_for</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">works_for</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#young</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#young</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">young</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.2.3.1824) http://owlapi.sourceforge.net -->
+

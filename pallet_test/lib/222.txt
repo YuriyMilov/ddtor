@@ -1,0 +1,32 @@
+PelletClassify: Classify the ontology and display the hierarchy
+
+Usage: pellet classify [options] <file URI>...
+
+Argument description:
+
+--help, -h 
+     Print this message 
+
+--verbose, -v 
+     Print full stack trace for errors. 
+
+--config, -C (configuration file) 
+     Use the selected configuration file 
+
+--persist, -p 
+     Enable persistence of classification results. The classifier will save its 
+     internal state in a file, and will reuse it the next time this ontology is 
+     loaded, therefore saving classification time. This option can only be used 
+     with OWLAPIv3 loader. 
+
+--loader, -l (Jena | OWLAPI | OWLAPIv3 | KRSS) 
+     Use Jena, OWLAPI, OWLAPIv3 or KRSS to load the ontology (Default: 
+     OWLAPIv3) 
+
+--ignore-imports 
+     Ignore imported ontologies 
+
+--input-format (RDF/XML | Turtle | N-Triples) 
+     Format of the input file (valid only for the Jena loader). Default 
+     behaviour is to guess the input format based on the file extension. 
+

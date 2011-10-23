@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1319375219531" name="http://cohse.semanticweb.org/ontologies/people" uri="55.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1319375219531" name="http://www.co-ode.org/ontologies/galen" uri="examples/data/simple-galen.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1319375219531" name="http://www.example.org/ontology3e84710c:1139cb9e449:-8000" uri="examples/data/wine.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1319375219531" name="http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl" uri="examples/data/univ-bench.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1319375219531" name="duplicate:http://www.semanticweb.org/ontologies/2011/9/Ontology1318083632046.owl" uri="Copy%20of%20fish_old.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1319375219531" name="duplicate:http://www.semanticweb.org/ontologies/2011/9/Ontology1318083632046.owl" uri="fish.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1319375219531" name="http://www.w3.org/2002/07/owl" uri="fff.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1319375219531" name="http://www.w3.org/TR/2003/PR-owl-guide-20031209/food" uri="ff.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1319375219531" name="http://www.w3.org/TR/2003/PR-owl-guide-20031209/food#" uri="food.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1319375219531" name="shadowed:http://cohse.semanticweb.org/ontologies/people" uri="examples/data/people+pets.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1319375219531" name="shadowed:http://www.semanticweb.org/ontologies/2011/9/Ontology1318083632046.owl" uri="lib/19.owl"/>
+    </group>
+</catalog>
