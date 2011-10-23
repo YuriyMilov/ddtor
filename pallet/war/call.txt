@@ -1,0 +1,12 @@
+OntModel model = ModelFactory.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+model.read("file:fish.owl");
+
+Query q = QueryFactory.create(
+
+  "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
++ "PREFIX : <http://test.feofan.com/fish.owl#>"
++ "SELECT ?Who WHERE {?Who :owns :fish }"
+
+);
+
+ResultSet r = SparqlDLExecutionFactory.create(q, model).execSelect();
