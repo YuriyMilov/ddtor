@@ -24,5 +24,8 @@
 	<classpathentry kind="lib" path="lib/pellet-rules.jar"/>
 	<classpathentry kind="lib" path="lib/pellet-test.jar"/>
 	<classpathentry kind="lib" path="lib/servlet.jar"/>
+	<classpathentry kind="lib" path="lib/gdata/lib/gdata-client-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata/guava-r07/guava-r07-gwt.jar"/>
+	<classpathentry kind="lib" path="lib/gdata/guava-r07/guava-r07.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
