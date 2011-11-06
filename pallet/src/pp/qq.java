@@ -2,6 +2,9 @@ package pp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,66 +19,56 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 public class qq extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String s = "";
-
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		s = "";
 		doPost(req, resp);
- 
+
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		PrintWriter out = resp.getWriter();/*
-		s = "file:fish.owl";
+		ServletOutputStream out = resp.getOutputStream();
+		resp.setContentType("text/html; charset=utf-8");
+		
+		s = get_q();
+		if(s.indexOf("#")>0)
+			s=s.substring(s.indexOf("#")+1);
+		if(s.indexOf(")")>0)
+			s=s.substring(0,s.indexOf(")")-1);
+		
+		s=s.replace("<", "");
+		s=s.replace(">", "");
+//		 s="<html><body>привет "+s+"</body></html>";
+		 s="<html><meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"><body>"+s+"</body></html>";
+		
+		byte[] b=s.getBytes("UTF8");
+		out.write(b);	
+	}
 
-		try {
-			String s1 = "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n"
-					+ "PREFIX : <http://test.feofan.com/fish.owl#>\r\n"
-					+ "\r\n" + "SELECT ?Who ?Beverage\r\n" + "WHERE {\r\n";
-			String s2 = "}";
+	public String get_q() {
+		
+		String s1 = "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+				+ "PREFIX : <http://test.feofan.com/rufish2.owl#>"
+				+ "SELECT ?Кто " + "WHERE {", s2 = "}", s = "file:rufish2.owl";
+		//try {
+		OntModel model = ModelFactory
+				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+		model.read(s);
+		Query q = QueryFactory.create(s1 + "?Кто :разводит :рыбки" + s2);
+		ResultSet r = SparqlDLExecutionFactory.create(q, model).execSelect();
+		s = r.nextBinding().toString();
+		//byte[] b = s.getBytes("UTF-8");
+		//s=new String(b,"UTF-8");
+			
+		//} catch (UnsupportedEncodingException e) {
 
-			OntModel model = ModelFactory
-					.createOntologyModel(PelletReasonerFactory.THE_SPEC);
-			model.read(s);
+		//	s=e.toString();
+		//}
+		
+		//System.out.println(s);
+		return s;
 
-			Query q = QueryFactory.create(s1 + "?Who :owns :fish" + s2);
-			ResultSet r = SparqlDLExecutionFactory.create(q, model)
-					.execSelect();
-			s = r.toString();
-			s = s.substring(s.indexOf("#") + 1, s.indexOf("}"));
-
-
-			// q = QueryFactory.create(s1 + "?Who :drinks ?Beverage" + s2);
-			// r = SparqlDLExecutionFactory.create(q, model).execSelect();
-			// ResultSetFormatter.out(System.out, r, q);
-
-		} catch (Exception e) {
-			s = e.toString();
-		}*/
-		s=get_q();
-		s = s.substring(s.indexOf("#") + 1, s.indexOf("}"));
-		out.println(s);
 	}
 	
-	public String get_q(){
-		String s = "";
-		try{
-			OntModel model = ModelFactory.createOntologyModel(PelletReasonerFactory.THE_SPEC);
-			model.read("file:fish.owl");
-
-			Query q = QueryFactory.create(
-
-			  "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-			+ "PREFIX : <http://test.feofan.com/fish.owl#>"
-			+ "SELECT ?Who ?Beverage WHERE {?Who :owns :fish }"
-
-			);
-
-			ResultSet r = SparqlDLExecutionFactory.create(q, model).execSelect();
-			s=r.toString();
-		} catch (Exception e) {
-			s = e.toString();
-		}
-		return s;}
 }
