@@ -39,7 +39,6 @@ public class qq extends HttpServlet {
 		
 		s=s.replace("<", "");
 		s=s.replace(">", "");
-//		 s="<html><body>привет "+s+"</body></html>";
 		 s="<html><meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"><body>"+s+"</body></html>";
 		
 		byte[] b=s.getBytes("UTF8");
@@ -48,27 +47,16 @@ public class qq extends HttpServlet {
 
 	public String get_q() {
 		
-		String s1 = "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+		String s = "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
 				+ "PREFIX : <http://test.feofan.com/rufish2.owl#>"
-				+ "SELECT ?Кто " + "WHERE {", s2 = "}", s = "file:rufish2.owl";
-		//try {
+				+ "SELECT ?Кто  WHERE {?Кто :разводит :рыбки}";
 		OntModel model = ModelFactory
 				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
-		model.read(s);
-		Query q = QueryFactory.create(s1 + "?Кто :разводит :рыбки" + s2);
+		model.read("file:rufish2.owl");
+		Query q = QueryFactory.create(s);
 		ResultSet r = SparqlDLExecutionFactory.create(q, model).execSelect();
 		s = r.nextBinding().toString();
-		//byte[] b = s.getBytes("UTF-8");
-		//s=new String(b,"UTF-8");
-			
-		//} catch (UnsupportedEncodingException e) {
-
-		//	s=e.toString();
-		//}
-		
-		//System.out.println(s);
 		return s;
-
 	}
 	
 }
