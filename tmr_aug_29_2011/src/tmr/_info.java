@@ -1,9 +1,10 @@
 package tmr;
 
 public class _info {
+	
 	// qdonetmr
 	// version 1
-	//ymdata90909000
+	//ymdata78787888
 	//wwo.qd
 	
 	//feofan33
