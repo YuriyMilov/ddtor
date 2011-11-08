@@ -82,8 +82,9 @@ public class pcmws extends HttpServlet {
 				"</LocationInputType>" +
 				"</TripDestination>" +
 				"<ReportType>" +
-//				"<string>d,m,s</string>" +
-				"<string>m</string>" +
+				//"<string>d,m,s</string>" +
+				//"<string>m</string>" +
+				"<string>m,s</string>" +
 				"</ReportType></PMWSGetReport>" +
 				"</soap12:Body></soap12:Envelope>";
 		HttpURLConnection urlc = (HttpURLConnection) endpoint.openConnection();
@@ -108,17 +109,18 @@ public class pcmws extends HttpServlet {
 		br.close();
 		s=sb.toString().replace("><", ">\r\n<");
 		
-		String sm="";
-		int i=s.lastIndexOf("<LMiles>");
-		if(i>-1)
-			sm=s.substring(i);
+		//String sm="";
+		//int i=s.lastIndexOf("<LMiles>");
+		//if(i>-1)
+		//	sm=s.substring(i);
 		
-		i=sm.indexOf("</LMiles>");
-		if(i>-1)
-			sm=sm.substring(8,i);
+		//i=sm.indexOf("</LMiles>");
+		//if(i>-1)
+		//	sm=sm.substring(8,i);
 		
 		//s= "<html><body>"+sm+"<br/><br/>-----------<br/><xmp>"+s+"</xmp></body><html>";
-		return sm;
+		
+		return s;
 		
 	}
 	
