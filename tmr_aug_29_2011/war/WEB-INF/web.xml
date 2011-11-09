@@ -8,6 +8,17 @@
   <!-- Servlets -->
   
    <servlet>
+    <servlet-name>jxl</servlet-name>
+    <servlet-class>tmr.jxl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>jxl</servlet-name>
+    <url-pattern>/jxl</url-pattern>
+  </servlet-mapping>
+  
+  
+     <servlet>
     <servlet-name>mh</servlet-name>
     <servlet-class>tmr.mh</servlet-class>
   </servlet>

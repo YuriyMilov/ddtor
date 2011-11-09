@@ -82,7 +82,7 @@ public class pcmws extends HttpServlet {
 				"</LocationInputType>" +
 				"</TripDestination>" +
 				"<ReportType>" +
-				//"<string>d,m,s</string>" +
+				//"<string>d,m,s</string>" + 
 				//"<string>m</string>" +
 				"<string>m,s</string>" +
 				"</ReportType></PMWSGetReport>" +
