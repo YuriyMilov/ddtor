@@ -43,15 +43,17 @@ public class pcmws extends HttpServlet {
 		String s="";
 		try {
 			System.out.println(req.getQueryString());
-			s = postData2(req.getParameter("user"),req.getParameter("pass"),req.getParameter("acc"),req.getParameter("oadr"),req.getParameter("ocity"),req.getParameter("ostate"),req.getParameter("dadr"),req.getParameter("dcity"),req.getParameter("dstate"));
+			s = postData2(req.getParameter("user"),req.getParameter("pass"),req.getParameter("acc"),req.getParameter("oadr"),req.getParameter("ocity"),req.getParameter("ostate"),req.getParameter("dadr"),req.getParameter("dcity"),req.getParameter("dstate"),req.getParameter("ssci1"),req.getParameter("ssci2"),req.getParameter("ssst1"),req.getParameter("ssst2"));
 		} catch (Exception e) {
 			s=e.toString();
 		}
 		out.println(s);
 	}
 	
-	public static String postData2(String sUserID,String sPassword,String sAccount,String soAddress1,String soCity,String soState,String sdAddress1,String sdCity,String sdState) throws Exception {
+	public static String postData2(String sUserID,String sPassword,String sAccount,String soAddress1,String soCity,String soState,String sdAddress1,String sdCity,String sdState,String ssci1,String ssci2,String ssst1,String ssst2) throws Exception {
 		URL endpoint = new URL("http://pcmws.alk.com/service.asmx");
+		
+		
 		String s = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">" +
 				"<soap12:Body>" +
 				"<PMWSGetReport xmlns=\"http://localhost/PCMilerWS/\">" +
@@ -81,6 +83,45 @@ public class pcmws extends HttpServlet {
 		        "<State>"+sdState+"</State>" +
 				"</LocationInputType>" +
 				"</TripDestination>" +
+				
+				
+				
+				
+				"<TripStops>" +
+				
+				
+				"<ArrayOfLocationInputType>" +
+				
+				"<LocationInputType>" +
+				//"<Address1>1000 Herrontown Rd</Address1>" +
+				//"<City>Princeton</City>" +
+				//"<State>NJ</State>" +
+				
+				"<City>"+ssci1+"</City>" +
+				"<State>"+ssst1+"</State>" +
+				
+				//"<Zip>08540</Zip>" +
+				"</LocationInputType>" +
+				
+				"<LocationInputType>" +
+				//"<City>Robbinsville</City>" +
+				//"<State>NJ</State>" +
+				"<City>"+ssci2+"</City>" +
+				"<State>"+ssst2+"</State>" +
+				
+				
+				
+				//"<Zip>08691</Zip>" +
+				"</LocationInputType>" +
+				"</ArrayOfLocationInputType>" +
+
+
+				"</TripStops>"+
+				
+				
+				
+				
+				
 				"<ReportType>" +
 				//"<string>d,m,s</string>" + 
 				//"<string>m</string>" +
