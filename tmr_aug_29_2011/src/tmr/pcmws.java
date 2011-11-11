@@ -1,6 +1,5 @@
 package tmr;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,43 +10,45 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Properties;
-
-import javax.jdo.PersistenceManager;
-import javax.mail.Flags;
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Store;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//import qq.InboxReader;
-
-import tmr.server.PMF;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 public class pcmws extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+String s="";
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		doGet(req,resp);
+	}
+	
+	void parse_xml(String s, PrintWriter out ){
+		s=shta.rff("2.txt");
+		try {
+			new SAX(s, out);
+		} catch (Exception e) {
+			out.println(e.toString());
+		}
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
-		String s="";
+
+		//parse_xml("",out);
+
+		String s2="";
 		try {
 			System.out.println(req.getQueryString());
-			s = postData2(req.getParameter("user"),req.getParameter("pass"),req.getParameter("acc"),req.getParameter("oadr"),req.getParameter("ocity"),req.getParameter("ostate"),req.getParameter("dadr"),req.getParameter("dcity"),req.getParameter("dstate"),req.getParameter("ssci1"),req.getParameter("ssci2"),req.getParameter("ssst1"),req.getParameter("ssst2"));
+			s2 = postData2(req.getParameter("user"),req.getParameter("pass"),req.getParameter("acc"),req.getParameter("oadr"),req.getParameter("ocity"),req.getParameter("ostate"),req.getParameter("dadr"),req.getParameter("dcity"),req.getParameter("dstate"),req.getParameter("ssci1"),req.getParameter("ssci2"),req.getParameter("ssst1"),req.getParameter("ssst2"));
 		} catch (Exception e) {
-			s=e.toString();
+			s2=e.toString();
 		}
-		out.println(s);
+		out.println(s2);
 	}
 	
 	public static String postData2(String sUserID,String sPassword,String sAccount,String soAddress1,String soCity,String soState,String sdAddress1,String sdCity,String sdState,String ssci1,String ssci2,String ssst1,String ssst2) throws Exception {
@@ -190,4 +191,14 @@ public class pcmws extends HttpServlet {
 		br.close();
 		return sb.toString();
 	}
-}
+
+
+
+
+	
+	}
+
+
+
+
+

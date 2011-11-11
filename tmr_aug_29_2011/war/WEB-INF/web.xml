@@ -8,6 +8,16 @@
   <!-- Servlets -->
   
    <servlet>
+    <servlet-name>xmlp</servlet-name>
+    <servlet-class>tmr.xmlp</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>xmlp</servlet-name>
+    <url-pattern>/xmlp</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
     <servlet-name>jxl</servlet-name>
     <servlet-class>tmr.jxl</servlet-class>
   </servlet>
