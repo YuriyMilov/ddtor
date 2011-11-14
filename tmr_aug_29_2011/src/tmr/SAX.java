@@ -52,19 +52,36 @@ public class SAX extends DefaultHandler {
 	
 	DefaultHandler handler = new DefaultHandler() {
 
-		boolean bfname = false;
-		boolean blname = false;
-		boolean bnname = false;
-		boolean bsalary = false;
+		boolean bcity = false;
+		boolean bstate = false;
+		boolean blmiles = false;
+		
+		
+		//boolean bfname = false;
+		//boolean blname = false;
+		//boolean bnname = false;
+		//boolean bsalary = false;
 		
 		public void startElement(String uri, String localName,
 				String qName, Attributes attributes)
 				throws SAXException {
 			
 
-			s=("Start Element :" + qName);
-			out.println(s+" \r\n");
+			//s=("Start Element :" + qName);
+			//out.println(s+" \r\n");
 			
+			if (qName.equalsIgnoreCase("City")) {
+				bcity = true;
+			}
+			if (qName.equalsIgnoreCase("State")) {
+				bstate = true;
+			}
+			if (qName.equalsIgnoreCase("LMiles")) {
+				blmiles = true;
+			}
+			
+			
+	/*		
 			if (qName.equalsIgnoreCase("FIRSTNAME")) {
 				bfname = true;
 			}
@@ -80,21 +97,40 @@ public class SAX extends DefaultHandler {
 			if (qName.equalsIgnoreCase("SALARY")) {
 				bsalary = true;
 			}
-
+*/
 		}
 
 		public void endElement(String uri, String localName,
 				String qName) throws SAXException {
 
-			s=("End Element :" + qName);
-			out.println(s);
+			//s=("End Element :" + qName);
+			//out.println(s);
 
 		}
 
 		public void characters(char ch[], int start, int length)
 				throws SAXException {
+			
+			if (bcity) {
+				s=(new String(ch, start, length));
+				out.print(s+", ");
+				bcity = false;
+			}
 
-			if (bfname) {
+			if (bstate) {
+				s=(new String(ch, start, length));
+				out.print(s+" \r\n");
+				bstate = false;
+			}
+			
+			
+			if (blmiles) {
+				s=(new String(ch, start, length));
+				out.println(s);
+				blmiles = false;
+			}
+
+/*			if (bfname) {
 				s=("First Name : "
 						+ new String(ch, start, length));
 				out.println(s+" \r\n");
@@ -120,7 +156,7 @@ public class SAX extends DefaultHandler {
 						+ new String(ch, start, length));
 				out.println(s+" \r\n");
 				bsalary = false;
-			}
+			}*/
 
 		}
 

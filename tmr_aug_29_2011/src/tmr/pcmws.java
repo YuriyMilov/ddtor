@@ -27,7 +27,7 @@ String s="";
 	}
 	
 	void parse_xml(String s, PrintWriter out ){
-		s=shta.rff("2.txt");
+		s=shta.rff("3.txt");
 		try {
 			new SAX(s, out);
 		} catch (Exception e) {
@@ -39,16 +39,23 @@ String s="";
 			throws IOException {
 		PrintWriter out = resp.getWriter();
 
+		  resp.setHeader
+		    ("Content-Disposition", "attachment; filename=sample.xml");
+
+		   
 		//parse_xml("",out);
 
 		String s2="";
 		try {
-			System.out.println(req.getQueryString());
 			s2 = postData2(req.getParameter("user"),req.getParameter("pass"),req.getParameter("acc"),req.getParameter("oadr"),req.getParameter("ocity"),req.getParameter("ostate"),req.getParameter("dadr"),req.getParameter("dcity"),req.getParameter("dstate"),req.getParameter("ssci1"),req.getParameter("ssci2"),req.getParameter("ssst1"),req.getParameter("ssst2"));
+			
+			parse_xml(shta.rff("3.txt"),out);
+			
 		} catch (Exception e) {
 			s2=e.toString();
+			out.println(s2);
 		}
-		out.println(s2);
+		
 	}
 	
 	public static String postData2(String sUserID,String sPassword,String sAccount,String soAddress1,String soCity,String soState,String sdAddress1,String sdCity,String sdState,String ssci1,String ssci2,String ssst1,String ssst2) throws Exception {
