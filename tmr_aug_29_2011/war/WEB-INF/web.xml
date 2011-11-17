@@ -7,7 +7,27 @@
   
   <!-- Servlets -->
   
-   <servlet>
+  <servlet>
+    <servlet-name>pcm2</servlet-name>
+    <servlet-class>tmr.pcm2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>pcm2</servlet-name>
+    <url-pattern>/pcm2</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>pcm1</servlet-name>
+    <servlet-class>tmr.pcm1</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>pcm1</servlet-name>
+    <url-pattern>/pcm1</url-pattern>
+  </servlet-mapping>
+  
+     <servlet>
     <servlet-name>xmlp</servlet-name>
     <servlet-class>tmr.xmlp</servlet-class>
   </servlet>
