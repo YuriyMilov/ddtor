@@ -8,6 +8,17 @@
   <!-- Servlets -->
   
   <servlet>
+    <servlet-name>pcm3</servlet-name>
+    <servlet-class>tmr.pcm3</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>pcm3</servlet-name>
+    <url-pattern>/pcm3</url-pattern>
+  </servlet-mapping>
+  
+  
+    <servlet>
     <servlet-name>pcm2</servlet-name>
     <servlet-class>tmr.pcm2</servlet-class>
   </servlet>
@@ -16,6 +27,8 @@
     <servlet-name>pcm2</servlet-name>
     <url-pattern>/pcm2</url-pattern>
   </servlet-mapping>
+  
+  
   
   <servlet>
     <servlet-name>pcm1</servlet-name>
