@@ -38,27 +38,26 @@ String s="";
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
-
-		  //resp.setHeader
-		  //  ("Content-Disposition", "attachment; filename=sample.xml");
-
-		   
-		//parse_xml("",out);
-
 		String s2="";
 		try {
-			s2 = postData2(req.getParameter("user"),req.getParameter("pass"),req.getParameter("acc"),req.getParameter("oadr"),req.getParameter("ocity"),req.getParameter("ostate"),req.getParameter("dadr"),req.getParameter("dcity"),req.getParameter("dstate"),req.getParameter("ssci1"),req.getParameter("ssci2"),req.getParameter("ssst1"),req.getParameter("ssst2"));
-			
-			//parse_xml(shta.rff("3.txt"),out);
-			
+			String soadr="";
+			if(req.getParameter("oadr")!=null)
+				soadr=req.getParameter("oadr");
+			String sdadr="";
+			if(req.getParameter("sdadr")!=null)
+				soadr=req.getParameter("sdadr");
+			s2 = postData2(req.getParameter("user"),req.getParameter("pass"),req.getParameter("acc"),soadr,req.getParameter("ocity"),req.getParameter("ostate"),sdadr,req.getParameter("dcity"),req.getParameter("dstate"));
 		} catch (Exception e) {
 			s2=e.toString();
-			out.println(s2);
+			out.println("0");
 		}
+		s2=s2.trim();
+		if(s2.length()==0)
+			s2="0";
 		out.println(s2);
 	}
 	
-	public static String postData2(String sUserID,String sPassword,String sAccount,String soAddress1,String soCity,String soState,String sdAddress1,String sdCity,String sdState,String ssci1,String ssci2,String ssst1,String ssst2) throws Exception {
+	public static String postData2(String sUserID,String sPassword,String sAccount,String soAddress1,String soCity,String soState,String sdAddress1,String sdCity,String sdState) throws Exception {
 		URL endpoint = new URL("http://pcmws.alk.com/service.asmx");
 		
 		
@@ -75,8 +74,6 @@ String s="";
 				"</LoginInfo>" +
 				"<TripOrigin>" +
 				"<LocationInputType>" +
-				//"<Zip>08540</Zip>" +
-				
 				"<Address1>"+soAddress1+"</Address1>" +
 				"<City>"+soCity+"</City>" +
 		        "<State>"+soState+"</State>" +
@@ -84,55 +81,12 @@ String s="";
 				"</TripOrigin>" +
 				"<TripDestination>" +
 				"<LocationInputType>" +
-				
-				//"<Zip>46701</Zip>" +
 				"<Address1>"+sdAddress1+"</Address1>" +
 				"<City>"+sdCity+"</City>" +
 		        "<State>"+sdState+"</State>" +
 				"</LocationInputType>" +
 				"</TripDestination>" +
-				
-				
-				
-				
-				"<TripStops>" +
-				
-				
-				"<ArrayOfLocationInputType>" +
-				
-				"<LocationInputType>" +
-				//"<Address1>1000 Herrontown Rd</Address1>" +
-				//"<City>Princeton</City>" +
-				//"<State>NJ</State>" +
-				
-				"<City>"+ssci1+"</City>" +
-				"<State>"+ssst1+"</State>" +
-				
-				//"<Zip>08540</Zip>" +
-				"</LocationInputType>" +
-				
-				"<LocationInputType>" +
-				//"<City>Robbinsville</City>" +
-				//"<State>NJ</State>" +
-				"<City>"+ssci2+"</City>" +
-				"<State>"+ssst2+"</State>" +
-				
-				
-				
-				//"<Zip>08691</Zip>" +
-				"</LocationInputType>" +
-				"</ArrayOfLocationInputType>" +
-
-
-				"</TripStops>"+
-				
-				
-				
-				
-				
 				"<ReportType>" +
-				//"<string>d,m,s</string>" + 
-				//"<string>m</string>" +
 				"<string>m,s</string>" +
 				"</ReportType></PMWSGetReport>" +
 				"</soap12:Body></soap12:Envelope>";
