@@ -47,28 +47,19 @@ public class pcm3 extends HttpServlet {
 			String dadr = "";
 			if (req.getParameter("dadr") != null)
 				dadr = req.getParameter("dadr");
-
-			String ssci1 = "";
-			if (req.getParameter("ssci1") != null)
-				ssci1 = req.getParameter("ssci1");
-
-			String ssci2 = "";
-			if (req.getParameter("ssci2") != null)
-				ssci2 = req.getParameter("ssci2");
-
-			String ssst1 = "";
-			if (req.getParameter("ssst1") != null)
-				ssst1 = req.getParameter("ssst1");
-
-			String ssst2 = "";
-			if (req.getParameter("ssst2") != null)
-				ssst2 = req.getParameter("ssst2");
+			
+	String s5="";
+			for (int i=1;i<51;i++){
+				if (req.getParameter("ssci"+String.valueOf(i)) != null && req.getParameter("ssst"+String.valueOf(i)) != null)
+					s5=s5+"<LocationInputType><City>"+req.getParameter("ssci"+String.valueOf(i))+"</City><State>"+req.getParameter("ssst"+String.valueOf(i))+"</State></LocationInputType>";
+			}
+	
 
 			s2 = postData2(req.getParameter("user"), req.getParameter("pass"),
 					req.getParameter("acc"), oadr, req.getParameter("ocity"),
 					req.getParameter("ostate"), dadr,
 					req.getParameter("dcity"), req.getParameter("dstate"),
-					ssci1, ssci2, ssst1, ssst2);
+					s5);
 			s2 = s2.trim();
 			//System.out.println("->" + s2 + "<-");
 
@@ -88,8 +79,7 @@ public class pcm3 extends HttpServlet {
 
 	private String postData2(String sUserID, String sPassword, String sAccount,
 			String soAddress1, String soCity, String soState,
-			String sdAddress1, String sdCity, String sdState, String ssci1,
-			String ssci2, String ssst1, String ssst2) throws Exception {
+			String sdAddress1, String sdCity, String sdState, String s5) throws Exception {
 		URL endpoint = new URL("http://pcmws.alk.com/service.asmx");
 
 		String s = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">"
@@ -141,54 +131,30 @@ public class pcm3 extends HttpServlet {
 				+ "</State>"
 				+ "</LocationInputType>"
 				+ "</TripDestination>"
-				+
-
-				"<TripStops>"
-				+
-
-				"<ArrayOfLocationInputType>"
-				+
-
-				"<LocationInputType>"
-				+
+				+"<TripStops>"
+				+"<ArrayOfLocationInputType>"
+				
+				
+				
+				+ s5 +
+				
+				//"<LocationInputType>" +
 				// "<Address1>1000 Herrontown Rd</Address1>" +
 				// "<City>Princeton</City>" +
 				// "<State>NJ</State>" +
-
-				"<City>"
-				+ ssci1
-				+ "</City>"
-				+ "<State>"
-				+ ssst1
-				+ "</State>"
-				+
-
 				// "<Zip>08540</Zip>" +
-				"</LocationInputType>"
-				+
-
-				"<LocationInputType>"
-				+
+				//"</LocationInputType>"+
+				
+				//"<LocationInputType>" +
 				// "<City>Robbinsville</City>" +
 				// "<State>NJ</State>" +
-				"<City>"
-				+ ssci2
-				+ "</City>"
-				+ "<State>"
-				+ ssst2
-				+ "</State>"
-				+
-
-				// "<Zip>08691</Zip>" +
-				"</LocationInputType>"
-				+ "</ArrayOfLocationInputType>"
-				+
-
-				"</TripStops>"
-				+
-
-				"<ReportType>"
-				+
+				// "<Zip>08691</Zip>"	+
+				//"</LocationInputType>"
+				
+				
+				"</ArrayOfLocationInputType>"+
+				"</TripStops>"+
+				"<ReportType>"+
 				// "<string>d,m,s</string>" +
 				// "<string>m</string>" +
 				"<string>m,s</string>"
