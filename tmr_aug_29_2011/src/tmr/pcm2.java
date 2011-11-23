@@ -47,13 +47,11 @@ String s="";
 			if(req.getParameter("sdadr")!=null)
 				soadr=req.getParameter("sdadr");
 			s2 = postData2(req.getParameter("user"),req.getParameter("pass"),req.getParameter("acc"),soadr,req.getParameter("ocity"),req.getParameter("ostate"),sdadr,req.getParameter("dcity"),req.getParameter("dstate"));
+
 		} catch (Exception e) {
 			s2=e.toString();
-			out.println("0");
+			out.println("ERROR: "+s2);
 		}
-		s2=s2.trim();
-		if(s2.length()==0)
-			s2="0";
 		out.println(s2);
 	}
 	
@@ -87,7 +85,7 @@ String s="";
 				"</LocationInputType>" +
 				"</TripDestination>" +
 				"<ReportType>" +
-				"<string>m,s</string>" +
+				"<string>m</string>" +
 				"</ReportType></PMWSGetReport>" +
 				"</soap12:Body></soap12:Envelope>";
 		HttpURLConnection urlc = (HttpURLConnection) endpoint.openConnection();
@@ -116,15 +114,19 @@ String s="";
 		int i=s.lastIndexOf("<LMiles>");
 		if(i>-1)
 			sm=s.substring(i);
-		
 		i=sm.indexOf("</LMiles>");
 		if(i>-1)
 			sm=sm.substring(8,i);
+		sm=sm.trim();
+		if (sm.length()>0) 
+			s= sm;
+		else 
+			if (s.indexOf("<ErrorDesc>") > -1)
+				s= "ERROR: " + s.substring(s.indexOf("<ErrorDesc>")+11,s.indexOf("</ErrorDesc>"));
+			else
+				s= "ERROR: " + s;
 		
-		s= "<html><body>"+sm+"<br/><br/>-----------<br/><xmp>"+s+"</xmp></body><html>";
-		
-		return sm;
-		
+		return s;
 	}
 	
 	public static String postData() throws Exception {

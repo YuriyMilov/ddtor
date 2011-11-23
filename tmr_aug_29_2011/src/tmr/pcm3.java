@@ -64,15 +64,16 @@ public class pcm3 extends HttpServlet {
 			//System.out.println("->" + s2 + "<-");
 
 			if (s2.length() == 0) {
-				out.println("0");
-			} else if (s2.indexOf("<ErrorList>") > -1) {
-				out.println("0");
+				out.println("ERROR: PC-Miler returned nothing :(");
+			} else 
+				if (s2.indexOf("<ErrorDesc>") > -1) {
+					out.println("ERROR: " + s2.substring(s2.indexOf("<ErrorDesc>")+11,s2.indexOf("</ErrorDesc>")));
 			} else
 				parse_xml(s2, out);
 
 		} catch (Exception e) {
 			s2 = e.toString();
-			out.println(s2);
+			out.println("ERROR: "+s2);
 		}
 
 	}
