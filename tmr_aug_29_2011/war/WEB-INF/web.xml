@@ -8,6 +8,18 @@
   <!-- Servlets -->
   
   <servlet>
+    <servlet-name>test.aspx</servlet-name>
+    <servlet-class>tmr.test</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>test.aspx</servlet-name>
+    <url-pattern>/test.aspx</url-pattern>
+  </servlet-mapping>
+  
+  
+   
+  <servlet>
     <servlet-name>pcm3</servlet-name>
     <servlet-class>tmr.pcm3</servlet-class>
   </servlet>
@@ -118,7 +130,7 @@
    
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>Tmr.html</welcome-file>
+    <welcome-file>index.html</welcome-file>
   </welcome-file-list>
 
 </web-app>

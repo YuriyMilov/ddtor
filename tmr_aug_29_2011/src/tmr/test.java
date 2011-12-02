@@ -13,6 +13,10 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,47 +25,79 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class pcmws extends HttpServlet {
+public class test extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	public static String s3 = "";
-	
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		doGet(req, resp);
-	}
-	
+
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
-		 //resp.setHeader
-		//("Content-Disposition", "attachment; filename=sample.xml");
+		resp.setContentType("text/html");
+		out.println(shta.rff("index.html"));
+	}
 
-		String s = "",s2="";
-		try {
-			
-		 //s2 =shta.rff("3.txt");
-		s2=postData2(req.getParameter("user"),req.getParameter("pass"),req.getParameter("acc"),req.getParameter("oadr"),req.getParameter("ocity"),req.getParameter("ostate"),req.getParameter("dadr"),req.getParameter("dcity"),req.getParameter("dstate"),req.getParameter("ssci1"),req.getParameter("ssci2"),req.getParameter("ssst1"),req.getParameter("ssst2"));
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		PrintWriter out = resp.getWriter();
 
-		s3 = "";
-	
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			javax.xml.parsers.SAXParser saxParser = factory.newSAXParser();
-			InputStream in = StringToStream(s2);
-			saxParser.parse(in, handler);
-			
-			s3=s3.substring(0,s3.length()-1);
-			out.println(s3);		
-			
-		} catch (Exception e) {
-			s3 = e.toString();
-			out.println(s3);
-		}
+		String ss = req.getParameter("check");
 		
-		out.println("\r\n\r\n\r\n\r\n");
+		System.out.println("======>>> "+ ss);
 		
-		out.println(s2);
-	
+		DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
+		String sn = df.format(new Date());
+		String s0 = req.getParameter("check");
+		if (s0 == null)
+			s0 = "";
+		
+		
+		
+		String s1 = req.getParameter("c1");
+		if (s1 == null)
+			s1 = "";
+		String s2 = req.getParameter("c2");
+		if (s2 == null)
+			s2 = "";
+		String s3 = req.getParameter("c3");
+		if (s3 == null)
+			s3 = "";
+		String s4 = req.getParameter("c4");
+		if (s4 == null)
+			s4 = "";
+		String s5 = req.getParameter("c5");
+		if (s5 == null)
+			s5 = "";
+		String s6 = req.getParameter("c6");
+		if (s6 == null)
+			s6 = "";
+
+		if (s1.length() > 6)
+			s1 = s1.substring(0, 6);
+
+		if (s2.length() > 6)
+			s2 = s2.substring(0, 6);
+
+		if (s3.length() > 6)
+			s3 = s3.substring(0, 6);
+
+		if (s4.length() > 6)
+			s4 = s4.substring(0, 6);
+
+		if (s5.length() > 6)
+			s5 = s5.substring(0, 6);
+
+		if (s6.length() > 6)
+			s6 = s6.substring(0, 6);
+
+		resp.setHeader("Content-Disposition", "attachment; filename=" + sn
+				+ ".txt");
+		String s = s0 + "\r\n\r\nCrate No 1: " + s1 + "\r\nCrate No 2: " + s2
+				+ "\r\nCrate No 3: " + s3 + "\r\nCrate No 4: " + s4
+				+ "\r\nCrate No 5: " + s5 + "\r\nCrate No 6: " + s6;
+
+		out.print(s);
+
 	}
 
 	public String postData2(String sUserID, String sPassword, String sAccount,
@@ -167,9 +203,9 @@ public class pcmws extends HttpServlet {
 
 				"<ReportType>"
 				+
-				//"<string>d,m,s</string>" +
-				// "<string>K</string>" 
-				"<string>m,s</string>"
+				// "<string>d,m,s</string>" +
+				"<string>K</string>"
+				// "<string>m,s</string>"
 				+ "</ReportType></PMWSGetReport>"
 				+ "</soap12:Body></soap12:Envelope>";
 		HttpURLConnection urlc = (HttpURLConnection) endpoint.openConnection();
@@ -221,7 +257,6 @@ public class pcmws extends HttpServlet {
 		return sb.toString();
 	}
 
-	
 	DefaultHandler handler = new DefaultHandler() {
 		boolean bstate = false;
 		boolean blmiles = false;
