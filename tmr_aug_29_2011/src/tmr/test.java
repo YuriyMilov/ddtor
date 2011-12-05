@@ -37,13 +37,13 @@ public class test extends HttpServlet {
 			throws IOException {
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html");
-		String s =shta.rff("index.html");
-		Calendar cc = new  GregorianCalendar();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM'. 'd', ' yyyy");
-        String sdate = sdf.format(cc.getTime());
-		s=s.replace("<!-- date -->", sdate);
+		String s = shta.rff("index.html");
+		Calendar cc = new GregorianCalendar();
+		SimpleDateFormat sdf = new SimpleDateFormat("MMM'.'d',' yyyy");
+		String sdate = sdf.format(cc.getTime());
+		s = s.replace("<!-- date -->", sdate);
 		out.println(s);
-		//System.out.println(date);
+		// System.out.println(date);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -54,39 +54,40 @@ public class test extends HttpServlet {
 		resp.setHeader("Content-Disposition", "attachment; filename=" + sn
 				+ ".txt");
 		String ss = "", s = req.getParameter("check");
-		
-		String s100 = "Trailer No: "+req.getParameter("c100");
-		String s101 = "Seal No:    "+req.getParameter("c101");
-		String s102 = "Vessel:     "+req.getParameter("c102");
-		String s103 = "Date:       "+req.getParameter("c103");
-		
+
+		String s100 = "Trailer No: " + req.getParameter("c100");
+		String s101 = "Seal No:    " + req.getParameter("c101");
+		String s102 = "Vessel:     " + req.getParameter("c102");
+		String s103 = "Date:       " + req.getParameter("c103");
+
 		if (s == null)
 			s = "";
 		else
-			ss = ss + s+"\r\n";
+			ss = ss + s + "\r\n";
 
-		
 		if (s100 == null)
 			s100 = "";
 		else
-			ss = ss + s100+"\r\n";
-		
+			ss = ss + s100 + "\r\n";
+
 		if (s101 == null)
 			s101 = "";
 		else
-			ss = ss + s101+"\r\n";
-		
+			ss = ss + s101 + "\r\n";
+
 		if (s102 == null)
 			s102 = "";
 		else
-			ss = ss + s102+"\r\n";
-		
-		if (s103 == null)
-			s103 = "";
-		else
-			ss = ss + s103+"\r\n";
+			ss = ss + s102 + "\r\n";
 
-		
+		if (s103 == null || s103.trim().length() == 5) {
+			Calendar cc = new GregorianCalendar();
+			SimpleDateFormat sdf = new SimpleDateFormat("MMM'.'d',' yyyy");
+			s103 = "Date:       " + sdf.format(cc.getTime());
+			
+		}
+		ss = ss + s103 + "\r\n";
+
 		for (int i = 1; i < 100; i++) {
 			s = req.getParameter("c" + String.valueOf(i));
 
