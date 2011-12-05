@@ -107,7 +107,7 @@ public class test extends HttpServlet {
 		}
 
 		out.print(ss);
-		System.out.println(ss);
+		//System.out.println(ss);
 		s = "";
 		ss = "";
 	}

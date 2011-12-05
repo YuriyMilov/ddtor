@@ -1,56 +1,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-    <title>Untitled Page</title>
+    <title>Kawasaki</title>
 </head>
 <body >
-<form method='post' action='test.aspx' >
-    <p class="MsoNormal" style="word-spacing: 0px; font: medium 'Times New Roman'; text-transform: none;
-        color: rgb(0,0,0); text-indent: 0px; white-space: normal; letter-spacing: normal;
-        orphans: 2; widows: 2; webkit-text-size-adjust: auto; webkit-text-stroke-width: 0px">
-        <b><span style="color: red">Customer:&nbsp; &nbsp;&nbsp; </span></b>
-        <b><span style="color: red">
-            <input checked="checked" name="check" type="radio" value="Toronto Kawasaki" />Toronto
-            Kawasaki &nbsp; &nbsp;<input name="check" type="radio" value="Montreal Kawasaki" />Montreal
-            Kawasaki<br />
-        </span></b>
-        <b><span style="color: red"></span></b></p>
-    <p class="MsoNormal" style="word-spacing: 0px; font: medium 'Times New Roman'; text-transform: none;
-        color: rgb(0,0,0); text-indent: 0px; white-space: normal; letter-spacing: normal;
-        orphans: 2; widows: 2; webkit-text-size-adjust: auto; webkit-text-stroke-width: 0px">
-        <b><span style="color: red">Trailer No: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input name="c100" type="text" value="CNRU 230638"/></span></b></p>
-    <p class="MsoNormal" style="word-spacing: 0px; font: medium 'Times New Roman'; text-transform: none;
-        color: rgb(0,0,0); text-indent: 0px; white-space: normal; letter-spacing: normal;
-        orphans: 2; widows: 2; webkit-text-size-adjust: auto; webkit-text-stroke-width: 0px">
-        <b><span style="color: red">Seal No: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input name="c101" type="text" value="13064"/></span></b></p>
-    <p class="MsoNormal" style="word-spacing: 0px; font: medium 'Times New Roman'; text-transform: none;
-        color: rgb(0,0,0); text-indent: 0px; white-space: normal; letter-spacing: normal;
-        orphans: 2; widows: 2; webkit-text-size-adjust: auto; webkit-text-stroke-width: 0px">
-        <b><span style="color: red">Vessel: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input name="c102" type="text" value="S/T"/></span></b></p>
-    <p class="MsoNormal" style="word-spacing: 0px; font: medium 'Times New Roman'; text-transform: none;
-        color: rgb(0,0,0); text-indent: 0px; white-space: normal; letter-spacing: normal;
-        orphans: 2; widows: 2; webkit-text-size-adjust: auto; webkit-text-stroke-width: 0px">
-        <b><span style="color: red"></span></b>
-    </p>
-    <p class="MsoNormal" style="word-spacing: 0px; font: medium 'Times New Roman'; text-transform: none;
-        color: rgb(0,0,0); text-indent: 0px; white-space: normal; letter-spacing: normal;
-        orphans: 2; widows: 2; webkit-text-size-adjust: auto; webkit-text-stroke-width: 0px">
-        <b><span style="color: red">Date: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input name="c103" type="text" value="<!-- date -->"/> &nbsp;</span></b><b><span style="color: red; font-family: Wingdings"></span></b></p>
-    <b style="font-size: medium; word-spacing: 0px; text-transform: none; color: rgb(0,0,0);
-        text-indent: 0px; line-height: normal; font-style: normal; font-family: 'Times New Roman';
-        white-space: normal; letter-spacing: normal; font-variant: normal; orphans: 2;
-        widows: 2; webkit-text-size-adjust: auto; webkit-text-stroke-width: 0px">
-        <p class="MsoNormal">
-        </p>
-        <p class="MsoNormal">
-            <b><span style="color: rgb(0,112,192)">
-                <input style="width: 133px" type="submit" value="CREATE FILE" /></span></b>&nbsp;</p>
-        <p class="MsoNormal">
-            <b><span style="color: rgb(0,112,192)"></span></b>
-            <input onclick="window.location.href='test.aspx'" style="width: 131px" type="button"
-                value="CLEAR SCREEN" /></p>
-        <b><span style="color: rgb(0,112,192)"></span></b>
-        <br />
+<form name='theform' method='post' action='' >
+<b><input checked="checked" name="check" type="radio" value="Toronto Kawasaki" />Toronto 
+         <br /><input name="check" type="radio" value="Montreal Kawasaki" />Montreal
+         <br />
+         <br />Trailer No: <input name="c100" type="text" value=""/>
+         <br />Seal No: <input name="c101" type="text" value=""/>
+        <br />Vessel: <input name="c102" type="text" value=""/>
+    	<br />Date: <input name="c103" type="text" value="<!-- date -->"/>
+
+    	<br />Email: <input name="c104" type="text" value=""/>
+    	
+<br /><br /><input onclick="document.theform.action='index.aspx'" type="submit" value="CREATE FILE" /> &nbsp; 
+
+<input onclick="document.theform.action='http://wwo.quicklydone.com/mail.aspx'" type="submit" value="SEND EMAIL" />
+
+<br /><br /><input onclick="window.location.href='index.aspx'" type="button"
+                value="CLEAR SCREEN" />
+         <br /><br />
     Crate No 1:<span class="Apple-converted-space"><span class="Apple-converted-space">
         </span></span>
         <input name="c1" type="text" /><span class="Apple-converted-space">&nbsp;</span><br />

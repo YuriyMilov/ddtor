@@ -8,14 +8,27 @@
   <!-- Servlets -->
   
   <servlet>
-    <servlet-name>test.aspx</servlet-name>
-    <servlet-class>tmr.test</servlet-class>
+    <servlet-name>kwas_mail</servlet-name>
+    <servlet-class>tmr.kwas_mail</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>test.aspx</servlet-name>
-    <url-pattern>/test.aspx</url-pattern>
+    <servlet-name>kwas_mail</servlet-name>
+    <url-pattern>/mail.aspx</url-pattern>
   </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>kwas_index</servlet-name>
+    <servlet-class>tmr.kwas_index</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>kwas_index</servlet-name>
+    <url-pattern>/index.aspx</url-pattern>
+  </servlet-mapping>
+
+
   
   
    
@@ -130,7 +143,7 @@
    
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>test.aspx</welcome-file>
+    <welcome-file>index.aspx</welcome-file>
   </welcome-file-list>
 
 </web-app>
