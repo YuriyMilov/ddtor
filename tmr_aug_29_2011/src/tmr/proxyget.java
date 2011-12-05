@@ -28,7 +28,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class test extends HttpServlet {
+public class proxyget extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public static String s3 = "";

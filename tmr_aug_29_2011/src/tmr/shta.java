@@ -2,6 +2,7 @@ package tmr;
 
 import java.io.*;
 import java.net.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +25,15 @@ public class shta {
 	public static String s = "", s3 = "";
 	public static int k = 1, j = 1, j_max = 5;
 
+	public static String get_date() {
+		  Calendar date = Calendar.getInstance();
+		  SimpleDateFormat dateformatter = new SimpleDateFormat
+		  
+		  ("MM'.'dd', 'yyyy");
+		  
+		  return dateformatter.format(date.getTime());
+	
+		  }
 
 	public static String test() {
 		//return rfu("http://174.117.66.8/gu/gu/aspx?" + new Date().getTime());
