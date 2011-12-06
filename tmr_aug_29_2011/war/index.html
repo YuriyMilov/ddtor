@@ -6,26 +6,25 @@
 <body >
 <form name='theform' method='post' action='' >
 <b><input checked="checked" name="check" type="radio" value="Toronto Kawasaki" />Toronto 
-         <br /><input name="check" type="radio" value="Montreal Kawasaki" />Montreal
-         <br />
+<input name="check" type="radio" value="Montreal Kawasaki" />Montreal
+
          <br />Trailer No: <input name="c100" type="text" value=""/>
          <br />Seal No: <input name="c101" type="text" value=""/>
         <br />Vessel: <input name="c102" type="text" value=""/>
     	<br />Date: <input name="c103" type="text" value="<!-- date -->"/>
 
     	<br />Email: <input name="c104" type="text" value=""/>
-    	
-<br /><br /><input onclick="document.theform.action='index.aspx'" type="submit" value="CREATE FILE" /> &nbsp; 
+<br /><input checked="checked" name="att" type="radio" value="1" />.txt
+<input name="att" type="radio" value="2" />.pdf
+<input name="att" type="radio" value="3" />.xls 
 
-<input onclick="document.theform.action='http://wwo.quicklydone.com/mail.aspx'" type="submit" value="SEND EMAIL" />
+<br /><input onclick="document.theform.action='index.aspx'" type="submit" value="Download file" /> &nbsp; 
 
-<br /><br />Attachment type: <input checked="checked" name="att" type="radio" value="1" />TXT 
-<input name="att" type="radio" value="2" />PDF  
-<input name="att" type="radio" value="3" />XLS  
+<input onclick="document.theform.action='http://wwo.quicklydone.com/mail.aspx'" type="submit" value="Send email" />
 
-<br /><br /><input onclick="window.location.href='index.aspx'" type="button"
-                value="CLEAR SCREEN" />
-         <br /><br />
+<br /><input onclick="window.location.href='index.aspx'" type="button"
+                value="Refresh" />
+<br />
     Crate No 1:<span class="Apple-converted-space"><span class="Apple-converted-space">
         </span></span>
         <input name="c1" type="text" /><span class="Apple-converted-space">&nbsp;</span><br />
@@ -334,7 +333,7 @@
         <input name="c98" type="text" /><span class="Apple-converted-space">&nbsp;</span><br />
         <p class="MsoNormal">
             <b><span style="color: rgb(0,112,192)"></span></b><b><span style="color: rgb(0,112,192)">
-                <input onclick="window.location.href='#top'" style="width: 134px" type="button" value="GO TOP" /></span></b>&nbsp;</p>
+                <input onclick="window.location.href='#top'" type="button" value="Go top" /></span></b>&nbsp;</p>
     </b>
 </form>
 </body>

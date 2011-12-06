@@ -33,7 +33,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
+import javax.mail.util.ByteArrayDataSource; 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,7 +63,7 @@ public class kwas_mail extends HttpServlet {
 		resp.setContentType("text/html");
 		String s = "kwas get";
 		try {
-			send_mail("qdone@rogers.com" + req.getParameter("c104"),
+			shta.send_mail("qdone@rogers.com" + req.getParameter("c104"),
 					"Crates done " + new Date().toString(), s);
 			s = "The confirmation email has been sent. <p><FORM><INPUT TYPE=\"button\" VALUE=\"Back\" onClick=\"history.go(-1);return true;\"></FORM>";
 		} catch (Exception e) {
@@ -178,23 +178,29 @@ public class kwas_mail extends HttpServlet {
 				s104 = req.getParameter("c104").trim();
 				// send_mail(s104, "Crates done ", ss);
 
-				ad = getbb(ss);
+				ad = shta.getbb(ss);
 
 				if (req.getParameter("att").equals("1"))
-					sm(ss.getBytes(), sd + ".txt", "text/plain",
+					shta.sm(ss.getBytes(), sd + ".txt", "text/plain",
 							"ymdata@gmail.com", "Web UFOS", s104, "Recipients",
 							"Crates done " + sd, ss);
 
 				if (req.getParameter("att").equals("2"))
-					sm(ad, sd + ".pdf", "application/pdf", "ymdata@gmail.com",
+					shta.sm(ad, sd + ".pdf", "application/pdf", "ymdata@gmail.com",
 							"Web UFOS", s104, "Recipients",
 							"Crates done " + sd, ss);
-				if (req.getParameter("att").equals("1"))
-					sm(baos.toByteArray(), sd + ".xls",
-							"application/x-ms-excel", "ymdata@gmail.com",
-							"Web UFOS", s104, "Recipients",
-							"Crates done " + sd, ss);
+				if (req.getParameter("att").equals("3"))
+					//shta.sm(baos.toByteArray(), sd + ".xls",
+					//		"application/x-ms-excel", "ymdata@gmail.com",
+					//		"Web UFOS", s104, "Recipients",
+					//		"Crates done " + sd, ss);
 
+				shta.sm2(ad, sd + ".pdf", "application/pdf",  baos.toByteArray(), sd + ".xls",
+						"application/x-ms-excel", "ymdata@gmail.com",
+						"Web UFOS", s104, "Recipients",
+						"Crates done " + sd, ss);
+
+				
 				ss = "Sent to <a href=\"mailto: "
 						+ s104
 						+ "\">"
@@ -220,112 +226,6 @@ public class kwas_mail extends HttpServlet {
 		ss = "";
 	}
 
-	public void send_mail(String s1, String s2, String s3) throws Exception {
-		String[] tt = s1.split(",");
 
-		Properties props = new Properties();
-		Session session = Session.getDefaultInstance(props, null);
-
-		s2 = s2 + " " + new Date().toString();
-
-		// msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
-
-		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymdata@gmail.com", "UFOS Web"));
-
-		for (int i = 0; i < tt.length; i++)
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					tt[i], tt[i]));
-
-		msg.setSubject(s2);
-		msg.setHeader("Content-type:", "text/html;charset=ISO-8859-1");
-		msg.setText(s3);
-		Transport.send(msg);
-
-	}
-
-	private static void sm(byte[] data, String ff, String mimeType,
-			String from_a, String from_n, String to_a, String to_n,
-			String subj, String textBody) throws Exception {
-		Properties props = new Properties();
-		Session session = Session.getDefaultInstance(props, null);
-
-		Message message = new MimeMessage(session);
-		message.setFrom(new InternetAddress(from_a, from_n));
-
-		message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-				to_a, to_n));
-
-		Multipart mp = new MimeMultipart();
-
-		MimeBodyPart textPart = new MimeBodyPart();
-		textPart.setContent(textBody, "text/plain");
-		mp.addBodyPart(textPart);
-
-		MimeBodyPart attachment = new MimeBodyPart();
-		String fileName = ff;
-		String filename = URLEncoder.encode(fileName, "UTF-8");
-		attachment.setFileName(filename);
-		attachment.setDisposition(Part.ATTACHMENT);
-
-		// DataSource src = new ByteArrayDataSource(spreadSheetData,
-		// "application/x-ms-excel");
-
-		DataSource src = new ByteArrayDataSource(data, mimeType);
-		DataHandler handler = new DataHandler(src);
-		attachment.setDataHandler(handler);
-		mp.addBodyPart(attachment);
-
-		message.setContent(mp);
-		message.setSubject(String.format(subj));
-
-		Transport.send(message);
-
-	}
-
-	byte[] getbb(String s) throws Exception {
-		Document doc = new Document();
-		ByteArrayOutputStream baosPDF = new ByteArrayOutputStream();
-		PdfWriter docWriter = null;
-		docWriter = PdfWriter.getInstance(doc, baosPDF);
-		doc.open();
-
-		doc.add(new Paragraph(s));
-
-		// doc.add(new Paragraph("This is a pdf document."));
-		// doc.add(new Paragraph("This document was created on "
-		// + new java.util.Date()));
-		doc.close();
-		docWriter.close();
-		return baosPDF.toByteArray();
-	}
-
-	byte[] get_excel(String s) throws Exception {
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		WritableWorkbook w = Workbook.createWorkbook(out);
-		WritableSheet wsh = w.createSheet("Demo", 0);
-		wsh.addCell(new Label(0, 0, "Hello World"));
-		w.write();
-		w.close();
-		return out.toByteArray();
-	}
-
-	public static InputStream StringToStream(String text) {
-		InputStream is = null;
-		/*
-		 * Convert String to InputStream using ByteArrayInputStream class. This
-		 * class constructor takes the string byte array which can be done by
-		 * calling the getBytes() method.
-		 */
-		try {
-			is = new ByteArrayInputStream(text.getBytes("UTF-8"));
-			is.reset();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return is;
-	}
 
 }
