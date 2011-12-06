@@ -2,7 +2,6 @@ package tmr;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,13 +16,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.GregorianCalendar;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -65,20 +61,11 @@ public class test extends HttpServlet {
 		else
 			ss = ss + s + "\r\n";
 
-		if (s100 == null)
-			s100 = "";
-		else
-			ss = ss + s100 + "\r\n";
+		ss = ss + s100 + "\r\n";
 
-		if (s101 == null)
-			s101 = "";
-		else
-			ss = ss + s101 + "\r\n";
+		ss = ss + s101 + "\r\n";
 
-		if (s102 == null)
-			s102 = "";
-		else
-			ss = ss + s102 + "\r\n";
+		ss = ss + s102 + "\r\n";
 
 		if (s103 == null || s103.trim().length() == 5) {
 			Calendar cc = new GregorianCalendar();
@@ -292,9 +279,6 @@ public class test extends HttpServlet {
 
 		}
 
-		public String get_result() {
-			return s3;
-		};
 
 		public void characters(char ch[], int start, int length)
 				throws SAXException {

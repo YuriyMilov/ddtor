@@ -14,7 +14,12 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 public class Sample_Excel extends HttpServlet {
- public void doGet
+ /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public void doGet
    (HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
   OutputStream out = null;

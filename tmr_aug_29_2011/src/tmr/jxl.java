@@ -7,18 +7,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.soap.Text;
-
 import jxl.Workbook;
 import jxl.write.*;
-import jxl.write.Number;
-
-import jxl.write.DateFormats;
-import java.util.Date;
 
 
 public class jxl extends HttpServlet {
- public void doGet
+ /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public void doGet
    (HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
   OutputStream out = null;

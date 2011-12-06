@@ -1,18 +1,10 @@
 package tmr.server;
 
 import java.util.List;
-
 import javax.jdo.PersistenceManager;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import tmr.User2;
 import tmr.client.Srv;
-
-
 import com.google.appengine.api.users.User;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
@@ -42,7 +34,6 @@ public class SrvImpl extends RemoteServiceServlet implements Srv {
 			s2 = "qqq";
 
 		getThreadLocalRequest().getSession().setAttribute("name", name);
-		User uu = new User(name + "@quicklydone.com", "quicklydone.com");
 		return s2;
 	}
 }

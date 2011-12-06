@@ -1,6 +1,5 @@
 package tmr;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
@@ -11,12 +10,6 @@ import java.util.GregorianCalendar;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jxl.Workbook;
-import jxl.write.Label;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
 
 public class kwas_index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -56,20 +49,11 @@ public class kwas_index extends HttpServlet {
 			else
 				ss = ss + s + "\r\n";
 
-			if (s100 == null)
-				s100 = "";
-			else
-				ss = ss + s100 + "\r\n";
+			ss = ss + s100 + "\r\n";
 
-			if (s101 == null)
-				s101 = "";
-			else
-				ss = ss + s101 + "\r\n";
+			ss = ss + s101 + "\r\n";
 
-			if (s102 == null)
-				s102 = "";
-			else
-				ss = ss + s102 + "\r\n";
+			ss = ss + s102 + "\r\n";
 
 			if (s103 == null || s103.trim().length() == 5) {
 				Calendar cc = new GregorianCalendar();

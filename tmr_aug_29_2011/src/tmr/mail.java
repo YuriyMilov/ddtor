@@ -11,23 +11,9 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Properties;
-
-import javax.jdo.PersistenceManager;
-import javax.mail.Flags;
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Store;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-//import qq.InboxReader;
-
-import tmr.server.PMF;
 
 public class mail extends HttpServlet {
 	private static final long serialVersionUID = 1L;

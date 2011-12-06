@@ -2,7 +2,6 @@ package tmr;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -37,7 +36,7 @@ public class pcmws extends HttpServlet {
 		 //resp.setHeader
 		//("Content-Disposition", "attachment; filename=sample.xml");
 
-		String s = "",s2="";
+		String s2="";
 		try {
 			
 		 //s2 =shta.rff("3.txt");
@@ -245,9 +244,6 @@ public class pcmws extends HttpServlet {
 
 		}
 
-		public String get_result() {
-			return s3;
-		};
 
 		public void characters(char ch[], int start, int length)
 				throws SAXException {

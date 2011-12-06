@@ -1,56 +1,22 @@
 package tmr;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.GregorianCalendar;
-import java.util.Properties;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource; 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import jxl.Workbook;
-import jxl.format.Colour;
 import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 public class kwas_mail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -81,7 +47,7 @@ public class kwas_mail extends HttpServlet {
 		WritableWorkbook w = Workbook.createWorkbook(baos);
 
 		DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
-		String sn = df.format(new Date());
+		String sd = df.format(new Date());
 		String ss = "", s = req.getParameter("check");
 
 		String s100 = "Trailer No: " + req.getParameter("c100");
@@ -95,20 +61,11 @@ public class kwas_mail extends HttpServlet {
 		else
 			ss = ss + s + "\r\n";
 
-		if (s100 == null)
-			s100 = "";
-		else
-			ss = ss + s100 + "\r\n";
+		ss = ss + s100 + "\r\n";
 
-		if (s101 == null)
-			s101 = "";
-		else
-			ss = ss + s101 + "\r\n";
+		ss = ss + s101 + "\r\n";
 
-		if (s102 == null)
-			s102 = "";
-		else
-			ss = ss + s102 + "\r\n";
+		ss = ss + s102 + "\r\n";
 
 		if (s103 == null || s103.trim().length() == 5) {
 			Calendar cc = new GregorianCalendar();
@@ -170,9 +127,7 @@ public class kwas_mail extends HttpServlet {
 			w.write();
 			w.close();
 
-			String sd = df.format(new Date());
 			byte[] ad = null;
-
 			if (req.getParameter("c104").indexOf("@") > -1) {
 
 				s104 = req.getParameter("c104").trim();

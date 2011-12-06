@@ -95,15 +95,10 @@ public class Cps extends Composite {
 			LatLng lal = LatLng.newInstance((Double.valueOf("0.0")),
 					Double.valueOf("0.0"));
 
-			LatLng lalc = LatLng.newInstance((Double.valueOf("0.0")),
-					Double.valueOf("0.0"));
-
 			if (slat.length() > 0 && slng.length() > 0 && sclat.length() > 0
 					&& sclng.length() > 0) {
 				lal = LatLng.newInstance((Double.valueOf(slat)),
 						Double.valueOf(slng));
-				lalc = LatLng.newInstance((Double.valueOf(sclat)),
-						Double.valueOf(sclng));
 				Marker m = new Marker(lal);
 				// map.clearOverlays();
 				//map.addOverlay(m);
