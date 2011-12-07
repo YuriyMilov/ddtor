@@ -135,22 +135,30 @@ public class kwas_mail extends HttpServlet {
 
 				ad = shta.getbb(ss);
 
-				if (req.getParameter("att").equals("1"))
-					shta.sm(ss.getBytes(), sd + ".txt", "text/plain",
-							"ymdata@gmail.com", "Web UFOS", s104, "Recipients",
+				if (req.getParameter("att").equals("3"))
+					//shta.sm(ss.getBytes(), sd + ".txt", "text/plain",
+					//		"ymdata@gmail.com", "Web UFOS", s104, "Recipients",
+					//		"Crates done " + sd, ss);
+					
+					shta.sm(baos.toByteArray(), sd + ".xls",
+							"application/x-ms-excel", "ymdata@gmail.com",
+							"Web UFOS", s104, "Recipients",
 							"Crates done " + sd, ss);
+				
 
 				if (req.getParameter("att").equals("2"))
 					shta.sm(ad, sd + ".pdf", "application/pdf", "ymdata@gmail.com",
 							"Web UFOS", s104, "Recipients",
 							"Crates done " + sd, ss);
-				if (req.getParameter("att").equals("3"))
+				
+				
+				if (req.getParameter("att").equals("1"))
 					//shta.sm(baos.toByteArray(), sd + ".xls",
 					//		"application/x-ms-excel", "ymdata@gmail.com",
 					//		"Web UFOS", s104, "Recipients",
 					//		"Crates done " + sd, ss);
 
-				shta.sm2(ad, sd + ".pdf", "application/pdf",  baos.toByteArray(), sd + ".xls",
+				shta.sm3(ss.getBytes(), sd + ".txt", "text/plain", ad, sd + ".pdf", "application/pdf",  baos.toByteArray(), sd + ".xls",
 						"application/x-ms-excel", "ymdata@gmail.com",
 						"Web UFOS", s104, "Recipients",
 						"Crates done " + sd, ss);
