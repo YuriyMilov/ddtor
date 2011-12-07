@@ -47,45 +47,41 @@ import jxl.write.WritableWorkbook;
 public class shta {
 
 	public static String get_date() {
-		  Calendar date = Calendar.getInstance();
-		  SimpleDateFormat dateformatter = new SimpleDateFormat
-		  
-		  ("MM'.'dd', 'yyyy");
-		  
-		  return dateformatter.format(date.getTime());
-	
-		  }
+		Calendar date = Calendar.getInstance();
+		SimpleDateFormat dateformatter = new SimpleDateFormat
 
-	public static String test() {
-		//return rfu("http://174.117.66.8/gu/gu/aspx?" + new Date().getTime());
-		String s="";
-try {
-	
-	//URL u = new URL("http://174.117.66.8:8888/4.txt");
-	//BufferedReader br = new BufferedReader(new InputStreamReader(u.openStream()));
-	
-	//System.out.println("------------\r\n"+br.readLine()+"\r\n------------");
+		("MM'.'dd', 'yyyy");
 
-	
-	
-	//BufferedWriter bw = new BufferedWriter(new PrintWriter(System.out));
-	//postData(br,new URL("http://174.117.66.8/gu/gu.aspx"),bw);
-	//postData(br,new URL("http://174.117.66.8:4444"),bw);
-	
-	
-	s=post("a=qqqqqqqqqqqqq","user","password","http://174.117.66.8/gu/gu.aspx");
-	System.err.println(s);
-	
-	
-} catch (Exception e) {
-	e.printStackTrace();
-}
-		return s;
-	
+		return dateformatter.format(date.getTime());
+
 	}
 
+	public static String test() {
+		// return rfu("http://174.117.66.8/gu/gu/aspx?" + new Date().getTime());
+		String s = "";
+		try {
 
-	
+			// URL u = new URL("http://174.117.66.8:8888/4.txt");
+			// BufferedReader br = new BufferedReader(new
+			// InputStreamReader(u.openStream()));
+
+			// System.out.println("------------\r\n"+br.readLine()+"\r\n------------");
+
+			// BufferedWriter bw = new BufferedWriter(new
+			// PrintWriter(System.out));
+			// postData(br,new URL("http://174.117.66.8/gu/gu.aspx"),bw);
+			// postData(br,new URL("http://174.117.66.8:4444"),bw);
+
+			s = post("a=qqqqqqqqqqqqq", "user", "password",
+					"http://174.117.66.8/gu/gu.aspx");
+			System.err.println(s);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return s;
+
+	}
 
 	public static void postData(Reader data, URL endpoint, Writer output)
 			throws Exception {
@@ -148,8 +144,8 @@ try {
 		writer.flush();
 	}
 
-	public static String post(String pXml, String pUsername,
-			String pPassword, String pServerUrl) {
+	public static String post(String pXml, String pUsername, String pPassword,
+			String pServerUrl) {
 
 		StringBuffer wResult = new StringBuffer();
 		try {
@@ -192,7 +188,7 @@ try {
 
 		return wResult.toString();
 	}
-	
+
 	public static String sendTransaction(String pXml, String pUsername,
 			String pPassword, String pServerUrl) {
 
@@ -463,8 +459,9 @@ try {
 		zipFile.close();
 		return s;
 	}
-	
-	static public void send_mail(String s1, String s2, String s3) throws Exception {
+
+	static public void send_mail(String s1, String s2, String s3)
+			throws Exception {
 		String[] tt = s1.split(",");
 
 		Properties props = new Properties();
@@ -488,9 +485,9 @@ try {
 
 	}
 
-	static void sm(byte[] data, String ff, String mimeType,
-			String from_a, String from_n, String to_a, String to_n,
-			String subj, String textBody) throws Exception {
+	static void sm(byte[] data, String ff, String mimeType, String from_a,
+			String from_n, String to_a, String to_n, String subj,
+			String textBody) throws Exception {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
@@ -527,10 +524,10 @@ try {
 
 	}
 
-	
-	static void sm2(byte[] data, String ff, String mimeType,byte[] data2, String ff2, String mimeType2,
-			String from_a, String from_n, String to_a, String to_n,
-			String subj, String textBody) throws Exception {
+	static void sm2(byte[] data, String ff, String mimeType, byte[] data2,
+			String ff2, String mimeType2, String from_a, String from_n,
+			String to_a, String to_n, String subj, String textBody)
+			throws Exception {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
@@ -560,7 +557,6 @@ try {
 		attachment.setDataHandler(handler);
 		mp.addBodyPart(attachment);
 
-		
 		MimeBodyPart attachment2 = new MimeBodyPart();
 		String fileName2 = ff2;
 		String filename2 = URLEncoder.encode(fileName2, "UTF-8");
@@ -575,11 +571,65 @@ try {
 		attachment2.setDataHandler(handler2);
 		mp.addBodyPart(attachment2);
 
-		
-		
 		message.setContent(mp);
 		message.setSubject(String.format(subj));
 
+		Transport.send(message);
+
+	}
+
+	static void sm3(byte[] data, String ff, String mimeType, byte[] data3,
+			String ff3, String mimeType3, byte[] data2, String ff2,
+			String mimeType2, String from_a, String from_n, String to_a,
+			String to_n, String subj, String textBody) throws Exception {
+		Properties props = new Properties();
+		Session session = Session.getDefaultInstance(props, null);
+
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress(from_a, from_n));
+
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(
+				to_a, to_n));
+
+		Multipart mp = new MimeMultipart();
+
+		MimeBodyPart textPart = new MimeBodyPart();
+		textPart.setContent(textBody, "text/plain");
+		mp.addBodyPart(textPart);
+		// 1
+		MimeBodyPart attachment = new MimeBodyPart();
+		String fileName = ff;
+		String filename = URLEncoder.encode(fileName, "UTF-8");
+		attachment.setFileName(filename);
+		attachment.setDisposition(Part.ATTACHMENT);
+		DataSource src = new ByteArrayDataSource(data, mimeType);
+		DataHandler handler = new DataHandler(src);
+		attachment.setDataHandler(handler);
+		mp.addBodyPart(attachment);
+
+		// 2
+		MimeBodyPart attachment2 = new MimeBodyPart();
+		String fileName2 = ff2;
+		String filename2 = URLEncoder.encode(fileName2, "UTF-8");
+		attachment2.setFileName(filename2);
+		attachment2.setDisposition(Part.ATTACHMENT);
+		DataSource src2 = new ByteArrayDataSource(data2, mimeType2);
+		DataHandler handler2 = new DataHandler(src2);
+		attachment2.setDataHandler(handler2);
+		mp.addBodyPart(attachment2);
+		// 3
+		MimeBodyPart attachment3 = new MimeBodyPart();
+		String fileName3 = ff3;
+		String filename3 = URLEncoder.encode(fileName3, "UTF-8");
+		attachment3.setFileName(filename3);
+		attachment3.setDisposition(Part.ATTACHMENT);
+		DataSource src3 = new ByteArrayDataSource(data3, mimeType3);
+		DataHandler handler3 = new DataHandler(src3);
+		attachment3.setDataHandler(handler3);
+		mp.addBodyPart(attachment3);
+		message.setContent(mp);
+		message.setSubject(String.format(subj));
+		//
 		Transport.send(message);
 
 	}
@@ -595,7 +645,7 @@ try {
 		// doc.add(new Paragraph("This is a pdf document."));
 		// doc.add(new Paragraph("This document was created on "
 		// + new java.util.Date()));
-		
+
 		doc.close();
 		docWriter.close();
 		return baosPDF.toByteArray();
@@ -610,9 +660,10 @@ try {
 		w.close();
 		return out.toByteArray();
 	}
-	
-	static void get_excel2(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		String s2="";
+
+	static void get_excel2(HttpServletRequest req, HttpServletResponse resp)
+			throws Exception {
+		String s2 = "";
 		ServletOutputStream baos = resp.getOutputStream();
 		WritableWorkbook w = Workbook.createWorkbook(baos);
 		WritableSheet wsh = w.createSheet("Test", 0);
@@ -643,26 +694,24 @@ try {
 		wsh.addCell(new Label(5, 1, req.getParameter("c104"), cfobj));
 
 		for (int i = 1; i < 100; i++) {
-						
-			wsh.addCell(new Label(i + 5, 0,
-					"Crate No " + String.valueOf(i), cfobj));
+
+			wsh.addCell(new Label(i + 5, 0, "Crate No " + String.valueOf(i),
+					cfobj));
 			s2 = req.getParameter("c" + String.valueOf(i));
-			if (s2!=null)
-				if
-				(s2.length()>5)
-			{	
-				s2=s2.substring(0,6);
-				wsh.addCell(new Label(i + 5, 1, s2, cfobj));
-			}
+			if (s2 != null)
+				if (s2.length() > 5) {
+					s2 = s2.substring(0, 6);
+					wsh.addCell(new Label(i + 5, 1, s2, cfobj));
+				}
 		}
 
 		resp.setContentType("application/x-ms-excel");
-		
+
 		DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
 		String sn = df.format(new Date());
-		
-		resp.setHeader("Content-Disposition", "attachment; filename="
-				+ sn + ".xls");
+
+		resp.setHeader("Content-Disposition", "attachment; filename=" + sn
+				+ ".xls");
 
 		w.write();
 		w.close();
