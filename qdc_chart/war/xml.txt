@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<message>
+  <header>
+    <to displayName="Richard" address="rick@school.edu" />
+    <from displayName="Joyce" address="joyce@website.com" />
+    <sent>2007-05-12T12:03:55Z</sent>
+    <subject>Re: Flight info</subject>
+  </header>
+  <body>I'll pick you up at the airport at 8:30.  See you then!</body>
+</message>
+
+
+private void parseMessage(String messageXml) {
+  try {
+    // parse the XML document into a DOM
+    Document messageDom = XMLParser.parse(messageXml);
+
+    // find the sender's display name in an attribute of the <from> tag
+    Node fromNode = messageDom.getElementsByTagName("from").item(0);
+    String from = ((Element)fromNode).getAttribute("displayName");
+    fromLabel.setText(from);
+
+    // get the subject using Node's getNodeValue() function
+    String subject = messageDom.getElementsByTagName("subject").item(0).getFirstChild().getNodeValue();
+    subjectLabel.setText(subject);
+
+    // get the message body by explicitly casting to a Text node
+    Text bodyNode = (Text)messageDom.getElementsByTagName("body").item(0).getFirstChild();
+    String body = bodyNode.getData();
+    bodyLabel.setText(body);
+
+  } catch (DOMException e) {
+    Window.alert("Could not parse XML document.");
+  }
+}
