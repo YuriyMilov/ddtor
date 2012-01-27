@@ -16,10 +16,10 @@ public class Qdc implements EntryPoint {
 	VerticalPanel vPanel = new VerticalPanel();
 	VerticalPanel vPanel1 = new VerticalPanel();
 	VerticalPanel vPanel2 = new VerticalPanel();
-	String[] s1=new String[]{"","","","","","","","","","","","","","","","","","","","","","","",""};
-	String[] ss=new String[]{"","","","","","","","","","","","","","","","","","","","","","","",""};
-	double[] i1={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
-	double[] j1={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+	String[] s1=new String[]{"","","","","","","","","","","",""};
+	String[] ss=new String[]{"","","","","","","","","","","",""};
+	double[] i1={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+	double[] j1={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
 	int n=0;
 
 	public void onModuleLoad() {
@@ -116,7 +116,7 @@ public class Qdc implements EntryPoint {
 		vPanel.add(vPanel1);
 		vPanel.add(vPanel2);
 		
-		RootPanel.get().add(new HTML("<table style=\"width: 100%\"><tr><td align=\"center\"><img src=\"images/logo20.jpg\" /></td></tr></table><br/><a href=multic2.aspx>Main Page</a>"));
+		//RootPanel.get().add(new HTML("<table style=\"width: 100%\"><tr><td align=\"center\"><img src=\"images/logo20.jpg\" /></td></tr></table><br/>&nbsp;&nbsp;<a href=multic2.aspx>Main Page</a>"));
 		RootPanel.get().add(vPanel);
 	}
 
