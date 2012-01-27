@@ -21,8 +21,8 @@ public class Copy_2_of_Qdc implements EntryPoint {
 		data.addColumn(ColumnType.NUMBER, "Sales");
 		data.addColumn(ColumnType.NUMBER, "Expenses");
 		data.addRows(4);
-		// data.setValue(0, 0, "2004");
-		data.setValue(0, 0, s);
+		 data.setValue(0, 0, "2004");
+		//data.setValue(0, 0, s);
 		data.setValue(0, 1, f);
 		data.setValue(0, 2, 400);
 		data.setValue(1, 0, "2005");
