@@ -31,6 +31,16 @@
     
     
     <servlet>
+    <servlet-name>serg2</servlet-name>
+    <servlet-class>test.serg2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>serg2</servlet-name>
+    <url-pattern>/serg2</url-pattern>
+  </servlet-mapping>
+  
+     <servlet>
     <servlet-name>serg</servlet-name>
     <servlet-class>test.serg</servlet-class>
   </servlet>
