@@ -3,12 +3,14 @@ package cc;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import javax.jdo.PersistenceManager;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -25,6 +27,21 @@ public class rate extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String s = rfu("http://www.bankofcanada.ca/en/markets/csv/exchange_eng.csv");
+		
+String s2=grate(s);
+
+try {
+	PersistenceManager pm = PMF.get().getPersistenceManager();
+	List<Dollar> rd = (List<Dollar>) pm.newQuery(
+			"SELECT FROM " + Dollar.class.getName()).execute();
+	int i = 0;
+	while (i < rd.size())
+		pm.deletePersistent(rd.get(i++));
+	pm.makePersistent(new Dollar2(s2, new Date()));
+} catch (Exception e) {
+	s2 = e.toString();
+}
+
 		s = s.substring(s.indexOf("USD"));
 		s = s.substring(3, 111);
 
@@ -43,12 +60,16 @@ public class rate extends HttpServlet {
 				while (i < rd.size())
 					pm.deletePersistent(rd.get(i++));
 				pm.makePersistent(new Dollar(s, new Date()));
-				send_mail("qdone@rogers.com", "rate	" + new Date().toString(),
-						s);
 			} catch (Exception e) {
 				s = e.toString();
 			}
+			send_mail("qdone@rogers.com", "rate	" + new Date().toString(),
+					s+" \r\n"+s2);
+
 		PrintWriter out = resp.getWriter();
+		
+		
+		
 		out.write(s);
 		out.flush();
 		out.close();
@@ -72,8 +93,32 @@ public class rate extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+	
+	public String grate(String s){
+		String s2=s;
+		String s3="";
+		s = s.substring(s.indexOf("USD"));
+		s = s.substring(3, 111);
+		int n = s.indexOf("U");
+		s = s.substring(0, n);
+		s = s.substring(s.lastIndexOf(",") + 1);
+		s = s.replace("\r", "");
+		s = s.replace("\n", "");
+		s3="USD:"+s+"/";
+		s2=s2.substring(s2.indexOf("Argentine"));
 
-	public void send_mail(String s1, String s2, String s3) throws Exception {
+		while(s2.indexOf("\n")>-1)
+		{
+		String s4=s2.substring(s2.indexOf(",")+2,s2.indexOf("\n")-1);//+"---"+s2.substring(s2.lastIndexOf(",")+2,s2.indexOf("\n")-1);
+		s4=s4.substring(0,3)+":"+s4.substring(s4.lastIndexOf(",")+1)+"/";
+		//System.out.println(s4);
+		s2=s2.substring(s2.indexOf("\n")+1);
+		s3=s3+s4;
+		}
+		return s3;
+	}
+
+	public void send_mail(String s1, String s2, String s3) {
 		String[] tt = s1.split(",");
 
 		Properties props = new Properties();
@@ -84,7 +129,9 @@ public class rate extends HttpServlet {
 		// msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
 
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymdata@gmail.com", "EM DATA"));
+		try {
+			msg.setFrom(new InternetAddress("ymdata@gmail.com", "EM DATA"));
+
 		// msg.setFrom(new
 		// InternetAddress("lowrisk.terryfoxfoundation@gmail.com",
 		// "LowRisk Admin"));
@@ -97,6 +144,12 @@ public class rate extends HttpServlet {
 		msg.setHeader("Content-type:", "text/html;charset=ISO-8859-1");
 		msg.setText(s3);
 		Transport.send(msg);
+		
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 
 	}
 
