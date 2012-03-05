@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -57,7 +60,22 @@ out.close();
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		s2 = s2 + " "+ new Date().toString();
+		
+		
+		String sdt=""; 
+		TimeZone tz=TimeZone.getTimeZone("America/Montreal");
+		SimpleDateFormat parser = new SimpleDateFormat(
+		"MMM dd, yyyy 'at' HH:mm:ss z");
+		//Date d = parser.parse("Oct 25, 2007 at 18:35:07 EDT");
+		Date d = Calendar.getInstance(TimeZone.getTimeZone("EST")).getTime();
+		SimpleDateFormat formatter = new SimpleDateFormat(
+		"yyyy/MM/dd  HH:mm:ss z'('Z')'");
+		formatter.setTimeZone(tz);
+		sdt=formatter.format(d);
+		
+		//s2 = s2 + " "+ new Date().toString();
+		
+		s2 = s2 + " "+ sdt;
 		
 		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
 		
