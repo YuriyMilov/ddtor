@@ -9,6 +9,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.google.appengine.api.datastore.Text;
+
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Dollar2 implements Serializable {
 
@@ -19,16 +21,16 @@ public class Dollar2 implements Serializable {
 	protected Long ident;
 	
 	@Persistent
-	private String s;
+	private Text s;
 	
 	@Persistent
 	private Date d;
 
-	public Dollar2(String s2, Date d2) {
+	public Dollar2(Text s2, Date d2) {
 		this.s = s2;
 		this.d = d2;
 	}
-	public String get_rate() {
+	public Text get_rate() {
 		if( s == null ) return null;
 		return s;
 	}
@@ -37,7 +39,7 @@ public class Dollar2 implements Serializable {
 		return d;
 	}
 
-	public void set_rate(String s2) {
+	public void set_rate(Text s2) {
 		this.s = s2;
 	}
 

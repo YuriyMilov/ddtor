@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.Text;
+
 public class rate extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -32,12 +34,12 @@ String s2=grate(s);
 
 try {
 	PersistenceManager pm = PMF.get().getPersistenceManager();
-	List<Dollar> rd = (List<Dollar>) pm.newQuery(
-			"SELECT FROM " + Dollar.class.getName()).execute();
+	List<Dollar2> rd = (List<Dollar2>) pm.newQuery(
+			"SELECT FROM " + Dollar2.class.getName()).execute();
 	int i = 0;
 	while (i < rd.size())
 		pm.deletePersistent(rd.get(i++));
-	pm.makePersistent(new Dollar2(s2, new Date()));
+	pm.makePersistent(new Dollar2(new Text(s2), new Date()));
 } catch (Exception e) {
 	s2 = e.toString();
 }
