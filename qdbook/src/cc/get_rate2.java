@@ -27,11 +27,11 @@ public class get_rate2 extends HttpServlet {
 		String s = "-1";
 			try {
 				PersistenceManager pm = PMF.get().getPersistenceManager();
-				List<Dollar> rd = (List<Dollar>) pm.newQuery(
-						"SELECT FROM " + Dollar.class.getName()).execute();
+				List<Dollar2> rd = (List<Dollar2>) pm.newQuery(
+						"SELECT FROM " + Dollar2.class.getName()).execute();
 				int i = 0;
 				if( rd.size()>0)
-				s=rd.get(0).get_rate();
+				s=(rd.get(0).get_rate()).getValue().replace(" ", "");
 				//send_mail("qdone@rogers.com", "rate	" + new Date().toString(),s);
 			} catch (Exception e) {
 				s = e.toString();
