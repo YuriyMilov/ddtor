@@ -29,13 +29,13 @@ String s="";
 		} catch (Exception e) {
 			out.println(e.toString());
 		}
-	}
+	} 
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		PrintWriter out = resp.getWriter();
 		String s2="";
-		try {
+		try { 
 			String soadr="";
 			if(req.getParameter("oadr")!=null)
 				soadr=req.getParameter("oadr");

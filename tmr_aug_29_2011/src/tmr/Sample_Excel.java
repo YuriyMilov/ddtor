@@ -31,7 +31,7 @@ public void doGet
      Workbook.createWorkbook(response.getOutputStream());
    WritableSheet s = w.createSheet("Demo", 0);
    s.addCell(new Label(0, 0, "Hello World"));
-   w.write();
+   w.write(); 
    w.close();
   } 
   catch (Exception e){

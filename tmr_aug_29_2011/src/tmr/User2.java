@@ -14,7 +14,7 @@ public class User2 implements BaseObject {
 	private static final long serialVersionUID = 1L;
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	protected Long ident;
+	protected Long ident; 
 
 	public String getId() {
 		if( ident == null ) return null;

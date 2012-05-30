@@ -38,7 +38,7 @@ public class pcmws extends HttpServlet {
 
 		String s2="";
 		try {
-			
+			 
 		 //s2 =shta.rff("3.txt");
 		s2=postData2(req.getParameter("user"),req.getParameter("pass"),req.getParameter("acc"),req.getParameter("oadr"),req.getParameter("ocity"),req.getParameter("ostate"),req.getParameter("dadr"),req.getParameter("dcity"),req.getParameter("dstate"),req.getParameter("ssci1"),req.getParameter("ssci2"),req.getParameter("ssst1"),req.getParameter("ssst2"));
 

@@ -12,7 +12,7 @@
 
   <!-- Other module inherits                                      -->
 <inherits name="com.google.gwt.maps.GoogleMaps" />
-
+ 
 
   <!--  beska_qd (beskashy):    
   <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAA3yH24NDLr4FZt5rfI14xABRuHs-UY4aPu7zE2T6ckTrD_5eGoxTRjdva81yYY47CKV4fxtoxsyISZw" />
@@ -21,7 +21,7 @@
    <!--  wwo_qd (qdonetmr): -->    
   <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;key=ABQIAAAAo5bwwwqPhoe853_nvQ_sSBRdoD1227FCOPetwUmJ7efLtkwEyRTqwf5wJWlQtWvaiLKil_axuX8UIA" />
   
-  
+   
   
 
   <!-- Specify the app entry point class.                         -->

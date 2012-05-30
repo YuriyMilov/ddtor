@@ -11,7 +11,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class SAX extends DefaultHandler {
 
-	String s="";
+	String s=""; 
 	PrintWriter out=null;
 
 

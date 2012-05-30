@@ -20,7 +20,7 @@ public class Tmr implements EntryPoint {
 
 	private final SrvAsync srv = GWT.create(Srv.class);
 
-	
+	 
 	//LoginView login_view = new LoginView();
 	private TextBox txtLogin = new TextBox();
 	private PasswordTextBox txtPassword = new PasswordTextBox();
@@ -54,7 +54,7 @@ public class Tmr implements EntryPoint {
 				if (!rgetid.equals("qqq")) {
 					 RootPanel.get().clear();
 					// RootPanel.get().add(new HTML(rgetid));
-						Cps view = new Cps();
+						Cps view = new Cps(); 
 						//RootPanel.get().add(new HTML("qqqqqqqqq"));
 						RootPanel.get().add(view);
 
@@ -107,7 +107,7 @@ public class Tmr implements EntryPoint {
 						// RootPanel.get().add(hp1);
 
 						RootPanel.get().clear();
-						Cps view1 = new Cps();
+					 	Cps view1 = new Cps(); 
 						RootPanel.get().add(view1);
 					} else {
 						// qqq.removeFromParent();

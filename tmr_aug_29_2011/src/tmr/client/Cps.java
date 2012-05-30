@@ -21,10 +21,10 @@ public class Cps extends Composite {
 
 	private final VerticalPanel widget = new VerticalPanel();
 	private final GreetingServiceAsync greetingService = GWT
-			.create(GreetingService.class);
+			.create(GreetingService.class); 
 
 	MapWidget map = new MapWidget(LatLng.newInstance(44, -77), 3);
-
+ 
 	public static String sx = "";
 	public static String sx2 = "";
 

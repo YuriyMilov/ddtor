@@ -35,9 +35,9 @@ public class kwas_mail extends HttpServlet {
 		} catch (Exception e) {
 			s = e.toString();
 			e.printStackTrace();
-		}
-		out.print(s);
-	}
+		}  
+		out.print(s);  
+	}   
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {

@@ -23,5 +23,5 @@ public class xmlp extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		parse_xml("",out);
 	}
-	
+	 
 	}

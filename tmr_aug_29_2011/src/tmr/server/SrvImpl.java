@@ -8,7 +8,7 @@ import com.google.appengine.api.users.User;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
-public class SrvImpl extends RemoteServiceServlet implements Srv {
+public class SrvImpl extends RemoteServiceServlet implements Srv  {
 
 	public String get(String s, String s2) throws IllegalArgumentException {
 		s = (String) getThreadLocalRequest().getSession().getAttribute("name");

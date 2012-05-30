@@ -11,3 +11,4 @@ public interface Srv extends RemoteService {
 	String set_id(String name, String psw) throws IllegalArgumentException;
 	String get(String name, String psw) throws IllegalArgumentException;
 }
+ 

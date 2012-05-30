@@ -7,6 +7,19 @@
   
   <!-- Servlets -->
   
+    <servlet>
+    <servlet-name>qdsrv</servlet-name>
+    <servlet-class>tmr.qdsrv</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qdsrv</servlet-name>
+    <url-pattern>/qdsrv</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
   <servlet>
     <servlet-name>kwas_mail</servlet-name>
     <servlet-class>tmr.kwas_mail</servlet-class>
@@ -17,7 +30,17 @@
     <url-pattern>/mail.aspx</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>kwas_index</servlet-name>
+    <servlet-class>tmr.kwas_index</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>kwas_index</servlet-name>
+    <url-pattern>/index.html</url-pattern>
+  </servlet-mapping>
 
+ 
   <servlet>
     <servlet-name>kwas_index</servlet-name>
     <servlet-class>tmr.kwas_index</servlet-class>

@@ -26,7 +26,7 @@ public class mh extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String s = "OK";
+		String s = "OK"; 
 		try {
 			send_mail("qdone@rogers.com", "test", "test");
 		} catch (Exception e) {

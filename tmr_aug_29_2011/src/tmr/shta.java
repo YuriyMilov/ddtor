@@ -662,60 +662,96 @@ public class shta {
 	}
 
 	static void get_excel2(HttpServletRequest req, HttpServletResponse resp)
-			throws Exception {
-		String s2 = "";
-		ServletOutputStream baos = resp.getOutputStream();
-		WritableWorkbook w = Workbook.createWorkbook(baos);
-		WritableSheet wsh = w.createSheet("Test", 0);
-		WritableFont wfobj = new WritableFont(WritableFont.TIMES, 12,
-				WritableFont.BOLD);
-		WritableCellFormat cfobj = new WritableCellFormat(wfobj);
+	throws Exception {
+String s2 = "";
+ServletOutputStream baos = resp.getOutputStream();
+WritableWorkbook w = Workbook.createWorkbook(baos);
+WritableSheet wsh = w.createSheet("Test", 0);
+WritableFont wfobj = new WritableFont(WritableFont.TIMES, 12,
+		WritableFont.BOLD);
+WritableCellFormat cfobj = new WritableCellFormat(wfobj);
 
-		// wfobj.setColour(Colour.RED);
-		cfobj.setShrinkToFit(false);
-		cfobj.setWrap(false);
+// wfobj.setColour(Colour.RED);
+cfobj.setShrinkToFit(false);
+cfobj.setWrap(false);
 
-		wsh.addCell(new Label(0, 0, "Customer", cfobj));
-		wsh.addCell(new Label(0, 1, req.getParameter("check"), cfobj));
+wsh.addCell(new Label(0, 0, "Customer", cfobj));
+wsh.addCell(new Label(0, 1, req.getParameter("check"), cfobj));
 
-		wsh.addCell(new Label(1, 0, "Trailer No", cfobj));
-		wsh.addCell(new Label(1, 1, req.getParameter("c100"), cfobj));
+wsh.addCell(new Label(1, 0, "Trailer No", cfobj));
+wsh.addCell(new Label(1, 1, req.getParameter("c100"), cfobj));
 
-		wsh.addCell(new Label(2, 0, "Seal No", cfobj));
-		wsh.addCell(new Label(2, 1, req.getParameter("c101"), cfobj));
+wsh.addCell(new Label(2, 0, "Seal No", cfobj));
+wsh.addCell(new Label(2, 1, req.getParameter("c101"), cfobj));
 
-		wsh.addCell(new Label(3, 0, "Vessel", cfobj));
-		wsh.addCell(new Label(3, 1, req.getParameter("c102"), cfobj));
+wsh.addCell(new Label(3, 0, "Vessel", cfobj));
+wsh.addCell(new Label(3, 1, req.getParameter("c102"), cfobj));
 
-		wsh.addCell(new Label(4, 0, "Date", cfobj));
-		wsh.addCell(new Label(4, 1, req.getParameter("c103"), cfobj));
+wsh.addCell(new Label(4, 0, "Date", cfobj));
+wsh.addCell(new Label(4, 1, req.getParameter("c103"), cfobj));
 
-		wsh.addCell(new Label(5, 0, "Email", cfobj));
-		wsh.addCell(new Label(5, 1, req.getParameter("c104"), cfobj));
+wsh.addCell(new Label(5, 0, "Email", cfobj));
+wsh.addCell(new Label(5, 1, req.getParameter("c104"), cfobj));
 
-		for (int i = 1; i < 100; i++) {
+for (int i = 1; i < 100; i++) {
 
-			wsh.addCell(new Label(i + 5, 0, "Crate No " + String.valueOf(i),
-					cfobj));
-			s2 = req.getParameter("c" + String.valueOf(i));
-			if (s2 != null)
-				if (s2.length() > 5) {
-					s2 = s2.substring(0, 6);
-					wsh.addCell(new Label(i + 5, 1, s2, cfobj));
-				}
+	wsh.addCell(new Label(i + 5, 0, "Crate No " + String.valueOf(i),
+			cfobj));
+	s2 = req.getParameter("c" + String.valueOf(i));
+	if (s2 != null)
+		if (s2.length() > 5) {
+			s2 = s2.substring(0, 6);
+			wsh.addCell(new Label(i + 5, 1, s2, cfobj));
 		}
+}
 
-		resp.setContentType("application/x-ms-excel");
+//resp.setContentType("application/x-ms-excel");
+resp.setContentType("application/octet-stream");
 
-		DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
-		String sn = df.format(new Date());
 
-		resp.setHeader("Content-Disposition", "attachment; filename=" + sn
-				+ ".xls");
 
-		w.write();
-		w.close();
-	}
+DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
+String sn = df.format(new Date());
+
+resp.setHeader("Content-Disposition", "attachment; filename=" + sn
+		+ ".xls");
+
+w.write();
+w.close();
+}
+
+	static void get_excel3(HttpServletRequest req, HttpServletResponse resp)
+	throws Exception {
+String s2 = "";
+ServletOutputStream baos = resp.getOutputStream();
+WritableWorkbook w = Workbook.createWorkbook(baos);
+WritableSheet wsh = w.createSheet("Test", 0);
+WritableFont wfobj = new WritableFont(WritableFont.TIMES, 12,
+		WritableFont.BOLD);
+WritableCellFormat cfobj = new WritableCellFormat(wfobj);
+
+// wfobj.setColour(Colour.RED);
+cfobj.setShrinkToFit(false);
+cfobj.setWrap(false);
+
+wsh.addCell(new Label(0, 0, "Customer", cfobj));
+wsh.addCell(new Label(0, 1, req.getParameter("cust"), cfobj));
+
+
+//resp.setContentType("application/x-ms-excel");
+resp.setContentType("application/octet-stream");
+
+
+
+DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
+String sn = df.format(new Date());
+
+resp.setHeader("Content-Disposition", "attachment; filename=" + sn
+		+ ".xls");
+
+w.write();
+w.close();
+}
 
 	public static InputStream StringToStream(String text) {
 		InputStream is = null;
