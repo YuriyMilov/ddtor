@@ -1,0 +1,9 @@
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2005\Projects\WindowsService1\WindowsService1\bin\Debug\WindowsService1.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2005\Projects\WindowsService1\WindowsService1\bin\Debug\WindowsService1.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2005\Projects\WindowsService1\WindowsService1\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2005\Projects\WindowsService1\WindowsService1\obj\Debug\WindowsService1.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2005\Projects\WindowsService1\WindowsService1\obj\Debug\WindowsService1.pdb
+C:\Documents and Settings\Administrator\Desktop\ftp_project_ufos\WindowsService1\WindowsService1\obj\Debug\WindowsService1.exe
+C:\Documents and Settings\Administrator\Desktop\ftp_project_ufos\WindowsService1\WindowsService1\obj\Debug\WindowsService1.pdb
+C:\Documents and Settings\Administrator\Desktop\ftp_project_ufos\WindowsService1\WindowsService1\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\Desktop\ftp_project_svn\WindowsService1\WindowsService1\obj\Debug\ResolveAssemblyReference.cache
