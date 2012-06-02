@@ -11,6 +11,6 @@ public class _info {
 	//version1
 	//kukaatfeofantversk0y
 	//feofan33.apsp
-	//11qdone89898999 
+	//11qdone89898999   
 }
  
