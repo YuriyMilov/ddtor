@@ -1,0 +1,2 @@
+serviceClass: tmr.client.Srv
+path: 6320B628E5F324D811EE4C1EA24E79D2.gwt.rpc

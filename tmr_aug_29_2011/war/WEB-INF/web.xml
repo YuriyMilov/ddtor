@@ -30,6 +30,21 @@
     <url-pattern>/mail.aspx</url-pattern>
   </servlet-mapping>
 
+ 
+  
+  <servlet>
+    <servlet-name>kwas_mail2</servlet-name>
+    <servlet-class>tmr.kwas_mail2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>kwas_mail2</servlet-name>
+    <url-pattern>/mail2.aspx</url-pattern>
+  </servlet-mapping>
+
+ 
+
+
   <servlet>
     <servlet-name>kwas_index</servlet-name>
     <servlet-class>tmr.kwas_index</servlet-class>
@@ -40,7 +55,16 @@
     <url-pattern>/index.html</url-pattern>
   </servlet-mapping>
 
- 
+
+<servlet>
+    <servlet-name>kwas_index2</servlet-name>
+    <servlet-class>tmr.kwas_index2</servlet-class>
+  </servlet>
+ <servlet-mapping>
+    <servlet-name>kwas_index2</servlet-name>
+    <url-pattern>/index2.html</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>kwas_index</servlet-name>
     <servlet-class>tmr.kwas_index</servlet-class>
@@ -49,6 +73,16 @@
   <servlet-mapping>
     <servlet-name>kwas_index</servlet-name>
     <url-pattern>/index.aspx</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>kwas_index2</servlet-name>
+    <servlet-class>tmr.kwas_index2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>kwas_index2</servlet-name>
+    <url-pattern>/index2.aspx</url-pattern>
   </servlet-mapping>
 
 
