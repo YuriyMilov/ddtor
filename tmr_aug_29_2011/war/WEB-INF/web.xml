@@ -200,7 +200,7 @@
    
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>index.aspx</welcome-file>
+    <welcome-file>index2.aspx</welcome-file>
   </welcome-file-list>
 
 </web-app>

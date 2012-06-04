@@ -88,7 +88,7 @@ public class kwas_index2 extends HttpServlet {
 					else if (i < 100)
 						s = " " + s;
 					
-					ss = ss + "\r\nBike Model No " + String.valueOf(i) + ":  " + s + " Frame No: " + sd;
+					ss = ss + "\r\nBike Model No " + String.valueOf(i) + ":  " + s + " \r\nFrame No: " + sd + "\r\n\r\n";
 					
 				}
 			}

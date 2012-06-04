@@ -12,5 +12,11 @@ public class _info {
 	//kukaatfeofantversk0y
 	//feofan33.apsp
 	//11qdone89898999   
+	
+	// ddtorsql
+	// version 1
+	//ymdata78787888
+	//ccm.qd
+	
 }
  

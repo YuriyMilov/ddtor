@@ -48,7 +48,7 @@ public class kwas_mail2 extends HttpServlet {
 
 		DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
 		String sd = df.format(new Date());
-		String ss = "", s = req.getParameter("check");
+		String ss = "", s = req.getParameter("check"), sf="";
 
 		String s100 = "Trailer No: " + req.getParameter("c100");
 		String s101 = "Seal No:    " + req.getParameter("c101");
@@ -104,23 +104,39 @@ public class kwas_mail2 extends HttpServlet {
 			wsh.addCell(new Label(5, 0, "Email", cfobj));
 			wsh.addCell(new Label(5, 1, req.getParameter("c104"), cfobj));
 
+			
+			
 			for (int i = 1; i < 100; i++) {
 				s = req.getParameter("c" + String.valueOf(i));
+				sf = req.getParameter("f" + String.valueOf(i));
+				
 				wsh.addCell(new Label(i + 5, 0,
-						"Crate No " + String.valueOf(i), cfobj));
+						"Bike Model No " + String.valueOf(i), cfobj));
 				wsh.addCell(new Label(i + 5, 1, s, cfobj));
+				
+				wsh.addCell(new Label(i + 6, 0,
+						"Frame No " + String.valueOf(i), cfobj));
+				wsh.addCell(new Label(i + 6, 1, sf, cfobj));
+				
+				if(sf==null)
+					sf="";
+				if (sf.trim().length() == 0)
+					sf = "";
+				
+				 
 				if (s == null)
 					s = "";
-				else if (s.trim().length() == 0)
-					s = "";
-				else {
+				else 
+					if (s.trim().length() == 0)
+						s = "";
+					else {
 					if (s.length() > 6)
 						s = s.substring(0, 6);
 					if (i < 10)
 						s = "  " + s;
 					else if (i < 100)
 						s = " " + s;
-					ss = ss + "\r\nCrate No " + String.valueOf(i) + ":  " + s;
+					ss = ss + "\r\nBike Model No " + String.valueOf(i) + ":  " + s + " \r\nFrame No: " + sf + "\r\n\r\n";
 				}
 			}
 
