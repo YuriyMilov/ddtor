@@ -106,7 +106,7 @@ public class kwas_index2 extends HttpServlet {
 
 			}
 			if (req.getParameter("att").equals("3")) 				
-				shta.get_excel2(req, resp);
+				shta.get_excel_ccm(req, resp);
 	
 		} catch (Exception e) {
 			resp.getWriter().print(e.toString());

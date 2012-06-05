@@ -720,6 +720,79 @@ w.write();
 w.close();
 }
 
+	
+	static void get_excel_ccm(HttpServletRequest req, HttpServletResponse resp)
+	throws Exception {
+String s2 = "";
+ServletOutputStream baos = resp.getOutputStream();
+WritableWorkbook w = Workbook.createWorkbook(baos);
+WritableSheet wsh = w.createSheet("Test", 0);
+WritableFont wfobj = new WritableFont(WritableFont.TIMES, 12,
+		WritableFont.BOLD);
+WritableCellFormat cfobj = new WritableCellFormat(wfobj);
+
+// wfobj.setColour(Colour.RED);
+cfobj.setShrinkToFit(false);
+cfobj.setWrap(false);
+
+wsh.addCell(new Label(0, 0, "Customer", cfobj));
+wsh.addCell(new Label(0, 1, req.getParameter("check"), cfobj));
+
+wsh.addCell(new Label(1, 0, "Trailer No", cfobj));
+wsh.addCell(new Label(1, 1, req.getParameter("c100"), cfobj));
+
+wsh.addCell(new Label(2, 0, "Seal No", cfobj));
+wsh.addCell(new Label(2, 1, req.getParameter("c101"), cfobj));
+
+wsh.addCell(new Label(3, 0, "Vessel", cfobj));
+wsh.addCell(new Label(3, 1, req.getParameter("c102"), cfobj));
+
+wsh.addCell(new Label(4, 0, "Date", cfobj));
+wsh.addCell(new Label(4, 1, req.getParameter("c103"), cfobj));
+
+wsh.addCell(new Label(5, 0, "Email", cfobj));
+wsh.addCell(new Label(5, 1, req.getParameter("c104"), cfobj));
+
+int k=0,j=0;
+for (int i = 1; i < 100; i++) {
+	
+j=i+k;
+wsh.addCell(new Label(j + 5, 0, "Bike Model No " + String.valueOf(i),
+		cfobj));
+wsh.addCell(new Label(j + 6, 0, "Frame No "+ String.valueOf(i),
+		cfobj));
+	s2 = req.getParameter("c" + String.valueOf(i));
+	if (s2 != null)
+		if (s2.length() > 5) {
+			s2 = s2.substring(0, 6);
+			wsh.addCell(new Label(j + 5, 1, s2, cfobj));
+		}
+		else{
+			wsh.addCell(new Label(j + 5, 1, s2, cfobj));
+		}
+	String sf = req.getParameter("f" + String.valueOf(i));
+	if(sf!=null)			
+		wsh.addCell(new Label(j + 6, 1, sf, cfobj));
+		
+	k++;
+}
+
+//resp.setContentType("application/x-ms-excel");
+resp.setContentType("application/octet-stream");
+
+
+
+DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
+String sn = df.format(new Date());
+
+resp.setHeader("Content-Disposition", "attachment; filename=" + sn
+		+ ".xls");
+
+w.write();
+w.close();
+}
+
+	
 	static void get_excel3(HttpServletRequest req, HttpServletResponse resp)
 	throws Exception {
 String s2 = "";

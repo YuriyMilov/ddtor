@@ -104,19 +104,23 @@ public class kwas_mail2 extends HttpServlet {
 			wsh.addCell(new Label(5, 0, "Email", cfobj));
 			wsh.addCell(new Label(5, 1, req.getParameter("c104"), cfobj));
 
-			
+			int j=0,k=0;
 			
 			for (int i = 1; i < 100; i++) {
+				
+				j=i+k;
 				s = req.getParameter("c" + String.valueOf(i));
 				sf = req.getParameter("f" + String.valueOf(i));
 				
-				wsh.addCell(new Label(i + 5, 0,
+				wsh.addCell(new Label(j + 5, 0,
 						"Bike Model No " + String.valueOf(i), cfobj));
-				wsh.addCell(new Label(i + 5, 1, s, cfobj));
+				wsh.addCell(new Label(j + 5, 1, s, cfobj));
 				
-				wsh.addCell(new Label(i + 6, 0,
+				wsh.addCell(new Label(j + 6, 0,
 						"Frame No " + String.valueOf(i), cfobj));
-				wsh.addCell(new Label(i + 6, 1, sf, cfobj));
+				wsh.addCell(new Label(j + 6, 1, sf, cfobj));
+				
+				k++;
 				
 				if(sf==null)
 					sf="";
