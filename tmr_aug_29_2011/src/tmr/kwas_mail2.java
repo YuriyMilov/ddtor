@@ -50,7 +50,8 @@ public class kwas_mail2 extends HttpServlet {
 		String sd = df.format(new Date());
 		String ss = "", s = req.getParameter("check"), sf = "";
 
-		String s100 = "Trailer No: " + req.getParameter("c100");
+		String strn=req.getParameter("c100");
+		String s100 = "Trailer No: " + strn;
 		String s101 = "Seal No:    " + req.getParameter("c101");
 		String s102 = "Vessel:     " + req.getParameter("c102");
 		String s103 = "Date:       " + req.getParameter("c103");
@@ -65,6 +66,7 @@ public class kwas_mail2 extends HttpServlet {
 			out.println(ss);
 			s = "";
 			ss = "";
+			strn="";
 		} else {
 			if (s == null)
 				s = "";
@@ -170,15 +172,14 @@ public class kwas_mail2 extends HttpServlet {
 						// "ymdata@gmail.com", "Web UFOS", s104, "Recipients",
 						// "Crates done " + sd, ss);
 
-						shta.sm(baos.toByteArray(), sd + ".xls",
+						shta.sm(baos.toByteArray(), strn + "_" + sd + ".xls",
 								"application/x-ms-excel", "ymdata@gmail.com",
-								"Web UFOS", s104, "Recipients", "Crates done "
-										+ sd, ss);
+								"Web UFOS", s104, "Recipients",  strn + "_" + sd, ss);
 
 					if (req.getParameter("att").equals("2"))
-						shta.sm(ad, sd + ".pdf", "application/pdf",
+						shta.sm(ad,  strn + "_" + sd + ".pdf", "application/pdf",
 								"ymdata@gmail.com", "Web UFOS", s104,
-								"Recipients", "Crates done " + sd, ss);
+								"Recipients", strn + "_" + sd, ss);
 
 					if (req.getParameter("att").equals("1"))
 						// shta.sm(baos.toByteArray(), sd + ".xls",
@@ -186,12 +187,11 @@ public class kwas_mail2 extends HttpServlet {
 						// "Web UFOS", s104, "Recipients",
 						// "Crates done " + sd, ss);
 
-						shta.sm3(ss.getBytes(), sd + ".txt", "text/plain", ad,
-								sd + ".pdf", "application/pdf",
-								baos.toByteArray(), sd + ".xls",
+						shta.sm3(ss.getBytes(),  strn + "_" + sd + ".txt", "text/plain", ad,
+								 strn + "_" + sd + ".pdf", "application/pdf",
+								baos.toByteArray(),  strn + "_" + sd + ".xls",
 								"application/x-ms-excel", "ymdata@gmail.com",
-								"Web UFOS", s104, "Recipients", "Crates done "
-										+ sd, ss);
+								"Web UFOS", s104, "Recipients",  strn + "_" + sd, ss);
 
 					ss = "Sent to <a href=\"mailto: "
 							+ s104
@@ -216,6 +216,7 @@ public class kwas_mail2 extends HttpServlet {
 			out.print(ss);
 			s = "";
 			ss = "";
+			strn="";
 		}
 	}
 
