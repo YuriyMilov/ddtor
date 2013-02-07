@@ -1,0 +1,2 @@
+serviceClass: cc.client.GreetingService
+path: 8D302B8F1995DDA018485A32188B8E41.gwt.rpc
