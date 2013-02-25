@@ -1,0 +1,808 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.seчеловекticweb.org/ontologies/2011/9/Ontology1318083632046.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.seчеловекticweb.org/ontologies/2011/9/Ontology1318083632046.owl">
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal datatypeIRI="&rdf;PlainLiteral">   
+На одной улице подряд стоят пять домов, каждый — своего цвета. В каждом живёт человек, все пять — разных национальностей. Каждый человек предпочитает уникальную марку сигарет, напиток и домашнее животное. Кроме того:
+
+1. Британец живёт в красном доме. 
+2. Швед выращивает собак.
+3. Датчанин пьёт чай.
+4. Зелёный дом находится слева от белого, рядом с ним.
+5. В зелёном доме пьют кофе.
+6. Тот, кто курит Pall Mall, выращивает птиц. 
+7. Тот, кто живёт в жёлтом доме, курит Dunhill.
+8. Тот, кто живёт в центре, пьёт молоко.
+9. Норвежец живёт в первом доме.
+10. Тот, кто курит Blends , живёт рядом с тем, кто выращивает кошек.
+11. Тот, кто выращивает лошадей, живёт рядом с тем, кто курит Dunhill. 
+12. Тот, кто курит Blue Master, пьет пиво. 
+13. Немец курит Prince. 
+14. Норвежец живёт рядом с синим домом.
+15. Сосед того, кто курит Blends, пьёт воду. 
+
+Вопрос:
+Кто разводит рыбок?
+
+
+
+</Literal>
+    </Annotation>
+    <Declaration>
+        <Class IRI="#дом"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#животное"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#напиток"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#сигареты"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#цвет"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#человек"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#живет_в"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#имеет_цвет"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#курит"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#пьет"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#разводит"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#слева_от"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#справа_от"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Prince"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#no-1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#no-2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#no-3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#no-4"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#no-5"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#англичанин"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#вода"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#кошка"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#лошадь"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#молоко"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#норвежец"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#птица"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#рыбки"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#собака"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#швед"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#дом"/>
+        <ObjectOneOf>
+            <NamedIndividual IRI="#no-1"/>
+            <NamedIndividual IRI="#no-2"/>
+            <NamedIndividual IRI="#no-3"/>
+            <NamedIndividual IRI="#no-4"/>
+            <NamedIndividual IRI="#no-5"/>
+        </ObjectOneOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#напиток"/>
+        <ObjectOneOf>
+            <NamedIndividual IRI="#вода"/>
+            <NamedIndividual IRI="#чай"/>
+            <NamedIndividual IRI="#кофе"/>
+            <NamedIndividual IRI="#молоко"/>
+            <NamedIndividual IRI="#пиво"/>
+        </ObjectOneOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#сигареты"/>
+        <ObjectOneOf>
+            <NamedIndividual IRI="#Blue_Master"/>
+            <NamedIndividual IRI="#Blends"/>
+            <NamedIndividual IRI="#Pall_Mall"/>
+            <NamedIndividual IRI="#Dunhill"/>
+            <NamedIndividual IRI="#Prince"/>
+        </ObjectOneOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#цвет"/>
+        <ObjectOneOf>
+            <NamedIndividual IRI="#синий"/>
+            <NamedIndividual IRI="#зеленый"/>
+            <NamedIndividual IRI="#белый"/>
+            <NamedIndividual IRI="#красный"/>
+            <NamedIndividual IRI="#желтый"/>
+        </ObjectOneOf>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#животное"/>
+        <ObjectSomeValuesFrom>
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#разводит"/>
+            </ObjectInverseOf>
+            <Class IRI="#человек"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#человек"/>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#живет_в"/>
+                <Class IRI="#дом"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#курит"/>
+                <Class IRI="#сигареты"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#пьет"/>
+                <Class IRI="#напиток"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#разводит"/>
+                <Class IRI="#животное"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="#сигареты"/>
+        <NamedIndividual IRI="#Blends"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectSomeValuesFrom>
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#курит"/>
+            </ObjectInverseOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#живет_в"/>
+                <ObjectUnionOf>
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty IRI="#слева_от"/>
+                        <ObjectSomeValuesFrom>
+                            <ObjectInverseOf>
+                                <ObjectProperty IRI="#живет_в"/>
+                            </ObjectInverseOf>
+                            <ObjectHasValue>
+                                <ObjectProperty IRI="#разводит"/>
+                                <NamedIndividual IRI="#кошка"/>
+                            </ObjectHasValue>
+                        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                    <ObjectSomeValuesFrom>
+                        <ObjectInverseOf>
+                            <ObjectProperty IRI="#слева_от"/>
+                        </ObjectInverseOf>
+                        <ObjectSomeValuesFrom>
+                            <ObjectInverseOf>
+                                <ObjectProperty IRI="#живет_в"/>
+                            </ObjectInverseOf>
+                            <ObjectHasValue>
+                                <ObjectProperty IRI="#разводит"/>
+                                <NamedIndividual IRI="#кошка"/>
+                            </ObjectHasValue>
+                        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                </ObjectUnionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        <NamedIndividual IRI="#Blends"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#сигареты"/>
+        <NamedIndividual IRI="#Blue_Master"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectSomeValuesFrom>
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#курит"/>
+            </ObjectInverseOf>
+            <ObjectHasValue>
+                <ObjectProperty IRI="#пьет"/>
+                <NamedIndividual IRI="#пиво"/>
+            </ObjectHasValue>
+        </ObjectSomeValuesFrom>
+        <NamedIndividual IRI="#Blue_Master"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#сигареты"/>
+        <NamedIndividual IRI="#Dunhill"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectSomeValuesFrom>
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#курит"/>
+            </ObjectInverseOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#живет_в"/>
+                <ObjectUnionOf>
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty IRI="#слева_от"/>
+                        <ObjectSomeValuesFrom>
+                            <ObjectInverseOf>
+                                <ObjectProperty IRI="#живет_в"/>
+                            </ObjectInverseOf>
+                            <ObjectHasValue>
+                                <ObjectProperty IRI="#разводит"/>
+                                <NamedIndividual IRI="#лошадь"/>
+                            </ObjectHasValue>
+                        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                    <ObjectSomeValuesFrom>
+                        <ObjectInverseOf>
+                            <ObjectProperty IRI="#слева_от"/>
+                        </ObjectInverseOf>
+                        <ObjectSomeValuesFrom>
+                            <ObjectInverseOf>
+                                <ObjectProperty IRI="#живет_в"/>
+                            </ObjectInverseOf>
+                            <ObjectHasValue>
+                                <ObjectProperty IRI="#разводит"/>
+                                <NamedIndividual IRI="#лошадь"/>
+                            </ObjectHasValue>
+                        </ObjectSomeValuesFrom>
+                    </ObjectSomeValuesFrom>
+                </ObjectUnionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        <NamedIndividual IRI="#Dunhill"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectSomeValuesFrom>
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#курит"/>
+            </ObjectInverseOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#живет_в"/>
+                <ObjectHasValue>
+                    <ObjectProperty IRI="#имеет_цвет"/>
+                    <NamedIndividual IRI="#желтый"/>
+                </ObjectHasValue>
+            </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        <NamedIndividual IRI="#Dunhill"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#сигареты"/>
+        <NamedIndividual IRI="#Pall_Mall"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectSomeValuesFrom>
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#курит"/>
+            </ObjectInverseOf>
+            <ObjectHasValue>
+                <ObjectProperty IRI="#разводит"/>
+                <NamedIndividual IRI="#птица"/>
+            </ObjectHasValue>
+        </ObjectSomeValuesFrom>
+        <NamedIndividual IRI="#Pall_Mall"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#сигареты"/>
+        <NamedIndividual IRI="#Prince"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#дом"/>
+        <NamedIndividual IRI="#no-1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectAllValuesFrom>
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#слева_от"/>
+            </ObjectInverseOf>
+            <Class abbreviatedIRI=":Nothing"/>
+        </ObjectAllValuesFrom>
+        <NamedIndividual IRI="#no-1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#дом"/>
+        <NamedIndividual IRI="#no-2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#дом"/>
+        <NamedIndividual IRI="#no-3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#дом"/>
+        <NamedIndividual IRI="#no-4"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#дом"/>
+        <NamedIndividual IRI="#no-5"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#слева_от"/>
+            <Class abbreviatedIRI=":Nothing"/>
+        </ObjectAllValuesFrom>
+        <NamedIndividual IRI="#no-5"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#человек"/>
+        <NamedIndividual IRI="#англичанин"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#живет_в"/>
+            <ObjectHasValue>
+                <ObjectProperty IRI="#имеет_цвет"/>
+                <NamedIndividual IRI="#красный"/>
+            </ObjectHasValue>
+        </ObjectSomeValuesFrom>
+        <NamedIndividual IRI="#англичанин"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#цвет"/>
+        <NamedIndividual IRI="#белый"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#напиток"/>
+        <NamedIndividual IRI="#вода"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#человек"/>
+        <NamedIndividual IRI="#датчанин"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#цвет"/>
+        <NamedIndividual IRI="#желтый"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#цвет"/>
+        <NamedIndividual IRI="#зеленый"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectSomeValuesFrom>
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#имеет_цвет"/>
+            </ObjectInverseOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#слева_от"/>
+                <ObjectHasValue>
+                    <ObjectProperty IRI="#имеет_цвет"/>
+                    <NamedIndividual IRI="#белый"/>
+                </ObjectHasValue>
+            </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        <NamedIndividual IRI="#зеленый"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#напиток"/>
+        <NamedIndividual IRI="#кофе"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectSomeValuesFrom>
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#пьет"/>
+            </ObjectInverseOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#живет_в"/>
+                <ObjectHasValue>
+                    <ObjectProperty IRI="#имеет_цвет"/>
+                    <NamedIndividual IRI="#зеленый"/>
+                </ObjectHasValue>
+            </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        <NamedIndividual IRI="#кофе"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#животное"/>
+        <NamedIndividual IRI="#кошка"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#цвет"/>
+        <NamedIndividual IRI="#красный"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#животное"/>
+        <NamedIndividual IRI="#лошадь"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#напиток"/>
+        <NamedIndividual IRI="#молоко"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectSomeValuesFrom>
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#пьет"/>
+            </ObjectInverseOf>
+            <ObjectHasValue>
+                <ObjectProperty IRI="#живет_в"/>
+                <NamedIndividual IRI="#no-3"/>
+            </ObjectHasValue>
+        </ObjectSomeValuesFrom>
+        <NamedIndividual IRI="#молоко"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#человек"/>
+        <NamedIndividual IRI="#немец"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#человек"/>
+        <NamedIndividual IRI="#норвежец"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#живет_в"/>
+            <ObjectUnionOf>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#слева_от"/>
+                    <ObjectHasValue>
+                        <ObjectProperty IRI="#имеет_цвет"/>
+                        <NamedIndividual IRI="#синий"/>
+                    </ObjectHasValue>
+                </ObjectSomeValuesFrom>
+                <ObjectSomeValuesFrom>
+                    <ObjectInverseOf>
+                        <ObjectProperty IRI="#слева_от"/>
+                    </ObjectInverseOf>
+                    <ObjectHasValue>
+                        <ObjectProperty IRI="#имеет_цвет"/>
+                        <NamedIndividual IRI="#синий"/>
+                    </ObjectHasValue>
+                </ObjectSomeValuesFrom>
+            </ObjectUnionOf>
+        </ObjectSomeValuesFrom>
+        <NamedIndividual IRI="#норвежец"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#напиток"/>
+        <NamedIndividual IRI="#пиво"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#животное"/>
+        <NamedIndividual IRI="#птица"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#животное"/>
+        <NamedIndividual IRI="#рыбки"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#цвет"/>
+        <NamedIndividual IRI="#синий"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#животное"/>
+        <NamedIndividual IRI="#собака"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#напиток"/>
+        <NamedIndividual IRI="#чай"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#человек"/>
+        <NamedIndividual IRI="#швед"/>
+    </ClassAssertion>
+    <DifferentIndividuals>
+        <NamedIndividual IRI="#Blends"/>
+        <NamedIndividual IRI="#Blue_Master"/>
+        <NamedIndividual IRI="#Dunhill"/>
+        <NamedIndividual IRI="#Pall_Mall"/>
+        <NamedIndividual IRI="#Prince"/>
+        <NamedIndividual IRI="#no-1"/>
+        <NamedIndividual IRI="#no-2"/>
+        <NamedIndividual IRI="#no-3"/>
+        <NamedIndividual IRI="#no-4"/>
+        <NamedIndividual IRI="#no-5"/>
+        <NamedIndividual IRI="#англичанин"/>
+        <NamedIndividual IRI="#белый"/>
+        <NamedIndividual IRI="#вода"/>
+        <NamedIndividual IRI="#датчанин"/>
+        <NamedIndividual IRI="#желтый"/>
+        <NamedIndividual IRI="#зеленый"/>
+        <NamedIndividual IRI="#кофе"/>
+        <NamedIndividual IRI="#кошка"/>
+        <NamedIndividual IRI="#красный"/>
+        <NamedIndividual IRI="#лошадь"/>
+        <NamedIndividual IRI="#молоко"/>
+        <NamedIndividual IRI="#немец"/>
+        <NamedIndividual IRI="#норвежец"/>
+        <NamedIndividual IRI="#пиво"/>
+        <NamedIndividual IRI="#птица"/>
+        <NamedIndividual IRI="#рыбки"/>
+        <NamedIndividual IRI="#синий"/>
+        <NamedIndividual IRI="#собака"/>
+        <NamedIndividual IRI="#чай"/>
+        <NamedIndividual IRI="#швед"/>
+    </DifferentIndividuals>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#слева_от"/>
+        <NamedIndividual IRI="#no-1"/>
+        <NamedIndividual IRI="#no-2"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#слева_от"/>
+        <NamedIndividual IRI="#no-2"/>
+        <NamedIndividual IRI="#no-3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#слева_от"/>
+        <NamedIndividual IRI="#no-3"/>
+        <NamedIndividual IRI="#no-4"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#слева_от"/>
+        <NamedIndividual IRI="#no-4"/>
+        <NamedIndividual IRI="#no-5"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#пьет"/>
+        <NamedIndividual IRI="#датчанин"/>
+        <NamedIndividual IRI="#чай"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#курит"/>
+        <NamedIndividual IRI="#немец"/>
+        <NamedIndividual IRI="#Prince"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#живет_в"/>
+        <NamedIndividual IRI="#норвежец"/>
+        <NamedIndividual IRI="#no-1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#разводит"/>
+        <NamedIndividual IRI="#швед"/>
+        <NamedIndividual IRI="#собака"/>
+    </ObjectPropertyAssertion>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#живет_в"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#имеет_цвет"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#курит"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#пьет"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#разводит"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#слева_от"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#справа_от"/>
+    </FunctionalObjectProperty>
+    <InverseFunctionalObjectProperty>
+        <ObjectProperty IRI="#живет_в"/>
+    </InverseFunctionalObjectProperty>
+    <InverseFunctionalObjectProperty>
+        <ObjectProperty IRI="#имеет_цвет"/>
+    </InverseFunctionalObjectProperty>
+    <InverseFunctionalObjectProperty>
+        <ObjectProperty IRI="#курит"/>
+    </InverseFunctionalObjectProperty>
+    <InverseFunctionalObjectProperty>
+        <ObjectProperty IRI="#пьет"/>
+    </InverseFunctionalObjectProperty>
+    <InverseFunctionalObjectProperty>
+        <ObjectProperty IRI="#разводит"/>
+    </InverseFunctionalObjectProperty>
+    <InverseFunctionalObjectProperty>
+        <ObjectProperty IRI="#слева_от"/>
+    </InverseFunctionalObjectProperty>
+    <InverseFunctionalObjectProperty>
+        <ObjectProperty IRI="#справа_от"/>
+    </InverseFunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#живет_в"/>
+        <Class IRI="#человек"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#имеет_цвет"/>
+        <Class IRI="#дом"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#курит"/>
+        <Class IRI="#человек"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#пьет"/>
+        <Class IRI="#человек"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#разводит"/>
+        <Class IRI="#человек"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#слева_от"/>
+        <Class IRI="#дом"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#справа_от"/>
+        <Class IRI="#дом"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#живет_в"/>
+        <Class IRI="#дом"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#имеет_цвет"/>
+        <Class IRI="#цвет"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#курит"/>
+        <Class IRI="#сигареты"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#пьет"/>
+        <Class IRI="#напиток"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#разводит"/>
+        <Class IRI="#животное"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#слева_от"/>
+        <Class IRI="#дом"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#справа_от"/>
+        <Class IRI="#дом"/>
+    </ObjectPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Blends</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">10. The человек who курит Blends lives next to the one who keeps кошкаs.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Blue_Master</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">12. The человек who курит синий Master пьет пиво. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Dunhill</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">11. The человек who keeps лошадьs lives next to the человек who курит Dunhill.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Dunhill</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">7. The owner of the желтый дом курит Dunhill. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Pall_Mall</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">6. The person who курит Pall Mall rears птицаs. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#no-1</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">In a street there are five домs</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#no-2</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">In a street there are five домs</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#no-3</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">In a street there are five домs</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#no-4</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">In a street there are five домs</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#no-5</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">In a street there are five домs</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#англичанин</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">1. The англичанин lives in a красный дом. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#датчанин</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">3. The датчанин пьет чай. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#зеленый</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">4. The зеленый дом is next to, and on the left of the белый дом. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#кофе</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">5. The owner of the зеленый дом пьет кофе. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#молоко</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">8. The человек living in the centre дом пьет молоко. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#немец</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">13. The немец курит Prince. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#норвежец</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">14. The норвежец lives next to the синий дом.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#норвежец</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">9. The норвежец lives in the first дом. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#швед</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">2. The швед keeps собакаs as животноеs. </Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.2.3.1824) http://owlapi.sourceforge.net -->
+
