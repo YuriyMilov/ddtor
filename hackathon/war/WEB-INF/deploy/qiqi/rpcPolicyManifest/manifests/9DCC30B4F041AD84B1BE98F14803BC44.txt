@@ -1,0 +1,2 @@
+serviceClass: ch.uzh.ifi.attempto.acewiki.client.GreetingService
+path: 9B39793F99FCACA3BD24BD786009AB42.gwt.rpc

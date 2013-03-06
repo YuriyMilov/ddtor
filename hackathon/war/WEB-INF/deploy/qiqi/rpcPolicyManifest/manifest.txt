@@ -1,0 +1,3 @@
+# Module qiqi
+# RPC service class, partial path of RPC policy file
+ch.uzh.ifi.attempto.acewiki.client.GreetingService, 9B39793F99FCACA3BD24BD786009AB42.gwt.rpc
