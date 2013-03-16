@@ -30,6 +30,49 @@
     <servlet-name>ddp</servlet-name>
     <url-pattern>/ddp</url-pattern>
   </servlet-mapping>
+
+  
+  <servlet>
+    <servlet-name>qqw</servlet-name>
+    <servlet-class>dd.qqw</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qqw</servlet-name>
+    <url-pattern>/qqw</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>qqr</servlet-name>
+    <servlet-class>dd.qqr</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qqr</servlet-name>
+    <url-pattern>/qqr</url-pattern>
+  </servlet-mapping>
+    
+  <servlet>
+    <servlet-name>bre</servlet-name>
+    <servlet-class>dd.bre</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>bre</servlet-name>
+    <url-pattern>/bre</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>bre2</servlet-name>
+    <servlet-class>dd.bre2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>bre2</servlet-name>
+    <url-pattern>/bre2</url-pattern>
+  </servlet-mapping>
+  
   
   <!-- Default page to serve -->
   <welcome-file-list>
