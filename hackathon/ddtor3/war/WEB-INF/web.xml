@@ -73,6 +73,16 @@
     <url-pattern>/bre2</url-pattern>
   </servlet-mapping>
   
+      <servlet>
+    <servlet-name>owl</servlet-name>
+    <servlet-class>dd.owl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>owl</servlet-name>
+    <url-pattern>/owl</url-pattern>
+  </servlet-mapping>
+  
   
   <!-- Default page to serve -->
   <welcome-file-list>
