@@ -13,7 +13,20 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.jsoup.Jsoup;
+import org.jsoup.helper.StringUtil;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.select.NodeTraversor;
+import org.jsoup.select.NodeVisitor;
 import org.mindswap.pellet.jena.PelletReasonerFactory;
+
+
+
+
 import com.clarkparsia.pellet.sparqldl.jena.SparqlDLExecutionFactory;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.query.Query;
@@ -34,23 +47,23 @@ public class owl extends HttpServlet {
 		resp.setContentType("text/xml; charset=utf-8");
 
 		String s = req.getParameter("url");
-		if (s == null)
-			s = "no URL request found";
-		else
-			s = rfu(req.getParameter("url"));
+	       //String url = "https://plus.google.com/u/0/113924356604221727803/posts/QSMjmm4rTjh";
+		String url=s;
+	        // fetch the specified URL and parse to a HTML DOM
+	        Document doc = Jsoup.connect(url).get();
 
+	        HtmlToPlainText formatter = new HtmlToPlainText();
+	       s = formatter.getPlainText(doc);	
+		
+		int i=0;
+		do {
+			i = s.indexOf("(Semantic Web begin)");
+			s = s.substring(i + 1);
+		} while (i > 0);
 
-		int i =s.indexOf("(Semantic Web begin)");
-		if(i>-1)
-			s=s.substring(i);
-		
-		i =s.indexOf("(Semantic Web begin)");
-		if(i>0)
-			s=s.substring(i);
-		
-		i =s.indexOf("(Semantic Web end)");
-		if(i>-1)
-			s=s.substring(20,i);
+		i = s.indexOf("(Semantic Web end)");
+		if (i > -1)
+			s = s.substring(20, i);
 
 		// (Semantic Web end)
 		
@@ -166,4 +179,5 @@ public class owl extends HttpServlet {
 		s = rfu(s);
 		return s;
 	};
+	
 }
