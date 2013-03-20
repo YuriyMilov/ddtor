@@ -63,7 +63,7 @@ public class owl extends HttpServlet {
 
 		i = s.indexOf("(Semantic Web end)");
 		if (i > -1)
-			s = s.substring(20, i);
+			s = s.substring(19, i);
 
 		// (Semantic Web end)
 		
