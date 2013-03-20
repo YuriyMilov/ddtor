@@ -38,12 +38,19 @@ public class owl extends HttpServlet {
 			s = "no URL request found";
 		else
 			s = rfu(req.getParameter("url"));
-		int i = s.indexOf("(Semantic Web begin)") + 20;
-		if (i > -1)
-			s = s.substring(i);
-		i = s.indexOf("(Semantic Web end)");
-		if (i > -1)
-			s = s.substring(0, i);
+
+
+		int i =s.indexOf("(Semantic Web begin)");
+		if(i>-1)
+			s=s.substring(i);
+		
+		i =s.indexOf("(Semantic Web begin)");
+		if(i>0)
+			s=s.substring(i);
+		
+		i =s.indexOf("(Semantic Web end)");
+		if(i>-1)
+			s=s.substring(20,i);
 
 		// (Semantic Web end)
 		
