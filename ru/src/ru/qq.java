@@ -47,7 +47,7 @@ public class qq extends HttpServlet implements EntryPoint {
 		Statik.clear_blobstore();
 		s = Statik.wf("test.owl", s);
 		s = "<a href=contrus.owl>contrus.owl</a>";
-		s="<html><body>OWL2 URI: "+s+"</p></body><html>";
+		s="<html><body>OWL2 URL: "+s+"</p></body><html>";
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}
