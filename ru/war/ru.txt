@@ -1,0 +1,45 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+ 
+        #Button
+        {
+            width: 55px;
+        }
+        #TextArea
+        {
+            height: 99px;
+            width: 333px;
+        }
+
+    </style>
+</head>
+<body bgcolor="#f0f0f0">
+        <p>    &nbsp;&nbsp;&nbsp;&nbsp;<a href=..>Вернуть пример</a>  </p>
+ <form name="input" action="qq" method="post">
+  
+
+        &nbsp;<textarea id="TextArea" name="text" qq1>
+        
+        
+        </textarea></p>
+       <p>
+        Резонёр здесь ищет индивидуя из класса и подкласса.<br/>
+        Например: Кто кусается? - Бобик, Кто смертен? - Сократ<br/>
+        URL этой онтологии на лету <a href=http://contrus.feofan.com/contrus.owl>http://contrus.feofan.com/contrus.owl</a><br/>Её можно загрузить прямиком в Протеже 4 и посмотреь там другими резонёрами</p> 
+        <p>
+&nbsp;Кто&nbsp;<input type="text" name="sq" value="" size="7">&nbsp;?
+&nbsp;&nbsp;<input id="Button" type="submit" value="ответ" />&nbsp;&nbsp;&nbsp;&nbsp;<!--qq-->
+           </p>
+</p>
+</form>  
+            
+            </p>
+        
+            
+
+    </body>
+</html>

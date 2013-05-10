@@ -37,15 +37,7 @@
     <url-pattern>/qq</url-pattern>
   </servlet-mapping> 
  
-  <servlet>
-    <servlet-name>qqr</servlet-name>
-    <servlet-class>ru.qqr</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>qqr</servlet-name>
-    <url-pattern>/contrus.owl</url-pattern>
-  </servlet-mapping>
-  
+ 
   <servlet>
     <servlet-name>qqr3</servlet-name>
     <servlet-class>ru.qqr</servlet-class>
@@ -55,6 +47,19 @@
     <servlet-name>qqr3</servlet-name>
     <url-pattern>/contrus.owl</url-pattern>
   </servlet-mapping>
+  
+  
+    <servlet>
+    <servlet-name>qqr</servlet-name>
+    <servlet-class>ru.qqr</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qqr</servlet-name>
+    <url-pattern>/qqr</url-pattern>
+  </servlet-mapping>
+  
+  
   
   <servlet>
     <servlet-name>greetServlet</servlet-name>
@@ -68,7 +73,7 @@
   
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>Ru.html</welcome-file>
+    <welcome-file>qq</welcome-file>
   </welcome-file-list>
 
   <servlet>

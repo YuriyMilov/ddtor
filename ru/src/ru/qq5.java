@@ -18,30 +18,39 @@ public class qq5 extends HttpServlet  {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		ServletOutputStream out = resp.getOutputStream();
-		resp.setContentType("text/html; charset=UTF8");	
+		resp.setContentType("text/html; charset=UTF8");		
+		
+		String sowl =  "http://ru.feofan.com/qq/test5.owl";		
+		String sq = "смертен";
+		//sowl="http://127.0.0.1:8888/qqr";
+		
+		sowl =  req.getParameter("p1");		
+		sq = req.getParameter("p2");
+		
+		String s=get_q1(sowl,sq);
 
-		String s = get_q1();
-		s=s.substring(s.indexOf("#"));
+	
+		s=s.substring(s.indexOf("#")+1);
 		s=s.substring(0,s.indexOf(">"));
 		
-		s="<html><body>Проба "+s+"</p></body><html>";
+		
+		s="<html><body>"+s+"</p></body><html>";
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}	
 	
-	public String get_q1() {
-		String surl = "http://ru.feofan.com/qq/test5.owl";
+	public String get_q1(String sowl, String  sq) {
+		
 		String s = "" +
 				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-				"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-				+ "PREFIX : <http://test.feofan.com/rufish2.owl#>"
-//				+ "SELECT ?ÐšÑ‚Ð¾  WHERE {?ÐšÑ‚Ð¾ :Ñ€Ð°Ð·Ð²Ð¾Ð´Ð¸Ñ‚ :Ñ€Ñ‹Ð±ÐºÐ¸}";
-		+ "SELECT ?кто  WHERE {?кто a :смертен}";
+				"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
+				"PREFIX : <http://feofan.com/#> \r\n\r\n "
+				+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
+	
 	
 		OntModel model = ModelFactory
 				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
-		//model.read("file:test5.owl");
-		model.read(surl);
+		model.read(sowl);
 		Query q = QueryFactory.create(s);
 		ResultSet r = SparqlDLExecutionFactory.create(q, model).execSelect();
 		s = r.nextBinding().toString();
@@ -49,12 +58,9 @@ public class qq5 extends HttpServlet  {
 	}
 
 
-
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		doPost(req, resp);
-	}
-	public void onModuleLoad() {
 	}
 	private static final long serialVersionUID = 1L;
 }
