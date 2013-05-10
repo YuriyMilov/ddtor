@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee                http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
   <!-- Servlets -->
+  
+  
+     <servlet>
+    <servlet-name>qq5</servlet-name>
+    <servlet-class>ru.qq5</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qq5</servlet-name>
+    <url-pattern>/qq5</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
  
   <servlet>
     <servlet-name>qqw</servlet-name>
     <servlet-class>ru.qqw</servlet-class>
   </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>qqr</servlet-name>
-    <url-pattern>/qqr</url-pattern>
-  </servlet-mapping>
-  
-    
-  <servlet>
-    <servlet-name>qqr</servlet-name>
-    <servlet-class>ru.qqr</servlet-class>
-  </servlet>
-  
   <servlet-mapping>
     <servlet-name>qqw</servlet-name>
     <url-pattern>/qqw</url-pattern>
   </servlet-mapping>
-  
-  
   
   
    <servlet>
@@ -34,15 +35,12 @@
   <servlet-mapping>
     <servlet-name>qq</servlet-name>
     <url-pattern>/qq</url-pattern>
-  </servlet-mapping>
-  
-  
+  </servlet-mapping> 
  
   <servlet>
     <servlet-name>qqr</servlet-name>
     <servlet-class>ru.qqr</servlet-class>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>qqr</servlet-name>
     <url-pattern>/contrus.owl</url-pattern>
