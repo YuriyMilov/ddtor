@@ -17,84 +17,65 @@ import com.google.appengine.api.files.GSFileOptions.GSFileOptionsBuilder;
 import com.google.gwt.core.client.EntryPoint;
 
 public class qq extends HttpServlet implements EntryPoint {
-	private static final long serialVersionUID = 1L;
-	public void onModuleLoad() {
-	}
+
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		ServletOutputStream out = resp.getOutputStream();
+		resp.setContentType("text/html; charset=UTF8");	
+
+		String[] stok=null;
+		String phrase=null;
+		
+		String s8 = "[.]+";
+		String delims = "[ ]+";		
+		String s7 = req.getParameter("text");
+
+		s7=s7.replace("\n", "");
+		s7=s7.replace("\r", "");				
+		s7=s7.replace("Любой", "");
+		s7=s7.replace("Любая", "");
+		s7=s7.replace("Всякий", "");
+		s7=s7.replace("Всякая", "");
+		s7=s7.replace("Каждый", "");
+		s7=s7.replace("Каждая", "");
+		s7=s7.replace("есть", "");
+		s7=s7.replace("-", "");
+		s7=s7.replace("это", "-");
+
+		String[] ss9 = s7.split(s8);
+		String s= Statik.init_owl();
+
+		{
+			for(int i=0;i<ss9.length;i++)
+			{
+
+				phrase=ss9[i].trim();
+				stok = phrase.split(delims);			
+				
+				if (stok.length == 2)
+					s = Statik.add_subclass(s, stok[1], stok[0]);
+				//phrase = req.getParameter("S2");
+				
+				stok = phrase.split(delims);
+				if (stok.length == 3)
+					s = Statik.add_classassertion(s, stok[2], stok[0]);
+			}			
+		}
+		s = Statik.close_owl(s);
+		Statik.clear_blobstore();
+		s = Statik.wf("test.owl", s);
+		s = "<a href=contrus.owl>contrus.owl</a>";
+		s="<html><body>OWL2 URL для загрузки в Протеже "+s+"</p></body><html>";
+		byte[] b = s.getBytes("UTF8");
+		out.write(b);
+	}	
+	
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		doPost(req, resp);
 	}
-
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		ServletOutputStream out = resp.getOutputStream();
-		resp.setContentType("text/html; charset=UTF8");		
-		String phrase = req.getParameter("S1");
-		// String phrase = "the music made   it   hard      to        concentrate";
-		String delims = "[ ]+";
-		String[] stok = phrase.split(delims);
-		String s= init_owl();
-		if (stok.length > 1)
-			s = add_subclass(s, stok[1], stok[0]);
-		// s = add_subclass(s, "смертен", "человек");
-		phrase = req.getParameter("S2");
-		stok = phrase.split(delims);
-		if (stok.length > 2)
-			s = add_classassertion(s, stok[2], stok[0]);
-		// s = add_classassertion(s, "человек", "Сократ");
-		s = close_owl(s);
-		Statik.clear_blobstore();
-		s = Statik.wf("test.owl", s);
-		s = "<a href=contrus.owl>contrus.owl</a>";
-		s="<html><body>OWL2 URL: "+s+"</p></body><html>";
-		byte[] b = s.getBytes("UTF8");
-		out.write(b);
+	public void onModuleLoad() {
 	}
-
-	static String init_owl() {
-		return "<?xml version=\"1.0\" encoding=\"UTF8\"?>\r\n\r\n<Ontology\r\n   xml:base=\"http://www.w3.org/2002/07/owl#\"\r\n   xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n   ontologyIRI=\"http://feofan.com/test\">\r\n";
-	}
-
-	static String close_owl(String s) {
-		return s + "</Ontology>\r\n";
-	}
-
-	static String add_subclass(String sinit, String sclass, String ssubclass) {
-		return sinit + "<SubClassOf>\r\n	<Class IRI=\"http://feofan.com/test#"
-				+ ssubclass + "\"/>\r\n	<Class	IRI=\"http://feofan.com/test#"
-				+ sclass + "\"/>\r\n</SubClassOf>\r\n";
-	}
-
-	static String add_classassertion(String sinit, String sclass, String sind) {
-		return sinit + "<ClassAssertion>   "
-				+ "\r\n	<Class IRI=\"http://feofan.com/test#" + sclass + "\"/>"
-				+ "\r\n	<NamedIndividual IRI=\"http://feofan.com/test#" + sind
-				+ "\"/>\r\n" + "</ClassAssertion>\r\n";
-	}
-
-	public String wfxxx(String sname, String s) {
-		try {
-			FileService fileService = FileServiceFactory.getFileService();
-			AppEngineFile file = fileService.createNewBlobFile("text/plain",
-					sname);
-			boolean lock = false;
-			FileWriteChannel writeChannel = fileService.openWriteChannel(file,
-					lock);
-			PrintWriter out = new PrintWriter(Channels.newWriter(writeChannel,
-					"UTF8"));
-			out.println(s);
-			out.close();
-			String path = file.getFullPath();
-			file = new AppEngineFile(path);
-			lock = true;
-			writeChannel = fileService.openWriteChannel(file, lock);
-			writeChannel.closeFinally();
-			BlobKey blobKey = fileService.getBlobKey(file);
-			s = blobKey.toString();
-		} catch (Exception ee) {
-			s = ee.toString();
-		}
-		return s.substring(10).replace(">", "");
-	}
+	private static final long serialVersionUID = 1L;
 }

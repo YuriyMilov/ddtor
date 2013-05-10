@@ -17,6 +17,28 @@ import com.google.appengine.api.files.FileWriteChannel;
 
 public class Statik {
 
+	
+	public static String init_owl() {
+		return "<?xml version=\"1.0\" encoding=\"UTF8\"?>\r\n\r\n<Ontology\r\n   xml:base=\"http://www.w3.org/2002/07/owl#\"\r\n   xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n   ontologyIRI=\"http://feofan.com/test\">\r\n";
+	}
+
+	public static String close_owl(String s) {
+		return s + "</Ontology>\r\n";
+	}
+
+	public static String add_subclass(String sinit, String sclass, String ssubclass) {
+		return sinit + "<SubClassOf>\r\n	<Class IRI=\"http://feofan.com/test#"
+				+ ssubclass + "\"/>\r\n	<Class	IRI=\"http://feofan.com/test#"
+				+ sclass + "\"/>\r\n</SubClassOf>\r\n";
+	}
+
+	public static String add_classassertion(String sinit, String sclass, String sind) {
+		return sinit + "<ClassAssertion>   "
+				+ "\r\n	<Class IRI=\"http://feofan.com/test#" + sclass + "\"/>"
+				+ "\r\n	<NamedIndividual IRI=\"http://feofan.com/test#" + sind
+				+ "\"/>\r\n" + "</ClassAssertion>\r\n";
+	}
+	
 	public static String wf(String sname, String s) throws IOException {
 			FileService fileService = FileServiceFactory.getFileService();
 			AppEngineFile file = fileService.createNewBlobFile("text/plain",sname);
