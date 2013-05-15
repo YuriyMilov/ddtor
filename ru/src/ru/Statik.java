@@ -22,7 +22,8 @@ import com.google.appengine.api.files.FileWriteChannel;
 
 public class Statik {
 
-
+	public static String s="";
+	
 	public static String init_owl() {
 		return "<?xml version=\"1.0\" encoding=\"UTF8\"?>\r\n\r\n<Ontology\r\n   xml:base=\"http://www.w3.org/2002/07/owl#\"\r\n   xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n   ontologyIRI=\"http://feofan.com/test\">\r\n";
 	}

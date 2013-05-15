@@ -135,7 +135,7 @@ public class BlobstoreFS
 	public static String readToEnd(BlobKey key) throws IOException
 	{
 		StringBuilder sb;
-
+		String s="";
 		sb = new StringBuilder();
 		Reader r = openAsReader(key);
 
@@ -150,7 +150,15 @@ public class BlobstoreFS
 				sb.append(data, 0, read);
 				read = r.read(data, 0, data.length);
 			}
-		} finally
+		} 
+		
+		catch(Exception e){
+			
+			s=e.toString();
+			
+		}
+		
+		finally
 		{
 			r.close();
 		}

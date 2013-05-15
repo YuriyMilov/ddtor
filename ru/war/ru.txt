@@ -18,28 +18,26 @@
     </style>
 </head>
 <body bgcolor="#f0f0f0">
-        <p>    &nbsp;&nbsp;&nbsp;&nbsp;<a href=..>Вернуть пример</a>  </p>
- <form name="input" action="qq" method="post">
+<p>    &nbsp;&nbsp;&nbsp;&nbsp;<a href=..>Вернуть пример</a>  
+        &nbsp;&nbsp;&nbsp;&nbsp;<a href=../qq6>Множественное лицо</a>   &nbsp;&nbsp;&nbsp;&nbsp;     <a href=http://contrus.feofan.com/contrus.owl>URL</a><br/>
+  </p>
+  <form name="input" action="qq" method="post">
   
 
         &nbsp;<textarea id="TextArea" name="text" qq1>
         
         
         </textarea></p>
-       <p>
-        Резонёр здесь ищет индивидуя из класса и подкласса.<br/>
-        Например: Кто кусается? - Бобик, Кто смертен? - Сократ<br/>
-        URL этой онтологии на лету <a href=http://contrus.feofan.com/contrus.owl>http://contrus.feofan.com/contrus.owl</a><br/>Её можно загрузить прямиком в Протеже 4 и посмотреь там другими резонёрами</p> 
-        <p>
-&nbsp;Кто&nbsp;<input type="text" name="sq" value="" size="7">&nbsp;?
-&nbsp;&nbsp;<input id="Button" type="submit" value="ответ" />&nbsp;&nbsp;&nbsp;&nbsp;<!--qq-->
-           </p>
+<p>       
+&nbsp;&nbsp;&nbsp;Пример:<br/><br/>
+&nbsp;- Всякий кот мяукает. Мурзик - кот. (кляк)<br/>
+&nbsp;- Кто Мурзик? (кляк)<br/>
+&nbsp;- Кто мяукает? (кляк)<br/><br/>
+
+&nbsp;- <input type="text" name="sq" value="" size="37">&nbsp;<input id="Button" type="submit" value=" кляк " />
+&nbsp;&nbsp;&nbsp;
+<br/><br/>&nbsp;&nbsp; <!--qq-->
 </p>
 </form>  
-            
-            </p>
-        
-            
-
-    </body>
+</body>
 </html>

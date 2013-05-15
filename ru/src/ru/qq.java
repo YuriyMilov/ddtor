@@ -32,95 +32,129 @@ public class qq extends HttpServlet implements EntryPoint {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		ServletOutputStream out = resp.getOutputStream();
-		resp.setContentType("text/html; charset=UTF8");	
+		resp.setContentType("text/html; charset=UTF8");
+		String s ="";
+		String sqq = "";
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		String st = req.getParameter("text").trim();
+		String sq = req.getParameter("sq").trim();
+		st = st.replace("\r", "").replace("\n", "");
 
-		String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-		String st = req.getParameter("text");
-		String sq=req.getParameter("sq");
+		int k = sq.length()-1;
+		if (sq.indexOf("?") != k)
+			
+		{
+			if (sq.lastIndexOf(".") != k)
+				st=st+sq+".";
+			else
+				st=st+sq;
+			
 
+			s = Statik.rfu_utf(sh + "/ru.txt");
 
-		String s5=sq;
-	
-		s5=s5.replace("Кто", "");
-		s5=s5.replace("?", "").trim();
+			s = s.replace("qq1>", "qq1>" + st);
+			s = s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\"" + sq
+					+ "\"");
+			s = s.replace("<!--qq-->", "добавил утверждение");
 
-		String[] stok=null;
-		String phrase=null;
+			byte[] b = s.getBytes("UTF8");
+			out.write(b);
+			
+		}
 		
-		String s8 = "[.]+";
-		String delims = "[ ]+";		
+		else
+		{
+		String s5 = sq;
 
-		String s7=st;
-		s7=s7.replace("\n", "");
-		s7=s7.replace("\r", "");				
-		s7=s7.replace("Любой", "");
-		s7=s7.replace("Любая", "");
-		s7=s7.replace("Всякий", "");
-		s7=s7.replace("Всякая", "");
-		s7=s7.replace("Каждый", "");
-		s7=s7.replace("Каждая", "");
-		s7=s7.replace("есть", "");
-		//s7=s7.replace("-", "");
-		s7=s7.replace("это", "-");
+		s5 = s5.replace("Кто", "");
+		s5 = s5.replace("?", "").trim();
+
+		String[] stok = null;
+		String phrase = null;
+
+		String s8 = "[.]+";
+		String delims = "[ ]+";
+
+		String s7 = st;
+
+		s7 = s7.replace("Любой", "");
+		s7 = s7.replace("Любая", "");
+		s7 = s7.replace("Любое", "");
+		s7 = s7.replace("Всякий", "");
+		s7 = s7.replace("Всякая", "");
+		s7 = s7.replace("Всякое", "");
+		s7 = s7.replace("Каждый", "");
+		s7 = s7.replace("Каждая", "");
+		s7 = s7.replace("Каждое", "");
+		s7 = s7.replace("есть", "");
+		// s7=s7.replace("-", "");
+		s7 = s7.replace("это", "-");
 
 		String[] ss9 = s7.split(s8);
-		String s= open_rdf();
+		s = open_rdf();
 
 		{
-			for(int i=0;i<ss9.length;i++)
-			{
-				phrase=ss9[i].trim();
-				stok = phrase.split(delims);			
-				
+			for (int i = 0; i < ss9.length; i++) {
+				phrase = ss9[i].trim();
+				stok = phrase.split(delims);
+
 				if (stok.length == 2)
-					//s = Statik.add_subclass(s, stok[1], stok[0]);
+				// s = Statik.add_subclass(s, stok[1], stok[0]);
 				{
 					s = add_class_rdf(s, stok[1]);
 					s = add_subclass_rdf(s, stok[0], stok[1]);
-				}		
+				}
 				stok = phrase.split(delims);
 				if (stok.length == 3)
-					//s = Statik.add_classassertion(s, stok[2], stok[0]);
-					
+					// s = Statik.add_classassertion(s, stok[2], stok[0]);
+
 					s = add_inividual_rdf(s, stok[0], stok[2]);
-			}			
+			}
 		}
-		//s = Statik.close_owl(s);
+		// s = Statik.close_owl(s);
 		s = close_rdf(s);
 		clear_blobstore();
+
+		Statik.s = s;
+
 		s = wf("test.owl", s);
-		String surl=sh+"/qq5";
-		String sowl = sh+"/qqr";
-		String body ="p1="+ URLEncoder.encode(sowl, "UTF-8") + "&p2=" + URLEncoder.encode(s5, "UTF-8"); 
-		String sotvet =Statik.get_post(surl,body);
-		
-		
-		s=Statik.rfu_utf(sh+"/ru.txt");		
-		s=s.replace("qq1>", "qq1>"+st);		
-		s=s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\""+sq+"\"");
-		s= s.replace("<!--qq-->", sotvet);
-		
+
+		String surl = sh + "/qq5";
+		String sowl = sh + "/qqr";
+		String body = "p1=" + URLEncoder.encode(sowl, "UTF-8") + "&p2="
+				+ URLEncoder.encode(s5, "UTF-8");
+		String sotvet = Statik.get_post(surl, body);
+
+		s = Statik.rfu_utf(sh + "/ru.txt");
+
+		s = s.replace("qq1>", "qq1>" + st);
+		s = s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\"" + sq
+				+ "\"");
+		s = s.replace("<!--qq-->", sotvet);
+
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
-	}	
-	
+		}
+	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		ServletOutputStream out = resp.getOutputStream();
-		resp.setContentType("text/html; charset=UTF8");	
-		String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-		String s=Statik.rfu_utf(sh+"/ru.txt");
-		String s1=Statik.rfu_utf(sh+"/text.txt");
-		s=s.replace("qq1>", "qq1>"+s1);
-		s1=Statik.rfu_utf(sh+"/vopros.txt");
-		s=s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\""+s1+"\"");
+		resp.setContentType("text/html; charset=UTF8");
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		String s = Statik.rfu_utf(sh + "/ru.txt");
+		String s1 = Statik.rfu_utf(sh + "/text.txt");
+		s = s.replace("qq1>", "qq1>" + s1);
+		s1 = Statik.rfu_utf(sh + "/vopros.txt");
+		s = s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\"" + s1
+				+ "\"");
 
-		
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}
-	
+
 	void clear_blobstore() throws IOException {
 		BlobInfoFactory blf = new BlobInfoFactory();
 		Iterator<BlobInfo> info = blf.queryBlobInfos();
@@ -131,6 +165,7 @@ public class qq extends HttpServlet implements EntryPoint {
 			BlobstoreFS.delete(bi.getBlobKey());
 		}
 	}
+
 	String wf(String sname, String s) throws IOException {
 		FileService fileService = FileServiceFactory.getFileService();
 		AppEngineFile file = fileService.createNewBlobFile("text/plain", sname);
@@ -173,23 +208,29 @@ public class qq extends HttpServlet implements EntryPoint {
 				+ "\r\n" + "xmlns:qq=\"http://feofan.com/#\">" + "\r\n"
 				+ "<Ontology rdf:about=\"http://feofan.com/\"/>" + "\r\n";
 	}
-	
+
 	String close_rdf(String s) {
 		return s + "</rdf:RDF>\r\n";
 	}
 
-	String add_class_rdf(String s,String sclass) {
-		return s + "<Class rdf:about=\"&qq;"+sclass+"\"/>\r\n";
+	String add_class_rdf(String s, String sclass) {
+		return s + "<Class rdf:about=\"&qq;" + sclass + "\"/>\r\n";
 	}
 
-	String add_subclass_rdf(String s,String ssubclass, String sclass) {
-		return s + "<Class rdf:about=\"&qq;"+ssubclass+"\"><rdfs:subClassOf rdf:resource=\"&qq;"+sclass+"\"/></Class> \r\n";
+	String add_subclass_rdf(String s, String ssubclass, String sclass) {
+		return s + "<Class rdf:about=\"&qq;" + ssubclass
+				+ "\"><rdfs:subClassOf rdf:resource=\"&qq;" + sclass
+				+ "\"/></Class> \r\n";
 	}
-	
+
 	String add_inividual_rdf(String s, String sind, String sclass) {
-		return s + "<NamedIndividual rdf:about=\"&qq;"+sind+"\"> <rdf:type rdf:resource=\"&qq;"+sclass+"\"/> </NamedIndividual>\r\n";
+		return s + "<NamedIndividual rdf:about=\"&qq;" + sind
+				+ "\"> <rdf:type rdf:resource=\"&qq;" + sclass
+				+ "\"/> </NamedIndividual>\r\n";
 	}
+
 	public void onModuleLoad() {
 	}
+
 	private static final long serialVersionUID = 1L;
 }

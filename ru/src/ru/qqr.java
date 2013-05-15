@@ -20,7 +20,12 @@ public class qqr extends HttpServlet {
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/xml; charset=UTF8");
 		resp.setCharacterEncoding("UTF8");
-		String s=rf3("test.owl");
+		//String s=rf3("test.owl");
+		
+		String s = Statik.s;
+		if(s.length()==0)
+			s=rf3("test.owl");
+		
 		byte[] b=s.getBytes("UTF8");
 		out.write(b);	
 		out.flush();
