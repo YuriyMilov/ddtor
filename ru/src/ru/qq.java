@@ -33,108 +33,197 @@ public class qq extends HttpServlet implements EntryPoint {
 			throws IOException {
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
-		String s ="";
+		String s = "";
+		String s7 = "";
 		String sqq = "";
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
 		String st = req.getParameter("text").trim();
 		String sq = req.getParameter("sq").trim();
 		st = st.replace("\r", "").replace("\n", "");
+		String sq2 = sq;
 
-		int k = sq.length()-1;
+		int k = sq.length() - 1;
 		if (sq.indexOf("?") != k)
-			
+
 		{
-			if (sq.lastIndexOf(".") != k)
-				st=st+sq+".";
-			else
-				st=st+sq;
-			
+			if (sq.lastIndexOf(".") != k) {
+				sq2 = sq + ".";
+				st = st + sq + ".";
+			} else
+				st = st + sq;
 
 			s = Statik.rfu_utf(sh + "/ru.txt");
 
 			s = s.replace("qq1>", "qq1>" + st);
 			s = s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\"" + sq
 					+ "\"");
-			s = s.replace("<!--qq-->", "добавил утверждение");
+			s7 = sq2;
+			s7 = s7.replace("Любой", "");
+			s7 = s7.replace("Любая", "");
+			s7 = s7.replace("Любое", "");
+			s7 = s7.replace("Всякий", "");
+			s7 = s7.replace("Всякая", "");
+			s7 = s7.replace("Всякое", "");
+			s7 = s7.replace("Каждый", "");
+			s7 = s7.replace("Каждая", "");
+			s7 = s7.replace("Каждое", "");
+			sq2 = s7.trim();
+
+			String[] ss2 = sq2.split("[.]+");
+			String[] ss3;
+			String sq3 = "";
+			String sq4 = "";
+
+			int iq = ss2.length;
+			int iq3 = 0;
+
+			for (int i = 0; i < iq; i++) {
+				sq3 = ss2[i].trim();
+				ss3 = sq3.split("[ ]+");
+				iq3 = ss3.length;
+				if (iq3 < 3)
+					sq3 = "Всё, что называется '" + ss3[0] + "', то " + ss3[1]
+							+ ".";
+				else {
+					if (!ss3[1].equals("-") && !ss3[1].equals("-"))
+
+					{
+
+						s = Statik.rfu_utf(sh + "/ru.txt");
+
+						s = s.replace("qq1>", "qq1>" + st);
+						s = s.replace("name=\"sq\" value=\"\"",
+								"name=\"sq\" value=\"" + sq + "\"");
+						s = s.replace(
+								"<!--qq-->",
+								"В данной версии Кряка утверждения общего рода состоят из двух слов, например, \"Человек смертен. Тигр хищник.\", или из трех слов, первым из которых должны быть слова: Любой(-ая,-ое), Каждый(-ая,-ое), Всякий(-ая,-ое), например, \"Всякий человек смертен. Любой тигр хищник.\"");
+
+						byte[] b = s.getBytes("UTF8");
+						out.write(b);
+						return;
+					}
+
+					else
+
+						sq3 = ss3[0] + " это " + ss3[2] + ".";
+				}
+
+				sq4 = sq4 + "<br/>" + sq3;
+			}
+
+			s = s.replace("<!--qq-->", "Понял так: <br/>" + sq4);
 
 			byte[] b = s.getBytes("UTF8");
 			out.write(b);
-			
+			return;
 		}
-		
-		else
-		{
-		String s5 = sq;
 
-		s5 = s5.replace("Кто", "");
-		s5 = s5.replace("?", "").trim();
+		else {
+			String s5 = sq;
 
-		String[] stok = null;
-		String phrase = null;
+			if (s5.indexOf("Кто ") == 0 || s5.indexOf("кто ") == 0|| s5.indexOf("Что ") == 0|| s5.indexOf("что ") == 0) {
 
-		String s8 = "[.]+";
-		String delims = "[ ]+";
+				s5 = s5.replace("Кто ", "").replace("кто ", "").replace("Что ", "").replace("что ", "")
+						.replace("?", "").trim();
 
-		String s7 = st;
+				if (s5.indexOf(" ") == -1) {
+					String[] stok = null;
+					String phrase = null;
+					String s8 = "[.]+";
+					String delims = "[ ]+";
+					s7 = st;
+					s7 = s7.replace("Любой", "");
+					s7 = s7.replace("Любая", "");
+					s7 = s7.replace("Любое", "");
+					s7 = s7.replace("Всякий", "");
+					s7 = s7.replace("Всякая", "");
+					s7 = s7.replace("Всякое", "");
+					s7 = s7.replace("Каждый", "");
+					s7 = s7.replace("Каждая", "");
+					s7 = s7.replace("Каждое", "");
+					s7 = s7.replace("есть", "");
+					s7 = s7.replace("это", "-");
+					String[] ss9 = s7.split(s8);
+					s = open_rdf();
+					{
+						for (int i = 0; i < ss9.length; i++) {
+							phrase = ss9[i].trim();
+							stok = phrase.split(delims);
 
-		s7 = s7.replace("Любой", "");
-		s7 = s7.replace("Любая", "");
-		s7 = s7.replace("Любое", "");
-		s7 = s7.replace("Всякий", "");
-		s7 = s7.replace("Всякая", "");
-		s7 = s7.replace("Всякое", "");
-		s7 = s7.replace("Каждый", "");
-		s7 = s7.replace("Каждая", "");
-		s7 = s7.replace("Каждое", "");
-		s7 = s7.replace("есть", "");
-		// s7=s7.replace("-", "");
-		s7 = s7.replace("это", "-");
+							if (stok.length == 2)
+							// s = Statik.add_subclass(s, stok[1], stok[0]);
+							{
+								s = add_class_rdf(s, stok[1]);
+								s = add_subclass_rdf(s, stok[0], stok[1]);
+							}
+							stok = phrase.split(delims);
+							if (stok.length == 3)
+								// s = Statik.add_classassertion(s, stok[2],
+								// stok[0]);
 
-		String[] ss9 = s7.split(s8);
-		s = open_rdf();
+								s = add_inividual_rdf(s, stok[0], stok[2]);
+						}
+					}
+					// s = Statik.close_owl(s);
+					s = close_rdf(s);
+					clear_blobstore();
 
-		{
-			for (int i = 0; i < ss9.length; i++) {
-				phrase = ss9[i].trim();
-				stok = phrase.split(delims);
+					Statik.s = s;
 
-				if (stok.length == 2)
-				// s = Statik.add_subclass(s, stok[1], stok[0]);
-				{
-					s = add_class_rdf(s, stok[1]);
-					s = add_subclass_rdf(s, stok[0], stok[1]);
+					s = wf("test.owl", s);
+
+					String surl = sh + "/qq5";
+					String sowl = sh + "/qqr";
+					String body = "p1=" + URLEncoder.encode(sowl, "UTF-8")
+							+ "&p2=" + URLEncoder.encode(s5, "UTF-8");
+					String sotvet = Statik.get_post(surl, body);
+
+					s = Statik.rfu_utf(sh + "/ru.txt");
+
+					s = s.replace("qq1>", "qq1>" + st);
+					s = s.replace("name=\"sq\" value=\"\"",
+							"name=\"sq\" value=\"" + sq + "\"");
+					s = s.replace("<!--qq-->", sotvet);
+
+					byte[] b = s.getBytes("UTF8");
+					out.write(b);
+					return;
 				}
-				stok = phrase.split(delims);
-				if (stok.length == 3)
-					// s = Statik.add_classassertion(s, stok[2], stok[0]);
+				if (s5.indexOf(" ") > -1) {
 
-					s = add_inividual_rdf(s, stok[0], stok[2]);
+					s = Statik.rfu_utf(sh + "/ru.txt");
+
+					s = s.replace("qq1>", "qq1>" + st);
+					s = s.replace("name=\"sq\" value=\"\"",
+							"name=\"sq\" value=\"" + sq + "\"");
+					s = s.replace(
+							"<!--qq-->",
+							"В данной версии Кряка вопрос должен начинается словом 'Кто', потом идёт всего ОДНО слово по существу и знак вопроса");
+
+					byte[] b = s.getBytes("UTF8");
+					out.write(b);
+
+					return;
+
+				}
 			}
-		}
-		// s = Statik.close_owl(s);
-		s = close_rdf(s);
-		clear_blobstore();
+			if (s5.indexOf("Кто ") != 0 && s5.indexOf("кто ") != 0) {
 
-		Statik.s = s;
+				s = Statik.rfu_utf(sh + "/ru.txt");
 
-		s = wf("test.owl", s);
+				s = s.replace("qq1>", "qq1>" + st);
+				s = s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\""
+						+ sq + "\"");
+				s = s.replace(
+						"<!--qq-->",
+						"В данной версии Кряка вопрос должен начинается словами 'Кто','кто','Что','что', потом идёт одно слово по существу и знак вопроса");
 
-		String surl = sh + "/qq5";
-		String sowl = sh + "/qqr";
-		String body = "p1=" + URLEncoder.encode(sowl, "UTF-8") + "&p2="
-				+ URLEncoder.encode(s5, "UTF-8");
-		String sotvet = Statik.get_post(surl, body);
+				byte[] b = s.getBytes("UTF8");
+				out.write(b);
+				return;
+			}
 
-		s = Statik.rfu_utf(sh + "/ru.txt");
-
-		s = s.replace("qq1>", "qq1>" + st);
-		s = s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\"" + sq
-				+ "\"");
-		s = s.replace("<!--qq-->", sotvet);
-
-		byte[] b = s.getBytes("UTF8");
-		out.write(b);
 		}
 	}
 
