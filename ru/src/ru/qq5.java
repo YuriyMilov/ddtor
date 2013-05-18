@@ -27,7 +27,9 @@ public class qq5 extends HttpServlet  {
 		String sq = "смертен";
 		//sowl="http://127.0.0.1:8888/qqr";
 		
-		sowl =  req.getParameter("p1");		
+		sowl =  req.getParameter("p1");	
+
+		
 		sq = req.getParameter("p2").trim();
 		
 		String s="";
@@ -37,19 +39,42 @@ public class qq5 extends HttpServlet  {
 		else
 		{
 		s=get_q1(sowl,sq,req);
-		s=s+" "+get_q2(sowl,sq,req);
+		
+		if(s.trim().length()==0)
+			s=get_q2(sowl,sq,req);
+		
+		if(s.trim().length()==0)
+		{
+			s=get_q5(sowl,sq,req);
+			s=s.replace(sq, "");
 		}
 		
-		//String 
+		if(s.trim().length()==0)
+		{
+			s= get_q4(sowl,sq,req);
+			s=s.replace(sq, "");
+		}
+		
+		}
+		s=s.trim();
+		
+		if(s.lastIndexOf(" ")==s.indexOf(" ") && s.indexOf(" ")>0)
+			s=s.replace(" ", " и ");
+		else
+			s=s.replace(" ", ", ");
 		
 		
 		if(s.trim().length()==0)
-			s="Не знаю про это. Список того, про что знаю, дам на вопрос \"Кто есть?\" (\"что есть?\")";
+			s="Не знаю про это. Про что знаю, отвечу на вопросы: Кто тут? или Что есть?";
 		//s=s.substring(s.indexOf("#")+1);
 		//s=s.substring(0,s.indexOf(">"));
 		
 		
 		//s="<html><body>"+s+"</p></body><html>";
+		
+		
+		
+		
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}	
@@ -59,7 +84,7 @@ public class qq5 extends HttpServlet  {
 		String s = "" +
 				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
 				"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-				"PREFIX : <http://feofan.com/#> \r\n\r\n "
+				"PREFIX : <http://feofan.com/contrus#> \r\n\r\n "
 				//+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
 				+"SELECT ?кто  WHERE {:"+sq+" rdf:type ?кто}";
 		
@@ -71,9 +96,13 @@ public class qq5 extends HttpServlet  {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
 		sh=sh+"/qq_s";
 		
-		//if(Statik.s.length()>0)		
-		//	model.read(sh);
-		//else
+		//sh="http://127.0.0.1/test2.owl";
+		
+		String s3=Statik.s;
+		
+		if(s3.length()>0)		
+			model.read(sh);
+		else
 			model.read(sowl);
 		
 		Query q = QueryFactory.create(s);
@@ -95,8 +124,9 @@ public class qq5 extends HttpServlet  {
 					s2=s2+" "+s;
 					
 				}
-		
-		return s2.trim().replace(" ", " и ");
+				s2=s2.replace("NamedIndividual", "").replace("Class", "").trim().replace("  ", " ");		
+
+		return s2;
 	}
 	
 	public String get_q2(String sowl, String  sq, HttpServletRequest req) {
@@ -104,7 +134,7 @@ public class qq5 extends HttpServlet  {
 		String s = "" +
 				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
 				"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-				"PREFIX : <http://feofan.com/#> \r\n\r\n "
+				"PREFIX : <http://feofan.com/contrus#> \r\n\r\n "
 				+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
 				//+"SELECT ?кто  WHERE {:"+sq+" rdf:type ?кто}";
 		
@@ -116,9 +146,9 @@ public class qq5 extends HttpServlet  {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
 		sh=sh+"/qq_s";
 		
-		//if(Statik.s.length()>0)		
-		//	model.read(sh);
-		//else
+		if(Statik.s.length()>0)		
+			model.read(sh);
+		else
 			model.read(sowl);
 		
 		Query q = QueryFactory.create(s);
@@ -141,19 +171,115 @@ public class qq5 extends HttpServlet  {
 					
 				}
 		
-		s2=s2.trim().replace(" ", ", ");	
+		s2=s2.replace("NamedIndividual", "").replace("Class", "").trim().replace("  ", " ");	
 
 		
 		return s2;
 	}
 
 	
+public String get_q4(String sowl, String  sq, HttpServletRequest req) {
+		
+		String s = "" +
+				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+				"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
+				"PREFIX : <http://feofan.com/contrus#> \r\n\r\n "
+				//+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
+				+"SELECT ?кто  WHERE {:"+sq+" rdfs:subClassOf ?кто}";
+		
+
+	
+		OntModel model = ModelFactory
+				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+
+		String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+		sh=sh+"/qq_s";
+		
+		if(Statik.s.length()>0)		
+			model.read(sh);
+		else
+			model.read(sowl);
+		
+		Query q = QueryFactory.create(s);
+		ResultSet r = SparqlDLExecutionFactory.create(q, model).execSelect();
+		s="";
+		while(r.hasNext())
+		s=s+r.next().toString();
+		
+		String s2="";
+				String[] ss = s.split("#");
+				
+				int i = ss.length;
+				int k = 1;
+				while(k <i)
+				{
+					s=ss[k++];
+					int m = s.indexOf(">");
+					s=s.substring(0,m);
+					s2=s2+" "+s;
+					
+				}
+		
+		s2=s2.replace("NamedIndividual", "").replace("Class", "").trim().replace("  ", " ");	
+
+		
+		return s2;
+	}
+
+public String get_q5(String sowl, String  sq, HttpServletRequest req) {
+	
+	String s = "" +
+			"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+			"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
+			"PREFIX : <http://feofan.com/contrus#> \r\n\r\n "
+			//+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
+			+"SELECT ?кто  WHERE {?кто rdfs:subClassOf :"+sq+"}";
+	
+
+
+	OntModel model = ModelFactory
+			.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+
+	String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+	sh=sh+"/qq_s";
+	
+	if(Statik.s.length()>0)		
+		model.read(sh);
+	else
+		model.read(sowl);
+	
+	Query q = QueryFactory.create(s);
+	ResultSet r = SparqlDLExecutionFactory.create(q, model).execSelect();
+	s="";
+	while(r.hasNext())
+	s=s+r.next().toString();
+	
+	String s2="";
+			String[] ss = s.split("#");
+			
+			int i = ss.length;
+			int k = 1;
+			while(k <i)
+			{
+				s=ss[k++];
+				int m = s.indexOf(">");
+				s=s.substring(0,m);
+				s2=s2+" "+s;
+				
+			}
+	
+	s2=s2.replace("NamedIndividual", "").replace("Class", "").trim().replace("  ", " ");	
+
+	
+	return s2;
+}
+	
 public String get_q3(String sowl, String  sq, HttpServletRequest req) {
 		
 		String s = "" +
 				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
 				"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-				"PREFIX : <http://feofan.com/#> \r\n\r\n "
+				"PREFIX : <http://feofan.com/contrus#> \r\n\r\n "
 				//+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
 				//+"SELECT ?кто  WHERE {:"+sq+" rdf:type ?кто}";
 				
@@ -167,9 +293,9 @@ public String get_q3(String sowl, String  sq, HttpServletRequest req) {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
 		sh=sh+"/qq_s";
 		
-		//if(Statik.s.length()>0)		
-		//	model.read(sh);
-		//else
+		if(Statik.s.length()>0)		
+			model.read(sh);
+		else
 			model.read(sowl);
 		
 		Query q = QueryFactory.create(s);
@@ -194,10 +320,10 @@ public String get_q3(String sowl, String  sq, HttpServletRequest req) {
 					
 				}
 		
-				s2=s2.trim().replace(" ", ", ");
+				s2=s2.replace("NamedIndividual", "").replace("Class", "").trim().replace("  ", " ");	
 				
 				if (s2.length()==0)
-					s2="никого тут нет";
+					s2="никого и ничего тут пока еще нет";
 				
 				return s2;
 	}

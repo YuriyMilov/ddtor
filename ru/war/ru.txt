@@ -30,11 +30,10 @@
         </textarea></p>
 <p>       
 &nbsp;&nbsp;&nbsp;Пример:<br/><br/>
-&nbsp;- Кто есть? (кляк)<br/>
-&nbsp;- Всякий кот мяукает. Мурзик - кот. (кляк)<br/>
-&nbsp;- Кто Мурзик? (кляк)<br/>
-&nbsp;- Кто мяукает? (кляк)<br/>
-&nbsp;- что есть? (кляк)<br/><br/>
+&nbsp;- кто тут? (кляк)<br/>
+&nbsp;- любой кот мяукает. Мурзик - кот. (кляк)<br/>
+&nbsp;- кто Мурзик? (кляк)<br/>
+&nbsp;- кто мяукает? (кляк)<br/><br/>
 
 &nbsp;- <input type="text" name="sq" value="" size="37">&nbsp;<input id="Button" type="submit" value=" кляк " />
 &nbsp;&nbsp;&nbsp;

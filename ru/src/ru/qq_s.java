@@ -20,10 +20,10 @@ public class qq_s extends HttpServlet  {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		ServletOutputStream out = resp.getOutputStream();
-		resp.setContentType("text/html; charset=UTF8");	
+		resp.setContentType("text/xml; charset=UTF8");
+		resp.setCharacterEncoding("UTF8");
 
-		String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-		//String s=sh+"/ru6.txt";
+		//String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
 		String s=Statik.s;
 		
 		
@@ -35,6 +35,9 @@ public class qq_s extends HttpServlet  {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
+		doPost(req,resp);
+		
+		/*
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");	
 
@@ -44,7 +47,7 @@ public class qq_s extends HttpServlet  {
 	
 		
 		byte[] b = s.getBytes("UTF8");
-		out.write(b);
+		out.write(b);*/
 	}
 	private static final long serialVersionUID = 1L;
 }
