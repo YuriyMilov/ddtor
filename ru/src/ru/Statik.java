@@ -136,53 +136,5 @@ public class Statik {
 
 	
 
-		public static String get_post(String surl,String body) {
-			String s="";
-			
 	
-			try {
-			      
-			     
-				URL url = new URL(surl);
-		        URLConnection  urlConnection = url.openConnection();
-		        DataOutputStream outStream;
-		 
-		        // Build request body		       
-		        // Create connection	       
-		       
-		        ((HttpURLConnection)urlConnection).setRequestMethod("POST");
-		        urlConnection.setConnectTimeout(0);
-		        urlConnection.setReadTimeout(0);
-		        urlConnection.setDoInput(true);
-		        urlConnection.setDoOutput(true);
-		        urlConnection.setUseCaches(false);
-		        urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		        urlConnection.setRequestProperty("Content-Length", "" + body.length());
-		 
-		        // Create I/O streams
-		        outStream = new DataOutputStream(urlConnection.getOutputStream());
-		 
-		        // Send request
-		        outStream.writeBytes(body);
-		        outStream.flush();
-		        outStream.close();
-		 
-		        // Get Response
-				 
-	            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "utf8"));
-	            s="";
-	            String thisLine="";
-	            while ((thisLine = br.readLine()) != null) { 
-	                s=s+thisLine+"\r\n";
-	              } 
-	            br.close();
-   
-	            
-		    }
-		    catch(Exception ex) {
-		        s= ex.toString();
-		    }
-		       return s;
-		}
-
 }

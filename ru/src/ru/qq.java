@@ -34,25 +34,27 @@ public class qq extends HttpServlet implements EntryPoint {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		//sta.re(req, resp);
-	
+	slog="Феофан > Привет :)";
+	slog1="";
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
 		String st = "Всякий человек смертен. Сократ - человек.";
-		String sq="Кто тут есть?";		
-		slog="Привет :)<br/><br/> Я - Феофан, " +
-				"чатбот на контролируем русскоя языке (Кряк).\r\n<br>" +
+		String sq="Кто смертен?";		
+		slog1="Я - Феофан, " +
+				"чатбот на контролируем русскоя языке (Кряк). " +
 				"Например, вы можете мне сказать: " +
 				"\"Любой кот мяукает. Васька - кот.\", " +
 				"а потом спросить: \"Кто Васька?\" и " +
 				"я сделаю логический вывод, что Васька мяукает. " +
 				"Это ведь понятно, почему так? - " +
 				"Потому что вы мне рассказали, что Васька это кот, и что все коты мяукают. " +
-				"Сейчас я знаю только то, что \"Каждый человек смертен. Сократ это человек.\"\r\n<br>" +
-				"Научите меня еще чему нибудь, пожалуйста.\r\n<br>";
+				"Сейчас я знаю только то, что \"Каждый человек смертен. Сократ это человек.\" " +
+				"Научите меня еще чему нибудь, пожалуйста. \r\n\r\n";
 		
 		//"В данной версии Кряка утверждения общего рода состоят из двух слов, например, \"Человек смертен. Тигр хищник.\", или из трех слов, первым из которых должны быть слова: Любой(-ая,-ое), Каждый(-ая,-ое), Всякий(-ая,-ое), например, \"Всякий человек смертен. Любой тигр хищник.\"";
 		
-		sta.page(req, resp, st, sq,  slog);
+		sta.page(req, resp, st, sq,  slog, slog1);		
+		slog1 = slog1+slog;	
 
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -60,11 +62,26 @@ public class qq extends HttpServlet implements EntryPoint {
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
 		
-		slog1=slog;
+		//slog1=slog;
+	
+		//String[] ss5 = slog.split("[\r\n]+");
 		
-		if(slog.length()>399)
-			slog="посмотреть весь диалог <a href=.>здесь</a><br/><br/>" +
-					"..."+slog.substring(slog.length()-199);
+		//int i3=ss5.length;
+		//slog="";
+		//if(i3>9)
+		//{
+		//for (int i=6;i<ss5.length;i++)
+		//{
+		//	slog=slog+ss5[i]+"\r\n--- "+String.valueOf(i)+" ---\r\n ";
+			
+		//}
+		//}
+		//else
+		//	slog=slog1;
+		
+			//slog="посмотреть весь диалог <a href=.>здесь</a><br/><br/>"+slog.substring(slog.length()-199);
+		
+		
 		String s = "";
 		String s7 = "";
 		String sqq = "";
@@ -73,8 +90,8 @@ public class qq extends HttpServlet implements EntryPoint {
 		String st = req.getParameter("text").trim();
 		String sq = req.getParameter("sq").trim();
 		
-		slog=slog+"<br/> - "+sq+" <br/>";
-				
+		slog="\r\n- "+sq;
+		slog1 = slog1+slog;		
 				
 		st = st.replace("\r", "").replace("\n", "");
 		String sq2 = sq;
@@ -92,20 +109,7 @@ public class qq extends HttpServlet implements EntryPoint {
 		if (sq.indexOf("?") != k)
 	
 		{
-			if (sq.lastIndexOf(".") != k) {
-				sq2 = sq + ".";
-				st = st + sq + ".";
-			} else
-				st = st + sq;
-	
-			s = sta.rfu_utf(sh + "/ru.txt");
-	
-			s = s.replace("<!--st-->", st);
-			s = s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\"" + sq
-					+ "\"");
-
-			sq2 = prep_all(sq2);
-	
+			sq2 = prep_all(sq2);	
 			String[] ss2 = sq2.split("[.]+");
 			String[] ss3;
 			String sq3 = "";
@@ -119,38 +123,52 @@ public class qq extends HttpServlet implements EntryPoint {
 				ss3 = sq3.split("[ ]+");
 				iq3 = ss3.length;
 				
-				if (iq3 < 2)
-					
+				if (iq3 < 2)					
 				{
-
-					slog=slog+"<br>"+"В данной версии Кряка утверждения общего рода состоят из двух слов, например, \"Человек смертен. Тигр хищник.\", или из трех слов, первым из которых должны быть слова: Любой(-ая,-ое), Каждый(-ая,-ое), Всякий(-ая,-ое), например, \"Всякий человек смертен. Любой тигр хищник.\"";
-					sta.page(req, resp, st, sq,  slog);
+					slog = "\r\nВ данной версии Кряка утверждения общего рода состоят из двух слов, например, \"Человек смертен. Тигр хищник.\", или из трех слов, первым из которых должны быть слова: Любой(-ая,-ое), Каждый(-ая,-ое), Всякий(-ая,-ое), например, \"Всякий человек смертен. Любой тигр хищник.\", или второе слово - \"это\", например, \"Васька это кот. Вася - это мужик.\"";
+							slog1 = slog1+slog;	
+					sta.page(req, resp, st, sq,  slog, slog1);
 					return;
 				}
 				
+////////////////
+				
+				if (sq.lastIndexOf(".") != k) {
+					sq2 = sq + ". ";
+					sq=sq + ". ";
+				} 
+				else
+					sq2 = sq;
+				
 				if (iq3 < 3)
+				{
+			
+					
 					sq3 = " всё, что называется " + ss3[0] + ", то " + ss3[1]
 							+ ".";
+					
+				}
 				else {
 					if (!ss3[1].equals("-") && !ss3[1].equals("-"))
-	
 					{
-	
-						slog=slog+"<br>"+"В данной версии Кряка утверждения общего рода состоят из двух слов, например, \"Человек смертен. Тигр хищник.\", или из трех слов, первым из которых должны быть слова: Любой(-ая,-ое), Каждый(-ая,-ое), Всякий(-ая,-ое), например, \"Всякий человек смертен. Любой тигр хищник.\"";
-						sta.page(req, resp, st, sq,  slog);
+						slog="\r\nВ данной версии Кряка утверждения общего рода состоят из двух слов, например, \"Человек смертен. Тигр хищник.\", или из трех слов, первым из которых должны быть слова: Любой(-ая,-ое), Каждый(-ая,-ое), Всякий(-ая,-ое), например, \"Всякий человек смертен. Любой тигр хищник.\"";
+						slog1=slog1+slog;						
+						sta.page(req, resp, st, sq,  slog,slog1);
 						return;
-					}
-	
-					else
-	
+					}	
+					else	{
 						sq3 = ss3[0] + " это " + ss3[2] + ".";
+						
+					}
 				}
 	
 				sq4 = sq4 + sq3;
 			}
 	
-			slog=slog+"<br>Феофан > Понял так: " + sq4;
-			sta.page(req, resp, st, sq,  slog);
+			slog="\r\nФеофан > Понял так: " + sq4;
+			slog1=slog1+slog;
+			st=st+" "+sq;
+			sta.page(req, resp, st, sq,  slog, slog1);
 			return;
 
 		}
@@ -207,20 +225,23 @@ public class qq extends HttpServlet implements EntryPoint {
 					String sowl = sh + "/qqr";
 					String body = "p1=" + URLEncoder.encode(sowl, "UTF-8")
 							+ "&p2=" + URLEncoder.encode(s5, "UTF-8");
-					String sotvet = Statik.get_post(surl, body);
-					slog=slog+"Феофан > "+sotvet;
-					sta.page(req, resp, st, sq,  slog);
+					String sotvet = sta.get_post(surl, body);
+					slog="\r\nФеофан > "+sotvet;
+					slog1 = slog1+slog;
+					sta.page(req, resp, st, sq,  slog,slog1);
 					return;
 				}
 				if (s5.indexOf(" ") > -1) {
-					slog=slog+"<br>"+"В данной версии Кряка вопрос должен начинается словом 'Кто', потом идёт всего ОДНО слово по существу и знак вопроса";
-					sta.page(req, resp, st, sq,  slog);
+					slog="\r\nВ данной версии Кряка вопрос должен начинается словом 'Кто', потом идёт всего ОДНО слово по существу и знак вопроса";
+					slog1 = slog1+slog;
+					sta.page(req, resp, st, sq, slog, slog1);
 					return;
 				}
 			}
 			if (s5.indexOf("Кто ") != 0 && s5.indexOf("кто ") != 0) {
-						slog=slog+"<br>В данной версии Кряка вопрос должен начинается словами 'Кто','кто','Что','что', потом идёт одно слово по существу и знак вопроса";
-						sta.page(req, resp, st, sq,  slog);
+						slog="\r\nВ данной версии Кряка вопрос должен начинается словами 'Кто','кто','Что','что', потом идёт одно слово по существу и знак вопроса";
+						slog1=slog1+slog;						
+						sta.page(req, resp, st, sq,  slog, slog1);
 						return;
 			}
 	
@@ -352,6 +373,8 @@ public class qq extends HttpServlet implements EntryPoint {
 		s7 = s7.replace("каждый", "");
 		s7 = s7.replace("каждая", "");
 		s7 = s7.replace("каждое", "");
+		s7 = s7.replace("это", "-");
+		s7 = s7.replace("\"", "");
 		
 		return s7.trim();
 	}

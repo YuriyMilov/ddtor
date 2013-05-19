@@ -1,8 +1,10 @@
 package ru;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -12,41 +14,22 @@ import javax.servlet.http.HttpServletResponse;
 
 public class sta {
 
-	public static void page(HttpServletRequest req, HttpServletResponse resp, String st, String sq, String slog) throws IOException {
+	public static void page(HttpServletRequest req, HttpServletResponse resp, String st, String sq, String slog, String slog1) throws IOException {
 		
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
-		String s = rfu_utf(sh + "/ru.txt");
-		
+		String s = rfu_utf(sh + "/ru.txt");		
 		s = s.replace("<!--st-->", st);
 		s = s.replace("name=\"sq\" value=\"\"",
 				"name=\"sq\" value=\"" + sq + "\"");
+		s = s.replace("<!--log1-->", slog1);
 		s = s.replace("<!--log-->", slog);
-
 		byte[] b = s.getBytes("UTF8");
-		out.write(b);
-		
+		out.write(b);		
 	}
 	
-	
-	public static void re (HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		
-		ServletOutputStream out = resp.getOutputStream();
-		resp.setContentType("text/html; charset=UTF8");
-		String sh = req.getScheme() + "://" + req.getServerName() + ":"
-				+ req.getServerPort() + req.getContextPath();
-		String s = rfu_utf(sh + "/ru.txt");
-		String s1 = rfu_utf(sh + "/text.txt");
-		s = s.replace("qq1>", "qq1>" + s1);
-		s1 = rfu_utf(sh + "/vopros.txt");
-		s = s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\"" + s1
-				+ "\"");
-
-		byte[] b = s.getBytes("UTF8");
-		out.write(b);
-	}
 	
 	  public static String rfu_utf(String s) {
 	        try {
@@ -66,6 +49,57 @@ public class sta {
 	            return e.toString();
 	        }
 	    }
+	  
+	  
+		public static String get_post(String surl,String body) {
+			String s="";
+			
+	
+			try {
+			      
+			     
+				URL url = new URL(surl);
+		        URLConnection  urlConnection = url.openConnection();
+		        DataOutputStream outStream;
+		 
+		        // Build request body		       
+		        // Create connection	       
+		       
+		        ((HttpURLConnection)urlConnection).setRequestMethod("POST");
+		        urlConnection.setConnectTimeout(0);
+		        urlConnection.setReadTimeout(0);
+		        urlConnection.setDoInput(true);
+		        urlConnection.setDoOutput(true);
+		        urlConnection.setUseCaches(false);
+		        urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		        urlConnection.setRequestProperty("Content-Length", "" + body.length());
+		 
+		        // Create I/O streams
+		        outStream = new DataOutputStream(urlConnection.getOutputStream());
+		 
+		        // Send request
+		        outStream.writeBytes(body);
+		        outStream.flush();
+		        outStream.close();
+		 
+		        // Get Response
+				 
+	            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "utf8"));
+	            s="";
+	            String thisLine="";
+	            while ((thisLine = br.readLine()) != null) { 
+	                s=s+thisLine+"\r\n";
+	              } 
+	            br.close();
+   
+	            
+		    }
+		    catch(Exception ex) {
+		        s= ex.toString();
+		    }
+		       return s;
+		}
+
 }
 
 	/*
