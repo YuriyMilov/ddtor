@@ -1,6 +1,10 @@
 package ru;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -8,16 +12,35 @@ import javax.servlet.http.HttpServletResponse;
 
 public class sta {
 
+	public static void page(HttpServletRequest req, HttpServletResponse resp, String st, String sq, String slog) throws IOException {
+		
+		ServletOutputStream out = resp.getOutputStream();
+		resp.setContentType("text/html; charset=UTF8");
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		String s = rfu_utf(sh + "/ru.txt");
+		
+		s = s.replace("<!--st-->", st);
+		s = s.replace("name=\"sq\" value=\"\"",
+				"name=\"sq\" value=\"" + sq + "\"");
+		s = s.replace("<!--log-->", slog);
+
+		byte[] b = s.getBytes("UTF8");
+		out.write(b);
+		
+	}
+	
+	
 	public static void re (HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
-		String s = Statik.rfu_utf(sh + "/ru.txt");
-		String s1 = Statik.rfu_utf(sh + "/text.txt");
+		String s = rfu_utf(sh + "/ru.txt");
+		String s1 = rfu_utf(sh + "/text.txt");
 		s = s.replace("qq1>", "qq1>" + s1);
-		s1 = Statik.rfu_utf(sh + "/vopros.txt");
+		s1 = rfu_utf(sh + "/vopros.txt");
 		s = s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\"" + s1
 				+ "\"");
 
@@ -25,6 +48,26 @@ public class sta {
 		out.write(b);
 	}
 	
+	  public static String rfu_utf(String s) {
+	        try {
+		        URL url = new URL(s);
+		        
+	            URLConnection conn = url.openConnection();
+	            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf8"));
+	            s="";
+	            String thisLine="";
+	            while ((thisLine = br.readLine()) != null) { // while loop begins here
+	                s=s+thisLine+"\r\n";
+	              } 
+	            br.close();
+      return s.toString();
+      
+	        } catch (Exception e) {	            
+	            return e.toString();
+	        }
+	    }
+}
+
 	/*
 	 * if (s5.indexOf(" ") == -1) {
 					String[] stok = null;
@@ -89,4 +132,3 @@ public class sta {
 					
 					s = wf("test.owl", s);
 	 * */
-}

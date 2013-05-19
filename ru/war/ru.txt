@@ -7,38 +7,35 @@
  
         #Button
         {
-            width: 55px;
+            width: 66px;
         }
-        #TextArea
+ 
+        #TextArea2
         {
-            height: 99px;
-            width: 333px;
+            height: 155px;
+            width: 399px;
         }
-
+ 
     </style>
 </head>
 <body bgcolor="#f0f0f0">
-<p>    &nbsp;&nbsp;&nbsp;&nbsp;<a href=..>Вернуть пример</a>  
-        &nbsp;&nbsp;&nbsp;&nbsp;<a href=../qq6>Множественное лицо</a>   &nbsp;&nbsp;&nbsp;&nbsp;     <a href=http://contrus.feofan.com/contrus.owl>URL</a><br/>
-  </p>
-  <form name="input" action="qq" method="post">
+&nbsp;<a href=..>В начало</a><br/><br/>
+
+
   
 
-        &nbsp;<textarea id="TextArea" name="text" qq1>
-        
-        
-        </textarea></p>
-<p>       
-&nbsp;&nbsp;&nbsp;Пример:<br/><br/>
-&nbsp;- кто тут? (кляк)<br/>
-&nbsp;- любой кот мяукает. Мурзик - кот. (кляк)<br/>
-&nbsp;- кто Мурзик? (кляк)<br/>
-&nbsp;- кто мяукает? (кляк)<br/><br/>
-
-&nbsp;- <input type="text" name="sq" value="" size="37">&nbsp;<input id="Button" type="submit" value=" кляк " />
-&nbsp;&nbsp;&nbsp;
-<br/><br/><!--qq-->
-</p>
+<table><tr><td width=50%><!--log--><br/>
+  <form name="input" action="qq" method="post">
+&nbsp;<textarea id="TextArea" name="text" style="display:none;" qq1><!--st-->
+        </textarea>
+        <br/>  
+		<input type="text" name="sq" value="" size="47">&nbsp;
+		<input id="Button" type="submit" value=" кляк " />
+		<!--qq-->
 </form>  
+<td/><td style="background-color:grey"></td>
+<td  style="vertical-align:top;">Знания Феофана:<br/><br/> <!--st--><td/><tr/><table/>
+
+
 </body>
 </html>

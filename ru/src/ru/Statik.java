@@ -135,24 +135,7 @@ public class Statik {
 
 
 	
-	  public static String rfu_utf(String s) {
-	        try {
-		        URL url = new URL(s);
-		        
-	            URLConnection conn = url.openConnection();
-	            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf8"));
-	            s="";
-	            String thisLine="";
-	            while ((thisLine = br.readLine()) != null) { // while loop begins here
-	                s=s+thisLine+"\r\n";
-	              } 
-	            br.close();
-        return s.toString();
-        
-	        } catch (Exception e) {	            
-	            return e.toString();
-	        }
-	    }
+
 		public static String get_post(String surl,String body) {
 			String s="";
 			

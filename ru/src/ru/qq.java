@@ -28,11 +28,43 @@ import com.google.appengine.api.files.FileWriteChannel;
 import com.google.gwt.core.client.EntryPoint;
 
 public class qq extends HttpServlet implements EntryPoint {
+	public static String slog="";
+	public static String slog1="";
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		//sta.re(req, resp);
+	
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		String st = "Всякий человек смертен. Сократ - человек.";
+		String sq="Кто тут есть?";		
+		slog="Привет :)<br/><br/> Я - Феофан, " +
+				"чатбот на контролируем русскоя языке (Кряк).\r\n<br>" +
+				"Например, вы можете мне сказать: " +
+				"\"Любой кот мяукает. Васька - кот.\", " +
+				"а потом спросить: \"Кто Васька?\" и " +
+				"я сделаю логический вывод, что Васька мяукает. " +
+				"Это ведь понятно, почему так? - " +
+				"Потому что вы мне рассказали, что Васька это кот, и что все коты мяукают. " +
+				"Сейчас я знаю только то, что \"Каждый человек смертен. Сократ это человек.\"\r\n<br>" +
+				"Научите меня еще чему нибудь, пожалуйста.\r\n<br>";
+		
+		//"В данной версии Кряка утверждения общего рода состоят из двух слов, например, \"Человек смертен. Тигр хищник.\", или из трех слов, первым из которых должны быть слова: Любой(-ая,-ое), Каждый(-ая,-ое), Всякий(-ая,-ое), например, \"Всякий человек смертен. Любой тигр хищник.\"";
+		
+		sta.page(req, resp, st, sq,  slog);
 
+	}
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
+		
+		slog1=slog;
+		
+		if(slog.length()>399)
+			slog="посмотреть весь диалог <a href=.>здесь</a><br/><br/>" +
+					"..."+slog.substring(slog.length()-199);
 		String s = "";
 		String s7 = "";
 		String sqq = "";
@@ -40,11 +72,19 @@ public class qq extends HttpServlet implements EntryPoint {
 				+ req.getServerPort() + req.getContextPath();
 		String st = req.getParameter("text").trim();
 		String sq = req.getParameter("sq").trim();
+		
+		slog=slog+"<br/> - "+sq+" <br/>";
+				
+				
 		st = st.replace("\r", "").replace("\n", "");
 		String sq2 = sq;
 		
+		sq=sq.replace("Кто тут?", "кто есть?");
+		sq=sq.replace("Что тут?", "что есть?");
 		sq=sq.replace("кто тут?", "кто есть?");
 		sq=sq.replace("что тут?", "что есть?");
+		sq=sq.replace("кто тут есть?", "Кто есть?");
+		sq=sq.replace("что тут есть?", "Что есть?");
 		sq=sq.replace("Кто тут есть?", "Кто есть?");
 		sq=sq.replace("Что тут есть?", "Что есть?");
 		
@@ -58,9 +98,9 @@ public class qq extends HttpServlet implements EntryPoint {
 			} else
 				st = st + sq;
 	
-			s = Statik.rfu_utf(sh + "/ru.txt");
+			s = sta.rfu_utf(sh + "/ru.txt");
 	
-			s = s.replace("qq1>", "qq1>" + st);
+			s = s.replace("<!--st-->", st);
 			s = s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\"" + sq
 					+ "\"");
 
@@ -78,25 +118,26 @@ public class qq extends HttpServlet implements EntryPoint {
 				sq3 = ss2[i].trim();
 				ss3 = sq3.split("[ ]+");
 				iq3 = ss3.length;
+				
+				if (iq3 < 2)
+					
+				{
+
+					slog=slog+"<br>"+"В данной версии Кряка утверждения общего рода состоят из двух слов, например, \"Человек смертен. Тигр хищник.\", или из трех слов, первым из которых должны быть слова: Любой(-ая,-ое), Каждый(-ая,-ое), Всякий(-ая,-ое), например, \"Всякий человек смертен. Любой тигр хищник.\"";
+					sta.page(req, resp, st, sq,  slog);
+					return;
+				}
+				
 				if (iq3 < 3)
-					sq3 = "Всё, что называется '" + ss3[0] + "', то " + ss3[1]
+					sq3 = " всё, что называется " + ss3[0] + ", то " + ss3[1]
 							+ ".";
 				else {
 					if (!ss3[1].equals("-") && !ss3[1].equals("-"))
 	
 					{
 	
-						s = Statik.rfu_utf(sh + "/ru.txt");
-	
-						s = s.replace("qq1>", "qq1>" + st);
-						s = s.replace("name=\"sq\" value=\"\"",
-								"name=\"sq\" value=\"" + sq + "\"");
-						s = s.replace(
-								"<!--qq-->",
-								"В данной версии Кряка утверждения общего рода состоят из двух слов, например, \"Человек смертен. Тигр хищник.\", или из трех слов, первым из которых должны быть слова: Любой(-ая,-ое), Каждый(-ая,-ое), Всякий(-ая,-ое), например, \"Всякий человек смертен. Любой тигр хищник.\"");
-	
-						byte[] b = s.getBytes("UTF8");
-						out.write(b);
+						slog=slog+"<br>"+"В данной версии Кряка утверждения общего рода состоят из двух слов, например, \"Человек смертен. Тигр хищник.\", или из трех слов, первым из которых должны быть слова: Любой(-ая,-ое), Каждый(-ая,-ое), Всякий(-ая,-ое), например, \"Всякий человек смертен. Любой тигр хищник.\"";
+						sta.page(req, resp, st, sq,  slog);
 						return;
 					}
 	
@@ -105,14 +146,13 @@ public class qq extends HttpServlet implements EntryPoint {
 						sq3 = ss3[0] + " это " + ss3[2] + ".";
 				}
 	
-				sq4 = sq4 + "<br/>" + sq3;
+				sq4 = sq4 + sq3;
 			}
 	
-			s = s.replace("<!--qq-->", "Понял так: <br/>" + sq4);
-	
-			byte[] b = s.getBytes("UTF8");
-			out.write(b);
+			slog=slog+"<br>Феофан > Понял так: " + sq4;
+			sta.page(req, resp, st, sq,  slog);
 			return;
+
 		}
 	
 		else {
@@ -168,61 +208,26 @@ public class qq extends HttpServlet implements EntryPoint {
 					String body = "p1=" + URLEncoder.encode(sowl, "UTF-8")
 							+ "&p2=" + URLEncoder.encode(s5, "UTF-8");
 					String sotvet = Statik.get_post(surl, body);
-	
-					s = Statik.rfu_utf(sh + "/ru.txt");
-	
-					s = s.replace("qq1>", "qq1>" + st);
-					s = s.replace("name=\"sq\" value=\"\"",
-							"name=\"sq\" value=\"" + sq + "\"");
-					s = s.replace("<!--qq-->", sotvet);
-	
-					byte[] b = s.getBytes("UTF8");
-					out.write(b);
+					slog=slog+"Феофан > "+sotvet;
+					sta.page(req, resp, st, sq,  slog);
 					return;
 				}
 				if (s5.indexOf(" ") > -1) {
-	
-					s = Statik.rfu_utf(sh + "/ru.txt");
-	
-					s = s.replace("qq1>", "qq1>" + st);
-					s = s.replace("name=\"sq\" value=\"\"",
-							"name=\"sq\" value=\"" + sq + "\"");
-					s = s.replace(
-							"<!--qq-->",
-							"В данной версии Кряка вопрос должен начинается словом 'Кто', потом идёт всего ОДНО слово по существу и знак вопроса");
-	
-					byte[] b = s.getBytes("UTF8");
-					out.write(b);
-	
+					slog=slog+"<br>"+"В данной версии Кряка вопрос должен начинается словом 'Кто', потом идёт всего ОДНО слово по существу и знак вопроса";
+					sta.page(req, resp, st, sq,  slog);
 					return;
-	
 				}
 			}
 			if (s5.indexOf("Кто ") != 0 && s5.indexOf("кто ") != 0) {
-	
-				s = Statik.rfu_utf(sh + "/ru.txt");
-	
-				s = s.replace("qq1>", "qq1>" + st);
-				s = s.replace("name=\"sq\" value=\"\"", "name=\"sq\" value=\""
-						+ sq + "\"");
-				s = s.replace(
-						"<!--qq-->",
-						"В данной версии Кряка вопрос должен начинается словами 'Кто','кто','Что','что', потом идёт одно слово по существу и знак вопроса");
-	
-				byte[] b = s.getBytes("UTF8");
-				out.write(b);
-				return;
+						slog=slog+"<br>В данной версии Кряка вопрос должен начинается словами 'Кто','кто','Что','что', потом идёт одно слово по существу и знак вопроса";
+						sta.page(req, resp, st, sq,  slog);
+						return;
 			}
 	
 		}
 	}
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
 
-		sta.re(req, resp);
-
-	}
 
 	void clear_blobstore() throws IOException {
 		BlobInfoFactory blf = new BlobInfoFactory();
@@ -350,7 +355,12 @@ public class qq extends HttpServlet implements EntryPoint {
 		
 		return s7.trim();
 	}
-	// /////////////////////////
+
+	
+
+	
+	
+	
 	public void onModuleLoad() {
 	}
 

@@ -23,7 +23,7 @@ public class qq6 extends HttpServlet  {
 		resp.setContentType("text/html; charset=UTF8");	
 
 		String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-		String sru6=Statik.rfu_utf(sh+"/ru6.txt");
+		String sru6=sta.rfu_utf(sh+"/ru6.txt");
 		
 		String s = req.getParameter("text").trim();
 		
@@ -53,7 +53,7 @@ public class qq6 extends HttpServlet  {
 			
 		}
 		
-		s1=s1+Statik.rfu_utf(sh+"/yesno.txt");
+		s1=s1+sta.rfu_utf(sh+"/yesno.txt");
 		
 		
 		s=sru6.replace("<!--qq-->", s1);
@@ -82,7 +82,7 @@ public class qq6 extends HttpServlet  {
 
 		String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
 		resp.setContentType("text/html; charset=UTF8");	
-		String s=Statik.rfu_utf(sh+"/ru6.txt");
+		String s=sta.rfu_utf(sh+"/ru6.txt");
 	
 		
 		byte[] b = s.getBytes("UTF8");
