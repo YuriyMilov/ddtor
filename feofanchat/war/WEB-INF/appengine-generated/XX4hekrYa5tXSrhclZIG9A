@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [    
+<!ENTITY owl "http://www.w3.org/2002/07/owl#" >    
+<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >    
+<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >    
+<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >    
+<!ENTITY qq "http://feofan.com/contrus#" >]>
+
+<rdf:RDF xmlns="http://feofan.com/contrus#"     
+xml:base="http://feofan.com/contrus"     
+xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"     
+xmlns:qq="http://feofan.com/contrus#"     
+xmlns:owl="http://www.w3.org/2002/07/owl#"     
+xmlns:xsd="http://www.w3.org/2001/XMLSchema#"     
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">    
+
+<owl:Ontology rdf:about="http://feofan.com/contrus"/>
+
+
+<Class rdf:about="&qq;version=1"/>
+<Class rdf:about="&qq;<?xml"><rdfs:subClassOf rdf:resource="&qq;version=1"/></Class> 
+<NamedIndividual rdf:about="&qq;com/contrus#"> <rdf:type rdf:resource="&qq;xmlns=http://feofan"/> </NamedIndividual>
+
+<Class rdf:about="&qq;
+xml:base=http://feofan"/>
+<Class rdf:about="&qq;com/contrus#"><rdfs:subClassOf rdf:resource="&qq;
+xml:base=http://feofan"/></Class> 
+
+<Class rdf:about="&qq;
+xmlns:rdfs=http://www"/>
+<Class rdf:about="&qq;com/contrus"><rdfs:subClassOf rdf:resource="&qq;
+xmlns:rdfs=http://www"/></Class> 
+
+<Class rdf:about="&qq;
+xmlns:qq=http://feofan"/>
+<Class rdf:about="&qq;org/2000/01/rdf-schema#"><rdfs:subClassOf rdf:resource="&qq;
+xmlns:qq=http://feofan"/></Class> 
+
+<Class rdf:about="&qq;
+xmlns:owl=http://www"/>
+<Class rdf:about="&qq;com/contrus#"><rdfs:subClassOf rdf:resource="&qq;
+xmlns:owl=http://www"/></Class> 
+
+<Class rdf:about="&qq;
+xmlns:xsd=http://www"/>
+<Class rdf:about="&qq;org/2002/07/owl#"><rdfs:subClassOf rdf:resource="&qq;
+xmlns:xsd=http://www"/></Class> 
+
+<Class rdf:about="&qq;
+xmlns:rdf=http://www"/>
+<Class rdf:about="&qq;org/2001/XMLSchema#"><rdfs:subClassOf rdf:resource="&qq;
+xmlns:rdf=http://www"/></Class> 
+<NamedIndividual rdf:about="&qq;org/1999/02/22-rdf-syntax-ns#>"> <rdf:type rdf:resource="&qq;rdf:about=http://feofan"/> </NamedIndividual>
+
+
+</rdf:RDF>
+
