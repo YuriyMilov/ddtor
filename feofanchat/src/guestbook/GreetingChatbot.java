@@ -186,7 +186,7 @@ public class GreetingChatbot extends HttpServlet {
 				
 				//clear_blobstore();
 
-				stat.st = s;
+				stat.sowl = s;
 
 				//s = wf("test.owl", s);
 

@@ -3,6 +3,18 @@
   <!-- Servlets -->
   
   
+  
+  
+<servlet>
+  <servlet-name>mm</servlet-name>
+  <servlet-class>guestbook.mm</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>mm</servlet-name>
+  <url-pattern>/_ah/mail/*</url-pattern>
+</servlet-mapping>
+  
+  
    
 <servlet>
     <servlet-name>qq_s</servlet-name>
@@ -88,15 +100,7 @@
   
   
   
-  	
-	<servlet>
-    <servlet-name>qq</servlet-name>
-    <servlet-class>guestbook.qq</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>qq</servlet-name>
-    <url-pattern>/qq</url-pattern>
-</servlet-mapping>
+  
   
   	
 	<servlet>
@@ -143,7 +147,7 @@
   
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>Feofanchat.html</welcome-file>
+    <welcome-file>qq</welcome-file>
   </welcome-file-list>
 
   <servlet>
@@ -159,5 +163,14 @@
     <servlet-name>SystemServiceServlet</servlet-name>
     <url-pattern>/_ah/spi/*</url-pattern>
   </servlet-mapping>
+
+<security-constraint>
+  <web-resource-collection>
+    <url-pattern>/_ah/mail/*</url-pattern>
+  </web-resource-collection>
+  <auth-constraint>
+    <role-name>admin</role-name>
+  </auth-constraint>
+</security-constraint>
 
 </web-app>

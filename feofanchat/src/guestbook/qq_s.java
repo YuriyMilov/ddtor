@@ -24,7 +24,7 @@ public class qq_s extends HttpServlet  {
 		resp.setCharacterEncoding("UTF8");
 
 		//String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-		String s=stat.st;
+		String s=stat.sowl;
 		
 		
 		byte[] b = s.getBytes("UTF8");

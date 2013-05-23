@@ -22,7 +22,7 @@ public class qqr extends HttpServlet {
 		resp.setCharacterEncoding("UTF8");
 		//String s=rf3("test.owl");
 		
-		String s = stat.st;
+		String s = stat.sowl;
 		if(s.length()==0)
 			s=rf3("test.owl");
 		
