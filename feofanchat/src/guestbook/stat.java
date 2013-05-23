@@ -38,7 +38,7 @@ public class stat {
 	public static void page(HttpServletRequest req, HttpServletResponse resp,
 			String sotvet) throws IOException {
 
-		stop = stop + "<!--otvet-->\r\n<br/>- " + sotvet+ "<!--otvet--><br/>";
+		stop = stop + "<br><br>\r\n<b><i>Феофан:</i></b>\r\n <!--otvet--> \r\n" + sotvet+ "\r\n<!--otvet--><br>";
 
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
