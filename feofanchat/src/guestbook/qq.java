@@ -42,27 +42,13 @@ import com.google.gwt.core.client.EntryPoint;
 public class qq extends HttpServlet implements EntryPoint {
 	public static String slog = "";
 	public static String slog1 = "";
-
-
-	
 	
 		public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-			
-	
-			
-		String sh = req.getScheme() + "://" + req.getServerName() + ":"
-				+ req.getServerPort() + req.getContextPath();
+		stat.stop="";
 		stat.sr = "Всякий человек смертен. Сократ - человек.";
-		String s = "Привет :)";
-		
-		//try {
-		//	stat.sm("ymilov@gmail.com", req.getRemoteAddr());
-		//} catch (Exception e) {
-		//	s=e.toString();
-		//}
-		//s = stat.get_post(sh+"/qq", "q=" + URLEncoder.encode("кто есть?", "UTF-8"));
-		stat.page(req, resp, s);
+		String s = "Мне сказали:\r\n \"Всякий человек смертен. Сократ - человек.\" \r\nСпроси меня:\r\n \"Кто Сократ?\"";
+		stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -78,11 +64,8 @@ public class qq extends HttpServlet implements EntryPoint {
 		
 			
 		if (s.length() == 0) {
-
-			s = stat.rfu_utf(sh+"/hlp.txt").replace("\r\n", "<br>\r\n");
-			
-
-			stat.page(req, resp, s);
+			s = stat.rfu_utf(sh+"/prm.txt");
+			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 			return;
 		}
 		
@@ -90,18 +73,16 @@ public class qq extends HttpServlet implements EntryPoint {
 				{
 				stat.stop="";
 				stat.sr = "Всякий человек смертен. Сократ - человек.";
-				s = "Сделано! Всякий человек смертен. Сократ - человек. Спроси меня: Кто Сократ?";
-
-				
+				s = "Мне сказали: \"Всякий человек смертен. Сократ - человек.\" Спроси меня: \"Кто Сократ?\"";
 				stat.page(req, resp, s);
-				return;
+			return;
 				}
 			
 	
 
 		if (s.indexOf("кря!") == 0 || s.indexOf("Кря!") == 0 || s.indexOf("КРЯ!") == 0) {
-			s = stat.rfu_utf(sh+"/kpz.txt").replace("\r\n", "<br>\r\n");
-			stat.page(req, resp, s);
+			s = stat.rfu_utf(sh+"/kpz.txt");
+			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 			return;
 		}
 
@@ -155,7 +136,7 @@ public class qq extends HttpServlet implements EntryPoint {
 
 				} else {
 					if (!ss3[1].equals("-") && !ss3[1].equals("-")) {
-						s = "? - помощь, ! - список команд. В данной версии Кряка утверждения общего рода состоят из двух слов, например, \"Человек смертен. Тигр хищник.\", или из трех слов, первым из которых должны быть слова: Любой(-ая,-ое), Каждый(-ая,-ое), Всякий(-ая,-ое), например, \"Всякий человек смертен. Любой тигр хищник.\"";
+						s = stat.rfu_utf(sh+"/prm.txt");
 
 						stat.page(req, resp, s);
 						return;
