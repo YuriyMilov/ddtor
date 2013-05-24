@@ -42,13 +42,12 @@ import com.google.gwt.core.client.EntryPoint;
 public class qq extends HttpServlet implements EntryPoint {
 	public static String slog = "";
 	public static String slog1 = "";
-	
-		public void doGet(HttpServletRequest req, HttpServletResponse resp)
+
+
+
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		stat.stop="";
-		stat.sr = "Всякий человек смертен. Сократ - человек.";
-		String s = "Мне сказали:\r\n \"Всякий человек смертен. Сократ - человек.\" \r\nСпроси меня:\r\n \"Кто Сократ?\"";
-		stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
+		init(req, resp);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -60,32 +59,34 @@ public class qq extends HttpServlet implements EntryPoint {
 				+ req.getServerPort() + req.getContextPath();
 		String s = req.getParameter("q").trim();
 
-		stat.stop=stat.stop+"<br> <b><i> Я: </i></b> "+s;
+		stat.stop = stat.stop + "<br> <b><i> Я: </i></b> " + s;
+
 		
-			
+		if (s.indexOf("!") > 0 && s.indexOf("чист") > -1) {
+			init(req, resp);
+			return;
+		}
+		
+		
+		if (s.equals("кто!")) {
+			s = stat.rfu_utf(sh + "/qq_s");
+			s = stat.sowl;
+			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
+			return;
+		}
+
 		if (s.length() == 0) {
-			s = stat.rfu_utf(sh+"/prm.txt");
-			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
-			return;
-		}
-		
-		if(s.indexOf("!") > 0 && s.indexOf("чист") > -1)
-				{
-				stat.stop="";
-				stat.sr = "Всякий человек смертен. Сократ - человек.";
-				s = "Мне сказали: \"Всякий человек смертен. Сократ - человек.\" Спроси меня: \"Кто Сократ?\"";
-				stat.page(req, resp, s);
-			return;
-				}
-			
-	
-
-		if (s.indexOf("кря!") == 0 || s.indexOf("Кря!") == 0 || s.indexOf("КРЯ!") == 0) {
-			s = stat.rfu_utf(sh+"/kpz.txt");
+			s = stat.rfu_utf(sh + "/prm.txt");
 			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 			return;
 		}
 
+		if (s.indexOf("кря!") == 0 || s.indexOf("Кря!") == 0
+				|| s.indexOf("КРЯ!") == 0) {
+			s = stat.rfu_utf(sh + "/kpz.txt");
+			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
+			return;
+		}
 
 		String sq2 = s, sq = s;
 		sq = sq.replace("Кто тут?", "кто есть?");
@@ -116,7 +117,7 @@ public class qq extends HttpServlet implements EntryPoint {
 				iq3 = ss3.length;
 
 				if (iq3 < 2) {
-					s = stat.rfu_utf(sh+"/prm.txt");
+					s = stat.rfu_utf(sh + "/prm.txt");
 					stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 					return;
 				}
@@ -136,7 +137,7 @@ public class qq extends HttpServlet implements EntryPoint {
 
 				} else {
 					if (!ss3[1].equals("-") && !ss3[1].equals("-")) {
-						s = stat.rfu_utf(sh+"/prm.txt");
+						s = stat.rfu_utf(sh + "/prm.txt");
 
 						stat.page(req, resp, s);
 						return;
@@ -173,45 +174,8 @@ public class qq extends HttpServlet implements EntryPoint {
 						.replace("?", "").trim();
 
 				if (s5.indexOf(" ") == -1) {
-					String[] stok = null;
-					String phrase = null;
-					String s8 = "[.]+";
-					String delims = "[ ]+";
-
-					s = prep_all(stat.sr);
-
-					s = s.replace("есть", "");
-					s = s.replace("это", "-");
-
-					String[] ss9 = s.split(s8);
-					s = open_rdf();
-					{
-						for (int i = 0; i < ss9.length; i++) {
-							phrase = ss9[i].trim();
-							stok = phrase.split(delims);
-
-							if (stok.length == 2)
-							// s = Statik.add_subclass(s, stok[1], stok[0]);
-							{
-								s = add_class_rdf(s, stok[1]);
-								s = add_subclass_rdf(s, stok[0], stok[1]);
-							}
-							stok = phrase.split(delims);
-							if (stok.length == 3)
-								// s = Statik.add_classassertion(s, stok[2],
-								// stok[0]);
-
-								s = add_inividual_rdf(s, stok[0], stok[2]);
-						}
-					}
-					// s = Statik.close_owl(s);
-					s = close_rdf(s);
-
-					// clear_blobstore();
-
-					stat.sowl = s;
-
-					// s = wf("test.owl", s);
+					stat.sowl = get_owl(stat.sr);
+					// s = wf("test.owl", stat.sowl);
 
 					String surl = sh + "/qq5";
 					String sowl = sh + "/qqr";
@@ -239,7 +203,59 @@ public class qq extends HttpServlet implements EntryPoint {
 
 	}
 
-	void clear_blobstore() throws IOException {
+	public static String get_owl(String s) {
+
+		String[] stok = null;
+		String phrase = null;
+		String s8 = "[.]+";
+		String delims = "[ ]+";
+
+		s = prep_all(s);
+
+		s = s.replace("есть", "");
+		s = s.replace("это", "-");
+
+		String[] ss9 = s.split(s8);
+		s = open_rdf();
+		{
+			for (int i = 0; i < ss9.length; i++) {
+				phrase = ss9[i].trim();
+				stok = phrase.split(delims);
+
+				if (stok.length == 2)
+				// s = Statik.add_subclass(s, stok[1], stok[0]);
+				{
+					s = add_class_rdf(s, stok[1]);
+					s = add_subclass_rdf(s, stok[0], stok[1]);
+				}
+				stok = phrase.split(delims);
+				if (stok.length == 3)
+					// s = Statik.add_classassertion(s, stok[2],
+					// stok[0]);
+
+					s = add_inividual_rdf(s, stok[0], stok[2]);
+			}
+		}
+		// s = Statik.close_owl(s);
+		s = close_rdf(s);
+
+		// clear_blobstore();
+
+		stat.sowl = s;
+
+		return s;
+
+	}
+
+	public static void init(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		stat.stop = "";
+		stat.sr = "Всякий человек смертен. Сократ - человек.";
+		String s = "Мне сказали:\r\n \"Всякий человек смертен. Сократ - человек.\" \r\nСпроси меня: \"Кто Сократ?\"";
+		stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
+	}
+	
+	public static void clear_blobstore() throws IOException {
 		BlobInfoFactory blf = new BlobInfoFactory();
 		Iterator<BlobInfo> info = blf.queryBlobInfos();
 		BlobInfo bi = null;
@@ -250,7 +266,7 @@ public class qq extends HttpServlet implements EntryPoint {
 		}
 	}
 
-	String wf(String sname, String s) throws IOException {
+	public static String wf(String sname, String s) throws IOException {
 		FileService fileService = FileServiceFactory.getFileService();
 		AppEngineFile file = fileService.createNewBlobFile("text/plain", sname);
 		boolean lock = false;
@@ -306,7 +322,7 @@ public class qq extends HttpServlet implements EntryPoint {
 				+ "\"/></Class> \r\n";
 	}
 
-	String add_inividual_rdf(String s, String sind, String sclass) {
+	static String add_inividual_rdf(String s, String sind, String sclass) {
 		return s + "<NamedIndividual rdf:about=\"&qq;" + sind
 				+ "\"> <rdf:type rdf:resource=\"&qq;" + sclass
 				+ "\"/> </NamedIndividual>\r\n";
