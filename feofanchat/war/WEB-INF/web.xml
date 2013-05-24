@@ -3,18 +3,6 @@
   <!-- Servlets -->
   
   
-  
-  
-<servlet>
-  <servlet-name>mm</servlet-name>
-  <servlet-class>guestbook.mm</servlet-class>
-</servlet>
-<servlet-mapping>
-  <servlet-name>mm</servlet-name>
-  <url-pattern>/_ah/mail/*</url-pattern>
-</servlet-mapping>
-  
-  
    
 <servlet>
     <servlet-name>qq_s</servlet-name>
@@ -163,6 +151,22 @@
     <servlet-name>SystemServiceServlet</servlet-name>
     <url-pattern>/_ah/spi/*</url-pattern>
   </servlet-mapping>
+
+
+
+  
+  
+<servlet>
+  <servlet-name>mm</servlet-name>
+  <servlet-class>guestbook.mm</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>mm</servlet-name>
+  <url-pattern>/_ah/mail/*</url-pattern>
+</servlet-mapping>
+  
+  
+
 
 <security-constraint>
   <web-resource-collection>

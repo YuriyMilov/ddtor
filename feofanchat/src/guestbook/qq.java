@@ -40,14 +40,15 @@ import com.google.appengine.api.files.FileWriteChannel;
 import com.google.gwt.core.client.EntryPoint;
 
 public class qq extends HttpServlet implements EntryPoint {
-	public static String slog = "";
-	public static String slog1 = "";
-
 
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		init(req, resp);
+		if(req.getQueryString()==null)
+			stat.init(req, resp);
+		else
+			if(req.getQueryString().indexOf("p2=")>-1)
+				doPost(req, resp);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -57,16 +58,19 @@ public class qq extends HttpServlet implements EntryPoint {
 
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
-		String s = req.getParameter("q").trim();
-
-		stat.stop = stat.stop + "<br> <b><i> Я: </i></b> " + s;
-
-		
-		if (s.indexOf("!") > 0 && s.indexOf("чист") > -1) {
-			init(req, resp);
+		String s = req.getParameter("p2");
+		if(s==null)
+		{
+			stat.init(req, resp);
 			return;
 		}
+		s=s.trim();
+		stat.stop = stat.stop + "<br> <b><i>Я: </i></b> " + s;
 		
+		if (s.indexOf("!") > 0 && s.indexOf("чист") > -1) {
+			stat.init(req, resp);
+			return;
+		}
 		
 		if (s.equals("кто!")) {
 			s = stat.rfu_utf(sh + "/qq_s");
@@ -76,13 +80,12 @@ public class qq extends HttpServlet implements EntryPoint {
 		}
 
 		if (s.length() == 0) {
-			s = stat.rfu_utf(sh + "/prm.txt");
+			s = stat.rfu_utf(sh + "/hlp.txt");
 			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 			return;
 		}
 
-		if (s.indexOf("кря!") == 0 || s.indexOf("Кря!") == 0
-				|| s.indexOf("КРЯ!") == 0) {
+		if (s.indexOf("кря!")==0) {
 			s = stat.rfu_utf(sh + "/kpz.txt");
 			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 			return;
@@ -102,7 +105,7 @@ public class qq extends HttpServlet implements EntryPoint {
 		if (sq.indexOf("?") != k)
 
 		{
-			sq2 = prep_all(sq2);
+			sq2 = stat.prep_all(sq2);
 			String[] ss2 = sq2.split("[.]+");
 			String[] ss3;
 			String sq3 = "";
@@ -117,7 +120,7 @@ public class qq extends HttpServlet implements EntryPoint {
 				iq3 = ss3.length;
 
 				if (iq3 < 2) {
-					s = stat.rfu_utf(sh + "/prm.txt");
+					s = stat.rfu_utf(sh + "/hlp.txt");
 					stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 					return;
 				}
@@ -132,18 +135,16 @@ public class qq extends HttpServlet implements EntryPoint {
 
 				if (iq3 < 3) {
 
-					sq3 = " всё, что называется " + ss3[0] + ", то " + ss3[1]
-							+ ".";
+					sq3 = " Всё, что называется " + ss3[0] + ", то " + ss3[1]
+							+ ". ";
 
 				} else {
 					if (!ss3[1].equals("-") && !ss3[1].equals("-")) {
-						s = stat.rfu_utf(sh + "/prm.txt");
-
+						s = stat.rfu_utf(sh + "/hlp.txt");
 						stat.page(req, resp, s);
 						return;
 					} else {
 						sq3 = ss3[0] + " это " + ss3[2] + ".";
-
 					}
 				}
 
@@ -174,7 +175,7 @@ public class qq extends HttpServlet implements EntryPoint {
 						.replace("?", "").trim();
 
 				if (s5.indexOf(" ") == -1) {
-					stat.sowl = get_owl(stat.sr);
+					stat.sowl = stat.get_owl(stat.sr);
 					// s = wf("test.owl", stat.sowl);
 
 					String surl = sh + "/qq5";
@@ -187,14 +188,13 @@ public class qq extends HttpServlet implements EntryPoint {
 					return;
 				}
 				if (s5.indexOf(" ") > -1) {
-					s = "В данной версии Кряка вопрос должен начинается словом 'Кто', потом идёт всего ОДНО слово по существу и знак вопроса";
+					s = stat.rfu_utf(sh + "/hlp.txt");
 					stat.page(req, resp, s);
 					return;
 				}
 			}
 			if (s5.indexOf("Кто ") != 0 && s5.indexOf("кто ") != 0) {
-				s = "В данной версии Кряка вопрос должен начинается словами 'Кто','кто','Что','что', потом идёт одно слово по существу и знак вопроса";
-
+				s = stat.rfu_utf(sh + "/hlp.txt");
 				stat.page(req, resp, s);
 				return;
 			}
@@ -203,190 +203,7 @@ public class qq extends HttpServlet implements EntryPoint {
 
 	}
 
-	public static String get_owl(String s) {
-
-		String[] stok = null;
-		String phrase = null;
-		String s8 = "[.]+";
-		String delims = "[ ]+";
-
-		s = prep_all(s);
-
-		s = s.replace("есть", "");
-		s = s.replace("это", "-");
-
-		String[] ss9 = s.split(s8);
-		s = open_rdf();
-		{
-			for (int i = 0; i < ss9.length; i++) {
-				phrase = ss9[i].trim();
-				stok = phrase.split(delims);
-
-				if (stok.length == 2)
-				// s = Statik.add_subclass(s, stok[1], stok[0]);
-				{
-					s = add_class_rdf(s, stok[1]);
-					s = add_subclass_rdf(s, stok[0], stok[1]);
-				}
-				stok = phrase.split(delims);
-				if (stok.length == 3)
-					// s = Statik.add_classassertion(s, stok[2],
-					// stok[0]);
-
-					s = add_inividual_rdf(s, stok[0], stok[2]);
-			}
-		}
-		// s = Statik.close_owl(s);
-		s = close_rdf(s);
-
-		// clear_blobstore();
-
-		stat.sowl = s;
-
-		return s;
-
-	}
-
-	public static void init(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		stat.stop = "";
-		stat.sr = "Всякий человек смертен. Сократ - человек.";
-		String s = "Мне сказали:\r\n \"Всякий человек смертен. Сократ - человек.\" \r\nСпроси меня: \"Кто Сократ?\"";
-		stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
-	}
 	
-	public static void clear_blobstore() throws IOException {
-		BlobInfoFactory blf = new BlobInfoFactory();
-		Iterator<BlobInfo> info = blf.queryBlobInfos();
-		BlobInfo bi = null;
-
-		while (info.hasNext()) {
-			bi = info.next();
-			BlobstoreFS.delete(bi.getBlobKey());
-		}
-	}
-
-	public static String wf(String sname, String s) throws IOException {
-		FileService fileService = FileServiceFactory.getFileService();
-		AppEngineFile file = fileService.createNewBlobFile("text/plain", sname);
-		boolean lock = false;
-		FileWriteChannel writeChannel = fileService
-				.openWriteChannel(file, lock);
-		PrintWriter out = new PrintWriter(Channels.newWriter(writeChannel,
-				"UTF8"));
-		out.println(s);
-		out.close();
-		String path = file.getFullPath();
-		file = new AppEngineFile(path);
-		lock = true;
-		writeChannel = fileService.openWriteChannel(file, lock);
-		writeChannel.closeFinally();
-		BlobKey blobKey = fileService.getBlobKey(file);
-		s = blobKey.toString();
-		return s.substring(10).replace(">", "");
-	}
-
-	public static String open_rdf() {
-
-		String s = "<?xml version=\"1.0\"?>\r\n\r\n"
-				+ "<!DOCTYPE rdf:RDF [    \r\n"
-				+ "<!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >    \r\n"
-				+ "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >    \r\n"
-				+ "<!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >    \r\n"
-				+ "<!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >    \r\n"
-				+ "<!ENTITY qq \"http://feofan.com/contrus#\" >]>\r\n\r\n"
-				+ "<rdf:RDF xmlns=\"http://feofan.com/contrus#\"     \r\n"
-				+ "xml:base=\"http://feofan.com/contrus\"     \r\n"
-				+ "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"     \r\n"
-				+ "xmlns:qq=\"http://feofan.com/contrus#\"     \r\n"
-				+ "xmlns:owl=\"http://www.w3.org/2002/07/owl#\"     \r\n"
-				+ "xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"     \r\n"
-				+ "xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">    \r\n\r\n"
-				+ "<owl:Ontology rdf:about=\"http://feofan.com/contrus\"/>\r\n\r\n";
-
-		return s;
-	}
-
-	public static String close_rdf(String s) {
-		return s + "\r\n\r\n</rdf:RDF>\r\n";
-	}
-
-	public static String add_class_rdf(String s, String sclass) {
-		return s + "\r\n<Class rdf:about=\"&qq;" + sclass + "\"/>\r\n";
-	}
-
-	public static String add_subclass_rdf(String s, String ssubclass,
-			String sclass) {
-		return s + "<Class rdf:about=\"&qq;" + ssubclass
-				+ "\"><rdfs:subClassOf rdf:resource=\"&qq;" + sclass
-				+ "\"/></Class> \r\n";
-	}
-
-	static String add_inividual_rdf(String s, String sind, String sclass) {
-		return s + "<NamedIndividual rdf:about=\"&qq;" + sind
-				+ "\"> <rdf:type rdf:resource=\"&qq;" + sclass
-				+ "\"/> </NamedIndividual>\r\n";
-	}
-
-	public static String add_has(String s, String simeet) {
-		s = s + "<owl:ObjectProperty rdf:about=\"&qq;" + simeet
-				+ "\"/>\r\n\r\n";
-		return s;
-	}
-
-	public static String add_a_has_b(String s, String skto, String simeet,
-			String skogo) {
-
-		String s2 = "<owl:NamedIndividual rdf:about=\"&qq;" + skto + "\">\r\n"
-				+ "<" + simeet + " rdf:resource=\"&qq;";
-
-		s = s + s2 + skogo + "\"/>\r\n</owl:NamedIndividual>\r\n\r\n";
-
-		s2 = "<owl:NamedIndividual rdf:about=\"&qq;" + skogo;
-
-		int i = s.indexOf(s2);
-		if (i < 0)
-			s = add_ind1(s, skogo);
-
-		return s;
-	}
-
-	public static String add_ind1(String s, String sind) {
-		return s + "\r\r<owl:NamedIndividual rdf:about=\"&qq;" + sind
-				+ "\"/>\r\n\r\n";
-	}
-
-	public static String prep_all(String s7) {
-
-		s7 = s7.replace("Любой", "");
-		s7 = s7.replace("Любая", "");
-		s7 = s7.replace("Любое", "");
-		s7 = s7.replace("Всякий", "");
-		s7 = s7.replace("Всякая", "");
-		s7 = s7.replace("Всякое", "");
-		s7 = s7.replace("Каждый", "");
-		s7 = s7.replace("Каждая", "");
-		s7 = s7.replace("Каждое", "");
-
-		s7 = s7.replace("любой", "");
-		s7 = s7.replace("любая", "");
-		s7 = s7.replace("любое", "");
-		s7 = s7.replace("всякий", "");
-		s7 = s7.replace("всякая", "");
-		s7 = s7.replace("всякое", "");
-		s7 = s7.replace("каждый", "");
-		s7 = s7.replace("каждая", "");
-		s7 = s7.replace("каждое", "");
-		s7 = s7.replace("это", "-");
-		s7 = s7.replace("\"", "");
-		s7 = s7.replace("&", "");
-		s7 = s7.replace("#", "");
-		s7 = s7.replace("<", "");
-		s7 = s7.replace(">", "");
-
-		return s7.trim();
-	}
-
 	public void onModuleLoad() {
 	}
 

@@ -65,16 +65,11 @@ public class qq5 extends HttpServlet  {
 		
 		
 		if(s.trim().length()==0)
-			s="Не знаю про это. Про что знаю, отвечу на вопросы: Кто тут? или Что есть?";
-		//s=s.substring(s.indexOf("#")+1);
-		//s=s.substring(0,s.indexOf(">"));
-		
-		
-		//s="<html><body>"+s+"</p></body><html>";
-		
-		
-		
-		
+		{
+			s=s=get_q3(sowl,sq,req);
+			
+			s="Не знаю про "+sq+". Тут есть: "+s;
+		}		
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}	
@@ -321,7 +316,7 @@ public String get_q3(String sowl, String  sq, HttpServletRequest req) {
 				s2=s2.replace("NamedIndividual", "").replace("Class", "").trim().replace("  ", " ");	
 				
 				if (s2.length()==0)
-					s2="никого и ничего тут пока еще нет";
+					s2="Ничего%nbsp;тут%nbsp;нет%nbsp;:-(";
 				
 				return s2;
 	}

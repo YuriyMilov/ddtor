@@ -15,7 +15,7 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
-public class qq_s extends HttpServlet  {
+public class qq_s extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -23,31 +23,55 @@ public class qq_s extends HttpServlet  {
 		resp.setContentType("text/xml; charset=UTF8");
 		resp.setCharacterEncoding("UTF8");
 
-		//String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-		String s=stat.sowl;
-		
-		
-		byte[] b = s.getBytes("UTF8");
-		out.write(b);
-	}	
-	
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		String s3 = req.getParameter("p3");
+		String s4 = req.getParameter("p4");
+		String s = "";
+		if (s3 == null && s4 == null) {
+			s = stat.sowl;
+			byte[] b = s.getBytes("UTF8");
+			out.write(b);
+			return;
+		}
 
+		if (s3.equals("load")) {
+			s = stat.rfu_utf(sh + "/" + URLEncoder.encode(s4, "UTF-8"));
+			stat.sr = s;
+			stat.stop = "";
+			stat.page(req, resp, "загрузил<br> "+s);
+			return;
+			
+		} else {
+			s = stat.rfu_utf(sh + "/" + URLEncoder.encode(s4, "UTF-8"));
+			stat.sr = stat.sr + s;
+			stat.stop = "";
+			stat.page(req, resp, "добавил<br> "+s);
+			return;
+			
+		}
+
+
+
+	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		doPost(req,resp);
-		
-		/*
-		ServletOutputStream out = resp.getOutputStream();
-		resp.setContentType("text/html; charset=UTF8");	
+		doPost(req, resp);
 
-		String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-		resp.setContentType("text/html; charset=UTF8");	
-		String s=Statik.rfu_utf(sh+"/ru6.txt");
-	
-		
-		byte[] b = s.getBytes("UTF8");
-		out.write(b);*/
+		/*
+		 * ServletOutputStream out = resp.getOutputStream();
+		 * resp.setContentType("text/html; charset=UTF8");
+		 * 
+		 * String sh = req.getScheme() + "://" + req.getServerName() + ":" +
+		 * req.getServerPort() + req.getContextPath();
+		 * resp.setContentType("text/html; charset=UTF8"); String
+		 * s=Statik.rfu_utf(sh+"/ru6.txt");
+		 * 
+		 * 
+		 * byte[] b = s.getBytes("UTF8"); out.write(b);
+		 */
 	}
+
 	private static final long serialVersionUID = 1L;
 }

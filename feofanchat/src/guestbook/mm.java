@@ -79,11 +79,11 @@ public class mm extends HttpServlet {
 		     else                
 		         content= ms1.getContent().toString();
 			
-			
-			     
-		     content= content.replace("<br>", "\r\n").split("\n\r")[0].replaceAll("\\<.*?>","");
-			
 		     s=content;
+			     
+
+		    	 s= s.split("\n\r")[0].replaceAll("\\<.*?>","");
+		
 			
 			//s=s.substring(0,s.indexOf("\n"));
 			s = stat.get_post(sh + "/qq", "q=" + URLEncoder.encode(s, "UTF-8"));
@@ -117,9 +117,10 @@ public class mm extends HttpServlet {
 			
 			//ms1.getReplyTo()[0].
 			
-			s = "\r\n - "+content + s +"\r\n\r\n======  Лог  =======\r\n\r\n"+sall;
+		//	s = "\r\n - "+content + s +"\r\n\r\n======  Лог  =======\r\n\r\n"+sall;
+			
+			
 			s=s.replaceAll("\\<.*?>","");
-
 			msg.setText(s);			
 			
 			
