@@ -40,7 +40,9 @@ import com.google.appengine.api.files.FileWriteChannel;
 public class stat {
 	
 	public static String s1 = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
-	public static String s2 = "<br/><br/><form  action=qq method=post> <input type=text id=id name=p2 size=82> <br>&nbsp;<a href=qq>начнём сначала</a> &nbsp;&nbsp; <a href=qq?p2=кря!>кря!</a> &nbsp;&nbsp; <a href=../load.htm>загрузить мир</a> &nbsp;&nbsp; <a href=../add.htm>добавить миру мир</a> &nbsp;&nbsp; <a href>сохранить мир</a> </form> </body></html>";
+	public static String s2 = "<br/><br/><form  action=qq method=post> <input type=text id=id name=p2 size=82> <br><br>&nbsp;<a href=qq>начнём сначала</a> &nbsp;&nbsp; <a href=qq?p2=кря>кря</a> &nbsp;&nbsp; <a href=../load.htm>загрузить мир</a> &nbsp;&nbsp; <a href=../add.htm>добавить миру мир</a> &nbsp;&nbsp; <a href>сохранить мир</a> " +
+			"<br><br>&nbsp;<a href=qq?p2=имена>имена</a> &nbsp;&nbsp; <a href=qq?p2=понятия>понятия</a> " +
+			"</form> </body></html>";
 	public static String stop = "";
 	public static String sowl = "";
 	public static String sr = "";
@@ -48,7 +50,7 @@ public class stat {
 	public static void page(HttpServletRequest req, HttpServletResponse resp,
 			String sotvet) throws IOException {
 
-		stop = stop + "<br><br>\r\n<b><i>Феофан:</i></b>\r\n <!--otvet--> \r\n" + sotvet+ "\r\n<!--otvet--><br>";
+		stop = stop + "<br><br>\r\n<b><i>Феофан:</i></b>\r\n \r\n<!--otvet-->" + sotvet+ "<!--otvet-->\r\n<br>";
 
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
@@ -58,7 +60,9 @@ public class stat {
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}
+	
 
+	
 	public static String rfu_utf(String s) {
 		try {
 			URL url = new URL(s);
@@ -231,8 +235,17 @@ public class stat {
 			throws IOException {
 		stat.stop = "";
 		stat.sr = "";
-		String s = "кря!";
+		String s = "кря";
 		stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
+	}
+	
+	public static void send_file(HttpServletRequest req, HttpServletResponse resp, String s) 
+			throws IOException {
+		ServletOutputStream out = resp.getOutputStream();
+		resp.setContentType("text/xml");
+		resp.setHeader("Content-Disposition", "attachment; filename=owl.xml");
+		byte[] b = s.getBytes("UTF8");
+		out.write(b);
 	}
 	
 	public static void clear_blobstore() throws IOException {

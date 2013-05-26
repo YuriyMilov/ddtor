@@ -51,10 +51,16 @@ public class GreetingChatbot extends HttpServlet {
     JID id = message.getFromJid();
      
    String s = message.getBody();
-   s = stat.get_post(sh + "/qq", "q=" + URLEncoder.encode(s, "UTF-8")).replaceAll("\\<.*?>","");
+   s = stat.get_post(sh + "/qq", "p2=" + URLEncoder.encode(s, "UTF-8")).replaceAll("\\<.*?>","");
  
-			sm(id,s);
-			return;
+   if(s.indexOf("Феофан:")>-1)
+	   s=s.substring(s.lastIndexOf("Феофан:")+7);
+   if(s.indexOf("начнём")>-1)
+	   s=s.substring(0,s.indexOf("начнём"));
+   
+	s=s.trim();
+	sm(id,s);
+	return;
 }
   
   

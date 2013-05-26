@@ -316,7 +316,7 @@ public String get_q3(String sowl, String  sq, HttpServletRequest req) {
 				s2=s2.replace("NamedIndividual", "").replace("Class", "").trim().replace("  ", " ");	
 				
 				if (s2.length()==0)
-					s2="Ничего%nbsp;тут%nbsp;нет%nbsp;:-(";
+					s2="никого";
 				
 				return s2;
 	}

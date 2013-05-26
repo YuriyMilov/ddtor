@@ -82,22 +82,33 @@ public class mm extends HttpServlet {
 		     s=content;
 			     
 
-		    	 s= s.split("\n\r")[0].replaceAll("\\<.*?>","");
+
+s= s.split("\n")[0].replaceAll("\\<.*?>","");
 		
 			
 			//s=s.substring(0,s.indexOf("\n"));
-			s = stat.get_post(sh + "/qq", "q=" + URLEncoder.encode(s, "UTF-8"));
 			
+
+		    	 
+		    	 s = stat.get_post(sh + "/qq", "p2=" + URLEncoder.encode(s, "UTF-8"));
+
+
 
 			MimeMessage msg = new MimeMessage(session, req.getInputStream());
 			msg.setFrom(new InternetAddress("feofan@feofan.com", "Феофан Кряк",
 					"UTF-8"));
 			//msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 			//		"ymilov@gmail.com", " ", "UTF-8"));
-
 			msg.addRecipient(Message.RecipientType.TO,ms1.getReplyTo()[0]);
-					
 			msg.setSubject( ms1.getSubject(), "UTF-8");
+			
+
+			
+			
+			
+			
+			
+			
 			
 			
 					
@@ -115,21 +126,21 @@ public class mm extends HttpServlet {
 				s = "хмм... непонятно...";
 
 			
-			//ms1.getReplyTo()[0].
 			
-		//	s = "\r\n - "+content + s +"\r\n\r\n======  Лог  =======\r\n\r\n"+sall;
+			
+			//	s = "\r\n - "+content + s +"\r\n\r\n======  Лог  =======\r\n\r\n"+sall;
 			
 			
 			s=s.replaceAll("\\<.*?>","");
-			msg.setText(s);			
+
 			
+			msg.setText(s);
+		
 			
 			//msg.setText(ms1.getContent().toString());
 
 			Transport.send(msg);
-			
-			//stat.page(req, resp, s);
-
+	
 		} catch (Exception e) {
 			s = e.toString();
 		}

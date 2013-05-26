@@ -59,38 +59,85 @@ public class qq extends HttpServlet implements EntryPoint {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
 		String s = req.getParameter("p2");
+		
 		if(s==null)
 		{
 			stat.init(req, resp);
 			return;
 		}
 		s=s.trim();
-		stat.stop = stat.stop + "<br> <b><i>Я: </i></b> " + s;
 		
-		if (s.indexOf("!") > 0 && s.indexOf("чист") > -1) {
-			stat.init(req, resp);
-			return;
-		}
-		
-		if (s.equals("кто!")) {
-			s = stat.rfu_utf(sh + "/qq_s");
-			s = stat.sowl;
-			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
-			return;
-		}
-
 		if (s.length() == 0) {
 			s = stat.rfu_utf(sh + "/hlp.txt");
 			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 			return;
 		}
+		
+		stat.stop = stat.stop + "<br> <b><i>Я: </i></b> " + s;
+		if (s.indexOf(" ") < 0)
+		{
+			
+		if (s.indexOf("чист") == 0) {
+			stat.init(req, resp);
+			return;
+		}		
+		if (s.indexOf("имена") == 0) {
+			s = stat.get_owl(stat.sr);
+			String[] ss = s.split("<NamedIndividual rdf:about=\"&qq;");
+			String s2 = "";
+			int i = 1;
+			int k=0;
+			while(i<ss.length)
+				{
+				s=ss[i++];
+				k=s.indexOf("\"");
+				s=s.substring(0, k);
+				//System.out.println(s);
+				if(s2.indexOf(s)<0)
+				s2=s2+s+", ";
+				}
+			if(s2.length()>1)
+				s2=s2.substring(0,s2.length()-2);
+			else
+				s2="Никого тут еще нет. Напиши чего-нибудь для начала или загрузи уже написанный мир.";
+			stat.page(req, resp, s2);
+			return;
+		}
+		if (s.equals("понятия")) {
+			s = stat.get_owl(stat.sr);
+			String[] ss = s.split("<Class rdf:about=\"&qq;");
+			String s2 = "";
+			int i = 1;
+			int k=0;
+			while(i<ss.length)
+				{
+				s=ss[i++];
+				k=s.indexOf("\"");
+				s=s.substring(0, k);
+				//System.out.println(s);
+				if(s2.indexOf(s)<0)
+				s2=s2+s+", ";
+				}
+			if(s2.length()>1)
+				s2=s2.substring(0,s2.length()-2);
+			else
+				s2="Никого тут еще нет. Напиши чего-нибудь для начала или загрузи уже написанный мир.";
+			stat.page(req, resp, s2);
+			return;
+			}
 
-		if (s.indexOf("кря!")==0) {
+		if (s.equals("кря")) {
 			s = stat.rfu_utf(sh + "/kpz.txt");
 			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 			return;
 		}
-
+		if (s.equals("оул")){
+			s = stat.get_owl(stat.sr);
+			stat.send_file(req, resp, s);
+			stat.page(req, resp, "готово");
+			return;
+		}
+	}
 		String sq2 = s, sq = s;
 		sq = sq.replace("Кто тут?", "кто есть?");
 		sq = sq.replace("Что тут?", "что есть?");
@@ -151,7 +198,7 @@ public class qq extends HttpServlet implements EntryPoint {
 				sq4 = sq4 + sq3;
 			}
 
-			s = "Понял так: " + sq4;
+			s = "Понял. " + sq4;
 
 			// ////////////////////////////////////////////////
 
