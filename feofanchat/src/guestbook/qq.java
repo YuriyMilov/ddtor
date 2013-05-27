@@ -83,7 +83,7 @@ public class qq extends HttpServlet implements EntryPoint {
 		}		
 		if (s.indexOf("имена") == 0) {
 			s = stat.get_owl(stat.sr);
-			String[] ss = s.split("<NamedIndividual rdf:about=\"&qq;");
+			String[] ss = s.split("<owl:NamedIndividual rdf:about=\"&qq;");
 			String s2 = "";
 			int i = 1;
 			int k=0;
@@ -105,7 +105,7 @@ public class qq extends HttpServlet implements EntryPoint {
 		}
 		if (s.equals("понятия")) {
 			s = stat.get_owl(stat.sr);
-			String[] ss = s.split("<Class rdf:about=\"&qq;");
+			String[] ss = s.split("<owl:Class rdf:about=\"&qq;");
 			String s2 = "";
 			int i = 1;
 			int k=0;
