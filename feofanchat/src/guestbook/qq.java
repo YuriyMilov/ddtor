@@ -99,7 +99,7 @@ public class qq extends HttpServlet implements EntryPoint {
 			if(s2.length()>1)
 				s2=s2.substring(0,s2.length()-2);
 			else
-				s2="Никого тут еще нет. Напиши чего-нибудь для начала или загрузи уже написанный мир.";
+				s2="Нет индивидов.";
 			stat.page(req, resp, s2);
 			return;
 		}
@@ -121,7 +121,7 @@ public class qq extends HttpServlet implements EntryPoint {
 			if(s2.length()>1)
 				s2=s2.substring(0,s2.length()-2);
 			else
-				s2="Никого тут еще нет. Напиши чего-нибудь для начала или загрузи уже написанный мир.";
+				s2="Нет понятий.";
 			stat.page(req, resp, s2);
 			return;
 			}
@@ -131,10 +131,10 @@ public class qq extends HttpServlet implements EntryPoint {
 			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 			return;
 		}
-		if (s.equals("оул")){
+		if (s.equals("owl")){
 			s = stat.get_owl(stat.sr);
 			stat.send_file(req, resp, s);
-			stat.page(req, resp, "готово");
+			//stat.page(req, resp, "готово");
 			return;
 		}
 	}

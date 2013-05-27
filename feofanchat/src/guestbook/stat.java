@@ -41,7 +41,7 @@ public class stat {
 	
 	public static String s1 = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
 	public static String s2 = "<br/><br/><form  action=qq method=post> <input type=text id=id name=p2 size=82> <br><br>&nbsp;<a href=qq>начнём сначала</a> &nbsp;&nbsp; <a href=qq?p2=кря>кря</a> &nbsp;&nbsp; <a href=../load.htm>загрузить мир</a> &nbsp;&nbsp; <a href=../add.htm>добавить миру мир</a> &nbsp;&nbsp; <a href>сохранить мир</a> " +
-			"<br><br>&nbsp;<a href=qq?p2=имена>имена</a> &nbsp;&nbsp; <a href=qq?p2=понятия>понятия</a> " +
+			"<br><br>&nbsp;<a href=qq?p2=имена>имена</a> &nbsp;&nbsp; <a href=qq?p2=понятия>понятия</a>  &nbsp;&nbsp; <a href=qq?p2=owl>owl</a> " +
 			"</form> </body></html>";
 	public static String stop = "";
 	public static String sowl = "";
@@ -301,24 +301,24 @@ public class stat {
 	}
 
 	public static String close_rdf(String s) {
-		return s + "\r\n\r\n</rdf:RDF>\r\n";
+		return s + "\r\n\r\n</rdf:RDF>\r\n\r\n";
 	}
 
 	public static String add_class_rdf(String s, String sclass) {
-		return s + "\r\n<Class rdf:about=\"&qq;" + sclass + "\"/>\r\n";
+		return s + "\r\n<owl:Class rdf:about=\"&qq;" + sclass + "\"/>\r\n\r\n";
 	}
 
 	public static String add_subclass_rdf(String s, String ssubclass,
 			String sclass) {
-		return s + "<Class rdf:about=\"&qq;" + ssubclass
+		return s + "<owl:Class rdf:about=\"&qq;" + ssubclass
 				+ "\"><rdfs:subClassOf rdf:resource=\"&qq;" + sclass
-				+ "\"/></Class> \r\n";
+				+ "\"/></owl:Class> \r\n\r\n";
 	}
 
 	static String add_inividual_rdf(String s, String sind, String sclass) {
-		return s + "<NamedIndividual rdf:about=\"&qq;" + sind
+		return s + "<owl:NamedIndividual rdf:about=\"&qq;" + sind
 				+ "\"> <rdf:type rdf:resource=\"&qq;" + sclass
-				+ "\"/> </NamedIndividual>\r\n";
+				+ "\"/> </owl:NamedIndividual>\r\n\r\n";
 	}
 
 	public static String add_has(String s, String simeet) {
