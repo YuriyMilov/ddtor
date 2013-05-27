@@ -50,7 +50,7 @@ public class stat {
 	public static void page(HttpServletRequest req, HttpServletResponse resp,
 			String sotvet) throws IOException {
 
-		stop = stop + "<br><br>\r\n<b><i>Феофан:</i></b>\r\n \r\n<!--otvet-->" + sotvet+ "<!--otvet-->\r\n<br>";
+		stop = stop + "<br><br>\r\n<b><i>Феофан: - </i></b>\r\n \r\n<!--otvet-->" + sotvet+ "<!--otvet-->\r\n<br>";
 
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
@@ -217,7 +217,11 @@ public class stat {
 					// s = Statik.add_classassertion(s, stok[2],
 					// stok[0]);
 
-					s = add_inividual_rdf(s, stok[0], stok[2]);
+					s = add_ind1(s, stok[0]);
+					s = add_ind1(s, stok[2]);
+					s= add_has(s,stok[1]);
+				
+				s= add_ind1_knows_ind2(s,stok[0],stok[1],stok[2]);
 			}
 		}
 		// s = Statik.close_owl(s);
@@ -327,7 +331,7 @@ public class stat {
 		return s;
 	}
 
-	public static String add_a_has_b(String s, String skto, String simeet,
+	public static String add_ind1_knows_ind2(String s, String skto, String simeet,
 			String skogo) {
 
 		String s2 = "<owl:NamedIndividual rdf:about=\"&qq;" + skto + "\">\r\n"

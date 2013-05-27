@@ -73,7 +73,7 @@ public class qq extends HttpServlet implements EntryPoint {
 			return;
 		}
 		
-		stat.stop = stat.stop + "<br> <b><i>Я: </i></b> " + s;
+		stat.stop = stat.stop + "<br> <b><i> ?-:) </i></b> " + s;
 		if (s.indexOf(" ") < 0)
 		{
 			
@@ -187,7 +187,20 @@ public class qq extends HttpServlet implements EntryPoint {
 
 				} else {
 					if (!ss3[1].equals("-") && !ss3[1].equals("-")) {
-						s = stat.rfu_utf(sh + "/hlp.txt");
+						
+						
+						
+						
+						
+						////////////////////////////////////////////////
+						
+						
+						stat.sr = stat.sr + " " + sq;
+						s="Понял. Житель \""+ss3[0] + "\" связан с жителем \"" +ss3[2] + "\" отношением, которое называется \"" + ss3[1] + "\". ";					
+						
+						////////////////////////////////////////////////
+						//s = stat.rfu_utf(sh + "/hlp.txt");
+
 						stat.page(req, resp, s);
 						return;
 					} else {
