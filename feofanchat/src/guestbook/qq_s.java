@@ -28,8 +28,8 @@ public class qq_s extends HttpServlet {
 		String s3 = req.getParameter("p3");
 		String s4 = req.getParameter("p4");
 		String s = "";
-		if (s3 == null && s4 == null) {
-			s = stat.sowl;
+		if (s3 == null && s4 == null) {			
+			s = stat.sowl;			
 			byte[] b = s.getBytes("UTF8");
 			out.write(b);
 			return;
@@ -37,23 +37,21 @@ public class qq_s extends HttpServlet {
 
 		if (s3.equals("load")) {
 			s = stat.rfu_utf(sh + "/" + URLEncoder.encode(s4, "UTF-8"));
-			stat.sr = s;
-			stat.stop = "";
-			stat.page(req, resp, "загрузил<br> "+s);
+			stat.text(s, req, resp);
+			//stat.page(req, resp, stat.sr);
 			return;
-			
-		} else {
-			s = stat.rfu_utf(sh + "/" + URLEncoder.encode(s4, "UTF-8"));
-			stat.sr = stat.sr + s;
-			stat.stop = "";
-			stat.page(req, resp, "добавил<br> "+s);
-			return;
-			
 		}
-
-
-
+			
+			if (s3.equals("add")) {
+			s = stat.rfu_utf(sh + "/" + URLEncoder.encode(s4, "UTF-8"));
+			stat.text(s, req, resp);
+			//stat.page(req, resp, stat.sr);
+			return;
+			}
+		
 	}
+
+
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {

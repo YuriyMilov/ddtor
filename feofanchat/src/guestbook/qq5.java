@@ -28,9 +28,10 @@ public class qq5 extends HttpServlet  {
 		//sowl="http://127.0.0.1:8888/qqr";
 		
 		sowl =  req.getParameter("p1");	
-
-		
 		sq = req.getParameter("p2").trim();
+		
+		stat.sowl=stat.get_owl(stat.sr);	
+		
 		
 		String s="";
 		int i2 =sq.indexOf("есть");
@@ -58,15 +59,11 @@ public class qq5 extends HttpServlet  {
 		}
 		s=s.trim();
 		
-		if(s.lastIndexOf(" ")==s.indexOf(" ") && s.indexOf(" ")>0)
-			s=s.replace(" ", " и ");
-		else
-			s=s.replace(" ", ", ");
 		
 		
-		if(s.trim().length()==0)
+		if(s.length()==0)
 		{
-			s=s=get_q3(sowl,sq,req);
+			s=get_q3(sowl,sq,req);
 			
 			s="Не знаю про "+sq+". Тут есть: "+s;
 		}		
@@ -91,6 +88,7 @@ public class qq5 extends HttpServlet  {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
 		
 		sh=sh+"/qq_s";
+		
 		
 		//if(stat.st.length()>0)		
 			model.read(sh);

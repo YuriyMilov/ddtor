@@ -41,14 +41,12 @@ import com.google.gwt.core.client.EntryPoint;
 
 public class qq extends HttpServlet implements EntryPoint {
 
-
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		if(req.getQueryString()==null)
+		if (req.getQueryString() == null)
 			stat.init(req, resp);
-		else
-			if(req.getQueryString().indexOf("p2=")>-1)
-				doPost(req, resp);
+		else if (req.getQueryString().indexOf("p2=") > -1)
+			doPost(req, resp);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -59,173 +57,46 @@ public class qq extends HttpServlet implements EntryPoint {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
 		String s = req.getParameter("p2");
-		
-		if(s==null)
-		{
+
+		if (s == null) {
 			stat.init(req, resp);
 			return;
 		}
-		s=s.trim();
+		s = s.trim();
 		
-		if (s.length() == 0) {
-			s = stat.rfu_utf(sh + "/hlp.txt");
-			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
-			return;
-		}
 		
-		stat.stop = stat.stop + "<br> <b><i> ?-:) </i></b> " + s;
-		if (s.indexOf(" ") < 0)
-		{
+		///////////////////////////////
+		//
+		//         команда
+		//
+		///////////////////////////////
 			
-		if (s.indexOf("чист") == 0) {
-			stat.init(req, resp);
-			return;
-		}		
-		if (s.indexOf("имена") == 0) {
-			s = stat.get_owl(stat.sr);
-			String[] ss = s.split("<owl:NamedIndividual rdf:about=\"&qq;");
-			String s2 = "";
-			int i = 1;
-			int k=0;
-			while(i<ss.length)
-				{
-				s=ss[i++];
-				k=s.indexOf("\"");
-				s=s.substring(0, k);
-				//System.out.println(s);
-				if(s2.indexOf(s)<0)
-				s2=s2+s+", ";
-				}
-			if(s2.length()>1)
-				s2=s2.substring(0,s2.length()-2);
-			else
-				s2="Нет индивидов.";
-			stat.page(req, resp, s2);
-			return;
-		}
-		if (s.equals("понятия")) {
-			s = stat.get_owl(stat.sr);
-			String[] ss = s.split("<owl:Class rdf:about=\"&qq;");
-			String s2 = "";
-			int i = 1;
-			int k=0;
-			while(i<ss.length)
-				{
-				s=ss[i++];
-				k=s.indexOf("\"");
-				s=s.substring(0, k);
-				//System.out.println(s);
-				if(s2.indexOf(s)<0)
-				s2=s2+s+", ";
-				}
-			if(s2.length()>1)
-				s2=s2.substring(0,s2.length()-2);
-			else
-				s2="Нет понятий.";
-			stat.page(req, resp, s2);
-			return;
-			}
-
-		if (s.equals("кря")) {
-			s = stat.rfu_utf(sh + "/kpz.txt");
-			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
-			return;
-		}
-		if (s.equals("owl")){
-			s = stat.get_owl(stat.sr);
-			stat.send_file(req, resp, s);
-			//stat.page(req, resp, "готово");
-			return;
-		}
-	}
-		String sq2 = s, sq = s;
-		sq = sq.replace("Кто тут?", "кто есть?");
-		sq = sq.replace("Что тут?", "что есть?");
-		sq = sq.replace("кто тут?", "кто есть?");
-		sq = sq.replace("что тут?", "что есть?");
-		sq = sq.replace("кто тут есть?", "Кто есть?");
-		sq = sq.replace("что тут есть?", "Что есть?");
-		sq = sq.replace("Кто тут есть?", "Кто есть?");
-		sq = sq.replace("Что тут есть?", "Что есть?");
-
-		int k = sq.length() - 1;
-		if (sq.indexOf("?") != k)
-
+		if (s.indexOf(" ") < 0) 				
 		{
-			sq2 = stat.prep_all(sq2);
-			String[] ss2 = sq2.split("[.]+");
-			String[] ss3;
-			String sq3 = "";
-			String sq4 = "";
-
-			int iq = ss2.length;
-			int iq3 = 0;
-
-			for (int i = 0; i < iq; i++) {
-				sq3 = ss2[i].trim();
-				ss3 = sq3.split("[ ]+");
-				iq3 = ss3.length;
-
-				if (iq3 < 2) {
-					s = stat.rfu_utf(sh + "/hlp.txt");
-					stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
-					return;
-				}
-
-				// //////////////
-
-				if (sq.lastIndexOf(".") != k) {
-					sq2 = sq + ". ";
-					sq = sq + ". ";
-				} else
-					sq2 = sq;
-
-				if (iq3 < 3) {
-
-					sq3 = " Всё, что называется " + ss3[0] + ", то " + ss3[1]
-							+ ". ";
-
-				} else {
-					if (!ss3[1].equals("-") && !ss3[1].equals("-")) {
-						
-						
-						
-						
-						
-						////////////////////////////////////////////////
-						
-						
-						stat.sr = stat.sr + " " + sq;
-						s="Понял. Житель \""+ss3[0] + "\" связан с жителем \"" +ss3[2] + "\" отношением, которое называется \"" + ss3[1] + "\". ";					
-						
-						////////////////////////////////////////////////
-						//s = stat.rfu_utf(sh + "/hlp.txt");
-
-						stat.page(req, resp, s);
-						return;
-					} else {
-						sq3 = ss3[0] + " это " + ss3[2] + ".";
-					}
-				}
-
-				sq4 = sq4 + sq3;
-			}
-
-			s = "Понял. " + sq4;
-
-			// ////////////////////////////////////////////////
-
-			stat.sr = stat.sr + " " + sq;
-
-			// /////////////////////////////////////////////////
-
-			stat.page(req, resp, s);
+			stat.command(s, req, resp);
 			return;
+		}	
 
+		///////////////////////////////
+		//
+		//         текст
+		//
+		///////////////////////////////
+		
+		if (s.indexOf("?") != s.length() - 1)
+		{
+			stat.text(s, req, resp);
+			return;
 		}
-
 		else {
-			String s5 = sq;
+			
+			///////////////////////////////
+			//
+			//         вопрос
+			//
+			///////////////////////////////
+
+			String s5 = s;
 			boolean bb = s5.indexOf("Кто ") == 0 || s5.indexOf("кто ") == 0
 					|| s5.indexOf("Что ") == 0 || s5.indexOf("что ") == 0;
 			if (bb) {
@@ -235,7 +106,7 @@ public class qq extends HttpServlet implements EntryPoint {
 						.replace("?", "").trim();
 
 				if (s5.indexOf(" ") == -1) {
-					stat.sowl = stat.get_owl(stat.sr);
+					//stat.sowl = stat.get_owl(stat.sr);
 					// s = wf("test.owl", stat.sowl);
 
 					String surl = sh + "/qq5";
@@ -247,23 +118,34 @@ public class qq extends HttpServlet implements EntryPoint {
 					stat.page(req, resp, s);
 					return;
 				}
+				
+				/////////////////////////////////////////////
+				//
+				//      вопрос больше чем два слова  - хелп
+				//
+				/////////////////////////////////////////////
+				
 				if (s5.indexOf(" ") > -1) {
 					s = stat.rfu_utf(sh + "/hlp.txt");
 					stat.page(req, resp, s);
 					return;
 				}
 			}
+						
+			/////////////////////////////////////////////
+			//
+			//      вопрос без кто или что в начале - хелп
+			//
+			/////////////////////////////////////////////
+
 			if (s5.indexOf("Кто ") != 0 && s5.indexOf("кто ") != 0) {
 				s = stat.rfu_utf(sh + "/hlp.txt");
 				stat.page(req, resp, s);
 				return;
 			}
-
 		}
-
 	}
 
-	
 	public void onModuleLoad() {
 	}
 

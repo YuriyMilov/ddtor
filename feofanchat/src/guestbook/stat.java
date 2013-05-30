@@ -38,31 +38,30 @@ import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 
 public class stat {
-	
+
 	public static String s1 = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
-	public static String s2 = "<br/><br/><form  action=qq method=post> <input type=text id=id name=p2 size=82> <br><br>&nbsp;<a href=qq>начнём сначала</a> &nbsp;&nbsp; <a href=qq?p2=кря>кря</a> &nbsp;&nbsp; <a href=../load.htm>загрузить мир</a> &nbsp;&nbsp; <a href=../add.htm>добавить миру мир</a> &nbsp;&nbsp; <a href>сохранить мир</a> " +
-			"<br><br>&nbsp;<a href=qq?p2=имена>имена</a> &nbsp;&nbsp; <a href=qq?p2=понятия>понятия</a>  &nbsp;&nbsp; <a href=qq?p2=owl>owl</a> " +
-			"</form> </body></html>";
+	public static String s2 = "<br/><br/><form  action=qq method=post> <input type=text id=id name=p2 size=82> <br><br>&nbsp;<a href=qq>начнём сначала</a> &nbsp;&nbsp; <a href=qq?p2=кря>кря</a> &nbsp;&nbsp; <a href=../load.htm>загрузить мир</a> &nbsp;&nbsp; <a href=../add.htm>добавить миру мир</a> &nbsp;&nbsp; <a href>сохранить мир</a> "
+			+ "<br><br>&nbsp;<a href=qq?p2=имена>имена</a> &nbsp;&nbsp; <a href=qq?p2=понятия>понятия</a>  &nbsp;&nbsp; <a href=qq?p2=owl>owl</a> "
+			+ "</form> </body></html>";
 	public static String stop = "";
 	public static String sowl = "";
 	public static String sr = "";
-	
+
 	public static void page(HttpServletRequest req, HttpServletResponse resp,
 			String sotvet) throws IOException {
 
-		stop = stop + "<br><br>\r\n<b><i>Феофан: - </i></b>\r\n \r\n<!--otvet-->" + sotvet+ "<!--otvet-->\r\n<br>";
+		stop = stop + "<br><br>\r\n<b><i>Феофан: </i></b>\r\n \r\n<!--otvet-->"
+				+ sotvet + "<!--otvet-->\r\n<br>";
 
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
 		// String sh = req.getScheme() + "://" + req.getServerName() + ":"
 		// + req.getServerPort() + req.getContextPath();
-		String s = s1+ stop+s2;
+		String s = s1 + stop + s2;
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}
-	
 
-	
 	public static String rfu_utf(String s) {
 		try {
 			URL url = new URL(s);
@@ -83,7 +82,7 @@ public class stat {
 			return e.toString();
 		}
 	}
-	
+
 	public static String get_post(String surl, String body) {
 		String s = "";
 
@@ -135,104 +134,75 @@ public class stat {
 	static void sm(String skomu, String s) throws Exception {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
-       Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("kuka@feofan.com", "Кука Тверской"));
-            msg.addRecipient(Message.RecipientType.TO,
-                             new InternetAddress(skomu, " "));
-            msg.setSubject("Кука Тверской "+ new java.util.Date().toString());
-            msg.setText(s);
-            Transport.send(msg);
+		Message msg = new MimeMessage(session);
+		msg.setFrom(new InternetAddress("kuka@feofan.com", "Кука Тверской"));
+		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(skomu,
+				" "));
+		msg.setSubject("Кука Тверской " + new java.util.Date().toString());
+		msg.setText(s);
+		Transport.send(msg);
 	}
 
 	static void smtxt(String s) throws Exception {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
-       Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("kuka@feofan.com", "Example.com Admin"));
-            msg.addRecipient(Message.RecipientType.TO,
-                             new InternetAddress("ymilov@gmail.com", "Mr. User"));
-            msg.setSubject("Your Example.com account has been activated");
-            msg.setText("msgBody");
-            
-            
-            // Create the message part 
-	         BodyPart messageBodyPart = new MimeBodyPart();
+		Message msg = new MimeMessage(session);
+		msg.setFrom(new InternetAddress("kuka@feofan.com", "Example.com Admin"));
+		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
+				"ymilov@gmail.com", "Mr. User"));
+		msg.setSubject("Your Example.com account has been activated");
+		msg.setText("msgBody");
 
-	         // Fill the message
-	         messageBodyPart.setText(s);
-	         
-	         // Create a multipar message
-	         Multipart multipart = new MimeMultipart();
+		// Create the message part
+		BodyPart messageBodyPart = new MimeBodyPart();
 
-	         // Set text message part
-	         multipart.addBodyPart(messageBodyPart);
+		// Fill the message
+		messageBodyPart.setText(s);
 
-	         // Part two is attachment
-	         messageBodyPart = new MimeBodyPart();
-	         String filename = "file.txt";
-	         
-	        
-	         DataSource source = new ByteArrayDataSource("xmlData".getBytes("utf-8"),
-                  "text/xml; charset=utf-8");
-	         messageBodyPart.setDataHandler(new DataHandler(source));
-	         messageBodyPart.setFileName(filename);
-	         messageBodyPart.addHeader("Content-Type", " text/xml; charset=utf-8");
-	         multipart.addBodyPart(messageBodyPart);
+		// Create a multipar message
+		Multipart multipart = new MimeMultipart();
 
-	         // Send the complete message parts
-	         msg.setContent(multipart );
-	         
-	         
-            Transport.send(msg);
+		// Set text message part
+		multipart.addBodyPart(messageBodyPart);
+
+		// Part two is attachment
+		messageBodyPart = new MimeBodyPart();
+		String filename = "file.txt";
+
+		DataSource source = new ByteArrayDataSource(
+				"xmlData".getBytes("utf-8"), "text/xml; charset=utf-8");
+		messageBodyPart.setDataHandler(new DataHandler(source));
+		messageBodyPart.setFileName(filename);
+		messageBodyPart.addHeader("Content-Type", " text/xml; charset=utf-8");
+		multipart.addBodyPart(messageBodyPart);
+
+		// Send the complete message parts
+		msg.setContent(multipart);
+
+		Transport.send(msg);
 	}
 
-	
 	public static String get_owl(String s) {
 
-		String[] stok = null;
-		String phrase = null;
-		String s8 = "[.]+";
-		String delims = "[ ]+";
-
-		s = prep_all(s);
-
-		s = s.replace("есть", "");
-		s = s.replace("это", "-");
-
-		String[] ss9 = s.split(s8);
+		String[] sss = prep_all(s).split("[.]+");
 		s = open_rdf();
-		{
-			for (int i = 0; i < ss9.length; i++) {
-				phrase = ss9[i].trim();
-				stok = phrase.split(delims);
-
-				if (stok.length == 2)
-				// s = Statik.add_subclass(s, stok[1], stok[0]);
-				{
-					s = add_class_rdf(s, stok[1]);
-					s = add_subclass_rdf(s, stok[0], stok[1]);
-				}
-				stok = phrase.split(delims);
-				if (stok.length == 3)
-					// s = Statik.add_classassertion(s, stok[2],
-					// stok[0]);
-
-					s = add_ind1(s, stok[0]);
-					s = add_ind1(s, stok[2]);
-					s= add_has(s,stok[1]);
-				
-				s= add_ind1_knows_ind2(s,stok[0],stok[1],stok[2]);
-			}
+		for (int i = 0; i < sss.length; i++) {
+			String[] ss = sss[i].trim().split("[ ]+");
+			if (ss.length != 3)
+				return stat.close_rdf(s);
+			
+			////////////////////////			
+			//
+			//   Class - SubClass
+			//
+			////////////////////////
+			
+			s = add_class_rdf(s, ss[2]);
+			s = add_subclass_rdf(s, ss[0], ss[2]);
 		}
-		// s = Statik.close_owl(s);
 		s = close_rdf(s);
-
-		// clear_blobstore();
-
 		stat.sowl = s;
-
 		return s;
-
 	}
 
 	public static void init(HttpServletRequest req, HttpServletResponse resp)
@@ -242,16 +212,16 @@ public class stat {
 		String s = "кря";
 		stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
 	}
-	
-	public static void send_file(HttpServletRequest req, HttpServletResponse resp, String s) 
-			throws IOException {
+
+	public static void send_file(HttpServletRequest req,
+			HttpServletResponse resp, String s) throws IOException {
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/xml");
 		resp.setHeader("Content-Disposition", "attachment; filename=owl.xml");
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}
-	
+
 	public static void clear_blobstore() throws IOException {
 		BlobInfoFactory blf = new BlobInfoFactory();
 		Iterator<BlobInfo> info = blf.queryBlobInfos();
@@ -299,7 +269,7 @@ public class stat {
 				+ "xmlns:owl=\"http://www.w3.org/2002/07/owl#\"     \r\n"
 				+ "xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"     \r\n"
 				+ "xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">    \r\n\r\n"
-				+ "<owl:Ontology rdf:about=\"http://feofan.com/contrus\"/>\r\n\r\n";
+				+ "<owl:Ontology rdf:about=\"http://feofan.com/qq_s\"/>\r\n\r\n";
 
 		return s;
 	}
@@ -331,8 +301,8 @@ public class stat {
 		return s;
 	}
 
-	public static String add_ind1_knows_ind2(String s, String skto, String simeet,
-			String skogo) {
+	public static String add_ind1_knows_ind2(String s, String skto,
+			String simeet, String skogo) {
 
 		String s2 = "<owl:NamedIndividual rdf:about=\"&qq;" + skto + "\">\r\n"
 				+ "<" + simeet + " rdf:resource=\"&qq;";
@@ -354,27 +324,7 @@ public class stat {
 	}
 
 	public static String prep_all(String s7) {
-
-		s7 = s7.replace("Любой", "");
-		s7 = s7.replace("Любая", "");
-		s7 = s7.replace("Любое", "");
-		s7 = s7.replace("Всякий", "");
-		s7 = s7.replace("Всякая", "");
-		s7 = s7.replace("Всякое", "");
-		s7 = s7.replace("Каждый", "");
-		s7 = s7.replace("Каждая", "");
-		s7 = s7.replace("Каждое", "");
-
-		s7 = s7.replace("любой", "");
-		s7 = s7.replace("любая", "");
-		s7 = s7.replace("любое", "");
-		s7 = s7.replace("всякий", "");
-		s7 = s7.replace("всякая", "");
-		s7 = s7.replace("всякое", "");
-		s7 = s7.replace("каждый", "");
-		s7 = s7.replace("каждая", "");
-		s7 = s7.replace("каждое", "");
-		s7 = s7.replace("это", "-");
+		s7 = s7.replace("\r", "").replace("\n", "");
 		s7 = s7.replace("\"", "");
 		s7 = s7.replace("&", "");
 		s7 = s7.replace("#", "");
@@ -384,4 +334,141 @@ public class stat {
 		return s7.trim();
 	}
 
+	public static boolean ispont(String s) {
+
+		String s2 = stat.sowl;
+		String[] ss = s2.split("<owl:NamedIndividual rdf:about=\"&qq;");
+		s2 = "";
+		int i = 1;
+		int k = 0;
+		while (i < ss.length) {
+			s = ss[i++];
+			k = s.indexOf("\"");
+			s = s.substring(0, k);
+			// System.out.println(s);
+			if (s2.indexOf(s) > -1)
+				return true;
+		}
+		return false;
+	}
+
+	public static boolean isind(String s) {
+
+		String s2 = stat.sowl;
+		String[] ss = s2.split("<owl:Class rdf:about=\"&qq;");
+		s2 = "";
+		int i = 1;
+		int k = 0;
+		while (i < ss.length) {
+			s = ss[i++];
+			k = s.indexOf("\"");
+			s = s.substring(0, k);
+			// System.out.println(s);
+			if (s2.indexOf(s) > -1)
+				return true;
+		}
+		return false;
+	}
+
+	public static void command(String s, HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+
+		if (s.length() == 0) {
+			s = stat.rfu_utf(sh + "/hlp.txt");
+			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
+			return;
+		}
+
+		stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
+
+		if (s.indexOf("чист") == 0) {
+			stat.init(req, resp);
+			return;
+		}
+		if (s.indexOf("имена") == 0) {
+			s = stat.get_owl(stat.sr);
+			String[] ss = s.split("<owl:NamedIndividual rdf:about=\"&qq;");
+			String s2 = "";
+			int i = 1;
+			int k = 0;
+			while (i < ss.length) {
+				s = ss[i++];
+				k = s.indexOf("\"");
+				s = s.substring(0, k).trim();
+				// System.out.println(s);
+
+				if (s2.indexOf(s) < 0)
+					s2 = s2 + s + ", ";
+			}
+			if (s2.length() > 1)
+				s2 = s2.substring(0, s2.length() - 2);
+			else
+				s2 = "Сутей нет";
+
+			stat.page(req, resp, s2);
+			return;
+		}
+		if (s.equals("понятия")) {
+			s = stat.get_owl(stat.sr);
+			String[] ss = s.split("<owl:Class rdf:about=\"&qq;");
+			String s2 = "";
+			int i = 1;
+			int k = 0;
+			while (i < ss.length) {
+				s = ss[i++];
+				k = s.indexOf("\"");
+				s = s.substring(0, k);
+				// System.out.println(s);
+				if (s2.indexOf(s) < 0)
+					s2 = s2 + s + ", ";
+			}
+			if (s2.length() > 1)
+				s2 = s2.substring(0, s2.length() - 2);
+			else
+				s2 = "Нятей нет.";
+
+			stat.page(req, resp, s2);
+			return;
+		}
+
+		if (s.equals("кря")) {
+			s = stat.rfu_utf(sh + "/kpz.txt");
+			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
+			return;
+		}
+		if (s.equals("owl")) {
+			s = stat.get_owl(stat.sr);
+			stat.send_file(req, resp, s);
+			
+			return;
+		}
+		stat.page(req, resp, "не знаю такой команды");
+		return;
+	}
+
+	public static void text(String s, HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+
+		s = prep_all(s);
+
+		String[] sss = s.split("[.]+");
+
+		for (int i = 0; i < sss.length; i++) {
+			s = sss[i].trim();
+			String[] ss = s.split("[ ]+");
+
+			if (ss.length != 3) {
+				page(req, resp, " ожидал три слова здесь: " + s);
+				return;
+			} else {
+				if (sr.indexOf(s) < 0) {
+					sr = stat.sr + " " + s + ". ";
+				}
+			}
+		}
+		stat.page(req, resp, sr);
+	}
 }
