@@ -199,31 +199,75 @@ public class stat {
 			if (ss.length != 3)
 				return stat.close_rdf(s);
 			
-			////////////////////////			
-			//
-			//   Class - SubClass
-			//
-			////////////////////////
 			
-			String s1="человек";
-			boolean bb = ss[0].equals(s1);
-			bb=socrat(ss[0]);
+			//s=add_opro(s, ss[1]);
+			//if(socrat(ss[0]))
+			//	s=add_ind(s, ss[0]);
+			//else
+			//	s=add_class(s, ss[0]);
+			//if(socrat(ss[2]))
+			//	s=add_ind(s, ss[2]);
+			//else
+			//	s=add_class(s, ss[2]);
 			
-			if((!socrat(ss[0]))&&(!socrat(ss[2]))){				
-			s = add_class_rdf(s, ss[2]);
-			s = add_subclass_rdf(s, ss[0], ss[2]);			
+		
+			////////////////////////////////////////////////
+			//
+			//   Individual ObjectProperty Individual
+			//
+			////////////////////////////////////////////////
+			
+			if(socrat(ss[0])&&socrat(ss[2]))
+			{
+				s=add_opro(s,ss[1]);
+				s=add_ind_ind(s, ss[0], ss[1], ss[2]);	
+				s=add_ind(s,ss[2]);				
+			
 			}
-	
-			////////////////////////			
+			////////////////////////////////////////////////
 			//
-			//   Class - Individual
+			//   Class ObjectProperty ( это ) Class 
 			//
-			////////////////////////
+			////////////////////////////////////////////////
 			
-			if(socrat(ss[0])&&!socrat(ss[2])){				
-				s=add_inividual_rdf(s, ss[0], ss[2]);	
+			
+			if((!socrat(ss[0]))&&(!socrat(ss[2])))	
+			{
+				if(ss[1].equals("-") || ss[1].equals("это"))
+			s = add_subclass(s, ss[0], ss[2]);		
 			}
+			
+			////////////////////////////////////////////////		
+			//
+			//   Individual имеет (или это) Class
+			//
+			////////////////////////////////////////////////
+			
 	
+			if(socrat(ss[0])&&!socrat(ss[2]))
+			{
+				s=add_class(s,ss[2]);
+				
+				if(ss[1].equals("-") || ss[1].equals("это"))
+					s = add_ind_eto_class(s, ss[0], ss[2]);	
+				else				
+				s = add_ind_has_class(s, ss[0], ss[1], ss[2]);		
+			
+			}
+			////////////////////////////////////////////////		
+			//
+			//   Class ObjectProperty Individual 
+			//
+			////////////////////////////////////////////////
+			
+	
+			//if(!socrat(ss[0])&&socrat(ss[2]))
+			//	s = add_class_ind(s, ss[0], ss[1], ss[2]);		
+			
+	
+
+
+
 			
 		}
 		s = close_rdf(s);
@@ -304,50 +348,79 @@ public class stat {
 		return s + "\r\n\r\n</rdf:RDF>\r\n\r\n";
 	}
 
-	public static String add_class_rdf(String s, String sclass) {
+	public static String add_class(String s, String sclass) {
 		return s + "\r\n<owl:Class rdf:about=\"&qq;" + sclass + "\"/>\r\n\r\n";
 	}
+	
+	
 
-	public static String add_subclass_rdf(String s, String ssubclass,
+	public static String add_subclass(String s, String ssubclass,
 			String sclass) {
 		return s + "<owl:Class rdf:about=\"&qq;" + ssubclass
 				+ "\"><rdfs:subClassOf rdf:resource=\"&qq;" + sclass
 				+ "\"/></owl:Class> \r\n\r\n";
 	}
 
-	static String add_inividual_rdf(String s, String sind, String sclass) {
-		return s + "<owl:NamedIndividual rdf:about=\"&qq;" + sind
-				+ "\"> <rdf:type rdf:resource=\"&qq;" + sclass
-				+ "\"/> </owl:NamedIndividual>\r\n\r\n";
+	public static String add_ind(String s, String sind) {		
+		s = s + "<owl:NamedIndividual rdf:about=\"&qq;" + sind
+		//+ "\"> <rdf:type rdf:resource=\"&qq;Thing"
+		+ "\"/>";
+		//</owl:NamedIndividual>\r\n\r\n";		
+		return s;
+	}
+	public static String add_ind_ind(String s, String sind1, String sobpro, String sind2 ) {
+		
+		  s=s+"<owl:NamedIndividual rdf:about=\"&qq;"+sind1+"\">"+
+	        //<rdf:type rdf:resource="&qq;малыш"/>
+	        "<"+sobpro+" rdf:resource=\"&qq;"+sind2+"\"/>"+
+	    "</owl:NamedIndividual>";
+		  
+		  return s;	    
+	}
+	
+	public static String add_ind_eto_class(String s, String sind, String sclass ) {
+		
+		  s=s+"<owl:NamedIndividual rdf:about=\"&qq;"+sind+"\">"+
+	        "<rdf:type rdf:resource=\"&qq;"+sclass+"\"/>"+	       
+	    "</owl:NamedIndividual>";
+		  
+		  return s;	    
 	}
 
-	public static String add_has(String s, String simeet) {
-		s = s + "<owl:ObjectProperty rdf:about=\"&qq;" + simeet
-				+ "\"/>\r\n\r\n";
+	
+	public static String add_ind_has_class(String s, String sind, String sobpro, String sclass ) {
+		    s=s+"<owl:NamedIndividual rdf:about=\"&qq;"+sind+"\">"+
+		        "<rdf:type>"+
+		            "<owl:Restriction>"+
+		                "<owl:onProperty rdf:resource=\"&qq;"+sobpro+"\"/>"+
+		                "<owl:someValuesFrom rdf:resource=\"&qq;"+sclass+"\"/>"+
+		            "</owl:Restriction>"+
+		        "</rdf:type>"+
+		    "</owl:NamedIndividual>";
+		
+		  return s;	    
+	}
+
+	/*
+    <owl:NamedIndividual rdf:about="&qq#Vasia">
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&qq#has"/>
+                <owl:someValuesFrom rdf:resource="&qq#qq"/>
+            </owl:Restriction>
+        </rdf:type>
+    </owl:NamedIndividual>
+*/
+
+	public static String add_opro(String s, String sobpro ) {
+			s=s+"<owl:ObjectProperty rdf:about=\"&qq;"+sobpro+"\"/>";
 		return s;
 	}
 
-	public static String add_ind1_knows_ind2(String s, String skto,
-			String simeet, String skogo) {
+	
 
-		String s2 = "<owl:NamedIndividual rdf:about=\"&qq;" + skto + "\">\r\n"
-				+ "<" + simeet + " rdf:resource=\"&qq;";
 
-		s = s + s2 + skogo + "\"/>\r\n</owl:NamedIndividual>\r\n\r\n";
-
-		s2 = "<owl:NamedIndividual rdf:about=\"&qq;" + skogo;
-
-		int i = s.indexOf(s2);
-		if (i < 0)
-			s = add_ind1(s, skogo);
-
-		return s;
-	}
-
-	public static String add_ind1(String s, String sind) {
-		return s + "\r\r<owl:NamedIndividual rdf:about=\"&qq;" + sind
-				+ "\"/>\r\n\r\n";
-	}
+	
 
 	public static String prep_all(String s7) {
 		s7 = s7.replace("\r", "").replace("\n", "");
@@ -361,6 +434,24 @@ public class stat {
 	}
 
 	public static boolean ispont(String s) {
+
+		String s2 = stat.sowl;
+		String[] ss = s2.split("<owl:NamedIndividual rdf:about=\"&qq;");
+		s2 = "";
+		int i = 1;
+		int k = 0;
+		while (i < ss.length) {
+			s = ss[i++];
+			k = s.indexOf("\"");
+			s = s.substring(0, k);
+			// System.out.println(s);
+			if (s2.indexOf(s) > -1)
+				return true;
+		}
+		return false;
+	}
+	
+	public static boolean isop(String s) {
 
 		String s2 = stat.sowl;
 		String[] ss = s2.split("<owl:NamedIndividual rdf:about=\"&qq;");
