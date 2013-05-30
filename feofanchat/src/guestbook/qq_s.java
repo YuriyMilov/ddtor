@@ -28,7 +28,8 @@ public class qq_s extends HttpServlet {
 		String s3 = req.getParameter("p3");
 		String s4 = req.getParameter("p4");
 		String s = "";
-		if (s3 == null && s4 == null) {			
+		if (s3 == null && s4 == null) {	
+			stat.sowl=stat.get_owl(stat.sr);
 			s = stat.sowl;			
 			byte[] b = s.getBytes("UTF8");
 			out.write(b);
