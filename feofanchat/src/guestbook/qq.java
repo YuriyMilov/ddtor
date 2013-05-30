@@ -113,6 +113,9 @@ public class qq extends HttpServlet implements EntryPoint {
 					String sowl = sh + "/qqr";
 					String body = "p1=" + URLEncoder.encode(sowl, "UTF-8")
 							+ "&p2=" + URLEncoder.encode(s5, "UTF-8");
+					
+					stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
+					
 					s = stat.get_post(surl, body);
 
 					stat.page(req, resp, s);
@@ -127,7 +130,7 @@ public class qq extends HttpServlet implements EntryPoint {
 				
 				if (s5.indexOf(" ") > -1) {
 					s = stat.rfu_utf(sh + "/hlp.txt");
-					stat.page(req, resp, s);
+					stat.page(req, resp, s.replace("\r\n", "<br>"));
 					return;
 				}
 			}
@@ -140,7 +143,7 @@ public class qq extends HttpServlet implements EntryPoint {
 
 			if (s5.indexOf("Кто ") != 0 && s5.indexOf("кто ") != 0) {
 				s = stat.rfu_utf(sh + "/hlp.txt");
-				stat.page(req, resp, s);
+				stat.page(req, resp, s.replace("\r\n", "<br>"));
 				return;
 			}
 		}

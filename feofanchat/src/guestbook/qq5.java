@@ -59,15 +59,16 @@ public class qq5 extends HttpServlet  {
 		}
 		s=s.trim();
 		
-		
+		String s2=s.trim().replace(" ", ", ");
 		
 		if(s.length()==0)
 		{
 			s=get_q3(sowl,sq,req);
 			
-			s="Не знаю про "+sq+". Тут есть: "+s;
+			s2="Не знаю про "+sq+". Тут есть: "+s.trim().replace(" ", ", ");
 		}		
-		byte[] b = s.getBytes("UTF8");
+		
+		byte[] b = s2.getBytes("UTF8");
 		out.write(b);
 	}	
 	
@@ -76,9 +77,9 @@ public class qq5 extends HttpServlet  {
 		String s = "" +
 				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
 				"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-				"PREFIX : <http://feofan.com/contrus#> \r\n\r\n "
+				"PREFIX qq: <http://www.feofan.com/qq_s#> \r\n\r\n "
 				//+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
-				+"SELECT ?кто  WHERE {:"+sq+" rdf:type ?кто}";
+				+"SELECT ?кто  WHERE {qq:"+sq+" rdf:type ?кто}";
 		
 
 	
@@ -121,15 +122,9 @@ public class qq5 extends HttpServlet  {
 	
 	public String get_q2(String sowl, String  sq, HttpServletRequest req) {
 		
-		String s = "" +
-				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-				"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-				"PREFIX : <http://feofan.com/contrus#> \r\n\r\n "
-				+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
-				//+"SELECT ?кто  WHERE {:"+sq+" rdf:type ?кто}";
-		
+		String s = stat.sprespaql 
+				+"SELECT ?кто  WHERE {?кто a qq:"+sq+"}";
 
-	
 		OntModel model = ModelFactory
 				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
 
@@ -171,11 +166,9 @@ public class qq5 extends HttpServlet  {
 public String get_q4(String sowl, String  sq, HttpServletRequest req) {
 		
 		String s = "" +
-				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-				"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-				"PREFIX : <http://feofan.com/contrus#> \r\n\r\n "
+				stat.sprespaql
 				//+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
-				+"SELECT ?кто  WHERE {:"+sq+" rdfs:subClassOf ?кто}";
+				+"SELECT ?кто  WHERE {qq:"+sq+" rdfs:subClassOf ?кто}";
 		
 
 	
@@ -218,12 +211,8 @@ public String get_q4(String sowl, String  sq, HttpServletRequest req) {
 
 public String get_q5(String sowl, String  sq, HttpServletRequest req) {
 	
-	String s = "" +
-			"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-			"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-			"PREFIX : <http://feofan.com/contrus#> \r\n\r\n "
-			//+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
-			+"SELECT ?кто  WHERE {?кто rdfs:subClassOf :"+sq+"}";
+	String s = stat.sprespaql 
+			+"SELECT ?кто  WHERE {?кто rdfs:subClassOf qq:"+sq+"}";
 	
 
 
@@ -267,13 +256,7 @@ public String get_q5(String sowl, String  sq, HttpServletRequest req) {
 	
 public String get_q3(String sowl, String  sq, HttpServletRequest req) {
 		
-		String s = "" +
-				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-				"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-				"PREFIX : <http://feofan.com/contrus#> \r\n\r\n "
-				//+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
-				//+"SELECT ?кто  WHERE {:"+sq+" rdf:type ?кто}";
-				
+	String s = stat.sprespaql 
 +"SELECT ?кто ?какой WHERE {?кто a ?какой}";
 		
 

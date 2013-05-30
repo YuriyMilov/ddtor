@@ -37,16 +37,22 @@ public class qq_s extends HttpServlet {
 		}
 
 		if (s3.equals("load")) {
+			stat.stop = stat.stop + "<br> <b><i> - </i></b> загрузить мир";
 			s = stat.rfu_utf(sh + "/" + URLEncoder.encode(s4, "UTF-8"));
-			stat.text(s, req, resp);
-			//stat.page(req, resp, stat.sr);
+			if(s.indexOf("Ъ")>-1 && s.length()>s.indexOf("Ъ"))
+				s=s.substring(s.indexOf("Ъ")+1);
+			stat.text_new(s, req, resp);
 			return;
 		}
 			
 			if (s3.equals("add")) {
+				
+				stat.stop = stat.stop + "<br> <b><i> - </i></b> добавить миру мир";
+				 
 			s = stat.rfu_utf(sh + "/" + URLEncoder.encode(s4, "UTF-8"));
+			if(s.indexOf("Ъ")>-1 && s.length()>s.indexOf("Ъ"))
+				s=s.substring(s.indexOf("Ъ")+1);
 			stat.text(s, req, resp);
-			//stat.page(req, resp, stat.sr);
 			return;
 			}
 		

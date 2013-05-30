@@ -39,10 +39,18 @@ import com.google.appengine.api.files.FileWriteChannel;
 
 public class stat {
 
-	public static String s1 = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
-	public static String s2 = "<br/><br/><form  action=qq method=post> <input type=text id=id name=p2 size=82> <br><br>&nbsp;<a href=qq>начнём сначала</a> &nbsp;&nbsp; <a href=qq?p2=кря>кря</a> &nbsp;&nbsp; <a href=../load.htm>загрузить мир</a> &nbsp;&nbsp; <a href=../add.htm>добавить миру мир</a> &nbsp;&nbsp; <a href>сохранить мир</a> "
-			+ "<br><br>&nbsp;<a href=qq?p2=имена>имена</a> &nbsp;&nbsp; <a href=qq?p2=понятия>понятия</a>  &nbsp;&nbsp; <a href=qq?p2=owl>owl</a> "
-			+ "</form> </body></html>";
+	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()> <a href=../qq?p2=дом>кря</a><br>";
+	
+	public static String skon = "<form  action=qq method=post>"+			
+			"<br><input type=text id=id name=p2 size=82>" +
+			" <br><br>&nbsp;<a href=qq>начнём сначала</a> &nbsp;&nbsp; <a href=../load.htm>загрузить мир</a> &nbsp;&nbsp; <a href=../add.htm>добавить миру мир</a> &nbsp;&nbsp; <a href>сохранить мир</a>" +
+			" &nbsp;&nbsp; <a href=qq?p2=имена>имена</a> &nbsp;&nbsp; <a href=qq?p2=понятия>понятия</a>  &nbsp;&nbsp; <a href=qq?p2=owl>owl</a> " +
+			"<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
+	
+	public static String sprespaql = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+			"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
+			"PREFIX qq: <http://www.feofan.com/qq_s#> \r\n\r\n ";
+	
 	public static String stop = "";
 	public static String sowl = "";
 	public static String sr = "";
@@ -50,14 +58,14 @@ public class stat {
 	public static void page(HttpServletRequest req, HttpServletResponse resp,
 			String sotvet) throws IOException {
 
-		stop = stop + "<br><br>\r\n<b><i>Феофан: </i></b>\r\n \r\n<!--otvet-->"
-				+ sotvet + "<!--otvet-->\r\n<br>";
+		stop = stop + "<br>\r\n<b><i>Феофан: </i></b>\r\n \r\n<!--otvet-->"
+				+ sotvet + "<!--otvet-->\r\n";
 
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
 		// String sh = req.getScheme() + "://" + req.getServerName() + ":"
 		// + req.getServerPort() + req.getContextPath();
-		String s = s1 + stop + s2;
+		String s = snach + stop + skon;
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}
@@ -197,8 +205,26 @@ public class stat {
 			//
 			////////////////////////
 			
+			String s1="человек";
+			boolean bb = ss[0].equals(s1);
+			bb=socrat(ss[0]);
+			
+			if((!socrat(ss[0]))&&(!socrat(ss[2]))){				
 			s = add_class_rdf(s, ss[2]);
-			s = add_subclass_rdf(s, ss[0], ss[2]);
+			s = add_subclass_rdf(s, ss[0], ss[2]);			
+			}
+	
+			////////////////////////			
+			//
+			//   Class - Individual
+			//
+			////////////////////////
+			
+			if(socrat(ss[0])&&!socrat(ss[2])){				
+				s=add_inividual_rdf(s, ss[0], ss[2]);	
+			}
+	
+			
 		}
 		s = close_rdf(s);
 		stat.sowl = s;
@@ -210,7 +236,7 @@ public class stat {
 		stat.stop = "";
 		stat.sr = "";
 		String s = "кря";
-		stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
+		stat.page(req, resp, s);
 	}
 
 	public static void send_file(HttpServletRequest req,
@@ -369,6 +395,17 @@ public class stat {
 		}
 		return false;
 	}
+	
+	public static boolean socrat(String s) {
+		
+		if (s.length()>0)
+			if (s.substring(0,1).toUpperCase().equals(s.substring(0,1)))
+				return true;
+			else
+				return false;	
+		else
+			return false;	
+	}
 
 	public static void command(String s, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
@@ -378,7 +415,7 @@ public class stat {
 
 		if (s.length() == 0) {
 			s = stat.rfu_utf(sh + "/hlp.txt");
-			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
+			stat.page(req, resp, s.replace("\r\n", "<br>"));
 			return;
 		}
 
@@ -428,15 +465,15 @@ public class stat {
 			if (s2.length() > 1)
 				s2 = s2.substring(0, s2.length() - 2);
 			else
-				s2 = "Нятей нет.";
+				s2 = "нятей нет.";
 
 			stat.page(req, resp, s2);
 			return;
 		}
 
 		if (s.equals("кря")) {
-			s = stat.rfu_utf(sh + "/kpz.txt");
-			stat.page(req, resp, s.replace("\r\n", "<br>\r\n"));
+			s = "<a href=../qq?p2=дом>здесь можно почитать о Феофане и контролируемом русском языке КРЯ</a>";
+			stat.page(req, resp, s);
 			return;
 		}
 		if (s.equals("owl")) {
@@ -445,6 +482,25 @@ public class stat {
 			
 			return;
 		}
+		
+		if (s.equals("дом")) {
+			s = stat.rfu_utf(sh + "/dom.txt");
+			ServletOutputStream out = resp.getOutputStream();
+			resp.setContentType("text/html; charset=UTF8");
+			s=s.replace("\r\n", "<br>");
+			byte[] b = s.getBytes("UTF8");
+			out.write(b);
+			
+			return;
+		}
+		
+		if (s.equals("фео")) {
+			
+			stat.page(req, resp, "кря");
+			
+			return;
+		}
+		
 		stat.page(req, resp, "не знаю такой команды");
 		return;
 	}
@@ -469,6 +525,29 @@ public class stat {
 				}
 			}
 		}
-		stat.page(req, resp, sr);
+		stat.page(req, resp, "мир измнился <br>  \"" + sr + "\"<br> Теперь можно спросить: \" кто (что) <имя или понятие> ? \", например, \"Кто Сократ?\" или \"Кто смертен?\"");
+	}
+	
+	public static void text_new(String s, HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+
+		s = prep_all(s);
+		sr="";
+		String[] sss = s.split("[.]+");
+
+		for (int i = 0; i < sss.length; i++) {
+			s = sss[i].trim();
+			String[] ss = s.split("[ ]+");
+
+			if (ss.length != 3) {
+				page(req, resp, " ожидал три слова здесь: " + s);
+				return;
+			} else {
+				if (sr.indexOf(s) < 0) {
+					sr = sr + " " + s + ". ";
+				}
+			}
+		}
+		stat.page(req, resp, "новый мир загружен <br>  \"" + sr + "\"<br> Теперь можно спросить: \" кто (что) <имя или понятие> ? \", например, \"Кто Сократ?\" или \"Кто смертен?\"");
 	}
 }
