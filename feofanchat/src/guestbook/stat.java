@@ -261,15 +261,15 @@ public class stat {
 				+ "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >    \r\n"
 				+ "<!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >    \r\n"
 				+ "<!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >    \r\n"
-				+ "<!ENTITY qq \"http://feofan.com/contrus#\" >]>\r\n\r\n"
-				+ "<rdf:RDF xmlns=\"http://feofan.com/contrus#\"     \r\n"
-				+ "xml:base=\"http://feofan.com/contrus\"     \r\n"
+				+ "<!ENTITY qq \"http://www.feofan.com/qq_s#\" >]>\r\n\r\n"
+				+ "<rdf:RDF xmlns=\"http://www.feofan.com/qq_s#\"     \r\n"
+				+ "xml:base=\"http://www.feofan.com/qq_s#\"     \r\n"
 				+ "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"     \r\n"
-				+ "xmlns:qq=\"http://feofan.com/contrus#\"     \r\n"
+				+ "xmlns:qq=\"http://www.feofan.com/qq_s#\"     \r\n"
 				+ "xmlns:owl=\"http://www.w3.org/2002/07/owl#\"     \r\n"
 				+ "xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"     \r\n"
 				+ "xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">    \r\n\r\n"
-				+ "<owl:Ontology rdf:about=\"http://feofan.com/qq_s\"/>\r\n\r\n";
+				+ "<owl:Ontology rdf:about=\"http://www.feofan.com/qq_s#\"/>\r\n\r\n";
 
 		return s;
 	}
