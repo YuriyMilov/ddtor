@@ -13,6 +13,8 @@ import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.Set;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.BodyPart;
@@ -30,6 +32,13 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
@@ -38,11 +47,28 @@ import com.google.appengine.api.files.FileService;
 import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 import com.google.gwt.core.client.EntryPoint;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 public class qq extends HttpServlet implements EntryPoint {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
+
+	        
+
+	     
+	       
 		if (req.getQueryString() == null)
 			stat.init(req, resp);
 		else if (req.getQueryString().indexOf("p2=") > -1)
@@ -73,7 +99,7 @@ public class qq extends HttpServlet implements EntryPoint {
 			
 		if (s.indexOf(" ") < 0) 				
 		{
-			stat.command(s, req, resp);
+ 			stat.command(s, req, resp);
 			return;
 		}	
 
@@ -129,7 +155,9 @@ public class qq extends HttpServlet implements EntryPoint {
 				/////////////////////////////////////////////
 				
 				if (s5.indexOf(" ") > -1) {
-					s = stat.rfu_utf(sh + "/hlp.txt");
+					
+			
+					s = "не понял вопроса :-( ";
 					stat.page(req, resp, s.replace("\r\n", "<br>"));
 					return;
 				}
@@ -142,7 +170,7 @@ public class qq extends HttpServlet implements EntryPoint {
 			/////////////////////////////////////////////
 
 			if (s5.indexOf("Кто ") != 0 && s5.indexOf("кто ") != 0) {
-				s = stat.rfu_utf(sh + "/hlp.txt");
+				s = "не понял вопроса (см. кря)";
 				stat.page(req, resp, s.replace("\r\n", "<br>"));
 				return;
 			}

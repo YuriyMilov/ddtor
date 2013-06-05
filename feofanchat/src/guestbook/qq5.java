@@ -74,11 +74,7 @@ public class qq5 extends HttpServlet  {
 	
 	public String get_q1(String sowl, String  sq, HttpServletRequest req) {
 		
-		String s = "" +
-				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-				"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-				"PREFIX qq: <http://www.feofan.com/qq_s#> \r\n\r\n "
-				//+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
+		String  s = stat.sprespaql 
 				+"SELECT ?кто  WHERE {qq:"+sq+" rdf:type ?кто}";
 		
 

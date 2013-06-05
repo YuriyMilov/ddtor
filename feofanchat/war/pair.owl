@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+
+  
+<!DOCTYPE rdf:RDF [
+    <!ENTITY qq "http://owl.feofan.com/1#" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+  
+]>
+
+
+<rdf:RDF xmlns="#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:ontologies="http://www.semanticweb.org/yuri/ontologies/2013/4/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:qq="http://owl.feofan.com/1#">
+    <owl:Ontology rdf:about="http://owl.feofan.com/1"/>
+    
+
+
+
+    <owl:ObjectProperty rdf:about="&qq;p">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+
+
+    <owl:Class rdf:about="&qq;f">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:oneOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="&qq;3"/>
+                            <rdf:Description rdf:about="&qq;1"/>
+                        </owl:oneOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&qq;p"/>
+                        <owl:onClass rdf:resource="&qq;m"/>
+                        <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+   
+
+    <owl:Class rdf:about="&qq;m">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:oneOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="&qq;2"/>
+                            <rdf:Description rdf:about="&qq;4"/>
+                        </owl:oneOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&qq;p"/>
+                        <owl:onClass rdf:resource="&qq;f"/>
+                        <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+
+
+    <owl:NamedIndividual rdf:about="&qq;1">  
+        <qq:p rdf:resource="&qq;2"/>
+	<rdf:type rdf:resource="&qq;f"/>
+    </owl:NamedIndividual>    
+
+
+    <owl:NamedIndividual rdf:about="&qq;2">
+	<rdf:type rdf:resource="&qq;m"/>        
+    </owl:NamedIndividual>    
+
+    <owl:NamedIndividual rdf:about="&qq;3">
+	<rdf:type rdf:resource="&qq;f"/>       
+    </owl:NamedIndividual>    
+
+    <owl:NamedIndividual rdf:about="&qq;4"> 
+	<rdf:type rdf:resource="&qq;m"/>       
+    </owl:NamedIndividual>
+
+
+
+
+
+
+</rdf:RDF>
+
+
+
+

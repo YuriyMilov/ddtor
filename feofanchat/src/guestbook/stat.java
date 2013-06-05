@@ -1,6 +1,7 @@
 package guestbook;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,9 +9,11 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -29,6 +32,24 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
+
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
@@ -39,21 +60,75 @@ import com.google.appengine.api.files.FileWriteChannel;
 
 public class stat {
 
-	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()> <a href=../qq?p2=дом>кря</a><br>";
-	
-	public static String skon = "<form  action=qq method=post>"+			
-			"<br><input type=text id=id name=p2 size=82>" +
-			" <br><br>&nbsp;<a href=qq>начнём сначала</a> &nbsp;&nbsp; <a href=../load.htm>загрузить мир</a> &nbsp;&nbsp; <a href=../add.htm>добавить миру мир</a> &nbsp;&nbsp; <a href>сохранить мир</a>" +
-			" &nbsp;&nbsp; <a href=qq?p2=имена>имена</a> &nbsp;&nbsp; <a href=qq?p2=понятия>понятия</a>  &nbsp;&nbsp; <a href=qq?p2=owl>owl</a> " +
-			"<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
-	
-	public static String sprespaql = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-			"PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-			"PREFIX qq: <http://www.feofan.com/qq_s#> \r\n\r\n ";
-	
+	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
+	public static String skon = "<form  action=qq method=post>"
+			+ "<br><input type=text id=id name=p2 size=82>"
+			+
+			// "&nbsp;&nbsp; <a href=qq?p2=owl.txt>txt</a>" +
+			" <br><br>&nbsp;<a href=qq>чист</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a> &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"
+			+ // &nbsp;&nbsp; <a href>сохранить мир</a>" +
+			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a> "
+			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
+
+	public static String sprespaql = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+			+ "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+			+ "PREFIX qq: <http://www.feofan.com/test#> \r\n\r\n ";
+
 	public static String stop = "";
 	public static String sowl = "";
 	public static String sr = "";
+	public static String siri = "http://www.feofan.com/test#";
+	
+	
+
+	public static String chto(String sir) {
+
+		String s = "";
+
+		try {
+			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+
+//			IRI iri = IRI.create("http://test.feofan.com/rufish2.owl");
+			IRI iri = IRI.create(sir);
+
+			OWLOntology qw = manager.loadOntologyFromOntologyDocument(iri);
+
+			String sa = "", sn = "", sc = "", sp = "";
+			Object[] bb =null;
+			Set<OWLEntity> set=qw.getSignature();
+			int iset= set.size();
+			if (iset<1)
+				return "Ничего тут еще нет.";
+			
+			bb= set.toArray();
+			for (int i = 0; i < bb.length; i++) {
+				sa = (qw.getDeclarationAxioms((OWLEntity) bb[i])).toString();
+
+				if (sa.indexOf("Named") > -1)
+					sn = sn + sa.substring(sa.indexOf("#") + 1).replace(">))]", "") +" ";
+				if (sa.indexOf("Class") > -1)
+						sc = sc + sa.substring(sa.indexOf("#") + 1).replace(">))]", "") +" ";
+				if (sa.indexOf("Object") > -1)
+						sp = sp + sa.substring(sa.indexOf("#") + 1).replace(">))]", "") +" ";
+				
+				
+				s = "<br><i>Сущности:</i> "+sn.trim().replace(" ", ", ")+"<br><i>Понятия:</i> "+sc.trim().replace(" ", ", ")+"<br><i>Связи:</i> "+sp.trim().replace(" ", ", ");
+				
+			}
+			
+			//
+
+			// ByteArrayOutputStream bout = new ByteArrayOutputStream();
+			// manager.saveOntology(oo, bout);
+			// s = new String(bout.toByteArray(), "UTF-8");
+
+		} catch (Exception e) {
+			s = e.toString();
+		}
+
+		return s;
+
+	}
 
 	public static void page(HttpServletRequest req, HttpServletResponse resp,
 			String sotvet) throws IOException {
@@ -190,88 +265,100 @@ public class stat {
 		Transport.send(msg);
 	}
 
-	public static String get_owl(String s) {
+	public static String get_owl(String s1) {
+		String s = "";
 
-		String[] sss = prep_all(s).split("[.]+");
-		s = open_rdf();
-		for (int i = 0; i < sss.length; i++) {
-			String[] ss = sss[i].trim().split("[ ]+");
-			if (ss.length != 3)
-				return stat.close_rdf(s);
-			
-			
-			//s=add_opro(s, ss[1]);
-			//if(socrat(ss[0]))
-			//	s=add_ind(s, ss[0]);
-			//else
-			//	s=add_class(s, ss[0]);
-			//if(socrat(ss[2]))
-			//	s=add_ind(s, ss[2]);
-			//else
-			//	s=add_class(s, ss[2]);
-			
-		
-			////////////////////////////////////////////////
-			//
-			//   Individual ObjectProperty Individual
-			//
-			////////////////////////////////////////////////
-			
-			if(socrat(ss[0])&&socrat(ss[2]))
-			{
-				s=add_opro(s,ss[1]);
-				s=add_ind_ind(s, ss[0], ss[1], ss[2]);	
-				s=add_ind(s,ss[2]);				
-			
+		try {
+
+			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+			OWLDataFactory ff = manager.getOWLDataFactory();
+			manager = OWLManager.createOWLOntologyManager();
+			String base = siri;//"http://www.feofan.com/test/";
+			PrefixManager pm = new DefaultPrefixManager(base);
+
+			OWLOntology ontology = manager.createOntology(IRI.create(base));
+			OWLAxiom axiom = null;
+			OWLClassAssertionAxiom classAssertion = null;
+			OWLObjectProperty obp = null;
+
+			String[] sss = prep_all(s1).split("[.]+");
+
+			for (int i = 0; i < sss.length; i++) {
+				String[] ss = sss[i].trim().split("[ ]+");
+				if (ss.length != 3) {
+					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+					manager.saveOntology(ontology, outputStream);
+					s = new String(outputStream.toByteArray(), "UTF-8");
+					return s;
+
+				}
+
+				if (ss[1].equals("-")) {
+					axiom = ff.getOWLSubClassOfAxiom(
+							ff.getOWLClass(":" + ss[0], pm),
+							ff.getOWLClass(":" + ss[2], pm));
+					manager.addAxiom(ontology, axiom);
+
+				} else
+
+				if (ss[1].equals("это")) {
+					classAssertion = ff.getOWLClassAssertionAxiom(
+							ff.getOWLClass(":" + ss[2], pm),
+							ff.getOWLNamedIndividual(":" + ss[0], pm));
+					manager.addAxiom(ontology, classAssertion);
+				} else {
+					obp = ff.getOWLObjectProperty(IRI
+							.create(base  + ss[1]));
+					OWLSymmetricObjectPropertyAxiom obsym = ff
+							.getOWLSymmetricObjectPropertyAxiom(obp);
+					AddAxiom addAxiomChange1 = new AddAxiom(ontology, obsym);
+					manager.applyChange(addAxiomChange1);
+
+					
+					if (socrat(ss[0]) && socrat(ss[2])) {
+						OWLObjectPropertyAssertionAxiom aa = ff
+								.getOWLObjectPropertyAssertionAxiom(obp, ff
+										.getOWLNamedIndividual(IRI.create(base
+												 + ss[0])), ff
+										.getOWLNamedIndividual(IRI.create(base
+												 + ss[2])));
+
+						AddAxiom addAxiomChange2 = new AddAxiom(ontology, aa);
+						manager.applyChange(addAxiomChange2);
+					}
+					if (!socrat(ss[0]) && !socrat(ss[2])) 
+						
+					{
+						
+						/////////////////////////
+						/////////////////////////
+						/////////////////////////
+						/////////////////////////
+						/////////////////////////
+						/////////////////////////
+						/////////////////////////
+						/////////////////////////
+						/////////////////////////
+						/////////////////////////
+						/////////////////////////
+
+					
+					}
+				}
 			}
-			////////////////////////////////////////////////
-			//
-			//   Class ObjectProperty ( это ) Class 
-			//
-			////////////////////////////////////////////////
-			
-			
-			if((!socrat(ss[0]))&&(!socrat(ss[2])))	
-			{
-				if(ss[1].equals("-") || ss[1].equals("это"))
-			s = add_subclass(s, ss[0], ss[2]);		
-			}
-			
-			////////////////////////////////////////////////		
-			//
-			//   Individual имеет (или это) Class
-			//
-			////////////////////////////////////////////////
-			
-	
-			if(socrat(ss[0])&&!socrat(ss[2]))
-			{
-				s=add_class(s,ss[2]);
-				
-				if(ss[1].equals("-") || ss[1].equals("это"))
-					s = add_ind_eto_class(s, ss[0], ss[2]);	
-				else				
-				s = add_ind_has_class(s, ss[0], ss[1], ss[2]);		
-			
-			}
-			////////////////////////////////////////////////		
-			//
-			//   Class ObjectProperty Individual 
-			//
-			////////////////////////////////////////////////
-			
-	
-			//if(!socrat(ss[0])&&socrat(ss[2]))
-			//	s = add_class_ind(s, ss[0], ss[1], ss[2]);		
-			
-	
 
+			// /////////////////////////
+			// /////////////////////////
+			// /////////////////////////
 
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			manager.saveOntology(ontology, outputStream);
+			s = new String(outputStream.toByteArray(), "UTF-8");
 
-			
+		} catch (Exception e) {
+			s = e.toString();
 		}
-		s = close_rdf(s);
-		stat.sowl = s;
+
 		return s;
 	}
 
@@ -323,105 +410,6 @@ public class stat {
 		return s.substring(10).replace(">", "");
 	}
 
-	public static String open_rdf() {
-
-		String s = "<?xml version=\"1.0\"?>\r\n\r\n"
-				+ "<!DOCTYPE rdf:RDF [    \r\n"
-				+ "<!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >    \r\n"
-				+ "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >    \r\n"
-				+ "<!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >    \r\n"
-				+ "<!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >    \r\n"
-				+ "<!ENTITY qq \"http://www.feofan.com/qq_s#\" >]>\r\n\r\n"
-				+ "<rdf:RDF xmlns=\"http://www.feofan.com/qq_s#\"     \r\n"
-				+ "xml:base=\"http://www.feofan.com/qq_s#\"     \r\n"
-				+ "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"     \r\n"
-				+ "xmlns:qq=\"http://www.feofan.com/qq_s#\"     \r\n"
-				+ "xmlns:owl=\"http://www.w3.org/2002/07/owl#\"     \r\n"
-				+ "xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"     \r\n"
-				+ "xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">    \r\n\r\n"
-				+ "<owl:Ontology rdf:about=\"http://www.feofan.com/qq_s#\"/>\r\n\r\n";
-
-		return s;
-	}
-
-	public static String close_rdf(String s) {
-		return s + "\r\n\r\n</rdf:RDF>\r\n\r\n";
-	}
-
-	public static String add_class(String s, String sclass) {
-		return s + "\r\n<owl:Class rdf:about=\"&qq;" + sclass + "\"/>\r\n\r\n";
-	}
-	
-	
-
-	public static String add_subclass(String s, String ssubclass,
-			String sclass) {
-		return s + "<owl:Class rdf:about=\"&qq;" + ssubclass
-				+ "\"><rdfs:subClassOf rdf:resource=\"&qq;" + sclass
-				+ "\"/></owl:Class> \r\n\r\n";
-	}
-
-	public static String add_ind(String s, String sind) {		
-		s = s + "<owl:NamedIndividual rdf:about=\"&qq;" + sind
-		//+ "\"> <rdf:type rdf:resource=\"&qq;Thing"
-		+ "\"/>";
-		//</owl:NamedIndividual>\r\n\r\n";		
-		return s;
-	}
-	public static String add_ind_ind(String s, String sind1, String sobpro, String sind2 ) {
-		
-		  s=s+"<owl:NamedIndividual rdf:about=\"&qq;"+sind1+"\">"+
-	        //<rdf:type rdf:resource="&qq;малыш"/>
-	        "<"+sobpro+" rdf:resource=\"&qq;"+sind2+"\"/>"+
-	    "</owl:NamedIndividual>";
-		  
-		  return s;	    
-	}
-	
-	public static String add_ind_eto_class(String s, String sind, String sclass ) {
-		
-		  s=s+"<owl:NamedIndividual rdf:about=\"&qq;"+sind+"\">"+
-	        "<rdf:type rdf:resource=\"&qq;"+sclass+"\"/>"+	       
-	    "</owl:NamedIndividual>";
-		  
-		  return s;	    
-	}
-
-	
-	public static String add_ind_has_class(String s, String sind, String sobpro, String sclass ) {
-		    s=s+"<owl:NamedIndividual rdf:about=\"&qq;"+sind+"\">"+
-		        "<rdf:type>"+
-		            "<owl:Restriction>"+
-		                "<owl:onProperty rdf:resource=\"&qq;"+sobpro+"\"/>"+
-		                "<owl:someValuesFrom rdf:resource=\"&qq;"+sclass+"\"/>"+
-		            "</owl:Restriction>"+
-		        "</rdf:type>"+
-		    "</owl:NamedIndividual>";
-		
-		  return s;	    
-	}
-
-	/*
-    <owl:NamedIndividual rdf:about="&qq#Vasia">
-        <rdf:type>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&qq#has"/>
-                <owl:someValuesFrom rdf:resource="&qq#qq"/>
-            </owl:Restriction>
-        </rdf:type>
-    </owl:NamedIndividual>
-*/
-
-	public static String add_opro(String s, String sobpro ) {
-			s=s+"<owl:ObjectProperty rdf:about=\"&qq;"+sobpro+"\"/>";
-		return s;
-	}
-
-	
-
-
-	
-
 	public static String prep_all(String s7) {
 		s7 = s7.replace("\r", "").replace("\n", "");
 		s7 = s7.replace("\"", "");
@@ -433,71 +421,6 @@ public class stat {
 		return s7.trim();
 	}
 
-	public static boolean ispont(String s) {
-
-		String s2 = stat.sowl;
-		String[] ss = s2.split("<owl:NamedIndividual rdf:about=\"&qq;");
-		s2 = "";
-		int i = 1;
-		int k = 0;
-		while (i < ss.length) {
-			s = ss[i++];
-			k = s.indexOf("\"");
-			s = s.substring(0, k);
-			// System.out.println(s);
-			if (s2.indexOf(s) > -1)
-				return true;
-		}
-		return false;
-	}
-	
-	public static boolean isop(String s) {
-
-		String s2 = stat.sowl;
-		String[] ss = s2.split("<owl:NamedIndividual rdf:about=\"&qq;");
-		s2 = "";
-		int i = 1;
-		int k = 0;
-		while (i < ss.length) {
-			s = ss[i++];
-			k = s.indexOf("\"");
-			s = s.substring(0, k);
-			// System.out.println(s);
-			if (s2.indexOf(s) > -1)
-				return true;
-		}
-		return false;
-	}
-
-	public static boolean isind(String s) {
-
-		String s2 = stat.sowl;
-		String[] ss = s2.split("<owl:Class rdf:about=\"&qq;");
-		s2 = "";
-		int i = 1;
-		int k = 0;
-		while (i < ss.length) {
-			s = ss[i++];
-			k = s.indexOf("\"");
-			s = s.substring(0, k);
-			// System.out.println(s);
-			if (s2.indexOf(s) > -1)
-				return true;
-		}
-		return false;
-	}
-	
-	public static boolean socrat(String s) {
-		
-		if (s.length()>0)
-			if (s.substring(0,1).toUpperCase().equals(s.substring(0,1)))
-				return true;
-			else
-				return false;	
-		else
-			return false;	
-	}
-
 	public static void command(String s, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
 
@@ -505,7 +428,7 @@ public class stat {
 				+ req.getServerPort() + req.getContextPath();
 
 		if (s.length() == 0) {
-			s = stat.rfu_utf(sh + "/hlp.txt");
+			s = rfu_utf(sh + "/cmd.txt");
 			stat.page(req, resp, s.replace("\r\n", "<br>"));
 			return;
 		}
@@ -516,82 +439,63 @@ public class stat {
 			stat.init(req, resp);
 			return;
 		}
-		if (s.indexOf("имена") == 0) {
-			s = stat.get_owl(stat.sr);
-			String[] ss = s.split("<owl:NamedIndividual rdf:about=\"&qq;");
-			String s2 = "";
-			int i = 1;
-			int k = 0;
-			while (i < ss.length) {
-				s = ss[i++];
-				k = s.indexOf("\"");
-				s = s.substring(0, k).trim();
-				// System.out.println(s);
 
-				if (s2.indexOf(s) < 0)
-					s2 = s2 + s + ", ";
-			}
-			if (s2.length() > 1)
-				s2 = s2.substring(0, s2.length() - 2);
-			else
-				s2 = "Сутей нет";
+		if (s.equals("загрузить")) {
+			s = rfu_utf(sh + "/load.txt");
 
-			stat.page(req, resp, s2);
+			ServletOutputStream out = resp.getOutputStream();
+			resp.setContentType("text/html; charset=UTF-8");
+			s = s.replace("\r\n", "<br>");
+			byte[] b = s.getBytes("UTF8");
+			out.write(b);
+
 			return;
 		}
-		if (s.equals("понятия")) {
-			s = stat.get_owl(stat.sr);
-			String[] ss = s.split("<owl:Class rdf:about=\"&qq;");
-			String s2 = "";
-			int i = 1;
-			int k = 0;
-			while (i < ss.length) {
-				s = ss[i++];
-				k = s.indexOf("\"");
-				s = s.substring(0, k);
-				// System.out.println(s);
-				if (s2.indexOf(s) < 0)
-					s2 = s2 + s + ", ";
-			}
-			if (s2.length() > 1)
-				s2 = s2.substring(0, s2.length() - 2);
-			else
-				s2 = "нятей нет.";
 
-			stat.page(req, resp, s2);
+		if (s.equals("добавить")) {
+			s = rfu_utf(sh + "/add.txt");
+			ServletOutputStream out = resp.getOutputStream();
+			resp.setContentType("text/html; charset=UTF-8");
+			s = s.replace("\r\n", "<br>");
+			byte[] b = s.getBytes("UTF8");
+			out.write(b);
+
 			return;
 		}
 
 		if (s.equals("кря")) {
-			s = "<a href=../qq?p2=дом>здесь можно почитать о Феофане и контролируемом русском языке КРЯ</a>";
-			stat.page(req, resp, s);
-			return;
-		}
-		if (s.equals("owl")) {
-			s = stat.get_owl(stat.sr);
-			stat.send_file(req, resp, s);
-			
-			return;
-		}
-		
-		if (s.equals("дом")) {
+			// s = rfu_utf(sh+"/qq?p2="+URLEncoder.encode("дом", "UTF-8"));
+			// stat.page(req, resp, s);
+
 			s = stat.rfu_utf(sh + "/dom.txt");
 			ServletOutputStream out = resp.getOutputStream();
-			resp.setContentType("text/html; charset=UTF8");
-			s=s.replace("\r\n", "<br>");
+			resp.setContentType("text/html; charset=UTF-8");
+			s = s.replace("\r\n", "<br>");
 			byte[] b = s.getBytes("UTF8");
 			out.write(b);
-			
+
 			return;
 		}
-		
+
+		if (s.equals("что")) {
+			s = chto(sh + "/qq_s");
+			
+			stat.page(req, resp, s);
+			
+			
+			//ServletOutputStream out = resp.getOutputStream();
+			//resp.setContentType("text/xml; charset=UTF8");
+			//resp.setCharacterEncoding("UTF8");
+			//byte[] b = s.getBytes("UTF8");
+			//out.write(b);
+			return;
+		}
+
 		if (s.equals("фео")) {
-			
 			stat.page(req, resp, "кря");
-			
 			return;
 		}
-		
+
 		stat.page(req, resp, "не знаю такой команды");
 		return;
 	}
@@ -612,18 +516,19 @@ public class stat {
 				return;
 			} else {
 				if (sr.indexOf(s) < 0) {
-					sr = stat.sr + " " + s + ". ";
+					sr = sr + " " + s + ". ";
+					sowl = get_owl(sr);
 				}
 			}
 		}
-		stat.page(req, resp, "мир измнился <br>  \"" + sr + "\"<br> Теперь можно спросить: \" кто (что) <имя или понятие> ? \", например, \"Кто Сократ?\" или \"Кто смертен?\"");
+		stat.page(req, resp, " мир измнился<br>" + sr);
 	}
-	
+
 	public static void text_new(String s, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
 
 		s = prep_all(s);
-		sr="";
+		sr = "";
 		String[] sss = s.split("[.]+");
 
 		for (int i = 0; i < sss.length; i++) {
@@ -635,10 +540,23 @@ public class stat {
 				return;
 			} else {
 				if (sr.indexOf(s) < 0) {
-					sr = sr + " " + s + ". ";
+					sr = sr + " " + s + ". ";	
 				}
 			}
 		}
-		stat.page(req, resp, "новый мир загружен <br>  \"" + sr + "\"<br> Теперь можно спросить: \" кто (что) <имя или понятие> ? \", например, \"Кто Сократ?\" или \"Кто смертен?\"");
+		sowl = get_owl(sr);
+		stat.page(req, resp, " мир добавлен<br>" + sr);
+	}
+
+
+	public static boolean socrat(String s) {
+		
+		if (s.length()>0)
+			if (s.substring(0,1).toUpperCase().equals(s.substring(0,1)))
+				return true;
+			else
+				return false;	
+		else
+			return false;	
 	}
 }
