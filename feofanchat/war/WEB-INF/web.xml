@@ -13,7 +13,18 @@
     <servlet-name>qq_s</servlet-name>
     <url-pattern>/qq_s</url-pattern>
   </servlet-mapping>
-    
+  
+   
+  <servlet-mapping>
+    <servlet-name>qq_s</servlet-name>
+    <url-pattern>/qqs</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>qq_s</servlet-name>
+    <url-pattern>/owl</url-pattern>
+  </servlet-mapping>
+  
   
 <servlet>
     <servlet-name>qq6</servlet-name>

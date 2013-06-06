@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -46,10 +47,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
+import com.clarkparsia.pellet.owlapiv3.PelletReasoner;
+import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
@@ -133,6 +137,9 @@ public class stat {
 	public static void page(HttpServletRequest req, HttpServletResponse resp,
 			String sotvet) throws IOException {
 
+		if(sotvet.indexOf("Server Error")>-1)
+			sotvet="какая-то проблема на сервере";
+		
 		stop = stop + "<br>\r\n<b><i>Феофан: </i></b>\r\n \r\n<!--otvet-->"
 				+ sotvet + "<!--otvet-->\r\n";
 
@@ -270,13 +277,13 @@ public class stat {
 
 		try {
 
-			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-			OWLDataFactory ff = manager.getOWLDataFactory();
-			manager = OWLManager.createOWLOntologyManager();
+			OWLOntologyManager mm = OWLManager.createOWLOntologyManager();
+			OWLDataFactory ff = mm.getOWLDataFactory();
+			mm = OWLManager.createOWLOntologyManager();
 			String base = siri;//"http://www.feofan.com/test/";
 			PrefixManager pm = new DefaultPrefixManager(base);
 
-			OWLOntology ontology = manager.createOntology(IRI.create(base));
+			OWLOntology oo = mm.createOntology(IRI.create(base));
 			OWLAxiom axiom = null;
 			OWLClassAssertionAxiom classAssertion = null;
 			OWLObjectProperty obp = null;
@@ -287,7 +294,7 @@ public class stat {
 				String[] ss = sss[i].trim().split("[ ]+");
 				if (ss.length != 3) {
 					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-					manager.saveOntology(ontology, outputStream);
+					mm.saveOntology(oo, outputStream);
 					s = new String(outputStream.toByteArray(), "UTF-8");
 					return s;
 
@@ -297,7 +304,7 @@ public class stat {
 					axiom = ff.getOWLSubClassOfAxiom(
 							ff.getOWLClass(":" + ss[0], pm),
 							ff.getOWLClass(":" + ss[2], pm));
-					manager.addAxiom(ontology, axiom);
+					mm.addAxiom(oo, axiom);
 
 				} else
 
@@ -305,14 +312,14 @@ public class stat {
 					classAssertion = ff.getOWLClassAssertionAxiom(
 							ff.getOWLClass(":" + ss[2], pm),
 							ff.getOWLNamedIndividual(":" + ss[0], pm));
-					manager.addAxiom(ontology, classAssertion);
+					mm.addAxiom(oo, classAssertion);
 				} else {
 					obp = ff.getOWLObjectProperty(IRI
 							.create(base  + ss[1]));
 					OWLSymmetricObjectPropertyAxiom obsym = ff
 							.getOWLSymmetricObjectPropertyAxiom(obp);
-					AddAxiom addAxiomChange1 = new AddAxiom(ontology, obsym);
-					manager.applyChange(addAxiomChange1);
+					AddAxiom addAxiomChange1 = new AddAxiom(oo, obsym);
+					mm.applyChange(addAxiomChange1);
 
 					
 					if (socrat(ss[0]) && socrat(ss[2])) {
@@ -323,18 +330,38 @@ public class stat {
 										.getOWLNamedIndividual(IRI.create(base
 												 + ss[2])));
 
-						AddAxiom addAxiomChange2 = new AddAxiom(ontology, aa);
-						manager.applyChange(addAxiomChange2);
+						AddAxiom addAxiomChange2 = new AddAxiom(oo, aa);
+						mm.applyChange(addAxiomChange2);
 					}
 					if (!socrat(ss[0]) && !socrat(ss[2])) 
 						
 					{
 						
-						/////////////////////////
-						/////////////////////////
-						/////////////////////////
-						/////////////////////////
-						/////////////////////////
+						
+						OWLObjectProperty hasPart = ff.getOWLObjectProperty(IRI.create(base + ss[1]));
+						OWLClass nose = ff.getOWLClass(IRI.create(base + ss[2]));
+						
+						// Now create a restriction to describe the class of individuals that have at least one
+						// part that is a kind of nose
+						
+						OWLClassExpression hasPartSomeNose = 
+						ff.getOWLObjectSomeValuesFrom(hasPart, nose);
+						
+						// Obtain a reference to the Head class so that we can specify that Heads have noses
+						OWLClass head = ff.getOWLClass(IRI.create(base + ss[0]));
+
+						OWLSubClassOfAxiom  ax2 = ff.getOWLSubClassOfAxiom(head, hasPartSomeNose);
+						AddAxiom addAx = new AddAxiom(oo, ax2);
+						mm.applyChange(addAx);
+						
+						
+						
+						
+						
+						
+						
+						
+						
 						/////////////////////////
 						/////////////////////////
 						/////////////////////////
@@ -352,9 +379,10 @@ public class stat {
 			// /////////////////////////
 
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			manager.saveOntology(ontology, outputStream);
+			mm.saveOntology(oo, outputStream);
 			s = new String(outputStream.toByteArray(), "UTF-8");
-
+	
+			
 		} catch (Exception e) {
 			s = e.toString();
 		}
@@ -521,7 +549,7 @@ public class stat {
 				}
 			}
 		}
-		stat.page(req, resp, " мир измнился<br>" + sr);
+		stat.page(req, resp, " миру мир добавлен<br>" + sr);
 	}
 
 	public static void text_new(String s, HttpServletRequest req,
@@ -545,7 +573,7 @@ public class stat {
 			}
 		}
 		sowl = get_owl(sr);
-		stat.page(req, resp, " мир добавлен<br>" + sr);
+		stat.page(req, resp, " новый мир загружен<br>" + sr);
 	}
 
 

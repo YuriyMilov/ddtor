@@ -298,6 +298,52 @@ public String get_q3(String sowl, String  sq, HttpServletRequest req) {
 				return s2;
 	}
 
+
+public String get_q6(String sowl, String  sq, HttpServletRequest req) {
+	
+	String  s = stat.sprespaql 
+			+"SELECT  ?делает ?что WHERE {qq:"+sq+"  ?делает ?что}";
+	
+
+
+	OntModel model = ModelFactory
+			.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+
+	String sh = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+	
+	sh=sh+"/qq_s";
+	
+	
+	//if(stat.st.length()>0)		
+		model.read(sh);
+	//else
+	//	model.read(sowl);
+	
+	Query q = QueryFactory.create(s);
+	ResultSet r = SparqlDLExecutionFactory.create(q, model).execSelect();
+	s="";
+	while(r.hasNext())
+	s=s+r.next().toString();
+	
+	String s2="";
+			String[] ss = s.split("#");
+			
+			int i = ss.length;
+			int k = 1;
+			while(k <i)
+			{
+				s=ss[k++];
+				int m = s.indexOf(">");
+				s=s.substring(0,m);
+				s2=s2+" "+s;
+				
+			}
+			s2=s2.replace("NamedIndividual", "").replace("Class", "").trim().replace("  ", " ");		
+
+	return s2;
+}
+
+
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		doPost(req, resp);

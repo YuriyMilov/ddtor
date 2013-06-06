@@ -33,12 +33,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mindswap.pellet.jena.PelletReasonerFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+import com.clarkparsia.pellet.sparqldl.jena.SparqlDLExecutionFactory;
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
@@ -47,6 +49,12 @@ import com.google.appengine.api.files.FileService;
 import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 import com.google.gwt.core.client.EntryPoint;
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -65,10 +73,6 @@ public class qq extends HttpServlet implements EntryPoint {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 
-	        
-
-	     
-	       
 		if (req.getQueryString() == null)
 			stat.init(req, resp);
 		else if (req.getQueryString().indexOf("p2=") > -1)
@@ -89,38 +93,34 @@ public class qq extends HttpServlet implements EntryPoint {
 			return;
 		}
 		s = s.trim();
-		
-		
-		///////////////////////////////
-		//
-		//         команда
-		//
-		///////////////////////////////
-			
-		if (s.indexOf(" ") < 0) 				
-		{
- 			stat.command(s, req, resp);
-			return;
-		}	
 
-		///////////////////////////////
+		// /////////////////////////////
 		//
-		//         текст
+		// команда
 		//
-		///////////////////////////////
-		
-		if (s.indexOf("?") != s.length() - 1)
-		{
-			stat.text(s, req, resp);
+		// /////////////////////////////
+
+		if (s.indexOf(" ") < 0) {
+			stat.command(s, req, resp);
 			return;
 		}
-		else {
-			
-			///////////////////////////////
+
+		// /////////////////////////////
+		//
+		// текст
+		//
+		// /////////////////////////////
+
+		if (s.indexOf("?") != s.length() - 1) {
+			stat.text(s, req, resp);
+			return;
+		} else {
+
+			// /////////////////////////////
 			//
-			//         вопрос
+			// вопрос
 			//
-			///////////////////////////////
+			// /////////////////////////////
 
 			String s5 = s;
 			boolean bb = s5.indexOf("Кто ") == 0 || s5.indexOf("кто ") == 0
@@ -132,42 +132,61 @@ public class qq extends HttpServlet implements EntryPoint {
 						.replace("?", "").trim();
 
 				if (s5.indexOf(" ") == -1) {
-					//stat.sowl = stat.get_owl(stat.sr);
+					// stat.sowl = stat.get_owl(stat.sr);
 					// s = wf("test.owl", stat.sowl);
 
 					String surl = sh + "/qq5";
 					String sowl = sh + "/qqr";
 					String body = "p1=" + URLEncoder.encode(sowl, "UTF-8")
 							+ "&p2=" + URLEncoder.encode(s5, "UTF-8");
-					
+
 					stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
-					
+
 					s = stat.get_post(surl, body);
 
 					stat.page(req, resp, s);
 					return;
 				}
-				
-				/////////////////////////////////////////////
+
+				// ///////////////////////////////////////////
 				//
-				//      вопрос больше чем два слова  - хелп
+				// вопрос больше чем два слова - хелп
 				//
-				/////////////////////////////////////////////
-				
+				// ///////////////////////////////////////////
+
 				if (s5.indexOf(" ") > -1) {
+
+					String[] ss = s5.split("[ ]+");
+					if (ss.length == 22) {
+						s = stat.sprespaql 
+								+ "SELECT  ?x  WHERE " +"{?x rdfs:subClassOf [owl:onProperty qq:bb; owl:someValuesFrom cc]}";
+						OntModel model = ModelFactory
+								.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+						model.read(sh+"/qqs");
+						Query q = QueryFactory.create(s);
+						ResultSet r = SparqlDLExecutionFactory.create(q, model)
+								.execSelect();
+						
+						s="";
+						
+						while(r.hasNext())
+							s=s+r.next().toString();
+						
+						s=s+"";
+						
+					} else
+						s = "не понял вопроса :-( ";
 					
-			
-					s = "не понял вопроса :-( ";
 					stat.page(req, resp, s.replace("\r\n", "<br>"));
 					return;
 				}
 			}
-						
-			/////////////////////////////////////////////
+
+			// ///////////////////////////////////////////
 			//
-			//      вопрос без кто или что в начале - хелп
+			// вопрос без кто или что в начале - хелп
 			//
-			/////////////////////////////////////////////
+			// ///////////////////////////////////////////
 
 			if (s5.indexOf("Кто ") != 0 && s5.indexOf("кто ") != 0) {
 				s = "не понял вопроса (см. кря)";
