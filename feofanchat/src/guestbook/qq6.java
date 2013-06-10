@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -16,14 +17,17 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -182,10 +186,18 @@ public class qq6 extends HttpServlet {
 					.getOWLObjectExactCardinality(1, op, clam);
 			OWLObjectExactCardinality exactly1d = ff
 					.getOWLObjectExactCardinality(1, op, clad);
-
-			OWLObjectOneOf nm = ff.getOWLObjectOneOf(nnm.get(0), nnm.get(1), nnm.get(2));
-			OWLObjectOneOf nd = ff.getOWLObjectOneOf(nnd.get(0), nnd.get(1), nnd.get(2));
-
+			
+			
+			
+			
+			//OWLObjectOneOf nm = ff.getOWLObjectOneOf(nnm.get(0), nnm.get(1), nnm.get(2));
+			//OWLObjectOneOf nd = ff.getOWLObjectOneOf(nnd.get(0), nnd.get(1), nnd.get(2));
+						
+			OWLObjectOneOf nm = ff.getOWLObjectOneOf((OWLNamedIndividual[]) nnm.toArray(new OWLNamedIndividual[nnm.size()]));
+			OWLObjectOneOf nd = ff.getOWLObjectOneOf((OWLNamedIndividual[]) nnd.toArray(new OWLNamedIndividual[nnd.size()]));
+		
+			
+			
 			OWLObjectIntersectionOf m_i_l_1_d = ff.getOWLObjectIntersectionOf(
 					nm, exactly1d);
 			OWLClassAxiom clax = ff.getOWLEquivalentClassesAxiom(clam,
