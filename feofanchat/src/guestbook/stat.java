@@ -63,7 +63,8 @@ import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 
 public class stat {
-
+	public static String sqq7="";
+	
 	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
 	public static String skon = "<form  action=qq method=post>"
 			+ "<br><input type=text id=id name=p2 size=82>"
@@ -74,14 +75,19 @@ public class stat {
 			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
-	public static String sprespaql = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-			+ "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-			+ "PREFIX qq: <http://www.feofan.com/test#> \r\n\r\n ";
+	public static String siri = "http://owl.feofan.com/1#";
+	
+	public static String spref = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+		     		 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+		    		 + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
+		    		 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+		    		 + "PREFIX qq: <"+siri+">";
+		     
 
 	public static String stop = "";
 	public static String sowl = "";
 	public static String sr = "";
-	public static String siri = "http://www.feofan.com/test#";
+
 	
 	
 

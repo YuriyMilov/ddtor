@@ -2,6 +2,16 @@
 
   <!-- Servlets -->
   
+     
+<servlet>
+    <servlet-name>qq7</servlet-name>
+    <servlet-class>guestbook.qq7</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qq7</servlet-name>
+    <url-pattern>/qq7</url-pattern>
+  </servlet-mapping>
   
    
 <servlet>

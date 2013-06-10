@@ -157,12 +157,15 @@ public class qq extends HttpServlet implements EntryPoint {
 				if (s5.indexOf(" ") > -1) {
 
 					String[] ss = s5.split("[ ]+");
-					if (ss.length == 22) {
-						s = stat.sprespaql 
-								+ "SELECT  ?x  WHERE " +"{?x rdfs:subClassOf [owl:onProperty qq:bb; owl:someValuesFrom cc]}";
+					if (ss.length == 2) {
+						
+								//"SELECT ?Who  WHERE {?Who qq:p qq:4}";
+						s = stat.spref 
+								+ " SELECT  ?x  WHERE " +"{?x qq:"+ss[0]+" qq:"+ss[1]+"}";
 						OntModel model = ModelFactory
 								.createOntologyModel(PelletReasonerFactory.THE_SPEC);
-						model.read(sh+"/qqs");
+						//model.read(sh+"/qqs");
+						model.read("file:zz.txt");
 						Query q = QueryFactory.create(s);
 						ResultSet r = SparqlDLExecutionFactory.create(q, model)
 								.execSelect();
@@ -172,10 +175,10 @@ public class qq extends HttpServlet implements EntryPoint {
 						while(r.hasNext())
 							s=s+r.next().toString();
 						
-						s=s+"";
+						s=s.replace("( ?x = <http://owl.feofan.com/1#", "").replace("> ) -> [Root]", "");
 						
 					} else
-						s = "не понял вопроса :-( ";
+						s = "не понял вопроса - 2 ";
 					
 					stat.page(req, resp, s.replace("\r\n", "<br>"));
 					return;
