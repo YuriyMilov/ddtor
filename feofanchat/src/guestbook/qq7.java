@@ -63,44 +63,24 @@ public class qq7 extends HttpServlet {
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/xml; charset=UTF8");
 
-		String s = test("");
+		String s = сократ("");
 		
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}
 
-	public static String scrt(String s) {
-		try {
-			OWLOntologyManager mm = OWLManager.createOWLOntologyManager();
-			OWLDataFactory ff = mm.getOWLDataFactory();
-			String base = "http://owl.feofan.com/1#";
-			PrefixManager pre = new DefaultPrefixManager(base);
-			OWLOntology онтология = mm.createOntology(IRI.create(base));
-
-			OWLClass класс = ff.getOWLClass(":человек", pre);
-			OWLNamedIndividual индивид = ff.getOWLNamedIndividual(":Сократ", pre);			
-			OWLClassAssertionAxiom аксиома = ff.getOWLClassAssertionAxiom(класс, индивид);			
-			mm.addAxiom(онтология, аксиома);	
 	
-
-			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			mm.saveOntology(онтология, outputStream);
-			s = new String(outputStream.toByteArray(), "UTF-8");
-			return s;
-		} catch (Exception e) {
-			return e.toString();
-		}
-	}
-	
-	public static String test(String s) {
+	public static String сократ(String s) {
 		try {
 			Owl2Model qq= new Owl2Model("http://owl.feofan.com/1");
-			OWLIndividual Socrat = qq.getIndividual("Socrat");
-			OWLClass man = qq.getOwlClass("man");
-			OWLClass mortal = qq.getOwlClass("mortal");
-			qq.hasClass(Socrat, man);
 			
-			qq.isSubClassOf(man, mortal);
+			OWLIndividual Сократ = qq.getIndividual("Сократ");
+			OWLClass человек = qq.getOwlClass("человек");
+			OWLClass смертен = qq.getOwlClass("смертен");
+			
+			qq.hasClass(Сократ, человек);			
+			qq.isSubClassOf(человек, смертен);
+			
 			s= qq.sowl();
 			
 			return s;

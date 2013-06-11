@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
@@ -70,8 +71,8 @@ import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 
 public class stat {
-	public static String sqq7="";
-	
+	public static String sqq7 = "";
+
 	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
 	public static String skon = "<form  action=qq method=post>"
 			+ "<br><input type=text id=id name=p2 size=82>"
@@ -79,24 +80,20 @@ public class stat {
 			// "&nbsp;&nbsp; <a href=qq?p2=owl.txt>txt</a>" +
 			" <br><br>&nbsp;<a href=qq>чист</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a> &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"
 			+ // &nbsp;&nbsp; <a href>сохранить мир</a>" +
-			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a> "
+			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a>  &nbsp;&nbsp; <a href=qqq>OWL</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
 	public static String siri = "http://owl.feofan.com/1#";
-	
+
 	public static String spref = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-		     		 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-		    		 + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
-		    		 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-		    		 + "PREFIX qq: <"+siri+">";
-		     
+			+ "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+			+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
+			+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+			+ "PREFIX qq: <" + siri + ">";
 
 	public static String stop = "";
 	public static String sowl = "";
 	public static String sr = "";
-
-	
-	
 
 	public static String chto(String sir) {
 
@@ -105,34 +102,41 @@ public class stat {
 		try {
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
-//			IRI iri = IRI.create("http://test.feofan.com/rufish2.owl");
+			// IRI iri = IRI.create("http://test.feofan.com/rufish2.owl");
 			IRI iri = IRI.create(sir);
 
 			OWLOntology qw = manager.loadOntologyFromOntologyDocument(iri);
 
 			String sa = "", sn = "", sc = "", sp = "";
-			Object[] bb =null;
-			Set<OWLEntity> set=qw.getSignature();
-			int iset= set.size();
-			if (iset<1)
+			Object[] bb = null;
+			Set<OWLEntity> set = qw.getSignature();
+			int iset = set.size();
+			if (iset < 1)
 				return "Ничего тут еще нет.";
-			
-			bb= set.toArray();
+
+			bb = set.toArray();
 			for (int i = 0; i < bb.length; i++) {
 				sa = (qw.getDeclarationAxioms((OWLEntity) bb[i])).toString();
 
 				if (sa.indexOf("Named") > -1)
-					sn = sn + sa.substring(sa.indexOf("#") + 1).replace(">))]", "") +" ";
+					sn = sn
+							+ sa.substring(sa.indexOf("#") + 1).replace(">))]",
+									"") + " ";
 				if (sa.indexOf("Class") > -1)
-						sc = sc + sa.substring(sa.indexOf("#") + 1).replace(">))]", "") +" ";
+					sc = sc
+							+ sa.substring(sa.indexOf("#") + 1).replace(">))]",
+									"") + " ";
 				if (sa.indexOf("Object") > -1)
-						sp = sp + sa.substring(sa.indexOf("#") + 1).replace(">))]", "") +" ";
-				
-				
-				s = "<br><i>Сущности:</i> "+sn.trim().replace(" ", ", ")+"<br><i>Понятия:</i> "+sc.trim().replace(" ", ", ")+"<br><i>Связи:</i> "+sp.trim().replace(" ", ", ");
-				
+					sp = sp
+							+ sa.substring(sa.indexOf("#") + 1).replace(">))]",
+									"") + " ";
+
+				s = "<br><i>Сущности:</i> " + sn.trim().replace(" ", ", ")
+						+ "<br><i>Понятия:</i> " + sc.trim().replace(" ", ", ")
+						+ "<br><i>Связи:</i> " + sp.trim().replace(" ", ", ");
+
 			}
-			
+
 			//
 
 			// ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -150,9 +154,9 @@ public class stat {
 	public static void page(HttpServletRequest req, HttpServletResponse resp,
 			String sotvet) throws IOException {
 
-		if(sotvet.indexOf("Server Error")>-1)
-			sotvet="какая-то проблема на сервере";
-		
+		if (sotvet.indexOf("Server Error") > -1)
+			sotvet = "какая-то проблема на сервере";
+
 		stop = stop + "<br>\r\n<b><i>Феофан: </i></b>\r\n \r\n<!--otvet-->"
 				+ sotvet + "<!--otvet-->\r\n";
 
@@ -293,7 +297,7 @@ public class stat {
 			OWLOntologyManager mm = OWLManager.createOWLOntologyManager();
 			OWLDataFactory ff = mm.getOWLDataFactory();
 			mm = OWLManager.createOWLOntologyManager();
-			String base = siri;//"http://www.feofan.com/test/";
+			String base = siri;// "http://www.feofan.com/test/";
 			PrefixManager pm = new DefaultPrefixManager(base);
 
 			OWLOntology oo = mm.createOntology(IRI.create(base));
@@ -327,62 +331,56 @@ public class stat {
 							ff.getOWLNamedIndividual(":" + ss[0], pm));
 					mm.addAxiom(oo, classAssertion);
 				} else {
-					obp = ff.getOWLObjectProperty(IRI
-							.create(base  + ss[1]));
+					obp = ff.getOWLObjectProperty(IRI.create(base + ss[1]));
 					OWLSymmetricObjectPropertyAxiom obsym = ff
 							.getOWLSymmetricObjectPropertyAxiom(obp);
 					AddAxiom addAxiomChange1 = new AddAxiom(oo, obsym);
 					mm.applyChange(addAxiomChange1);
 
-					
 					if (socrat(ss[0]) && socrat(ss[2])) {
 						OWLObjectPropertyAssertionAxiom aa = ff
 								.getOWLObjectPropertyAssertionAxiom(obp, ff
 										.getOWLNamedIndividual(IRI.create(base
-												 + ss[0])), ff
+												+ ss[0])), ff
 										.getOWLNamedIndividual(IRI.create(base
-												 + ss[2])));
+												+ ss[2])));
 
 						AddAxiom addAxiomChange2 = new AddAxiom(oo, aa);
 						mm.applyChange(addAxiomChange2);
 					}
-					if (!socrat(ss[0]) && !socrat(ss[2])) 
-						
-					{
-						
-						
-						OWLObjectProperty hasPart = ff.getOWLObjectProperty(IRI.create(base + ss[1]));
-						OWLClass nose = ff.getOWLClass(IRI.create(base + ss[2]));
-						
-						// Now create a restriction to describe the class of individuals that have at least one
-						// part that is a kind of nose
-						
-						OWLClassExpression hasPartSomeNose = 
-						ff.getOWLObjectSomeValuesFrom(hasPart, nose);
-						
-						// Obtain a reference to the Head class so that we can specify that Heads have noses
-						OWLClass head = ff.getOWLClass(IRI.create(base + ss[0]));
+					if (!socrat(ss[0]) && !socrat(ss[2]))
 
-						OWLSubClassOfAxiom  ax2 = ff.getOWLSubClassOfAxiom(head, hasPartSomeNose);
+					{
+
+						OWLObjectProperty hasPart = ff.getOWLObjectProperty(IRI
+								.create(base + ss[1]));
+						OWLClass nose = ff
+								.getOWLClass(IRI.create(base + ss[2]));
+
+						// Now create a restriction to describe the class of
+						// individuals that have at least one
+						// part that is a kind of nose
+
+						OWLClassExpression hasPartSomeNose = ff
+								.getOWLObjectSomeValuesFrom(hasPart, nose);
+
+						// Obtain a reference to the Head class so that we can
+						// specify that Heads have noses
+						OWLClass head = ff
+								.getOWLClass(IRI.create(base + ss[0]));
+
+						OWLSubClassOfAxiom ax2 = ff.getOWLSubClassOfAxiom(head,
+								hasPartSomeNose);
 						AddAxiom addAx = new AddAxiom(oo, ax2);
 						mm.applyChange(addAx);
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						/////////////////////////
-						/////////////////////////
-						/////////////////////////
-						/////////////////////////
-						/////////////////////////
-						/////////////////////////
 
-					
+						// ///////////////////////
+						// ///////////////////////
+						// ///////////////////////
+						// ///////////////////////
+						// ///////////////////////
+						// ///////////////////////
+
 					}
 				}
 			}
@@ -394,10 +392,53 @@ public class stat {
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			mm.saveOntology(oo, outputStream);
 			s = new String(outputStream.toByteArray(), "UTF-8");
-	
-			
+
 		} catch (Exception e) {
 			s = e.toString();
+		}
+
+		return s;
+	}
+
+	public static String get_owl7(String s) {
+
+		Owl2Model qq = new Owl2Model("http://owl.feofan.com/1");
+
+		try {
+			// OWLIndividual Сократ = qq.getIndividual("Сократ");
+			// OWLClass человек = qq.getOwlClass("человек");
+			// OWLClass смертен = qq.getOwlClass("смертен");
+			// qq.hasClass(Сократ, человек);
+			// qq.isSubClassOf(человек, смертен);
+
+			String[] sss = prep_all(s).split("[.]+");
+
+			for (int i = 0; i < sss.length; i++) {
+
+				String[] ss = sss[i].trim().split("[ ]+");
+
+				if (ss.length != 3) {
+					;
+				} else if (ss[1].equals("-")) {
+					qq.isSubClassOf(qq.getOwlClass(ss[0]),
+							qq.getOwlClass(ss[2]));
+				} else if (ss[1].equals("это")) {
+					qq.hasClass(qq.getIndividual(ss[0]), qq.getOwlClass(ss[2]));
+				}
+
+				else if (socrat(ss[0]) && socrat(ss[2])) {
+					qq.assertFact(ss[1], ss[0], ss[2]);
+				}
+
+				else if (!socrat(ss[0]) && !socrat(ss[2])) {
+					qq.assertDomainAndRange(qq.getProperty(ss[1]),
+							qq.getOwlClass(ss[0]), qq.getOwlClass(ss[2]));
+				}
+			}
+
+			s = qq.sowl();
+		} catch (Exception e) {
+			s = qq.sowl();
 		}
 
 		return s;
@@ -520,15 +561,14 @@ public class stat {
 
 		if (s.equals("что")) {
 			s = chto(sh + "/qq_s");
-			
+
 			stat.page(req, resp, s);
-			
-			
-			//ServletOutputStream out = resp.getOutputStream();
-			//resp.setContentType("text/xml; charset=UTF8");
-			//resp.setCharacterEncoding("UTF8");
-			//byte[] b = s.getBytes("UTF8");
-			//out.write(b);
+
+			// ServletOutputStream out = resp.getOutputStream();
+			// resp.setContentType("text/xml; charset=UTF8");
+			// resp.setCharacterEncoding("UTF8");
+			// byte[] b = s.getBytes("UTF8");
+			// out.write(b);
 			return;
 		}
 
@@ -558,7 +598,8 @@ public class stat {
 			} else {
 				if (sr.indexOf(s) < 0) {
 					sr = sr + " " + s + ". ";
-					sowl = get_owl(sr);
+					// sowl = get_owl(sr);
+					sowl = get_owl7(sr);
 				}
 			}
 		}
@@ -581,7 +622,7 @@ public class stat {
 				return;
 			} else {
 				if (sr.indexOf(s) < 0) {
-					sr = sr + " " + s + ". ";	
+					sr = sr + " " + s + ". ";
 				}
 			}
 		}
@@ -589,19 +630,17 @@ public class stat {
 		stat.page(req, resp, " новый мир загружен<br>" + sr);
 	}
 
-
 	public static boolean socrat(String s) {
-		
-		if (s.length()>0)
-			if (s.substring(0,1).toUpperCase().equals(s.substring(0,1)))
+
+		if (s.length() > 0)
+			if (s.substring(0, 1).toUpperCase().equals(s.substring(0, 1)))
 				return true;
 			else
-				return false;	
+				return false;
 		else
-			return false;	
+			return false;
 	}
-	
-	
+
 	public static String para(String s) {
 
 		try {
@@ -623,7 +662,7 @@ public class stat {
 			OWLClass clad = ff.getOWLClass(":чёт", pre);
 
 			// ////////////////////////////
-			// Cимметричная связь 
+			// Cимметричная связь
 			// ////////////////////////////
 
 			OWLObjectProperty op = ff.getOWLObjectProperty(IRI.create(base
@@ -640,7 +679,6 @@ public class stat {
 			ArrayList<OWLNamedIndividual> nnm = new ArrayList<OWLNamedIndividual>();
 			ArrayList<OWLNamedIndividual> nnd = new ArrayList<OWLNamedIndividual>();
 
-			
 			nnm.add(ff.getOWLNamedIndividual(":1", pre));
 			nnm.add(ff.getOWLNamedIndividual(":3", pre));
 			nnm.add(ff.getOWLNamedIndividual(":5", pre));
@@ -677,26 +715,24 @@ public class stat {
 			// 5 пара 6
 			// /////////////////////////
 
-			opaa = ff
-					.getOWLObjectPropertyAssertionAxiom(op,
-							ff.getOWLNamedIndividual(":5", pre),
-							ff.getOWLNamedIndividual(":6", pre));
+			opaa = ff.getOWLObjectPropertyAssertionAxiom(op,
+					ff.getOWLNamedIndividual(":5", pre),
+					ff.getOWLNamedIndividual(":6", pre));
 
 			adax = new AddAxiom(oo, opaa);
 			mm.applyChange(adax);
-			
+
 			// /////////////////////////
 			// 3 пара 8
 			// /////////////////////////
 
-			opaa = ff
-					.getOWLObjectPropertyAssertionAxiom(op,
-							ff.getOWLNamedIndividual(":3", pre),
-							ff.getOWLNamedIndividual(":8", pre));
+			opaa = ff.getOWLObjectPropertyAssertionAxiom(op,
+					ff.getOWLNamedIndividual(":3", pre),
+					ff.getOWLNamedIndividual(":8", pre));
 
 			adax = new AddAxiom(oo, opaa);
 			mm.applyChange(adax);
-			
+
 			// ///////////////////////////////////////
 			// {...} и пара только одному индивиду
 			// ///////////////////////////////////////
@@ -705,11 +741,12 @@ public class stat {
 					.getOWLObjectExactCardinality(1, op, clam);
 			OWLObjectExactCardinality exactly1d = ff
 					.getOWLObjectExactCardinality(1, op, clad);
-			
-						
-			OWLObjectOneOf nm = ff.getOWLObjectOneOf((OWLNamedIndividual[]) nnm.toArray(new OWLNamedIndividual[nnm.size()]));
-			OWLObjectOneOf nd = ff.getOWLObjectOneOf((OWLNamedIndividual[]) nnd.toArray(new OWLNamedIndividual[nnd.size()]));
-			
+
+			OWLObjectOneOf nm = ff.getOWLObjectOneOf((OWLNamedIndividual[]) nnm
+					.toArray(new OWLNamedIndividual[nnm.size()]));
+			OWLObjectOneOf nd = ff.getOWLObjectOneOf((OWLNamedIndividual[]) nnd
+					.toArray(new OWLNamedIndividual[nnd.size()]));
+
 			OWLObjectIntersectionOf m_i_l_1_d = ff.getOWLObjectIntersectionOf(
 					nm, exactly1d);
 			OWLClassAxiom clax = ff.getOWLEquivalentClassesAxiom(clam,
@@ -721,21 +758,19 @@ public class stat {
 			OWLClassAxiom clax2 = ff.getOWLEquivalentClassesAxiom(clad,
 					d_i_l_1_m);
 			mm.addAxiom(oo, clax2);
-			
+
 			// /////////////////////////
-			//   Индивиды - разные 
+			// Индивиды - разные
 			// /////////////////////////
 
 			ArrayList<OWLNamedIndividual> nnmd = new ArrayList<OWLNamedIndividual>();
 			nnmd.addAll(nnm);
 			nnmd.addAll(nnd);
-			
+
 			OWLDifferentIndividualsAxiom diffInds = ff
-					.getOWLDifferentIndividualsAxiom((OWLNamedIndividual[]) nnmd.toArray(new OWLNamedIndividual[nnmd.size()]));
+					.getOWLDifferentIndividualsAxiom((OWLNamedIndividual[]) nnmd
+							.toArray(new OWLNamedIndividual[nnmd.size()]));
 			mm.addAxiom(oo, diffInds);
-		
-			
-			
 
 			// /////////////////////////
 			// /////////////////////////

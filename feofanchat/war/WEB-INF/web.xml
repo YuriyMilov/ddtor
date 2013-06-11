@@ -30,9 +30,14 @@
     <url-pattern>/qqs</url-pattern>
   </servlet-mapping>
   
-    <servlet-mapping>
-    <servlet-name>qq_s</servlet-name>
-    <url-pattern>/owl</url-pattern>
+  <servlet>
+    <servlet-name>qqq</servlet-name>
+    <servlet-class>guestbook.qqq</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qqq</servlet-name>
+    <url-pattern>/qqq</url-pattern>
   </servlet-mapping>
   
   
