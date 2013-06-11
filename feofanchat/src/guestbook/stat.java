@@ -412,7 +412,7 @@ public class stat {
 			// qq.isSubClassOf(человек, смертен);
 
 			String[] sss = prep_all(s).split("[.]+");
-
+ 
 			for (int i = 0; i < sss.length; i++) {
 
 				String[] ss = sss[i].trim().split("[ ]+");
