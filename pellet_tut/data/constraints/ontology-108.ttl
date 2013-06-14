@@ -1,0 +1,98 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+
+@prefix : <http://clarkparsia.com/pellet/tutorial/pops#> .
+
+<http://clarkparsia.com/pellet/tutorial/pops#> a owl:Ontology .
+
+
+# Employee class hierarchy
+#
+
+:Employee a owl:Class ;
+  owl:unionOf ( :CivilServant :Contractor ) ;
+  rdfs:subClassOf
+    [
+      a owl:Restriction ;
+      owl:onProperty :employeeId ;
+      owl:someValuesFrom [
+          a rdfs:Datatype ;
+          owl:onDatatype xsd:integer ;
+          owl:withRestrictions
+            (
+              [ xsd:minInclusive 100000 ]
+              [ xsd:maxInclusive 999999 ]
+            )
+        ]
+    ] , 
+    [
+      a owl:Restriction ;
+      owl:onProperty :employeeId ;
+      owl:cardinality 1
+    ] .
+
+:CivilServant a owl:Class .
+
+:Contractor a owl:Class ;
+  owl:disjointWith :CivilServant .
+
+
+# Project class hierarchy
+#
+
+:Project a owl:Class .
+
+:ActiveProject a owl:Class ;
+  rdfs:subClassOf :Project ,
+    [
+      a owl:Restriction ;
+      owl:onProperty :endDate ;
+      owl:maxCardinality 0
+    ] .
+
+
+# Other classes
+#
+
+:Organization a owl:Class .
+
+
+# Properties
+#
+
+:employeeId a owl:DatatypeProperty ;
+  rdfs:domain :Employee .
+
+:endDate a owl:DatatypeProperty ;
+  rdfs:range xsd:date .
+
+:hasEmployee a owl:ObjectProperty .
+
+:hasManager a owl:ObjectProperty ;
+  a owl:FunctionalProperty .
+
+:isEmployeeOf a owl:ObjectProperty ;
+  rdfs:domain :Employee ;
+  rdfs:range :Organization ;
+  owl:inverseOf :hasEmployee .
+
+:worksOnProject a owl:ObjectProperty ;
+  rdfs:domain :Person ;
+  rdfs:range :Project .
+
+
+# Individuals
+#
+
+:Organization5349
+  :hasManager :Person0853 , :Person1735 .
+
+:Person0853
+  a :CivilServant ;
+  :isEmployeeOf :Organization5349 ;
+  :worksOnProject :Project2133 .
+
+:Project2133
+  a :ActiveProject .

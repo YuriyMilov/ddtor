@@ -1,0 +1,82 @@
+# Add ontology header to ontology-001.ttl
+
+# Add entity declarations to ontology-002.ttl
+# See classification tree (flat)
+pellet classify data/ontology-dev/ontology-002.ttl
+
+# Add some class and property definitions to ontology-003 .ttl
+# See updated classification tree (a bond appears in the result)
+pellet classify data/ontology-dev/ontology-003.ttl
+
+# Run lint and find out the problem (missing declaration for a  datatype property)
+pellet lint -o RDF data/ontology-dev/ontology-003.ttl 
+
+# Add the missing datatype declaration to ontology-004.ttl
+# See the corrected classification tree
+pellet classify data/ontology-dev/ontology-004.ttl
+
+# Add instances to ontology-005.ttl
+# See the classification tree with instances
+pellet realize data/ontology-dev/ontology-005.ttl
+
+# Introduce inconsistency to ontology-006.ttl
+# Check consistency
+pellet consistency data/ontology-dev/ontology-006.ttl
+
+# Find a justification for ontology inconsistency
+pellet explain data/ontology-dev/ontology-006.ttl
+
+# Find all justifications for ontology inconsistency
+pellet explain -x 0 data/ontology-dev/ontology-006.ttl
+
+# Fix inconsistencies in ontology-007.owl
+# Verify consistency
+pellet consistency data/ontology-dev/ontology-007.ttl
+
+# Introduce unsatisfiable concept CivilServantContractor in ontology-008.owl
+pellet classify data/ontology-dev/ontology-008.ttl
+
+# Explain unsatisfiability of concept
+pellet explain --unsat CivilServantContractor data/ontology-dev/ontology-008.ttl
+
+# Add a new property assertion to ontology-009.ttl
+# See new realization results
+pellet realize data/ontology-dev/ontology-009.ttl
+
+# Explain why Person1406 is an instance of Employee
+pellet explain --instance "Person1406,Employee" data/ontology-dev/ontology-009.ttl
+
+# Explain why Person1735 is an instance of CivilServant
+pellet explain --instance "Person1735,CivilServant" data/ontology-dev/ontology-009.ttl
+
+# Add a property chain axiom to ontology-010.ttl and separate instance data into data-001.ttl
+# See realization results with two input files
+pellet realize data/ontology-dev/ontology-010.ttl data/ontology-dev/data-001.ttl 
+
+# Run a SPARQL query over two files to find the projects employees work on
+pellet query -q data/ontology-dev/query-221.rq data/ontology-dev/ontology-010.ttl data/ontology-dev/data-001.ttl
+
+# See the project hierarchy printed as an intended tree
+pellet trans-tree --property subProjectOf --individuals data/ontology-dev/ontology-010.ttl data/ontology-dev/data-001.ttl 
+
+# Get all subclasses of Employee
+pellet query -q data/sparql/query-201.rq data/ontology-dev/ontology-010.ttl data/ontology-dev/data-001.ttl
+
+# Get direct subclasses of Employee
+pellet query -q data/sparql/query-202.rq data/ontology-dev/ontology-010.ttl data/ontology-dev/data-001.ttl
+
+# Get all instances of Employee
+pellet query -q data/sparql/query-203.rq data/ontology-dev/ontology-010.ttl data/ontology-dev/data-001.ttl
+
+# Get all subclasses of Employee and their instances
+pellet query -q data/sparql/query-211.rq data/ontology-dev/ontology-010.ttl data/ontology-dev/data-001.ttl
+
+# Get all subclasses of Employee and their direct instances
+pellet query -q data/sparql/query-212.rq data/ontology-dev/ontology-010.ttl data/ontology-dev/data-001.ttl
+
+# Align POPS vocabulary with FOAF terms in alignment/alignment-004.ttl
+# See the combined class hierarchy with alignment results
+pellet classify data/alignment/ontology-010.ttl data/alignment/data-001.ttl data/alignment/alignment-004.ttl data/alignment/foaf-dl.ttl 
+
+# Get instances of FOAF Person class and values of FOAF name property
+pellet query -q data/alignment/query-301.rq data/alignment/ontology-010.ttl data/alignment/data-001.ttl data/alignment/alignment-004.ttl 

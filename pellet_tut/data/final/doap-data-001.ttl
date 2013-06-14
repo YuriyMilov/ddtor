@@ -1,0 +1,32 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+
+@prefix foaf:	<http://xmlns.com/foaf/0.1/> .
+@prefix doap:   <http://usefulinc.com/ns/doap#> .
+@prefix :	<http://clarkparsia.com/pellet/tutorial/doap-data#> .
+
+:pellet
+  a foaf:Project, doap:Project ;
+  rdfs:label "Pellet" ;
+  doap:maintainer [
+    rdfs:label "Evren Sirin" ;
+    foaf:mbox_sha1sum "199129950aa1a391f5e9ca3fce00a2e4c17f678c" ] ;
+  doap:developer [
+    rdfs:label "Michael Smith" ;
+    foaf:mbox_sha1sum "6a51753815324c6f2b91e234ff65a6e957cf8053" ] .
+
+:protege
+  a foaf:Project, doap:Project ;
+  rdfs:label "Protege" ;
+  doap:developer [
+    rdfs:label "Tania Tudorache" ;
+    foaf:mbox_sha1sum "638d023ba44fb531a81881698239ebb410af4790" ] .
+
+:owlapi
+  a foaf:Project, doap:Project ;
+  rdfs:label "The OWL API" ;
+  doap:developer [
+    rdfs:label "Matthew Horridge" ;
+    foaf:mbox_sha1sum "29c0127871609390f3d73c72c9418cc2936ac0f8" ] .

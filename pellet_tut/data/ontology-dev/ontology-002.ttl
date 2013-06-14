@@ -1,0 +1,38 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+
+@prefix : <http://clarkparsia.com/pellet/tutorial/pops#> .
+
+<http://clarkparsia.com/pellet/tutorial/pops#> a owl:Ontology .
+
+
+# Employee class hierarchy
+#
+
+:Employee a owl:Class .
+:CivilServant a owl:Class .
+:Contractor a owl:Class .
+
+
+# Project class hierarchy
+#
+
+:Project a owl:Class .
+:ActiveProject a owl:Class .
+
+# Other classes
+#
+
+:Organization a owl:Class .
+
+
+# Properties
+#
+
+:endDate a owl:DatatypeProperty .
+:hasEmployee a owl:ObjectProperty .
+:hasManager a owl:ObjectProperty .
+:isEmployeeOf a owl:ObjectProperty .
+:worksOnProject a owl:ObjectProperty .

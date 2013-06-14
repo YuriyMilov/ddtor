@@ -1,0 +1,22 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+
+@prefix : <http://clarkparsia.com/pellet/tutorial/pops#> .
+
+:Employee
+  rdfs:subClassOf
+    [
+      a owl:Restriction ;
+      owl:onProperty :employeeId ;
+      owl:someValuesFrom [
+          a rdfs:Datatype ;
+          owl:onDatatype xsd:integer ;
+          owl:withRestrictions
+            (
+              [ xsd:minInclusive 100000 ]
+              [ xsd:maxInclusive 999999 ]
+            )
+        ]
+    ] .

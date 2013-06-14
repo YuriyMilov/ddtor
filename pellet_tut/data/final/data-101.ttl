@@ -1,0 +1,27 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+
+@prefix pops: <http://clarkparsia.com/pellet/tutorial/pops#> .
+@prefix : <http://clarkparsia.com/pellet/tutorial/pops-data#> .
+
+
+:Person0001
+  pops:employeeId "120001"^^xsd:integer ;
+  pops:mbox_sha1sum "199129950aa1a391f5e9ca3fce00a2e4c17f678c" ;
+  pops:worksOnProject :Project3217 ;
+  pops:isEmployeeOf :Organization-CHQ .
+
+:Organization-CHQ
+  a pops:Organization ;
+  rdfs:label "NASA HeadQuarters" .
+
+:Project3217
+  a pops:ActiveProject ;
+  pops:subProjectOf :Project321 ;
+  rdfs:label "BIANCA" .
+
+:Project321
+  a pops:ActiveProject ;
+  rdfs:label "POPS" .

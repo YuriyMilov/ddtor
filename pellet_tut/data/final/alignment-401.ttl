@@ -1,0 +1,16 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix swrl:	<http://www.w3.org/2003/11/swrl#> .
+@prefix swrlb:	<http://www.w3.org/2003/11/swrlb#> .
+
+@prefix bibtex: <http://swrc.ontoware.org/ontology#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+
+@prefix : <http://clarkparsia.com/pellet/tutorial/owled-foaf-alignment#> .
+
+bibtex:author rdfs:subPropertyOf foaf:maker .
+bibtex:Paper rdfs:subClassOf foaf:Document .
+bibtex:InProceedings rdfs:subClassOf foaf:Document .

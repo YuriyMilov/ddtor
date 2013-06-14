@@ -1,0 +1,17 @@
+$Id: foaf-changes.txt 44 2009-06-18 16:53:06Z masmith $
+
+foaf-dl.ttl was produced from http://xmlns.com/foaf/0.1/index.rdf with
+the following modifications:
+
++ Replace the inverse functional axioms for the following datatype
+  properties with OWL 2 key axioms
+  - mbox_sha1sum , jabberID , aimChatID , icqChatID , msnChatID
+
++ Removed the following triple (non-DL meta-modeling)
+   rdfs:Class a owl:Class .
+
++ Removed the following triple (non-DL annotation / datatype property punning)
+   foaf:name rdfs:subPropertyOf rdfs:label .
+
++ foaf:myersBriggs was changed from an object property a datatype property
+  in order to be consistent with the range axiom (using rdfs:Literal)

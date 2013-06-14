@@ -1,0 +1,92 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix swrl:	<http://www.w3.org/2003/11/swrl#> .
+@prefix swrlb:	<http://www.w3.org/2003/11/swrlb#> .
+
+@prefix pops: <http://clarkparsia.com/pellet/tutorial/pops#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+@prefix : <http://clarkparsia.com/pellet/tutorial/pops-foaf-alignment#> .
+
+pops:Employee rdfs:subClassOf foaf:Person .
+pops:Project owl:equivalentClass foaf:Project .
+pops:Organization owl:equivalentClass foaf:Organization .
+
+pops:hasEmployee rdfs:subPropertyOf foaf:member .
+
+pops:firstName owl:equivalentProperty foaf:givenname .
+pops:lastName owl:equivalentProperty foaf:surname .
+pops:mbox_sha1sum owl:equivalentProperty foaf:mbox_sha1sum .
+
+
+:x a swrl:Variable .
+:y a swrl:Variable .
+:z a swrl:Variable .
+:n1 a swrl:Variable .
+:n2 a swrl:Variable .
+:name a swrl:Variable .
+
+[] a swrl:Imp ;
+  swrl:body (
+      [
+        a swrl:DatavaluedPropertyAtom ;
+	swrl:argument1 :x ;
+	swrl:argument2 :n1 ;
+	swrl:propertyPredicate pops:firstName
+      ]
+      [
+        a swrl:DatavaluedPropertyAtom ;
+	swrl:argument1 :x ;
+	swrl:argument2 :n2 ;
+	swrl:propertyPredicate pops:lastName
+      ]
+      [
+        a swrl:BuiltinAtom ;
+	swrl:builtin swrlb:stringConcat ;
+	swrl:arguments ( :name :n1 " " :n2 )
+      ]
+    ) ;
+  swrl:head (
+      [
+        a swrl:DatavaluedPropertyAtom ;
+	swrl:argument1 :x ;
+	swrl:argument2 :name ;
+	swrl:propertyPredicate foaf:name
+      ]
+    ) .
+    
+:activeProject a owl:ObjectProperty .  
+
+pops:ActiveProject 
+  rdfs:subClassOf 
+    [
+      a owl:Restriction ;
+      owl:onProperty pops:activeProject ;
+      owl:hasSelf true
+    ] .
+    
+[] a swrl:Imp ;
+  swrl:body (
+      [
+        a swrl:IndividualPropertyAtom ;
+	swrl:argument1 :x ;
+	swrl:argument2 :y ;
+	swrl:propertyPredicate pops:worksOnProject
+      ]
+      [
+        a swrl:IndividualPropertyAtom ;
+	swrl:argument1 :y ;
+	swrl:argument2 :z ;
+	swrl:propertyPredicate pops:activeProject
+      ]
+    ) ;
+  swrl:head (
+      [
+        a swrl:IndividualPropertyAtom ;
+	swrl:argument1 :x ;
+	swrl:argument2 :y ;
+	swrl:propertyPredicate foaf:currentProject
+      ]
+  ) .

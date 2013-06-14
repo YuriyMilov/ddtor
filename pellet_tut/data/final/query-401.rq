@@ -1,0 +1,24 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dc:   <http://purl.org/dc/elements/1.1/>
+
+PREFIX : <http://clarkparsia.com/pellet/tutorial/pops#>
+
+SELECT ?name ?org ?project ?pub
+WHERE {
+
+  ?x a foaf:Person ;
+     foaf:name ?name ;
+     foaf:made [
+       a foaf:Document ;
+       dc:title ?pub
+     ] ;
+     foaf:currentProject [
+       rdfs:label ?project
+     ] .
+
+  ?y a foaf:Organization ;
+     rdfs:label ?org ;
+     foaf:member ?x
+}

@@ -1,0 +1,31 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+
+@prefix pops: <http://clarkparsia.com/pellet/tutorial/pops#> .
+@prefix : <http://clarkparsia.com/pellet/tutorial/pops-data#> .
+
+:Organization5349
+  :hasManager :Person0853 , :Person1735 .
+
+:Person0853
+  a pops:CivilServant ;
+  pops:isEmployeeOf :Organization5349 ;
+  pops:worksOnProject :Project2133 ;
+  pops:firstName "John" ;
+  pops:lastName "Doe" .
+
+:Person1406
+  pops:employeeId 762679 ;
+  pops:firstName "Benjamin" ;
+  pops:lastName "Walker" .
+
+:Project2133
+  a pops:ActiveProject ;
+  pops:subProjectOf :Project1198 .
+
+:Project1198 pops:subProjectOf :Project3572 .
+:Project7919 pops:subProjectOf :Project3204 .
+:Project1129 pops:subProjectOf :Project3204 .
+:Project3204 pops:subProjectOf :Project8279 .
