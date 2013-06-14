@@ -785,4 +785,40 @@ public class stat {
 			return e.toString();
 		}
 	}
+	
+	public static String scrt(String s) {
+		try {
+			OWLOntologyManager mm = OWLManager.createOWLOntologyManager();
+			OWLDataFactory ff = mm.getOWLDataFactory();
+			String base = "http://owl.feofan.com/1#";
+			PrefixManager pre = new DefaultPrefixManager(base);
+			OWLOntology онтология = mm.createOntology(IRI.create(base));
+
+			OWLClass человек = ff.getOWLClass(":человек", pre);
+			OWLClass смертен = ff.getOWLClass(":смертен", pre);
+			
+			
+			
+			OWLNamedIndividual Сократ = ff.getOWLNamedIndividual(":Сократ", pre);			
+			
+			OWLClassAssertionAxiom Сократ_это_человек = ff.getOWLClassAssertionAxiom(человек, Сократ);			
+			mm.addAxiom(онтология, Сократ_это_человек);
+	
+			
+			OWLSubClassOfAxiom человек_смертен = ff.getOWLSubClassOfAxiom(человек,смертен);		
+			mm.addAxiom(онтология, человек_смертен);
+	
+			
+			// /////////////////////////
+			// /////////////////////////
+			// /////////////////////////
+
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			mm.saveOntology(онтология, outputStream);
+			s = new String(outputStream.toByteArray(), "UTF-8");
+			return s;
+		} catch (Exception e) {
+			return e.toString();
+		}
+	}
 }

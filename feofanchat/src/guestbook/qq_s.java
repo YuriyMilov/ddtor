@@ -7,13 +7,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.mindswap.pellet.jena.PelletReasonerFactory;
-import com.clarkparsia.pellet.sparqldl.jena.SparqlDLExecutionFactory;
-import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryFactory;
-import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
+
 
 public class qq_s extends HttpServlet {
 

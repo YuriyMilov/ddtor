@@ -63,7 +63,9 @@ public class qq7 extends HttpServlet {
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/xml; charset=UTF8");
 
-		String s = сократ("");
+		//String s = сократ("");
+		
+		String s=stat.sqq7;
 		
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
