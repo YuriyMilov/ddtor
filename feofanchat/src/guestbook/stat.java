@@ -728,7 +728,7 @@ public class stat {
 
 			opaa = ff.getOWLObjectPropertyAssertionAxiom(op,
 					ff.getOWLNamedIndividual(":3", pre),
-					ff.getOWLNamedIndividual(":8", pre));
+					ff.getOWLNamedIndividual(":4", pre));
 
 			adax = new AddAxiom(oo, opaa);
 			mm.applyChange(adax);
@@ -788,25 +788,21 @@ public class stat {
 	
 	public static String scrt(String s) {
 		try {
-			OWLOntologyManager mm = OWLManager.createOWLOntologyManager();
-			OWLDataFactory ff = mm.getOWLDataFactory();
-			String base = "http://owl.feofan.com/1#";
-			PrefixManager pre = new DefaultPrefixManager(base);
-			OWLOntology онтология = mm.createOntology(IRI.create(base));
-
-			OWLClass человек = ff.getOWLClass(":человек", pre);
-			OWLClass смертен = ff.getOWLClass(":смертен", pre);
-			
-			
-			
-			OWLNamedIndividual Сократ = ff.getOWLNamedIndividual(":Сократ", pre);			
-			
-			OWLClassAssertionAxiom Сократ_это_человек = ff.getOWLClassAssertionAxiom(человек, Сократ);			
-			mm.addAxiom(онтология, Сократ_это_человек);
-	
-			
-			OWLSubClassOfAxiom человек_смертен = ff.getOWLSubClassOfAxiom(человек,смертен);		
-			mm.addAxiom(онтология, человек_смертен);
+			OWLOntologyManager начальник = OWLManager.createOWLOntologyManager();
+            OWLDataFactory работник = начальник.getOWLDataFactory();
+            String где = "http://owl.feofan.com/1#";
+            PrefixManager приставка= new DefaultPrefixManager(где);
+            OWLOntology онтология = начальник.createOntology(IRI.create(где));
+           
+            OWLClass человек = работник.getOWLClass(":человек", приставка);
+            OWLClass смертен = работник.getOWLClass(":смертен", приставка);
+            OWLNamedIndividual Сократ = работник.getOWLNamedIndividual(":Сократ", приставка);           
+           
+            OWLClassAssertionAxiom Сократ_это_человек = работник.getOWLClassAssertionAxiom(человек, Сократ);           
+            начальник.addAxiom(онтология, Сократ_это_человек);
+           
+            OWLSubClassOfAxiom человек_смертен = работник.getOWLSubClassOfAxiom(человек,смертен);       
+            начальник.addAxiom(онтология, человек_смертен);
 	
 			
 			// /////////////////////////
@@ -814,7 +810,7 @@ public class stat {
 			// /////////////////////////
 
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			mm.saveOntology(онтология, outputStream);
+			начальник.saveOntology(онтология, outputStream);
 			s = new String(outputStream.toByteArray(), "UTF-8");
 			return s;
 		} catch (Exception e) {

@@ -70,36 +70,7 @@ public class qq6 extends HttpServlet {
 				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
 		model.read(sh + "/qq7");
 		
-		PelletInfGraph pelletGraph = (PelletInfGraph) model.getGraph();
-		
-		pelletGraph.classify();
-		
-		
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();  
-       
-			OWLOntology ont = man.loadOntology(IRI.create(sh + "/qq7"));
-
-
-		 InferredOntologyGenerator iog = new InferredOntologyGenerator((OWLReasoner) pelletGraph);
-		 
-			OWLOntologyManager mm = OWLManager.createOWLOntologyManager();
-			OWLDataFactory ff = mm.getOWLDataFactory();
-			String base = "http://owl.feofan.com/1#";
-			PrefixManager pre = new DefaultPrefixManager(base);
-			OWLOntology infOnt = mm.createOntology(IRI.create(base));
 	
-	        
-     iog.fillOntology(man, infOnt);  
-
-		// /////////////////////////
-		// /////////////////////////
-		// /////////////////////////
-
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		mm.saveOntology(infOnt, outputStream);
-		s = new String(outputStream.toByteArray(), "UTF-8");
-		
-		
 		Query q = QueryFactory.create(s);
 		ResultSet r = SparqlDLExecutionFactory.create(q, model).execSelect();
 		
