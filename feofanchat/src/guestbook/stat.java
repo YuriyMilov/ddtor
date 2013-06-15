@@ -467,6 +467,7 @@ public class stat {
 				}
 
 				else if (socrat(ss[0]) && socrat(ss[2])) {
+					//qq.getProperty(ss[1]);
 					qq.assertFact(ss[1], ss[0], ss[2]);
 				}
 
@@ -636,10 +637,30 @@ public class stat {
 			s = sss[i].trim();
 			String[] ss = s.split("[ ]+");
 
+			
 			if (ss.length != 3) {
-				page(req, resp, " ожидал три слова здесь: " + s);
+				
+				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
+		
+				
+				s=" ожидал три слова здесь: " +s;
+				page(req, resp, s);
 				return;
-			} else {
+			} 
+			else
+			if (Character.isDigit(ss[1].charAt(0)))
+			{
+				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
+				
+				s="Отношение (-"+ss[1]+"->) в высказывании (\""+s+"\") в данной версии Феофана не может начинаться с числа";
+				page(req, resp, s);
+				return;
+			}
+				
+			else {
+				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
+
+				
 				if (sr.indexOf(s) < 0) {
 					sr = sr + " " + s + ". ";
 					// sowl = get_owl(sr);

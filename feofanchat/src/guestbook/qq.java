@@ -151,7 +151,7 @@ public class qq extends HttpServlet implements EntryPoint {
 
 				// ///////////////////////////////////////////
 				//
-				// вопрос больше чем два слова - хелп
+				// вопрос больше чем два слова - пара и хелп
 				//
 				// ///////////////////////////////////////////
 
@@ -165,6 +165,10 @@ public class qq extends HttpServlet implements EntryPoint {
 							///////////////////////////		
 							
 							stat.sqq7 = stat.para("");
+							
+							//stat.sowl=stat.sqq7;
+							
+							
 							s = stat.spref + "SELECT ?кто  WHERE {?кто qq:"+ss[0]+" qq:"+ss[1]+"}";
 							
 							///////////////////////////			
