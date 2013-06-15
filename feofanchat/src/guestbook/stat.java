@@ -443,6 +443,50 @@ public class stat {
 
 		return s;
 	}
+	
+	
+	public static String get_owl8(String s) {
+
+		Owl2Model qq = new Owl2Model("http://owl.feofan.com/1");
+
+		try {
+
+			String[] sss = prep_all(s).split("[.]+");
+ 
+			for (int i = 0; i < sss.length; i++) {
+
+				String[] ss = sss[i].trim().split("[ ]+");
+
+				if (ss.length != 3) {
+					;
+				} else if (ss[1].equals("-")) {
+					qq.isSubClassOf(qq.getOwlClass(ss[0]),
+							qq.getOwlClass(ss[2]));
+				} else if (ss[1].equals("это")) {
+					qq.hasClass(qq.getIndividual(ss[0]), qq.getOwlClass(ss[2]));
+				}
+
+				else if (socrat(ss[0]) && socrat(ss[2])) {
+					qq.assertFact(ss[1], ss[0], ss[2]);
+				}
+
+				else if (!socrat(ss[0]) && !socrat(ss[2])) {
+					qq.assertDomainAndRange(qq.getProperty(ss[1]),
+							qq.getOwlClass(ss[0]), qq.getOwlClass(ss[2]));
+				}
+			}
+
+			s = qq.sowl();
+		} catch (Exception e) {
+			s = qq.sowl();
+		}
+
+		return s;
+	}
+	
+
+   
+   
 
 	public static void init(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -599,7 +643,8 @@ public class stat {
 				if (sr.indexOf(s) < 0) {
 					sr = sr + " " + s + ". ";
 					// sowl = get_owl(sr);
-					sowl = get_owl7(sr);
+					//sowl = get_owl7(sr);
+					sowl = get_owl8(sr);
 				}
 			}
 		}

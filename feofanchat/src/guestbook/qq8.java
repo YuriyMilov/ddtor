@@ -30,13 +30,13 @@ public class qq8 extends HttpServlet {
 			
 			///////////////////////////		
 			
-			//stat.sqq7 = stat.para("");
-			//s = stat.spref + "SELECT ?кто  WHERE {?кто qq:пара qq:7}";
+			stat.sqq7 = stat.para("");
+			s = stat.spref + "SELECT ?кто  WHERE {?кто qq:пара qq:7}";
 			
 			///////////////////////////			
 			
-			stat.sqq7 = stat.scrt("");
-			 s = stat.spref + "SELECT ?кто  WHERE {qq:Сократ a ?кто}";
+			//stat.sqq7 = stat.scrt("");
+			// s = stat.spref + "SELECT ?кто  WHERE {qq:Сократ a ?кто}";
 
 			///////////////////////////			
 				

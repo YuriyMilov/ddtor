@@ -123,6 +123,7 @@ public class qq extends HttpServlet implements EntryPoint {
 			// /////////////////////////////
 
 			String s5 = s;
+			String s6 = s;
 			boolean bb = s5.indexOf("Кто ") == 0 || s5.indexOf("кто ") == 0
 					|| s5.indexOf("Что ") == 0 || s5.indexOf("что ") == 0;
 			if (bb) {
@@ -159,27 +160,51 @@ public class qq extends HttpServlet implements EntryPoint {
 					String[] ss = s5.split("[ ]+");
 					if (ss.length == 2) {
 						
-								//"SELECT ?Who  WHERE {?Who qq:p qq:4}";
-						s = stat.spref 
-								+ " SELECT  ?x  WHERE " +"{?x qq:"+ss[0]+" qq:"+ss[1]+"}";
-						OntModel model = ModelFactory
-								.createOntologyModel(PelletReasonerFactory.THE_SPEC);
-						//model.read(sh+"/qqs");
-						model.read("file:zz.txt");
-						Query q = QueryFactory.create(s);
-						ResultSet r = SparqlDLExecutionFactory.create(q, model)
-								.execSelect();
-						
-						s="";
-						
-						while(r.hasNext())
-							s=s+r.next().toString();
-						
-						s=s.replace("( ?x = <http://owl.feofan.com/1#", "").replace("> ) -> [Root]", "");
+						try {
+							
+							///////////////////////////		
+							
+							stat.sqq7 = stat.para("");
+							s = stat.spref + "SELECT ?кто  WHERE {?кто qq:"+ss[0]+" qq:"+ss[1]+"}";
+							
+							///////////////////////////			
+							
+							//stat.sqq7 = stat.scrt("");
+							// s = stat.spref + "SELECT ?кто  WHERE {qq:Сократ a ?кто}";
+
+							///////////////////////////			
+								
+							OntModel model = ModelFactory
+									.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+							model.read(sh + "/qq7");
+
+							Query q = QueryFactory.create(s);
+							ResultSet rs = SparqlDLExecutionFactory.create(q, model)
+									.execSelect();
+
+							s = "";
+							String sa = "";
+							while (rs.hasNext()) {
+								sa = rs.nextBinding().toString();
+								if (sa.indexOf(stat.siri) > -1) {
+									sa = sa.replace(stat.siri, "").replace("( ?кто = <", "")
+											.replace("> ) -> [Root]", "");
+									s = s + " " + sa;
+								}
+							}
+							s=s.trim();
+							if (s.length() == 0)
+								s = "Нет ответа...";
+							else
+								s=s.replace(" ", ", ");
+
+						} catch (Exception e) {
+							s = "не понял вопроса - см. №1 ";
+						}
 						
 					} else
-						s = "не понял вопроса - 2 ";
-					
+						s = "не понял вопроса - см. №2 ";
+					stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s6;
 					stat.page(req, resp, s.replace("\r\n", "<br>"));
 					return;
 				}
