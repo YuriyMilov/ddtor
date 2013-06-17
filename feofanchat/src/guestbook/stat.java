@@ -80,7 +80,7 @@ public class stat {
 			// "&nbsp;&nbsp; <a href=qq?p2=owl.txt>txt</a>" +
 			" <br><br>&nbsp;<a href=qq>чист</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a> &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"
 			+ // &nbsp;&nbsp; <a href>сохранить мир</a>" +
-			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a>  &nbsp;&nbsp; <a href=qqq>owl</a> &nbsp;&nbsp; <a href=qq7>мир</a> "
+			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a>  &nbsp;&nbsp; <a href=qqq>owl</a> &nbsp;&nbsp; <a href=qq?p2=мир>мир</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
 	public static String siri = "http://owl.feofan.com/1#";
@@ -621,7 +621,15 @@ public class stat {
 			stat.page(req, resp, "кря");
 			return;
 		}
+		if (s.equals("мир")) {
+		s = rfu_utf(sh + "/qq7");
+			stat.page(req, resp, s);
+			return;
+		}
 
+	
+		
+		
 		stat.page(req, resp, "не знаю такой команды");
 		return;
 	}
