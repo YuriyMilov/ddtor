@@ -61,11 +61,13 @@ public class qq7 extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		ServletOutputStream out = resp.getOutputStream();
-		resp.setContentType("text/xml; charset=UTF8");
+		resp.setContentType("text/html; charset=UTF8");
 
 		//String s = сократ("");
 		
-		String s=stat.sqq7;
+		String s=stat.sr;
+		
+		s="<html><body>"+s+"</body></html>";
 		
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);

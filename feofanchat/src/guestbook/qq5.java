@@ -30,7 +30,7 @@ public class qq5 extends HttpServlet  {
 		sowl =  req.getParameter("p1");	
 		sq = req.getParameter("p2").trim();
 		
-		stat.sowl=stat.get_owl(stat.sr);	
+		stat.sowl=stat.get_owl8(stat.sr);	
 		
 		
 		String s="";

@@ -24,7 +24,7 @@ public class qqq extends HttpServlet {
 		resp.setContentType("text/xml; charset=UTF8");
 		
 		resp.setCharacterEncoding("UTF8");
-		stat.sowl = stat.get_owl7(stat.sr);
+		stat.sowl = stat.get_owl8(stat.sr);
 		
 		String s = stat.sowl;
 		byte[] b = s.getBytes("UTF8");

@@ -34,7 +34,7 @@ public class qq_s extends HttpServlet {
 			s = stat.rfu_utf(sh + "/" + URLEncoder.encode(s4, "UTF-8"));
 			if (s.indexOf("Ъ") > -1 && s.length() > s.indexOf("Ъ"))
 				s = s.substring(s.indexOf("Ъ") + 1);
-			stat.text_new(s, req, resp);
+			stat.text8(s, req, resp);
 			return;
 		}
 
@@ -43,7 +43,7 @@ public class qq_s extends HttpServlet {
 			s = stat.rfu_utf(sh + "/" + URLEncoder.encode(s4, "UTF-8"));
 			if (s.indexOf("Ъ") > -1 && s.length() > s.indexOf("Ъ"))
 				s = s.substring(s.indexOf("Ъ") + 1);
-			stat.text(s, req, resp);
+			stat.text8(s, req, resp);
 			return;
 		}
 	}

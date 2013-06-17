@@ -112,7 +112,7 @@ public class qq extends HttpServlet implements EntryPoint {
 		// /////////////////////////////
 
 		if (s.indexOf("?") != s.length() - 1) {
-			stat.text(s, req, resp);
+			stat.text8(s, req, resp);
 			return;
 		} else {
 

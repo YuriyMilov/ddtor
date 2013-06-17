@@ -80,7 +80,7 @@ public class stat {
 			// "&nbsp;&nbsp; <a href=qq?p2=owl.txt>txt</a>" +
 			" <br><br>&nbsp;<a href=qq>чист</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a> &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"
 			+ // &nbsp;&nbsp; <a href>сохранить мир</a>" +
-			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a>  &nbsp;&nbsp; <a href=qqq>OWL</a> "
+			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a>  &nbsp;&nbsp; <a href=qqq>owl</a> &nbsp;&nbsp; <a href=qq7>мир</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
 	public static String siri = "http://owl.feofan.com/1#";
@@ -626,7 +626,9 @@ public class stat {
 		return;
 	}
 
-	public static void text(String s, HttpServletRequest req,
+
+
+	public static void text8(String s, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
 
 		s = prep_all(s);
@@ -658,42 +660,25 @@ public class stat {
 			}
 				
 			else {
-				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
+				
+				///////////////////////////////////
+				// комментарий - пока добавляется мир
+				///////////////////////////////////
+				
+				stat.stop = stat.stop + "<br> <b><i> - </i></b> добавить: " + s;
 
 				
 				if (sr.indexOf(s) < 0) {
 					sr = sr + " " + s + ". ";
+
 					// sowl = get_owl(sr);
 					//sowl = get_owl7(sr);
-					sowl = get_owl8(sr);
 				}
 			}
 		}
-		stat.page(req, resp, " миру мир добавлен<br>" + sr);
-	}
-
-	public static void text_new(String s, HttpServletRequest req,
-			HttpServletResponse resp) throws IOException {
-
-		s = prep_all(s);
-		sr = "";
-		String[] sss = s.split("[.]+");
-
-		for (int i = 0; i < sss.length; i++) {
-			s = sss[i].trim();
-			String[] ss = s.split("[ ]+");
-
-			if (ss.length != 3) {
-				page(req, resp, " ожидал три слова здесь: " + s);
-				return;
-			} else {
-				if (sr.indexOf(s) < 0) {
-					sr = sr + " " + s + ". ";
-				}
-			}
-		}
-		sowl = get_owl(sr);
-		stat.page(req, resp, " новый мир загружен<br>" + sr);
+		
+		sowl = get_owl8(sr);
+		stat.page(req, resp, " Новый мир: \"" + stat.sr.trim()+"\"");
 	}
 
 	public static boolean socrat(String s) {
