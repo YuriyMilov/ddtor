@@ -1,6 +1,7 @@
 package guestbook;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -30,7 +31,7 @@ public class qq8 extends HttpServlet {
 			
 			///////////////////////////		
 			
-			stat.sqq7 = stat.para("");
+			stat.sowl = stat.para("");
 			s = stat.spref + "SELECT ?кто  WHERE {?кто qq:пара qq:7}";
 			
 			///////////////////////////			
@@ -42,8 +43,10 @@ public class qq8 extends HttpServlet {
 				
 			OntModel model = ModelFactory
 					.createOntologyModel(PelletReasonerFactory.THE_SPEC);
-			model.read(sh + "/qq7");
-
+			//model.read(sh + "/qqq");
+			
+			StringReader rdr = new StringReader(stat.para(""));
+			
 			Query q = QueryFactory.create(s);
 			ResultSet rs = SparqlDLExecutionFactory.create(q, model)
 					.execSelect();

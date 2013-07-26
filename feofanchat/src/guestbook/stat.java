@@ -80,7 +80,7 @@ public class stat {
 			// "&nbsp;&nbsp; <a href=qq?p2=owl.txt>txt</a>" +
 			" <br><br>&nbsp;<a href=qq>чист</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a> &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"
 			+ // &nbsp;&nbsp; <a href>сохранить мир</a>" +
-			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a>  &nbsp;&nbsp; <a href=qqq>owl</a> &nbsp;&nbsp; <a href=qq?p2=мир>мир</a> "
+			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a>  &nbsp;&nbsp; <a href=owl>owl</a> &nbsp;&nbsp; <a href=qq?p2=мир>мир</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
 	public static String siri = "http://owl.feofan.com/1#";
@@ -475,6 +475,12 @@ public class stat {
 					qq.assertDomainAndRange(qq.getProperty(ss[1]),
 							qq.getOwlClass(ss[0]), qq.getOwlClass(ss[2]));
 				}
+				else if (socrat(ss[0]) && !socrat(ss[2])) {
+					
+					qq.hasClass(qq.getIndividual(ss[0]), qq.getOwlClass(ss[2]));
+					qq.assertRange(qq.getProperty(ss[1]), qq.getOwlClass(ss[2]));					
+					
+				}
 			}
 
 			s = qq.sowl();
@@ -700,6 +706,162 @@ public class stat {
 			return false;
 	}
 
+	
+	
+	
+	public static String para8(String s) {
+
+		try {
+			OWLClassAssertionAxiom caa = null;
+			AddAxiom adax = null;
+			OWLOntologyManager mm = OWLManager.createOWLOntologyManager();
+			OWLDataFactory ff = mm.getOWLDataFactory();
+			String base = "http://owl.feofan.com/1#";
+			
+			PrefixManager pre = new DefaultPrefixManager(base);
+			OWLOntology oo = mm.createOntology(IRI.create(base));
+
+		
+			
+			
+			////////////////////////////////
+			
+			
+			
+			
+
+			// /////////////////////////
+			// Классы
+			// /////////////////////////
+
+			OWLClass clam = ff.getOWLClass(":нечёт", pre);
+			OWLClass clad = ff.getOWLClass(":чёт", pre);
+
+			// ////////////////////////////
+			// Cимметричная связь
+			// ////////////////////////////
+
+			OWLObjectProperty op = ff.getOWLObjectProperty(IRI.create(base
+					+ "пара"));
+			OWLSymmetricObjectPropertyAxiom obsym = ff
+					.getOWLSymmetricObjectPropertyAxiom(op);
+			adax = new AddAxiom(oo, obsym);
+			mm.applyChange(adax);
+
+			// /////////////////////////
+			// Индивиды
+			// /////////////////////////
+
+			ArrayList<OWLNamedIndividual> nnm = new ArrayList<OWLNamedIndividual>();
+			ArrayList<OWLNamedIndividual> nnd = new ArrayList<OWLNamedIndividual>();
+
+			nnm.add(ff.getOWLNamedIndividual(":1", pre));
+			nnm.add(ff.getOWLNamedIndividual(":3", pre));
+			nnm.add(ff.getOWLNamedIndividual(":5", pre));
+			nnm.add(ff.getOWLNamedIndividual(":7", pre));
+
+			nnd.add(ff.getOWLNamedIndividual(":2", pre));
+			nnd.add(ff.getOWLNamedIndividual(":4", pre));
+			nnd.add(ff.getOWLNamedIndividual(":6", pre));
+			nnd.add(ff.getOWLNamedIndividual(":8", pre));
+
+			// /////////////////////////
+			// Индивиды - члены класса
+			// /////////////////////////
+
+			for (int i = 0; i < nnm.size(); i++)
+				mm.addAxiom(oo, ff.getOWLClassAssertionAxiom(clam, nnm.get(i)));
+
+			for (int i = 0; i < nnm.size(); i++)
+				mm.addAxiom(oo, ff.getOWLClassAssertionAxiom(clad, nnd.get(i)));
+
+			// /////////////////////////
+			// 1 пара 2
+			// /////////////////////////
+
+			OWLObjectPropertyAssertionAxiom opaa = ff
+					.getOWLObjectPropertyAssertionAxiom(op,
+							ff.getOWLNamedIndividual(":1", pre),
+							ff.getOWLNamedIndividual(":2", pre));
+
+			adax = new AddAxiom(oo, opaa);
+			mm.applyChange(adax);
+
+			// /////////////////////////
+			// 5 пара 6
+			// /////////////////////////
+
+			opaa = ff.getOWLObjectPropertyAssertionAxiom(op,
+					ff.getOWLNamedIndividual(":5", pre),
+					ff.getOWLNamedIndividual(":6", pre));
+
+			adax = new AddAxiom(oo, opaa);
+			mm.applyChange(adax);
+
+			// /////////////////////////
+			// 3 пара 8
+			// /////////////////////////
+
+			opaa = ff.getOWLObjectPropertyAssertionAxiom(op,
+					ff.getOWLNamedIndividual(":3", pre),
+					ff.getOWLNamedIndividual(":4", pre));
+
+			adax = new AddAxiom(oo, opaa);
+			mm.applyChange(adax);
+
+			// ///////////////////////////////////////
+			// {...} и пара только одному индивиду
+			// ///////////////////////////////////////
+
+			OWLObjectExactCardinality exactly1m = ff
+					.getOWLObjectExactCardinality(1, op, clam);
+			OWLObjectExactCardinality exactly1d = ff
+					.getOWLObjectExactCardinality(1, op, clad);
+
+			OWLObjectOneOf nm = ff.getOWLObjectOneOf((OWLNamedIndividual[]) nnm
+					.toArray(new OWLNamedIndividual[nnm.size()]));
+			OWLObjectOneOf nd = ff.getOWLObjectOneOf((OWLNamedIndividual[]) nnd
+					.toArray(new OWLNamedIndividual[nnd.size()]));
+
+			OWLObjectIntersectionOf m_i_l_1_d = ff.getOWLObjectIntersectionOf(
+					nm, exactly1d);
+			OWLClassAxiom clax = ff.getOWLEquivalentClassesAxiom(clam,
+					m_i_l_1_d);
+			mm.addAxiom(oo, clax);
+
+			OWLObjectIntersectionOf d_i_l_1_m = ff.getOWLObjectIntersectionOf(
+					nd, exactly1m);
+			OWLClassAxiom clax2 = ff.getOWLEquivalentClassesAxiom(clad,
+					d_i_l_1_m);
+			mm.addAxiom(oo, clax2);
+
+			// /////////////////////////
+			// Индивиды - разные
+			// /////////////////////////
+
+			ArrayList<OWLNamedIndividual> nnmd = new ArrayList<OWLNamedIndividual>();
+			nnmd.addAll(nnm);
+			nnmd.addAll(nnd);
+
+			OWLDifferentIndividualsAxiom diffInds = ff
+					.getOWLDifferentIndividualsAxiom((OWLNamedIndividual[]) nnmd
+							.toArray(new OWLNamedIndividual[nnmd.size()]));
+			mm.addAxiom(oo, diffInds);
+
+			// /////////////////////////
+			// /////////////////////////
+			// /////////////////////////
+
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			mm.saveOntology(oo, outputStream);
+			s = new String(outputStream.toByteArray(), "UTF-8");
+
+			return s;
+		} catch (Exception e) {
+			return e.toString();
+		}
+	}
+		
 	public static String para(String s) {
 
 		try {

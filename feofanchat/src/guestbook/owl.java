@@ -15,7 +15,7 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
-public class qqq extends HttpServlet {
+public class owl extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -24,7 +24,7 @@ public class qqq extends HttpServlet {
 		resp.setContentType("text/xml; charset=UTF8");
 		
 		resp.setCharacterEncoding("UTF8");
-		//stat.sowl = stat.get_owl8(stat.sr);
+		stat.sowl = stat.get_owl8(stat.sr);
 		
 		String s = stat.sowl;
 		byte[] b = s.getBytes("UTF8");
