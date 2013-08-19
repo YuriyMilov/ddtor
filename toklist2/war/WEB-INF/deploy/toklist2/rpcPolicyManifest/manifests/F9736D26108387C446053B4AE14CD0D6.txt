@@ -1,0 +1,2 @@
+serviceClass: tkl.client.GreetingService
+path: F4EB1E015A2B46602AE86369F4DF6DF0.gwt.rpc
