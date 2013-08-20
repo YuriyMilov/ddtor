@@ -80,6 +80,9 @@ out.close();
 		
 		String sdt=""; 
 		TimeZone tz=TimeZone.getTimeZone("America/Montreal");
+		
+		
+		@SuppressWarnings("unused")
 		SimpleDateFormat parser = new SimpleDateFormat(
 		"MMM dd, yyyy 'at' HH:mm:ss z");
 		//Date d = parser.parse("Oct 25, 2007 at 18:35:07 EDT");
@@ -96,18 +99,48 @@ out.close();
 		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
 		
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymilov@gmail.com", "Yuriy Milov"));
+		msg.setFrom(new InternetAddress("ymilov@gmail.com", "UFOS Daily Activity"));
 		//msg.setFrom(new InternetAddress("lowrisk.terryfoxfoundation@gmail.com", "LowRisk Admin"));
 		
 		for (int i = 0; i < tt.length; i++)
 		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 				tt[i], tt[i]));
 		
+		/*
 		msg.setSubject(s2);
 		msg.setHeader("Content-type:","text/html;charset=ISO-8859-1");
 		msg.setText(s3);
 		Transport.send(msg);
+*/
+		
+        msg.setSubject(s2);
+        msg.setText(s3);
+        
+    	Multipart mp = new MimeMultipart();
 
+		MimeBodyPart textPart = new MimeBodyPart();
+		textPart.setContent("textBody", "text/plain");
+		mp.addBodyPart(textPart);
+
+		MimeBodyPart attachment = new MimeBodyPart();
+		String fileName = "UFOS_Daily.txt";
+		String filename = URLEncoder.encode(fileName, "UTF-8");
+		attachment.setFileName(filename);
+		attachment.setDisposition(Part.ATTACHMENT);
+
+		// DataSource src = new ByteArrayDataSource(spreadSheetData,
+		// "application/x-ms-excel");
+		DataSource src = new ByteArrayDataSource(s3.getBytes(), "plain/text");
+		DataHandler handler = new DataHandler(src);
+		attachment.setDataHandler(handler);
+		mp.addBodyPart(attachment);
+
+		msg.setContent(mp);
+		//msg.setSubject(String.format(subj));
+
+		//Transport.send(msg);
+        
+        Transport.send(msg);
 	}
 
 	private void send_admin (String subject, String body) throws Exception {
@@ -122,7 +155,7 @@ out.close();
 	    	Multipart mp = new MimeMultipart();
 
 			MimeBodyPart textPart = new MimeBodyPart();
-			textPart.setContent("textBody", "text/plain");
+			textPart.setContent("UFOS Daily Activity Report attached", "text/plain");
 			mp.addBodyPart(textPart);
 
 			MimeBodyPart attachment = new MimeBodyPart();
@@ -148,6 +181,7 @@ out.close();
  
 	}
 	
+	@SuppressWarnings("unused")
 	private static void sm(byte[] data, String ff, String mimeType,
 			String from_a, String from_n, String to_a, String to_n,
 			String subj, String textBody) throws Exception {
