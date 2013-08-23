@@ -119,7 +119,7 @@ out.close();
     	Multipart mp = new MimeMultipart();
 
 		MimeBodyPart textPart = new MimeBodyPart();
-		textPart.setContent("textBody", "text/plain");
+		textPart.setContent(s3, "text/plain");
 		mp.addBodyPart(textPart);
 
 		MimeBodyPart attachment = new MimeBodyPart();
