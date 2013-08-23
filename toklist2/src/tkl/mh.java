@@ -114,6 +114,81 @@ out.close();
 */
 		
         msg.setSubject(s2);
+        //msg.setText(s3);
+        
+        msg.setText("UFOS Daily Activity Report attached");
+        
+    	Multipart mp = new MimeMultipart();
+
+		MimeBodyPart textPart = new MimeBodyPart();
+		textPart.setContent(s3, "text/plain");
+		mp.addBodyPart(textPart);
+
+		MimeBodyPart attachment = new MimeBodyPart();
+		String fileName = "UFOS_Daily.txt";
+		String filename = URLEncoder.encode(fileName, "UTF-8");
+		attachment.setFileName(filename);
+		attachment.setDisposition(Part.ATTACHMENT);
+
+		// DataSource src = new ByteArrayDataSource(spreadSheetData,
+		// "application/x-ms-excel");
+		DataSource src = new ByteArrayDataSource(s3.getBytes(), "plain/text");
+		DataHandler handler = new DataHandler(src);
+		attachment.setDataHandler(handler);
+		mp.addBodyPart(attachment);
+
+		msg.setContent(mp);
+		//msg.setSubject(String.format(subj));
+
+		//Transport.send(msg);
+        
+        Transport.send(msg);
+	}
+
+	public void send_mail_old(String s1, String s2, String s3) throws Exception {
+		String[] tt = s1.split(",");
+
+		Properties props = new Properties();
+		Session session = Session.getDefaultInstance(props, null);
+
+		
+		
+		String sdt=""; 
+		TimeZone tz=TimeZone.getTimeZone("America/Montreal");
+		
+		
+		@SuppressWarnings("unused")
+		SimpleDateFormat parser = new SimpleDateFormat(
+		"MMM dd, yyyy 'at' HH:mm:ss z");
+		//Date d = parser.parse("Oct 25, 2007 at 18:35:07 EDT");
+		Date d = Calendar.getInstance(TimeZone.getTimeZone("EST")).getTime();
+		SimpleDateFormat formatter = new SimpleDateFormat(
+		"yyyy/MM/dd  HH:mm:ss z'('Z')'");
+		formatter.setTimeZone(tz);
+		sdt=formatter.format(d);
+		
+		//s2 = s2 + " "+ new Date().toString();
+		
+		s2 = s2 + " "+ sdt;
+		
+		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
+		
+		Message msg = new MimeMessage(session);
+		msg.setFrom(new InternetAddress("ymilov@gmail.com", "UFOS Daily Activity"));
+		//msg.setFrom(new InternetAddress("lowrisk.terryfoxfoundation@gmail.com", "LowRisk Admin"));
+		
+		for (int i = 0; i < tt.length; i++)
+		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
+				tt[i], tt[i]));
+		
+		/*
+		msg.setSubject(s2);
+		msg.setHeader("Content-type:","text/html;charset=ISO-8859-1");
+		msg.setText(s3);
+		Transport.send(msg);
+*/
+		
+        msg.setSubject(s2);
         msg.setText(s3);
         
     	Multipart mp = new MimeMultipart();
@@ -197,7 +272,8 @@ out.close();
 		Multipart mp = new MimeMultipart();
 
 		MimeBodyPart textPart = new MimeBodyPart();
-		textPart.setContent(textBody, "text/plain");
+		//textPart.setContent(textBody, "text/plain");
+		textPart.setContent("UFOS Daily Activity Report attached", "text/plain");
 		mp.addBodyPart(textPart);
 
 		MimeBodyPart attachment = new MimeBodyPart();
