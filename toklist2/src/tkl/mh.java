@@ -121,7 +121,8 @@ out.close();
     	Multipart mp = new MimeMultipart();
 
 		MimeBodyPart textPart = new MimeBodyPart();
-		textPart.setContent(s3, "text/plain");
+		//textPart.setContent(s3, "text/plain");
+		textPart.setContent("UFOS Daily Activity Report attached", "text/plain");
 		mp.addBodyPart(textPart);
 
 		MimeBodyPart attachment = new MimeBodyPart();
@@ -226,6 +227,8 @@ out.close();
 	        msg.addRecipient(Message.RecipientType.TO, new InternetAddress("admins"));
 	        msg.setSubject(subject);
 	        msg.setText(body);
+	        msg.setText("UFOS Daily Activity Report attached");
+	        
 	        
 	    	Multipart mp = new MimeMultipart();
 
