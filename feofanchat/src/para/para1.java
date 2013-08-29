@@ -43,11 +43,12 @@ package para;
 	public class para1 {
 
 		static OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-		static IRI ontologyIRI = IRI.create("http://owl.feofan.com/1");
+		static IRI ontologyIRI;
 		static OWLOntology ontology;
 		static OWLDataFactory factory;
 		
 		public para1() throws OWLOntologyCreationException {
+			ontologyIRI = IRI.create("http://owl.feofan.com/1");
 			ontology = manager.createOntology(ontologyIRI);
 			factory = manager.getOWLDataFactory();
 			OWLClass нечто = что("нечто");

@@ -2,6 +2,9 @@ package para;
 
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +19,14 @@ public class qp1 extends HttpServlet {
 		
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/xml; charset=UTF8");		
+		resp.setHeader("Content-Disposition", "attachment; filename="
+				+ "test.txt");
 		resp.setCharacterEncoding("UTF8");
 		
 		String s = "";
 		
+	
+	    
 		try {
 			para1 p=new para1();
 			s=p.get_owl();

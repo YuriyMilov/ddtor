@@ -4,6 +4,16 @@
 
 
   <servlet>
+    <servlet-name>qpa1</servlet-name>
+    <servlet-class>para.qpa1</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qpa1</servlet-name>
+    <url-pattern>/qpa1</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
     <servlet-name>qp1</servlet-name>
     <servlet-class>para.qp1</servlet-class>
   </servlet>

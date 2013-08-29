@@ -19,6 +19,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 public class qp extends HttpServlet {
 
+	@SuppressWarnings("unused")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		
