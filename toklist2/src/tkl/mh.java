@@ -27,16 +27,38 @@ public class mh extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String s = "OK";
+		String s = "<html><body><b>UFOS</b> <i>Daily Activity</i></body></html>";
+
 		try {
-			//send_mail("ymilov@gmail.com", "test", "test");
-			//send_mail("admins", "test1111111", "test11111");
-			//send_mail("ymilov", "test22222", "test22222");
-			
-			//send_mail("ymilov@gmail.com", "test333", "test33333333");
-			
-			send_admin("UFOS Daily Activity", "UFOS Daily Activity");
-			
+			// send_mail("ymilov@gmail.com", "test333", "test33333333");
+
+			send_admin("UFOS Daily Activity", s);
+
+		} catch (Exception e) {
+			s = e.toString();
+		}
+		PrintWriter out = resp.getWriter();
+		resp.setContentType("text/html");
+		out.write(s);
+		out.flush();
+		out.close();
+	}
+
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		String s = "OK";
+
+		String s1 = req.getParameter("a1");
+		String s2 = req.getParameter("a2");
+		String s3 = req.getParameter("a3");
+		String s4 = req.getParameter("a4");
+		try {
+
+			if (s4.equals("admins"))
+				send_admin(s2, s3);
+			else
+				send_mail(s1, s2, s3);
+
 		} catch (Exception e) {
 			s = e.toString();
 		}
@@ -45,30 +67,6 @@ public class mh extends HttpServlet {
 		out.flush();
 		out.close();
 	}
-	
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-	throws IOException {
-		String s = "OK";
-		
-		String s1 = req.getParameter("a1");
-		String s2 = req.getParameter("a2");
-		String s3 = req.getParameter("a3");
-		String s4 = req.getParameter("a4");
-try {
-	
-	if(s4.equals("admins"))
-		send_admin(s2,s3);
-	else
-		send_mail(s1,s2,s3);
-	
-} catch (Exception e) {
-	s = e.toString();
-}
-PrintWriter out = resp.getWriter();
-out.write(s);
-out.flush();
-out.close();
-}
 
 	public void send_mail(String s1, String s2, String s3) throws Exception {
 		String[] tt = s1.split(",");
@@ -76,52 +74,55 @@ out.close();
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		
-		
-		String sdt=""; 
-		TimeZone tz=TimeZone.getTimeZone("America/Montreal");
-		
-		
+		String sdt = "";
+		TimeZone tz = TimeZone.getTimeZone("America/Montreal");
+
 		@SuppressWarnings("unused")
 		SimpleDateFormat parser = new SimpleDateFormat(
-		"MMM dd, yyyy 'at' HH:mm:ss z");
-		//Date d = parser.parse("Oct 25, 2007 at 18:35:07 EDT");
+				"MMM dd, yyyy 'at' HH:mm:ss z");
+		// Date d = parser.parse("Oct 25, 2007 at 18:35:07 EDT");
 		Date d = Calendar.getInstance(TimeZone.getTimeZone("EST")).getTime();
 		SimpleDateFormat formatter = new SimpleDateFormat(
-		"yyyy/MM/dd  HH:mm:ss z'('Z')'");
+				"yyyy/MM/dd  HH:mm:ss z'('Z')'");
 		formatter.setTimeZone(tz);
-		sdt=formatter.format(d);
-		
-		//s2 = s2 + " "+ new Date().toString();
-		
-		s2 = s2 + " "+ sdt;
-		
-		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
-		
+		sdt = formatter.format(d);
+
+		// s2 = s2 + " "+ new Date().toString();
+
+		s2 = s2 + " " + sdt;
+
+		// msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
+
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymilov@gmail.com", "UFOS Daily Activity"));
-		//msg.setFrom(new InternetAddress("lowrisk.terryfoxfoundation@gmail.com", "LowRisk Admin"));
-		
-		for (int i = 0; i < tt.length; i++)
-		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-				tt[i], tt[i]));
-		
+		msg.setFrom(new InternetAddress("ymilov@gmail.com",
+				"UFOS Daily Activity"));
+		// msg.setFrom(new
+		// InternetAddress("lowrisk.terryfoxfoundation@gmail.com",
+		// "LowRisk Admin"));
+
+		for (int i = 0; i < tt.length; i++) {
+			if (tt[i].indexOf("ymilov@gmail.com") < 0) {
+				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
+						tt[i], tt[i]));
+			} else {
+				send_admin(s2, s3);
+			}
+		}
 		/*
+		 * msg.setSubject(s2);
+		 * msg.setHeader("Content-type:","text/html;charset=ISO-8859-1");
+		 * msg.setText(s3); Transport.send(msg);
+		 */
+
 		msg.setSubject(s2);
-		msg.setHeader("Content-type:","text/html;charset=ISO-8859-1");
-		msg.setText(s3);
-		Transport.send(msg);
-*/
-		
-        msg.setSubject(s2);
-        //msg.setText(s3);
-        
-        msg.setText("UFOS Daily Activity Report attached");
-        
-    	Multipart mp = new MimeMultipart();
+		// msg.setText(s3);
+
+		msg.setText("UFOS Daily Activity Report attached");
+
+		Multipart mp = new MimeMultipart();
 
 		MimeBodyPart textPart = new MimeBodyPart();
-		//textPart.setContent(s3, "text/plain");
+		// textPart.setContent(s3, "text/plain");
 		textPart.setContent("UFOS Daily Activity Report attached", "text/plain");
 		mp.addBodyPart(textPart);
 
@@ -139,11 +140,11 @@ out.close();
 		mp.addBodyPart(attachment);
 
 		msg.setContent(mp);
-		//msg.setSubject(String.format(subj));
+		// msg.setSubject(String.format(subj));
 
-		//Transport.send(msg);
-        
-        Transport.send(msg);
+		// Transport.send(msg);
+
+		Transport.send(msg);
 	}
 
 	public void send_mail_old(String s1, String s2, String s3) throws Exception {
@@ -152,47 +153,46 @@ out.close();
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		
-		
-		String sdt=""; 
-		TimeZone tz=TimeZone.getTimeZone("America/Montreal");
-		
-		
+		String sdt = "";
+		TimeZone tz = TimeZone.getTimeZone("America/Montreal");
+
 		@SuppressWarnings("unused")
 		SimpleDateFormat parser = new SimpleDateFormat(
-		"MMM dd, yyyy 'at' HH:mm:ss z");
-		//Date d = parser.parse("Oct 25, 2007 at 18:35:07 EDT");
+				"MMM dd, yyyy 'at' HH:mm:ss z");
+		// Date d = parser.parse("Oct 25, 2007 at 18:35:07 EDT");
 		Date d = Calendar.getInstance(TimeZone.getTimeZone("EST")).getTime();
 		SimpleDateFormat formatter = new SimpleDateFormat(
-		"yyyy/MM/dd  HH:mm:ss z'('Z')'");
+				"yyyy/MM/dd  HH:mm:ss z'('Z')'");
 		formatter.setTimeZone(tz);
-		sdt=formatter.format(d);
-		
-		//s2 = s2 + " "+ new Date().toString();
-		
-		s2 = s2 + " "+ sdt;
-		
-		//msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
-		
+		sdt = formatter.format(d);
+
+		// s2 = s2 + " "+ new Date().toString();
+
+		s2 = s2 + " " + sdt;
+
+		// msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
+
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymilov@gmail.com", "UFOS Daily Activity"));
-		//msg.setFrom(new InternetAddress("lowrisk.terryfoxfoundation@gmail.com", "LowRisk Admin"));
-		
+		msg.setFrom(new InternetAddress("ymilov@gmail.com",
+				"UFOS Daily Activity"));
+		// msg.setFrom(new
+		// InternetAddress("lowrisk.terryfoxfoundation@gmail.com",
+		// "LowRisk Admin"));
+
 		for (int i = 0; i < tt.length; i++)
-		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-				tt[i], tt[i]));
-		
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
+					tt[i], tt[i]));
+
 		/*
+		 * msg.setSubject(s2);
+		 * msg.setHeader("Content-type:","text/html;charset=ISO-8859-1");
+		 * msg.setText(s3); Transport.send(msg);
+		 */
+
 		msg.setSubject(s2);
-		msg.setHeader("Content-type:","text/html;charset=ISO-8859-1");
 		msg.setText(s3);
-		Transport.send(msg);
-*/
-		
-        msg.setSubject(s2);
-        msg.setText(s3);
-        
-    	Multipart mp = new MimeMultipart();
+
+		Multipart mp = new MimeMultipart();
 
 		MimeBodyPart textPart = new MimeBodyPart();
 		textPart.setContent(s3, "text/plain");
@@ -212,53 +212,53 @@ out.close();
 		mp.addBodyPart(attachment);
 
 		msg.setContent(mp);
-		//msg.setSubject(String.format(subj));
+		// msg.setSubject(String.format(subj));
 
-		//Transport.send(msg);
-        
-        Transport.send(msg);
+		// Transport.send(msg);
+
+		Transport.send(msg);
 	}
 
-	private void send_admin (String subject, String body) throws Exception {
-	    Properties props = new Properties();
-	    Session session = Session.getDefaultInstance(props, null);
-	        Message msg = new MimeMessage(session);
-	        msg.setFrom(new InternetAddress("ymilov@gmail.com", "UFOS Daily Activity"));
-	        msg.addRecipient(Message.RecipientType.TO, new InternetAddress("admins"));
-	        msg.setSubject(subject);
-	        msg.setText(body);
-	        msg.setText("UFOS Daily Activity Report attached");
-	        
-	        
-	    	Multipart mp = new MimeMultipart();
+	private void send_admin(String subject, String body) throws Exception {
+		Properties props = new Properties();
+		Session session = Session.getDefaultInstance(props, null);
+		Message msg = new MimeMessage(session);
+		msg.setFrom(new InternetAddress("ymilov@gmail.com",
+				"UFOS Daily Activity"));
+		msg.addRecipient(Message.RecipientType.TO,
+				new InternetAddress("admins"));
+		msg.setSubject(subject);
+		msg.setText(body);
+		msg.setText("UFOS Daily Activity Report attached");
 
-			MimeBodyPart textPart = new MimeBodyPart();
-			textPart.setContent("UFOS Daily Activity Report attached", "text/plain");
-			mp.addBodyPart(textPart);
+		Multipart mp = new MimeMultipart();
 
-			MimeBodyPart attachment = new MimeBodyPart();
-			String fileName = "UFOS_Daily.txt";
-			String filename = URLEncoder.encode(fileName, "UTF-8");
-			attachment.setFileName(filename);
-			attachment.setDisposition(Part.ATTACHMENT);
+		MimeBodyPart textPart = new MimeBodyPart();
+		textPart.setContent(body, "text/html");
+		mp.addBodyPart(textPart);
 
-			// DataSource src = new ByteArrayDataSource(spreadSheetData,
-			// "application/x-ms-excel");
-			DataSource src = new ByteArrayDataSource(body.getBytes(), "plain/text");
-			DataHandler handler = new DataHandler(src);
-			attachment.setDataHandler(handler);
-			mp.addBodyPart(attachment);
+		MimeBodyPart attachment = new MimeBodyPart();
+		String fileName = "UFOS_Daily.txt";
+		String filename = URLEncoder.encode(fileName, "UTF-8");
+		attachment.setFileName(filename);
+		attachment.setDisposition(Part.ATTACHMENT);
 
-			msg.setContent(mp);
-			//msg.setSubject(String.format(subj));
+		// DataSource src = new ByteArrayDataSource(spreadSheetData,
+		// "application/x-ms-excel");
+		DataSource src = new ByteArrayDataSource(body.getBytes(), "plain/text");
+		DataHandler handler = new DataHandler(src);
+		attachment.setDataHandler(handler);
+		mp.addBodyPart(attachment);
 
-			//Transport.send(msg);
-	        
-	        Transport.send(msg);
-	       
- 
+		msg.setContent(mp);
+		// msg.setSubject(String.format(subj));
+
+		// Transport.send(msg);
+
+		Transport.send(msg);
+
 	}
-	
+
 	@SuppressWarnings("unused")
 	private static void sm(byte[] data, String ff, String mimeType,
 			String from_a, String from_n, String to_a, String to_n,
@@ -275,7 +275,7 @@ out.close();
 		Multipart mp = new MimeMultipart();
 
 		MimeBodyPart textPart = new MimeBodyPart();
-		//textPart.setContent(textBody, "text/plain");
+		// textPart.setContent(textBody, "text/plain");
 		textPart.setContent("UFOS Daily Activity Report attached", "text/plain");
 		mp.addBodyPart(textPart);
 
@@ -299,7 +299,6 @@ out.close();
 
 	}
 
-	
 	public static String rfu(String url) {
 		StringBuffer s = new StringBuffer();
 		try {
