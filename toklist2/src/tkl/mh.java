@@ -94,8 +94,15 @@ public class mh extends HttpServlet {
 		// msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
 
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymilov@gmail.com",
-				"UFOS Daily Activity"));
+		
+		//	msg.setFrom(new InternetAddress("ymilov@gmail.com",
+		//			"UFOS Daily Activity"));
+
+		
+			msg.setFrom(new InternetAddress("myufos99@gmail.com",
+					"UFOS Daily Activity"));
+
+		
 		// msg.setFrom(new
 		// InternetAddress("lowrisk.terryfoxfoundation@gmail.com",
 		// "LowRisk Admin"));
@@ -223,18 +230,29 @@ public class mh extends HttpServlet {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("ymilov@gmail.com",
+		//msg.setFrom(new InternetAddress("ymilov@gmail.com",
+		//		"UFOS Daily Activity"));
+
+		
+		msg.setFrom(new InternetAddress("myufos99@gmail.com",
 				"UFOS Daily Activity"));
+
+		
 		msg.addRecipient(Message.RecipientType.TO,
 				new InternetAddress("admins"));
 		msg.setSubject(subject);
-		msg.setText(body);
-		msg.setText("UFOS Daily Activity Report attached");
+		//msg.setText(body);
+		
+		msg.setText("<b>UFOS</b> <i>Daily Activity Report</i> attached");
 
 		Multipart mp = new MimeMultipart();
 
 		MimeBodyPart textPart = new MimeBodyPart();
-		textPart.setContent(body, "text/html");
+		
+		//textPart.setContent(body, "text/html");
+		
+		textPart.setContent("<b>UFOS</b> <i>Daily Activity Report</i> attached", "text/html");
+		
 		mp.addBodyPart(textPart);
 
 		MimeBodyPart attachment = new MimeBodyPart();
@@ -245,7 +263,11 @@ public class mh extends HttpServlet {
 
 		// DataSource src = new ByteArrayDataSource(spreadSheetData,
 		// "application/x-ms-excel");
-		DataSource src = new ByteArrayDataSource(body.getBytes(), "plain/text");
+		
+		
+		//DataSource src = new ByteArrayDataSource(body.getBytes(), "plain/text");
+		DataSource src = new ByteArrayDataSource(body.getBytes(), "text/html");
+		
 		DataHandler handler = new DataHandler(src);
 		attachment.setDataHandler(handler);
 		mp.addBodyPart(attachment);
