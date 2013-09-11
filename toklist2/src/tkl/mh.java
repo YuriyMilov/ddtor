@@ -84,11 +84,13 @@ public class mh extends HttpServlet {
 							rfu_utf(sh + "/1.htm"));
 			//send_admin("UFOS Daily Activity - POST method", sbody, stxt);
 			
-			if (s4.equals("admins"))
-				send_admin(subject, sbody, stxt);
-			else
+			//if (s4.equals("admins"))
+			//	send_admin(subject, sbody, stxt);
+			//else
 				send_mail(sadr, subject, sbody, stxt);
 
+			//send_admin(subject, sbody, stxt);
+			
 		} catch (Exception e) {
 				s = e.toString();
 		}
@@ -397,13 +399,13 @@ public class mh extends HttpServlet {
 		s = s.replace("\r", " ");
 		s = s.replace("\n", " ");
 		s = s.replace("\t", " ");
-		String phrase = "the music made   it   hard      to        concentrate";
+		//String phrase = "the music made   it   hard      to        concentrate";
 		String delims = "[ ]+";
 		// String[] tokens = phrase.split(delims);
 
 		String[] ss = s.split(delims);
 		int k = ss.length;
-		int i = 0;
+		int i = 0; 
 
 		s = stemp;
 		while (i < k) {
@@ -424,9 +426,9 @@ public class mh extends HttpServlet {
 		}
 		// System.out.println(s);
 		
-		if (s.indexOf("Currency: </td><td>128</td>")>-1)
-		
+		if (s.indexOf("Currency: </td><td>128</td>")>-1)		
 			s=s.substring(0,s.indexOf("<td>______________________</td>"))+"<td>______________________</td></tr></table>";
+		
 		return s;
 	}
 }
