@@ -1,17 +1,19 @@
 package tkl;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import java.util.TimeZone;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.*;
@@ -23,41 +25,55 @@ import javax.servlet.http.HttpServletResponse;
 import javax.mail.internet.*;
 import javax.mail.util.ByteArrayDataSource;
 
+
 public class mh extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String s = "<html><body><b>UFOS</b> <i>Daily Activity</i></body></html>";
+		
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
 
+		
+		String s1 = "111", stxt = rfu_utf(sh + "/UFOS_Daily.txt");// + URLEncoder.encode(s4, "UTF-8")
+
+		
 		try {
+			s1=get_html(stxt,rfu_utf(sh + "/1.htm"));
+			
 			// send_mail("ymilov@gmail.com", "test333", "test33333333");
 
-			send_admin("UFOS Daily Activity", s);
+			send_admin("UFOS Daily Activity", s1 , stxt);
 
 		} catch (Exception e) {
-			s = e.toString();
+			s1 = e.toString();
 		}
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html");
-		out.write(s);
+		out.write(s1);
 		out.flush();
 		out.close();
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String s = "OK";
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
 
+		
+		String sbody = "111", stxt = rfu_utf(sh + "/UFOS_Daily.txt");// + URLEncoder.encode(s4, "UTF-8")
+
+		String s = req.getParameter("ok");
 		String s1 = req.getParameter("a1");
 		String s2 = req.getParameter("a2");
 		String s3 = req.getParameter("a3");
 		String s4 = req.getParameter("a4");
 		try {
-
+			sbody=get_html(s2,rfu_utf(sh + "/1.htm"));
 			if (s4.equals("admins"))
-				send_admin(s2, s3);
+				send_admin(s2, sbody, s3);
 			else
-				send_mail(s1, s2, s3);
+				send_mail(s1, s2, s3,sbody);
 
 		} catch (Exception e) {
 			s = e.toString();
@@ -68,7 +84,7 @@ public class mh extends HttpServlet {
 		out.close();
 	}
 
-	public void send_mail(String s1, String s2, String s3) throws Exception {
+	public void send_mail(String s1, String s2, String s3, String sbody) throws Exception {
 		String[] tt = s1.split(",");
 
 		Properties props = new Properties();
@@ -112,7 +128,7 @@ public class mh extends HttpServlet {
 				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 						tt[i], tt[i]));
 			} else {
-				send_admin(s2, s3);
+				send_admin(s2, sbody, s3);
 			}
 		}
 		/*
@@ -130,7 +146,7 @@ public class mh extends HttpServlet {
 
 		MimeBodyPart textPart = new MimeBodyPart();
 		// textPart.setContent(s3, "text/plain");
-		textPart.setContent("UFOS Daily Activity Report attached", "text/plain");
+		textPart.setContent(sbody, "text/html");
 		mp.addBodyPart(textPart);
 
 		MimeBodyPart attachment = new MimeBodyPart();
@@ -226,7 +242,7 @@ public class mh extends HttpServlet {
 		Transport.send(msg);
 	}
 
-	private void send_admin(String subject, String body) throws Exception {
+	private void send_admin(String subject, String body, String txt) throws Exception {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 		Message msg = new MimeMessage(session);
@@ -243,7 +259,8 @@ public class mh extends HttpServlet {
 		msg.setSubject(subject);
 		//msg.setText(body);
 		
-		msg.setText("<b>UFOS</b> <i>Daily Activity Report</i> attached");
+//		msg.setText("<b>UFOS</b> <i>Daily Activity Report</i> attached");
+		msg.setText(body);
 
 		Multipart mp = new MimeMultipart();
 
@@ -251,7 +268,8 @@ public class mh extends HttpServlet {
 		
 		//textPart.setContent(body, "text/html");
 		
-		textPart.setContent("<b>UFOS</b> <i>Daily Activity Report</i> attached", "text/html");
+		//textPart.setContent("<b>UFOS</b> <i>Daily Activity Report</i> attached", "text/html");
+		textPart.setContent(body, "text/html");
 		
 		mp.addBodyPart(textPart);
 
@@ -266,7 +284,7 @@ public class mh extends HttpServlet {
 		
 		
 		//DataSource src = new ByteArrayDataSource(body.getBytes(), "plain/text");
-		DataSource src = new ByteArrayDataSource(body.getBytes(), "text/html");
+		DataSource src = new ByteArrayDataSource(txt.getBytes(), "text/html");
 		
 		DataHandler handler = new DataHandler(src);
 		attachment.setDataHandler(handler);
@@ -336,4 +354,60 @@ public class mh extends HttpServlet {
 		return s.toString();
 	}
 
+	public static String rfu_utf(String s) {
+		try {
+			URL url = new URL(s);
+
+			URLConnection conn = url.openConnection();
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					conn.getInputStream(), "utf8"));
+			s = "";
+			String thisLine = "";
+			while ((thisLine = br.readLine()) != null) { // while loop begins
+															// here
+				s = s + thisLine + "\r\n";
+			}
+			br.close();
+			return s.toString();
+
+		} catch (Exception e) {
+			return e.toString();
+		}
+	}
+	
+	public static String get_html(String s, String stemp) throws Exception {
+		String sa="qq";
+
+		//s = IO.readWholeFileAsUTF8("C:/Users/Yuri/Desktop/UFOS_Daily.txt");
+		s = s.replace("\r\n", " ");
+		s = s.replace("\t", " ");
+		String phrase = "the music made   it   hard      to        concentrate";
+		String delims = "[ ]+";
+		// String[] tokens = phrase.split(delims);
+
+		String[] ss = s.split(delims);
+		int k = ss.length;
+		int i = 0;
+		
+		s=stemp;
+		while (i < k) {
+			
+			if (!(i < 8 || (i > 11 && i < 14) || (i > 17 && i < 21)
+					|| (i > 24 && i < 29) || (i == 33) || (i == 38)
+					|| (i == 43) || (i == 48) || (i == 53) || (i == 58)
+					|| (i == 59) || (i == 60) || (i == 61) || (i == 66)
+					|| (i == 71) || (i == 76) || (i == 81) || (i == 86)
+					|| (i == 91) || (i == 92) || (i == 93) || (i == 94)
+					|| (i == 95) || (i == 100) || (i == 105) || (i == 110)
+					|| (i == 115) || (i == 120) || (i == 125) || (i == 126) || (i == 127)))
+			{
+				sa= "<td>"+String.valueOf(i)+"</td>";
+				s = s.replace(sa, "<td>"+ss[i]+"</td>");
+				//System.out.println(i + "   " + ss[i]);	
+			}
+			i++;
+		}
+		//System.out.println(s);
+		return s;
+	}
 }
