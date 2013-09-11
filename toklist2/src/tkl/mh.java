@@ -68,7 +68,7 @@ public class mh extends HttpServlet {
 		String s = "ok";
 		String sadr = req.getParameter("a1");
 		String subject = req.getParameter("a2");
-		String stxt = req.getParameter("a3");
+		String stxt = req.getParameter("a3");//.replace("127,337.88", "9,999,999,99.99");
 		String s4 = req.getParameter("a4");
 		
 		//stxt = rfu_utf(sh + "/UFOS_Daily.txt");
@@ -80,9 +80,7 @@ public class mh extends HttpServlet {
 			String spre = stxt.substring(0, stxt.indexOf("Orders"));
 			spre=spre.replace("\r\n", "<br>");
 			
-			sbody = spre
-					//+ "<br><br>"
-					+ get_html(", "+stxt.substring(stxt.indexOf("Orders")),
+			sbody = spre + get_html(", "+stxt.substring(stxt.indexOf("Orders")),
 							rfu_utf(sh + "/1.htm"));
 			//send_admin("UFOS Daily Activity - POST method", sbody, stxt);
 			
@@ -91,16 +89,8 @@ public class mh extends HttpServlet {
 			else
 				send_mail(sadr, subject, sbody, stxt);
 
-			send_mail("qdone@rogers.com", "test to me thru rogers " + subject, sbody, stxt);
-
 		} catch (Exception e) {
-			//try {
-			//	send_mail("ymilov@gmail.com", "problems ", e.toString(),
-			//			e.toString());
-			//} catch (Exception e2) {
-			//	s = e.toString();
-			//}
-
+				s = e.toString();
 		}
 
 		PrintWriter out = resp.getWriter();
@@ -427,12 +417,16 @@ public class mh extends HttpServlet {
 					|| (i == 95) || (i == 100) || (i == 105) || (i == 110)
 					|| (i == 115) || (i == 120) || (i == 125) || (i == 126) || (i == 127))) {
 				sa = "<td>" + String.valueOf(i) + "</td>";
-				s = s.replace(sa, "<td>" + ss[i] + "</td>");
+				s = s.replace(sa, "<td> " + ss[i] + " </td>");
 				// System.out.println(i + "   " + ss[i]);
 			}
 			i++;
 		}
 		// System.out.println(s);
+		
+		if (s.indexOf("Currency: </td><td>128</td>")>-1)
+		
+			s=s.substring(0,s.indexOf("<td>______________________</td>"))+"<td>______________________</td></tr></table>";
 		return s;
 	}
 }
