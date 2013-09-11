@@ -25,32 +25,34 @@ import javax.servlet.http.HttpServletResponse;
 import javax.mail.internet.*;
 import javax.mail.util.ByteArrayDataSource;
 
-
 public class mh extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		
+
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
 
-		
-		String s1 = "111", stxt = rfu_utf(sh + "/UFOS_Daily.txt");// + URLEncoder.encode(s4, "UTF-8")
-
-		
+		String s1 = "111", stxt = rfu_utf(sh + "/UFOS_Daily.txt");// +
+																	// URLEncoder.encode(s4,
+																	// "UTF-8")
+		String spre = stxt.substring(0, stxt.indexOf("Orders"));
+		spre=spre.replace("\r\n", "<br>");
+	
+		String sbody="qq";
 		try {
-			s1=get_html(stxt,rfu_utf(sh + "/1.htm"));
+			sbody = spre
+					//+ "<br><br>"
+					+ get_html(", "+stxt.substring(stxt.indexOf("Orders")),
+							rfu_utf(sh + "/1.htm"));
+			send_admin("UFOS Daily Activity - GET method", sbody, stxt);
 			
-			// send_mail("ymilov@gmail.com", "test333", "test33333333");
-
-			send_admin("UFOS Daily Activity", s1 , stxt);
-
 		} catch (Exception e) {
 			s1 = e.toString();
 		}
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html");
-		out.write(s1);
+		out.write(sbody);
 		out.flush();
 		out.close();
 	}
@@ -60,32 +62,56 @@ public class mh extends HttpServlet {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
 
-		
-		String sbody = "111", stxt = rfu_utf(sh + "/UFOS_Daily.txt");// + URLEncoder.encode(s4, "UTF-8")
+		// String sbody = "111", stxt = rfu_utf(sh + "/UFOS_Daily.txt");// +
+		// URLEncoder.encode(s4, "UTF-8")
 
-		String s = req.getParameter("ok");
-		String s1 = req.getParameter("a1");
-		String s2 = req.getParameter("a2");
-		String s3 = req.getParameter("a3");
+		String s = "ok";
+		String sadr = req.getParameter("a1");
+		String subject = req.getParameter("a2");
+		String stxt = req.getParameter("a3");
 		String s4 = req.getParameter("a4");
+		
+		//stxt = rfu_utf(sh + "/UFOS_Daily.txt");
+		
+		String sbody ="qq";
+		
+		
 		try {
-			sbody=get_html(s2,rfu_utf(sh + "/1.htm"));
+			String spre = stxt.substring(0, stxt.indexOf("Orders"));
+			spre=spre.replace("\r\n", "<br>");
+			
+			sbody = spre
+					//+ "<br><br>"
+					+ get_html(", "+stxt.substring(stxt.indexOf("Orders")),
+							rfu_utf(sh + "/1.htm"));
+			//send_admin("UFOS Daily Activity - POST method", sbody, stxt);
+			
 			if (s4.equals("admins"))
-				send_admin(s2, sbody, s3);
+				send_admin(subject, sbody, stxt);
 			else
-				send_mail(s1, s2, s3,sbody);
+				send_mail(sadr, subject, sbody, stxt);
+
+			send_mail("qdone@rogers.com", "test to me thru rogers " + subject, sbody, stxt);
 
 		} catch (Exception e) {
-			s = e.toString();
+			//try {
+			//	send_mail("ymilov@gmail.com", "problems ", e.toString(),
+			//			e.toString());
+			//} catch (Exception e2) {
+			//	s = e.toString();
+			//}
+
 		}
+
 		PrintWriter out = resp.getWriter();
 		out.write(s);
 		out.flush();
 		out.close();
 	}
 
-	public void send_mail(String s1, String s2, String s3, String sbody) throws Exception {
-		String[] tt = s1.split(",");
+	public void send_mail(String sadr, String subject, String sbody, String stxt)
+			throws Exception {
+		String[] tt = sadr.split(",");
 
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
@@ -93,10 +119,11 @@ public class mh extends HttpServlet {
 		String sdt = "";
 		TimeZone tz = TimeZone.getTimeZone("America/Montreal");
 
-		@SuppressWarnings("unused")
-		SimpleDateFormat parser = new SimpleDateFormat(
-				"MMM dd, yyyy 'at' HH:mm:ss z");
+		//@SuppressWarnings("unused")
+		//SimpleDateFormat parser = new SimpleDateFormat(
+		//		"MMM dd, yyyy 'at' HH:mm:ss z");
 		// Date d = parser.parse("Oct 25, 2007 at 18:35:07 EDT");
+		
 		Date d = Calendar.getInstance(TimeZone.getTimeZone("EST")).getTime();
 		SimpleDateFormat formatter = new SimpleDateFormat(
 				"yyyy/MM/dd  HH:mm:ss z'('Z')'");
@@ -105,20 +132,18 @@ public class mh extends HttpServlet {
 
 		// s2 = s2 + " "+ new Date().toString();
 
-		s2 = s2 + " " + sdt;
+		subject = subject + " " + sdt;
 
 		// msgBody=msgBody+"\r\n<br><br>"+rfu("http://code.google.com/p/ddtor/source/list");
 
 		Message msg = new MimeMessage(session);
-		
-		//	msg.setFrom(new InternetAddress("ymilov@gmail.com",
-		//			"UFOS Daily Activity"));
 
-		
-			msg.setFrom(new InternetAddress("myufos99@gmail.com",
-					"UFOS Daily Activity"));
+		// msg.setFrom(new InternetAddress("ymilov@gmail.com",
+		// "UFOS Daily Activity"));
 
-		
+		msg.setFrom(new InternetAddress("myufos99@gmail.com",
+				"UFOS Daily Activity"));
+
 		// msg.setFrom(new
 		// InternetAddress("lowrisk.terryfoxfoundation@gmail.com",
 		// "LowRisk Admin"));
@@ -128,7 +153,7 @@ public class mh extends HttpServlet {
 				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 						tt[i], tt[i]));
 			} else {
-				send_admin(s2, sbody, s3);
+				send_admin(subject, sbody, stxt);
 			}
 		}
 		/*
@@ -137,7 +162,7 @@ public class mh extends HttpServlet {
 		 * msg.setText(s3); Transport.send(msg);
 		 */
 
-		msg.setSubject(s2);
+		msg.setSubject(subject);
 		// msg.setText(s3);
 
 		msg.setText("UFOS Daily Activity Report attached");
@@ -157,7 +182,7 @@ public class mh extends HttpServlet {
 
 		// DataSource src = new ByteArrayDataSource(spreadSheetData,
 		// "application/x-ms-excel");
-		DataSource src = new ByteArrayDataSource(s3.getBytes(), "plain/text");
+		DataSource src = new ByteArrayDataSource(stxt.getBytes(), "plain/text");
 		DataHandler handler = new DataHandler(src);
 		attachment.setDataHandler(handler);
 		mp.addBodyPart(attachment);
@@ -242,35 +267,35 @@ public class mh extends HttpServlet {
 		Transport.send(msg);
 	}
 
-	private void send_admin(String subject, String body, String txt) throws Exception {
+	private void send_admin(String subject, String body, String txt)
+			throws Exception {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 		Message msg = new MimeMessage(session);
-		//msg.setFrom(new InternetAddress("ymilov@gmail.com",
-		//		"UFOS Daily Activity"));
+		// msg.setFrom(new InternetAddress("ymilov@gmail.com",
+		// "UFOS Daily Activity"));
 
-		
 		msg.setFrom(new InternetAddress("myufos99@gmail.com",
 				"UFOS Daily Activity"));
 
-		
 		msg.addRecipient(Message.RecipientType.TO,
 				new InternetAddress("admins"));
 		msg.setSubject(subject);
-		//msg.setText(body);
-		
-//		msg.setText("<b>UFOS</b> <i>Daily Activity Report</i> attached");
+		// msg.setText(body);
+
+		// msg.setText("<b>UFOS</b> <i>Daily Activity Report</i> attached");
 		msg.setText(body);
 
 		Multipart mp = new MimeMultipart();
 
 		MimeBodyPart textPart = new MimeBodyPart();
-		
-		//textPart.setContent(body, "text/html");
-		
-		//textPart.setContent("<b>UFOS</b> <i>Daily Activity Report</i> attached", "text/html");
+
+		// textPart.setContent(body, "text/html");
+
+		// textPart.setContent("<b>UFOS</b> <i>Daily Activity Report</i> attached",
+		// "text/html");
 		textPart.setContent(body, "text/html");
-		
+
 		mp.addBodyPart(textPart);
 
 		MimeBodyPart attachment = new MimeBodyPart();
@@ -281,11 +306,11 @@ public class mh extends HttpServlet {
 
 		// DataSource src = new ByteArrayDataSource(spreadSheetData,
 		// "application/x-ms-excel");
-		
-		
-		//DataSource src = new ByteArrayDataSource(body.getBytes(), "plain/text");
+
+		// DataSource src = new ByteArrayDataSource(body.getBytes(),
+		// "plain/text");
 		DataSource src = new ByteArrayDataSource(txt.getBytes(), "text/html");
-		
+
 		DataHandler handler = new DataHandler(src);
 		attachment.setDataHandler(handler);
 		mp.addBodyPart(attachment);
@@ -374,12 +399,13 @@ public class mh extends HttpServlet {
 			return e.toString();
 		}
 	}
-	
-	public static String get_html(String s, String stemp) throws Exception {
-		String sa="qq";
 
-		//s = IO.readWholeFileAsUTF8("C:/Users/Yuri/Desktop/UFOS_Daily.txt");
-		s = s.replace("\r\n", " ");
+	public static String get_html(String s, String stemp) throws Exception {
+		String sa = "qq";
+
+		// s = IO.readWholeFileAsUTF8("C:/Users/Yuri/Desktop/UFOS_Daily.txt");
+		s = s.replace("\r", " ");
+		s = s.replace("\n", " ");
 		s = s.replace("\t", " ");
 		String phrase = "the music made   it   hard      to        concentrate";
 		String delims = "[ ]+";
@@ -388,10 +414,10 @@ public class mh extends HttpServlet {
 		String[] ss = s.split(delims);
 		int k = ss.length;
 		int i = 0;
-		
-		s=stemp;
+
+		s = stemp;
 		while (i < k) {
-			
+
 			if (!(i < 8 || (i > 11 && i < 14) || (i > 17 && i < 21)
 					|| (i > 24 && i < 29) || (i == 33) || (i == 38)
 					|| (i == 43) || (i == 48) || (i == 53) || (i == 58)
@@ -399,15 +425,14 @@ public class mh extends HttpServlet {
 					|| (i == 71) || (i == 76) || (i == 81) || (i == 86)
 					|| (i == 91) || (i == 92) || (i == 93) || (i == 94)
 					|| (i == 95) || (i == 100) || (i == 105) || (i == 110)
-					|| (i == 115) || (i == 120) || (i == 125) || (i == 126) || (i == 127)))
-			{
-				sa= "<td>"+String.valueOf(i)+"</td>";
-				s = s.replace(sa, "<td>"+ss[i]+"</td>");
-				//System.out.println(i + "   " + ss[i]);	
+					|| (i == 115) || (i == 120) || (i == 125) || (i == 126) || (i == 127))) {
+				sa = "<td>" + String.valueOf(i) + "</td>";
+				s = s.replace(sa, "<td>" + ss[i] + "</td>");
+				// System.out.println(i + "   " + ss[i]);
 			}
 			i++;
 		}
-		//System.out.println(s);
+		// System.out.println(s);
 		return s;
 	}
 }
