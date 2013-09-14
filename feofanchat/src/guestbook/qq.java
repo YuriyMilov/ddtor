@@ -68,6 +68,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
+import para.st;
+
 public class qq extends HttpServlet implements EntryPoint {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -86,6 +88,9 @@ public class qq extends HttpServlet implements EntryPoint {
 
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
+		
+		st.sh=sh;
+		
 		String s = req.getParameter("p2");
 
 		if (s == null) {

@@ -53,7 +53,9 @@ public class qpa1 extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		
 		ServletOutputStream out = resp.getOutputStream();
 
 		String s = req.getQueryString();
@@ -67,7 +69,7 @@ public class qpa1 extends HttpServlet {
 			if (s.equals("7")) {
 				st.ontology = null;
 				
-				st.ontologyIRI = IRI.create("http://localhost/n1.owl");
+				st.ontologyIRI = IRI.create(sh +"/n1.owl");
 				
 				//st.ontologyIRI = IRI.create("http://www.feofan.com/1.owl");
 				
@@ -79,6 +81,14 @@ public class qpa1 extends HttpServlet {
 				st.class_equiv_to_1_ind(st.что("ученик"), st.кто("Платон"));
 				
 				st.учитель_учит_N_учеников(st.что("учитель"), st.связь("учит"), 1, st.что("ученик"));
+				st.что_что(st.что("что1"), st.что("что2"));
+				
+				
+				OWLClass человек=st.что("человек");
+				OWLClass дурак=st.что("дурак");
+				OWLIndividual Вася=st.кто("Вася");
+				st.что_что(человек, дурак);
+				st.кто_что(Вася, дурак);
 				
 				s = "5";
 			}
@@ -115,17 +125,29 @@ public class qpa1 extends HttpServlet {
 		}
 
 		// byte[] b = s.getBytes("UTF8");
-		if (s.equals("5")) {
+		if (s.equals("15")) {
 			resp.setContentType("text/xml; charset=UTF8");
 			resp.setHeader("Content-Disposition", "attachment; filename="
 					+ "qpa1.owl");
 			resp.setCharacterEncoding("UTF8");
 			out.write(b);
 		} else {
-			resp.setContentType("text/html; charset=UTF8");
-			out.write(s.getBytes("UTF8"));
+			//resp.setContentType("text/html; charset=UTF8");
+			//out.write(s.getBytes("UTF8"));
+			
+			resp.setContentType("text/xml; charset=UTF8");
+			resp.setCharacterEncoding("UTF8");
+			//b[0]='<';
+
+			out.write(b);
+			
+			//s= new String(b, "UTF-8");
+			//s=removeNonUtf8CompliantCharacters(s);
+			//out.println(s);
+			
 		}
 	}
+
 
 	private static final long serialVersionUID = 1L;
 

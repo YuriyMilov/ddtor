@@ -4,6 +4,37 @@
 
 
   <servlet>
+    <servlet-name>qqw2</servlet-name>
+    <servlet-class>guestbook.qqw2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qqw2</servlet-name>
+    <url-pattern>/qqw2</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>qqr2</servlet-name>
+    <servlet-class>guestbook.qqr2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qqr2</servlet-name>
+    <url-pattern>/qqr2</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>post</servlet-name>
+    <servlet-class>guestbook.post</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>post</servlet-name>
+    <url-pattern>/post</url-pattern>
+  </servlet-mapping>
+  
+
+  <servlet>
     <servlet-name>qpa1</servlet-name>
     <servlet-class>para.qpa1</servlet-class>
   </servlet>
@@ -13,7 +44,7 @@
     <url-pattern>/qpa1</url-pattern>
   </servlet-mapping>
   
-    <servlet>
+  <servlet>
     <servlet-name>qp1</servlet-name>
     <servlet-class>para.qp1</servlet-class>
   </servlet>

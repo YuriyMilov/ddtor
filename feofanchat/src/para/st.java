@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
 
 public class st {
+	public static String sh="";
 
 	static public  OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 	static public  IRI ontologyIRI;
@@ -188,6 +189,20 @@ public class st {
 		OWLClassAssertionAxiom в_классе_что_есть_идивид_кто = factory.getOWLClassAssertionAxiom(
 				что, кто);
 		manager.addAxiom(ontology, в_классе_что_есть_идивид_кто);
+		return;
+	}
+	
+	// ///////////////////////////////////////////////
+	//
+	//               ЧТО - ЧТО  
+	//
+	// ///////////////////////////////////////////////
+
+	
+	static public void что_что(OWLClass что1,
+			OWLClass что2) {
+		OWLSubClassOfAxiom что2_подкласс_что1 =factory.getOWLSubClassOfAxiom(что2, что1);
+		manager.addAxiom(ontology, что2_подкласс_что1);
 		return;
 	}
 	

@@ -5,7 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -60,6 +62,8 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
+import para.st;
+
 import com.clarkparsia.pellet.owlapiv3.PelletReasoner;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 import com.google.appengine.api.blobstore.BlobInfo;
@@ -71,7 +75,7 @@ import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 
 public class stat {
-	public static String sqq7 = "";
+	public static String sqq7 = "", blobkey="";
 
 	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
 	public static String skon = "<form  action=qq method=post>"
@@ -80,7 +84,7 @@ public class stat {
 			// "&nbsp;&nbsp; <a href=qq?p2=owl.txt>txt</a>" +
 			" <br><br>&nbsp;<a href=qq>чист</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a> &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"
 			+ // &nbsp;&nbsp; <a href>сохранить мир</a>" +
-			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a>  &nbsp;&nbsp; <a href=owl>owl</a> &nbsp;&nbsp; <a href=qq?p2=мир>мир</a> "
+			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a>  &nbsp;&nbsp; <a href=owl>owl</a> &nbsp;&nbsp; <a href=qq?p2=мир>мир</a>  &nbsp;&nbsp; <a href=/donate.htm>Феофану на пропитание</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
 	public static String siri = "http://owl.feofan.com/1#";
@@ -484,11 +488,47 @@ public class stat {
 			}
 
 			s = qq.sowl();
+			
 		} catch (Exception e) {
 			s = qq.sowl();
 		}
 
-		return s;
+		String s33=s;
+		
+		///////////////////////////////////
+		
+		try {
+			
+			//st.ontologyIRI = IRI.create(st.sh+"/owl");
+			st.ontologyIRI = IRI.create(st.sh+"/qqr?1111");
+		
+			try {
+		st.ontology = st.manager.loadOntology(st.ontologyIRI);	
+			}
+		catch(Exception e1){s=e1.toString();}
+		
+		st.factory = st.manager.getOWLDataFactory();
+		
+		OWLClass человек=st.что("человек");
+		OWLClass дурак=st.что("дурак");
+		OWLIndividual Вася=st.кто("Вася");
+		st.что_что(человек, дурак);
+		st.кто_что(Вася, дурак);
+		byte [] b = st.get_bowl();
+		
+			s= new String(b, "UTF-8");
+			
+			
+			posti(st.sh+"/qqw2","qq_вася_qq", s);
+			
+		} catch (Exception e2) {
+			s=e2.toString();
+		}
+		
+		///////////////////////////////////
+		
+		
+		return s33;
 	}
 	
 
@@ -1038,4 +1078,36 @@ public class stat {
 			return e.toString();
 		}
 	}
+	
+	
+	  public static String posti(String surl, String sname, String scontent) throws IOException {
+	       // Encode the query
+		  String postData = "name="+ URLEncoder.encode(sname, "UTF-8")+"&content=" + URLEncoder.encode(scontent, "UTF-8");
+	       
+		   URL url = new URL(surl);
+	       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	       connection.setDoOutput(true);
+	       connection.setRequestMethod("POST");
+	       connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+	       connection.setRequestProperty("Content-Length",  String.valueOf(postData.length()));
+	        
+	       // Write data
+	       OutputStream os = connection.getOutputStream();
+	       os.write(postData.getBytes());
+	        
+	       // Read response
+	       StringBuilder responseSB = new StringBuilder();
+	       BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+	         
+	       String line;
+	       while ( (line = br.readLine()) != null)
+	           responseSB.append(line);
+	                
+	       // Close streams
+	       br.close();
+	       os.close();
+	        
+	       return responseSB.toString();
+	        
+	   }
 }
