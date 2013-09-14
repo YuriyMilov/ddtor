@@ -3,8 +3,10 @@ package dd;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.util.Date;
@@ -30,19 +32,57 @@ import com.google.appengine.api.files.FileService;
 import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 
+import com.google.appengine.api.blobstore.*;
+
+
+
 public class qqr extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		String s = rf(req.getQueryString());
+		String s = req.getQueryString();
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		
+		if(s==null)
+			{
+			s="";
+			s=rfu_utf(sh+"/qqw?1111");
+			}
+			s=_info.blobkey;
+			
+			s = rf(s);
 		
 		
-	
+		resp.setCharacterEncoding("UTF8");
+		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 		out.write(s);
 		out.flush();
 		out.close();
 	}
+	
+	public static String rfu_utf(String s) {
+		try {
+			URL url = new URL(s);
+
+			URLConnection conn = url.openConnection();
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					conn.getInputStream(), "utf8"));
+			s = "";
+			String thisLine = "";
+			while ((thisLine = br.readLine()) != null) { // while loop begins
+															// here
+				s = s + thisLine + "\r\n";
+			}
+			br.close();
+			return s.toString();
+
+		} catch (Exception e) {
+			return e.toString();
+		}
+	}
+	
 	public String rf(String s) {
 
 		try {
@@ -87,11 +127,20 @@ public class qqr extends HttpServlet {
 			//lock = false; // Let other people read at the same time
 			
 			
-			BlobKey blobKey = new BlobKey(s);			
+//			s= "AMIfv94Yx1ma9jzkLVYXdf1-eMteBU3DCN1yF0cTQjqpI1KX9Sop-m2WQ68_UizdLF4nfoDeHAKJNHmA0XVTrbDYZWO9o59mkkWWqqkLPrGgseyt_SODAxHqgwi2n0aGT0MT9TjDL9ixlQLMq8zlpsV8yD1Q7ufIyA";
+			
+			s=_info.blobkey;
+			
+			//.substring(10);
+			//int i = s.length();
+			//s=s.substring(0,i-1);
+			
+			BlobKey blobKey = new BlobKey(s);				
+			AppEngineFile file= fileService.getBlobFile(blobKey);
+		
 			
 		  
-			
-			AppEngineFile file = new AppEngineFile(AppEngineFile.FileSystem.BLOBSTORE, blobKey.getKeyString());
+			//AppEngineFile file = new AppEngineFile(AppEngineFile.FileSystem.BLOBSTORE, blobKey.getKeyString());
 			
 			FileReadChannel readChannel = fileService.openReadChannel(file,
 					false);

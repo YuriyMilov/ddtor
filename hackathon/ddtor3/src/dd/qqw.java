@@ -33,6 +33,26 @@ import com.google.appengine.api.files.FileWriteChannel;
 
 public class qqw extends HttpServlet {
 
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		
+		String s = req.getParameter("e");		
+
+		 s=wf(s);
+		 
+			String sh = req.getScheme() + "://" + req.getServerName() + ":"		
+					+ req.getServerPort() + req.getContextPath();
+			
+			
+			s="<a href="+sh+"/qqr?"+s+">"+s+"</a>";
+			
+		PrintWriter out = resp.getWriter();
+		out.write(s);
+		out.flush();
+		out.close();
+	}
+	
+
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		
@@ -48,8 +68,13 @@ public class qqw extends HttpServlet {
 						//.replace("<", "[").replace(">", "]");
 		
 		 s=wf(s);
-		 s="<a href=http://127.0.0.1:8888/qqr?"+s+">"+s+"</a>";
 		 
+			String sh = req.getScheme() + "://" + req.getServerName() + ":"		
+					+ req.getServerPort() + req.getContextPath();
+			
+			
+			s="<a href="+sh+"/qqr?"+s+">"+s+"</a>";
+			
 		PrintWriter out = resp.getWriter();
 		out.write(s);
 		out.flush();
@@ -119,6 +144,11 @@ public class qqw extends HttpServlet {
 				
 				BlobKey blobKey = fileService.getBlobKey(file);
 				s=blobKey.toString();
+				
+				s=s.substring(10).replace(">", "");
+				
+				_info.blobkey = s;
+				
 				//BlobstoreService blobStoreService = BlobstoreServiceFactory
 				//		.getBlobstoreService();
 				//String s2 = new String(blobStoreService.fetchData(blobKey, 30,
@@ -127,7 +157,7 @@ public class qqw extends HttpServlet {
 			} catch (Exception ee) {
 				s = ee.toString();
 			}
-			return s.substring(10).replace(">", "");
+			return s;
 
 	}
 
