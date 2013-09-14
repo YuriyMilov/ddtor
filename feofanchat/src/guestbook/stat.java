@@ -516,10 +516,10 @@ public class stat {
 		st.кто_что(Вася, дурак);
 		byte [] b = st.get_bowl();
 		
-			s= new String(b, "UTF-8");
+			s= new String(b, "UTF-8");		
 			
-			
-			posti(st.sh+"/qqw2","qq_вася_qq", s);
+			stat.blobkey = stat.posti(st.sh+"/qqw2","qq_вася_qq",s);
+	
 			
 		} catch (Exception e2) {
 			s=e2.toString();

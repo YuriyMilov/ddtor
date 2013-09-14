@@ -45,12 +45,9 @@ public class qqr2 extends HttpServlet {
 				+ req.getServerPort() + req.getContextPath();
 		
 		if(s==null)
-			{
-			s=rfu_utf(sh+"/n1.owl");
-			}
-			s=stat.blobkey;
-			
-			s = rf (s);
+			s=stat.posti(sh+"/qqw2","qqr2_null", rfu_utf(sh+"/n1.owl"));				
+		else
+			s = rf(stat.blobkey);
 		  
 		
 		resp.setCharacterEncoding("UTF8");

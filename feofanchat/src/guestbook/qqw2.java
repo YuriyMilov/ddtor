@@ -44,8 +44,9 @@ public class qqw2 extends HttpServlet {
 			String sh = req.getScheme() + "://" + req.getServerName() + ":"		
 					+ req.getServerPort() + req.getContextPath();
 			
+			stat.blobkey=s;
 			
-			s="<a href="+sh+"/qqr2?"+s+">"+s+"</a>";
+			//s="<a href="+sh+"/qqr2?"+s+">"+s+"</a>";
 			
 		PrintWriter out = resp.getWriter();
 		out.write(s);
@@ -55,84 +56,24 @@ public class qqw2 extends HttpServlet {
 	
 
 	
-	public String wf(String sname, String s) {
-
-			try {
-				// Get a file service
-				FileService fileService = FileServiceFactory.getFileService();
-
-				// Create a new Blob file with mime-type "text/plain"
-				AppEngineFile file = fileService.createNewBlobFile("text/plain",sname);
-
-				// Open a channel to write to it
-				boolean lock = false;
-				FileWriteChannel writeChannel = fileService.openWriteChannel(file,
-						lock);
-
-				// Different standard Java ways of writing to the channel
-				// are possible. Here we use a PrintWriter:
-				PrintWriter out = new PrintWriter(Channels.newWriter(writeChannel,
-						"UTF8"));
-
-				out.println(s);
-				//out.println("The woods are lovely dark and deep.");
-				//out.println("But I have promises to keep.");
-
-				// Close without finalizing and save the file path for writing later
-				out.close();
-				String path = file.getFullPath();
-
-				// Write more to the file in a separate request:
-				file = new AppEngineFile(path);
-
-				// This time lock because we intend to finalize
-				lock = true;
-				writeChannel = fileService.openWriteChannel(file, lock);
-
-				// This time we write to the channel directly
-				//writeChannel.write(ByteBuffer
-				//		.wrap("And miles to go before I sleep.".getBytes()));
-
-				// Now finalize
-				writeChannel.closeFinally();
-
-				// Later, read from the file using the file API
-				//lock = false; // Let other people read at the same time
-				//FileReadChannel readChannel = fileService.openReadChannel(file,
-				//		false);
-
-				// Again, different standard Java ways of reading from the channel.
-				//BufferedReader reader = new BufferedReader(Channels.newReader(
-				//		readChannel, "UTF8"));
-				//s="";
-				// String thisLine;
-				 
-				// while ((thisLine = reader.readLine()) != null)
-				//s = s + thisLine+" \r\n ";
-				
-				// line = "The woods are lovely dark and deep."
-
-				//readChannel.close();
-
-				// Now read from the file using the Blobstore API
-				
-				BlobKey blobKey = fileService.getBlobKey(file);
-				s=blobKey.toString();
-				
-				s=s.substring(10).replace(">", "");
-				
-				stat.blobkey = s;
-				
-				//BlobstoreService blobStoreService = BlobstoreServiceFactory
-				//		.getBlobstoreService();
-				//String s2 = new String(blobStoreService.fetchData(blobKey, 30,
-				//		40));
-
-			} catch (Exception ee) {
-				s = ee.toString();
-			}
-			return s;
-
+	String wf(String sname, String s) throws IOException {
+		FileService fileService = FileServiceFactory.getFileService();
+		AppEngineFile file = fileService.createNewBlobFile("text/plain", sname);
+		boolean lock = false;
+		FileWriteChannel writeChannel = fileService
+				.openWriteChannel(file, lock);
+		PrintWriter out = new PrintWriter(Channels.newWriter(writeChannel,
+				"UTF8"));
+		out.println(s);
+		out.close();
+		String path = file.getFullPath();
+		file = new AppEngineFile(path);
+		lock = true;
+		writeChannel = fileService.openWriteChannel(file, lock);
+		writeChannel.closeFinally();
+		BlobKey blobKey = fileService.getBlobKey(file);
+		s = blobKey.toString();
+		return s.substring(10).replace(">", "");
 	}
 
 

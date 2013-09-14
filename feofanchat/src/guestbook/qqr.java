@@ -18,7 +18,8 @@ public class qqr extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {		
 		ServletOutputStream out = resp.getOutputStream();
-		resp.setContentType("text/xml; charset=UTF8");
+		//resp.setContentType("text/xml; charset=UTF8");
+		resp.setContentType("text/plain; charset=UTF8");
 		resp.setCharacterEncoding("UTF8");
 		//String s=rf3("test.owl");
 		

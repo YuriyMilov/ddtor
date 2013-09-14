@@ -32,6 +32,30 @@ public class qqw extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+	
+	
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+		
+		String sname = req.getParameter("name");	
+		String scontent = req.getParameter("content");		
+
+		String s=wf("qqw_"+sname,scontent);
+		 
+			String sh = req.getScheme() + "://" + req.getServerName() + ":"		
+					+ req.getServerPort() + req.getContextPath();
+			
+			
+			s="<a href="+sh+"/qqr?"+s+">"+s+"</a>";
+			
+		PrintWriter out = resp.getWriter();
+		out.write(s);
+		out.flush();
+		out.close();
+	}
+	
+	
+	
 	void clear_blobstore() throws IOException {
 		BlobInfoFactory blf = new BlobInfoFactory();
 		Iterator<BlobInfo> info = blf.queryBlobInfos();
