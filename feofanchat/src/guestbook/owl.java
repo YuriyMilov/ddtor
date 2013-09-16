@@ -24,7 +24,7 @@ public class owl extends HttpServlet {
 		resp.setContentType("text/xml; charset=UTF8");
 		
 		resp.setCharacterEncoding("UTF8");
-		stat.sowl = stat.get_owl8(stat.sr);
+		stat.sowl = stat.get_owl81(stat.sr);
 		
 		String s = stat.sowl;
 		byte[] b = s.getBytes("UTF8");

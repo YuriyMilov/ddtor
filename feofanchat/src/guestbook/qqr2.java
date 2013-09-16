@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.util.Date;
@@ -45,11 +46,10 @@ public class qqr2 extends HttpServlet {
 				+ req.getServerPort() + req.getContextPath();
 		
 		if(s==null)
-			s=stat.posti(sh+"/qqw2","qqr2_null", rfu_utf(sh+"/n1.owl"));				
-		else
-			s = rf(stat.blobkey);
-		  
-		
+			s=stat.posti(sh+"/w2f","w2f_null_query", "rff Query String - null");
+		else		
+			s = stat.rff(s);
+	
 		resp.setCharacterEncoding("UTF8");
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
@@ -58,48 +58,7 @@ public class qqr2 extends HttpServlet {
 		out.close();
 	}
 	
-	public static String rfu_utf(String s) {
-		try {
-			URL url = new URL(s);
-			URLConnection conn = url.openConnection();
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					conn.getInputStream(), "utf8"));
-			s = "";
-			String thisLine = "";
-			while ((thisLine = br.readLine()) != null) { 
-				s = s + thisLine + "\r\n";
-				}
-			br.close();
-			return s.toString();
-
-		} catch (Exception e) {
-			return e.toString();
-		}
-	}
 	
-	
-	public String rf(String s) {
 
-		try {
-			FileService fileService = FileServiceFactory.getFileService();
-			boolean lock = false;
-			s=stat.blobkey;
-			BlobKey blobKey = new BlobKey(s);				
-			AppEngineFile file= fileService.getBlobFile(blobKey);
-			FileReadChannel readChannel = fileService.openReadChannel(file,
-					false);
-			BufferedReader reader = new BufferedReader(Channels.newReader(
-					readChannel, "UTF8"));
-			s="";
-			 String thisLine;
-			 
-			 while ((thisLine = reader.readLine()) != null)
-			s = s + thisLine+" \r\n ";
-			readChannel.close();
-		} catch (Exception ee) {
-			s = ee.toString();
-		}
-		return s;
-	}
 	
 }

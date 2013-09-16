@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -15,6 +16,8 @@ import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -69,13 +72,25 @@ import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.files.AppEngineFile;
+import com.google.appengine.api.files.FileReadChannel;
 import com.google.appengine.api.files.FileService;
 import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 
+
 public class stat {
-	public static String sqq7 = "", blobkey="";
+	public static String sqq7 = "";
 
 	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
 	public static String skon = "<form  action=qq method=post>"
@@ -449,7 +464,7 @@ public class stat {
 	}
 	
 	
-	public static String get_owl8(String s) {
+	public static String get_owl81(String s) {
 
 		Owl2Model qq = new Owl2Model("http://owl.feofan.com/1");
 
@@ -493,45 +508,83 @@ public class stat {
 			s = qq.sowl();
 		}
 
-		String s33=s;
+		return s;
+	}
+	
+	public static String get_owl82(String s)
+	{
 		
-		///////////////////////////////////
+	
 		
 		try {
-			
-			//st.ontologyIRI = IRI.create(st.sh+"/owl");
-			st.ontologyIRI = IRI.create(st.sh+"/qqr?1111");
-		
 			try {
-		st.ontology = st.manager.loadOntology(st.ontologyIRI);	
+				
+				st.ontologyIRI = IRI.create(st.sh+"/rff?1.owl");
+				//st.ontologyIRI = IRI.create(st.sh+"/n1.owl");
+				st.ontology = st.manager.loadOntology(st.ontologyIRI);	
+				}
+		catch(Exception e1){
+			if(!(e1.toString().indexOf("Ontology already exists.")>-1))
+			{
+				st.ontologyIRI = IRI.create(st.sh+"/1.owl");
+				st.ontology = st.manager.loadOntology(st.ontologyIRI);
 			}
-		catch(Exception e1){s=e1.toString();}
+			
+		}
 		
 		st.factory = st.manager.getOWLDataFactory();
 		
-		OWLClass человек=st.что("человек");
-		OWLClass дурак=st.что("дурак");
-		OWLIndividual Вася=st.кто("Вася");
-		st.что_что(человек, дурак);
-		st.кто_что(Вася, дурак);
+		
+		//OWLClass человек=st.что("человек");
+		//OWLClass дурак=st.что("дурак");
+		//OWLIndividual Вася=st.кто("Вася");
+		//st.что_что(человек, дурак);
+		//st.кто_что(Вася, дурак);
+		
+		String[] sss = prep_all(s).split("[.]+");
+		 
+		for (int i = 0; i < sss.length; i++) {
+
+			String[] ss = sss[i].trim().split("[ ]+");
+
+			if (ss.length != 3) {
+				;
+			} else if (ss[1].equals("-")) {
+				st.что_что(st.что(ss[0]), st.что(ss[2]));
+			
+			} else if (ss[1].equals("это")) {
+				st.кто_что(st.кто(ss[0]), st.что(ss[2]));
+			}
+
+			else if (socrat(ss[0]) && socrat(ss[2])) {
+				//qq.getProperty(ss[1]);
+				st.assertFact(ss[1], ss[0], ss[2]);
+			}
+
+			else if (!socrat(ss[0]) && !socrat(ss[2])) {
+				st.assertDomainAndRange(st.getProperty(ss[1]),
+						st.getOwlClass(ss[0]), st.getOwlClass(ss[2]));
+			}
+			else if (socrat(ss[0]) && !socrat(ss[2])) {
+				
+				st.hasClass(st.getIndividual(ss[0]), st.getOwlClass(ss[2]));
+				st.assertRange(st.getProperty(ss[1]), st.getOwlClass(ss[2]));					
+				
+			}
+		}
+		
 		byte [] b = st.get_bowl();
 		
 			s= new String(b, "UTF-8");		
 			
-			stat.blobkey = stat.posti(st.sh+"/qqw2","qq_вася_qq",s);
+			stat.posti(st.sh+"/w2f","1.owl",s);
 	
 			
 		} catch (Exception e2) {
 			s=e2.toString();
 		}
-		
-		///////////////////////////////////
-		
-		
-		return s33;
+		return s;
 	}
-	
-
    
    
 
@@ -581,6 +634,37 @@ public class stat {
 		BlobKey blobKey = fileService.getBlobKey(file);
 		s = blobKey.toString();
 		return s.substring(10).replace(">", "");
+	}
+	
+	
+
+	public static String w2f(String sname, String s) throws IOException {
+		
+		Query query = new Query("__BlobInfo__");
+		query.setFilter(FilterOperator.EQUAL.of("filename",sname));
+
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); 
+		PreparedQuery pq = datastore.prepare(query); 
+		List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder.withLimit(10)); 
+	
+		if(!entList.isEmpty()) 		
+			BlobstoreFS.delete(new BlobKey(entList.get(0).getKey().getName()));
+		
+		
+		FileService fileService = FileServiceFactory.getFileService();
+		AppEngineFile file = fileService.createNewBlobFile("text/plain", sname);
+		boolean lock = false;
+		FileWriteChannel writeChannel = fileService
+				.openWriteChannel(file, lock);
+		PrintWriter out = new PrintWriter(Channels.newWriter(writeChannel,
+				"UTF8"));
+		out.println(s);
+		out.close();		
+		file = new AppEngineFile(file.getFullPath());
+		lock = true;
+		writeChannel = fileService.openWriteChannel(file, lock);
+		writeChannel.closeFinally();
+		return "ok";
 	}
 
 	public static String prep_all(String s7) {
@@ -731,7 +815,10 @@ public class stat {
 			}
 		}
 		
-		sowl = get_owl8(sr);
+		//sowl = get_owl8(sr);
+		sowl = get_owl81("");
+		
+		
 		stat.page(req, resp, " Новый мир: \"" + stat.sr.trim()+"\"");
 	}
 
@@ -1082,7 +1169,7 @@ public class stat {
 	
 	  public static String posti(String surl, String sname, String scontent) throws IOException {
 	       // Encode the query
-		  String postData = "name="+ URLEncoder.encode(sname, "UTF-8")+"&content=" + URLEncoder.encode(scontent, "UTF-8");
+		  String postData = "f="+ URLEncoder.encode(sname, "UTF-8")+"&s=" + URLEncoder.encode(scontent, "UTF-8");
 	       
 		   URL url = new URL(surl);
 	       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -1110,4 +1197,60 @@ public class stat {
 	       return responseSB.toString();
 	        
 	   }
+	  
+		
+		public static String get_is(InputStream is) throws Exception {
+			StringBuilder sb = new StringBuilder();
+			int i = 0;
+			while ((i = is.read()) != -1)
+				sb.append((char) i);
+			return sb.toString();
+		}
+
+
+		public static String rff(String s) {
+
+			try {
+	
+				
+				Query query = new Query("__BlobInfo__");
+				
+
+				
+				//query.addFilter("filename", FilterOperator.EQUAL, "test4"); 
+				query.setFilter(FilterOperator.EQUAL.of("filename",s));
+				
+				///////
+				
+				DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); 
+				PreparedQuery pq = datastore.prepare(query); 
+				List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder.withLimit(10)); 
+				
+				if(entList.isEmpty()) 
+					return "нет такого файла";
+				
+				s = entList.get(0).getKey().getName();
+				
+				/////
+				
+				BlobKey blobKey = new BlobKey(s);	
+				FileService fileService = FileServiceFactory.getFileService();
+				AppEngineFile file= fileService.getBlobFile(blobKey);
+				FileReadChannel readChannel = fileService.openReadChannel(file,
+						false);
+				BufferedReader reader = new BufferedReader(Channels.newReader(
+						readChannel, "UTF8"));
+				
+				 String thisLine="";
+				 s=""; 
+				 while ((thisLine = reader.readLine()) != null)
+				s = s + thisLine+" \r\n ";
+				readChannel.close();
+				
+			} catch (Exception ee) {
+				s = ee.toString();
+			}
+			
+			return s;
+		}
 }

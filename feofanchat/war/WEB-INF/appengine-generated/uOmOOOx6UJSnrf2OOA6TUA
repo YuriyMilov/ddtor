@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.feofan.com/1.owl#"
+     xml:base="http://www.feofan.com/1.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:untitled-ontology-357="http://www.feofan.com/1.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.feofan.com/1.owl"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.feofan.com/1.owl#_ -->
+
+    <owl:ObjectProperty rdf:about="http://www.feofan.com/1.owl#_">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.feofan.com/1.owl#вещи -->
+
+    <owl:Class rdf:about="http://www.feofan.com/1.owl#вещи">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:oneOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.feofan.com/1.owl#машина"/>
+                            <rdf:Description rdf:about="http://www.feofan.com/1.owl#ракета"/>
+                        </owl:oneOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.feofan.com/1.owl#_"/>
+                        <owl:onClass rdf:resource="http://www.feofan.com/1.owl#процессы"/>
+                        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.feofan.com/1.owl#процессы -->
+
+    <owl:Class rdf:about="http://www.feofan.com/1.owl#процессы">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:oneOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.feofan.com/1.owl#ездит"/>
+                            <rdf:Description rdf:about="http://www.feofan.com/1.owl#летает"/>
+                        </owl:oneOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.feofan.com/1.owl#_"/>
+                        <owl:onClass rdf:resource="http://www.feofan.com/1.owl#вещи"/>
+                        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.feofan.com/1.owl#ездит -->
+
+    <owl:NamedIndividual rdf:about="http://www.feofan.com/1.owl#ездит">
+        <rdf:type rdf:resource="http://www.feofan.com/1.owl#процессы"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.feofan.com/1.owl#летает -->
+
+    <owl:NamedIndividual rdf:about="http://www.feofan.com/1.owl#летает">
+        <rdf:type rdf:resource="http://www.feofan.com/1.owl#процессы"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.feofan.com/1.owl#машина -->
+
+    <owl:NamedIndividual rdf:about="http://www.feofan.com/1.owl#машина">
+        <rdf:type rdf:resource="http://www.feofan.com/1.owl#вещи"/>
+        <_ rdf:resource="http://www.feofan.com/1.owl#ездит"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.feofan.com/1.owl#ракета -->
+
+    <owl:NamedIndividual rdf:about="http://www.feofan.com/1.owl#ракета">
+        <rdf:type rdf:resource="http://www.feofan.com/1.owl#вещи"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.feofan.com/1.owl#ездит"/>
+            <rdf:Description rdf:about="http://www.feofan.com/1.owl#летает"/>
+            <rdf:Description rdf:about="http://www.feofan.com/1.owl#машина"/>
+            <rdf:Description rdf:about="http://www.feofan.com/1.owl#ракета"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.4) http://owlapi.sourceforge.net -->
+
+

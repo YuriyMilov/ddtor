@@ -35,55 +35,32 @@ public class qqw2 extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		
-		String sname = req.getParameter("name");	
-		String scontent = req.getParameter("content");		
 
-		String s=wf(sname,scontent);
-		 
-			String sh = req.getScheme() + "://" + req.getServerName() + ":"		
-					+ req.getServerPort() + req.getContextPath();
-			
-			stat.blobkey=s;
-			
-			//s="<a href="+sh+"/qqr2?"+s+">"+s+"</a>";
-			
+		String f = req.getParameter("f"), s = req.getParameter("s");
+		if (f != null && s != null)
+			s = stat.w2f(f, s);
+		else
+			stat.w2f("1", "content привет");
+
 		PrintWriter out = resp.getWriter();
 		out.write(s);
 		out.flush();
 		out.close();
 	}
-	
 
-	
-	String wf(String sname, String s) throws IOException {
-		FileService fileService = FileServiceFactory.getFileService();
-		AppEngineFile file = fileService.createNewBlobFile("text/plain", sname);
-		boolean lock = false;
-		FileWriteChannel writeChannel = fileService
-				.openWriteChannel(file, lock);
-		PrintWriter out = new PrintWriter(Channels.newWriter(writeChannel,
-				"UTF8"));
-		out.println(s);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+
+		String f = req.getParameter("f"), s = req.getParameter("s");
+		if (f != null && s != null)
+			s = stat.w2f(f, s);
+		else
+			stat.w2f("1", "content привет");
+
+		PrintWriter out = resp.getWriter();
+		out.write(s);
+		out.flush();
 		out.close();
-		String path = file.getFullPath();
-		file = new AppEngineFile(path);
-		lock = true;
-		writeChannel = fileService.openWriteChannel(file, lock);
-		writeChannel.closeFinally();
-		BlobKey blobKey = fileService.getBlobKey(file);
-		s = blobKey.toString();
-		return s.substring(10).replace(">", "");
 	}
-
-
-	static String get_is(InputStream is) throws Exception {
-		StringBuilder sb = new StringBuilder();
-		int i = 0;
-		while ((i = is.read()) != -1)
-			sb.append((char) i);
-		return sb.toString();
-	}
-
 
 }

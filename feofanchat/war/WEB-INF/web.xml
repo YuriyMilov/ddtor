@@ -4,6 +4,26 @@
 
 
   <servlet>
+    <servlet-name>w2f</servlet-name>
+    <servlet-class>guestbook.w2f</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>w2f</servlet-name>
+    <url-pattern>/w2f</url-pattern>
+  </servlet-mapping>
+ 
+  <servlet>
+    <servlet-name>rff</servlet-name>
+    <servlet-class>guestbook.rff</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>rff</servlet-name>
+    <url-pattern>/rff</url-pattern>
+  </servlet-mapping>
+ 
+  <servlet>
     <servlet-name>qqw2</servlet-name>
     <servlet-class>guestbook.qqw2</servlet-class>
   </servlet>

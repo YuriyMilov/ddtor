@@ -26,17 +26,18 @@ public class post extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		
-		ServletOutputStream out = resp.getOutputStream();
-		resp.setContentType("text/html; charset=UTF8");		
-		resp.setCharacterEncoding("UTF8");	
 
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"		
 				+ req.getServerPort() + req.getContextPath();
+
+		String s = stat.posti(sh+"/w2f","post","привет - это я, post servlet ");
 		
-		String sname="test4";
-		String scontent = rfu_utf(sh+"/n1.owl");
-		String s = stat.posti(sh+"/qqw2",sname,scontent);
 		
+		///////////
+		
+		ServletOutputStream out = resp.getOutputStream();
+		resp.setContentType("text/html; charset=UTF8");		
+		resp.setCharacterEncoding("UTF8");	
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}
