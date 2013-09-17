@@ -165,7 +165,7 @@ public class mh extends HttpServlet {
 		// textPart.setContent(s3, "text/plain");
 		textPart.setContent(sbody, "text/html");
 		mp.addBodyPart(textPart);
-
+/*
 		MimeBodyPart attachment = new MimeBodyPart();
 		String fileName = "UFOS_Daily.txt";
 		String filename = URLEncoder.encode(fileName, "UTF-8");
@@ -178,7 +178,7 @@ public class mh extends HttpServlet {
 		DataHandler handler = new DataHandler(src);
 		attachment.setDataHandler(handler);
 		mp.addBodyPart(attachment);
-
+*/
 		msg.setContent(mp);
 		// msg.setSubject(String.format(subj));
 
@@ -238,6 +238,7 @@ public class mh extends HttpServlet {
 		textPart.setContent(s3, "text/plain");
 		mp.addBodyPart(textPart);
 
+		/*
 		MimeBodyPart attachment = new MimeBodyPart();
 		String fileName = "UFOS_Daily.txt";
 		String filename = URLEncoder.encode(fileName, "UTF-8");
@@ -250,7 +251,7 @@ public class mh extends HttpServlet {
 		DataHandler handler = new DataHandler(src);
 		attachment.setDataHandler(handler);
 		mp.addBodyPart(attachment);
-
+*/
 		msg.setContent(mp);
 		// msg.setSubject(String.format(subj));
 
