@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee                http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>fw</servlet-name>
+    <servlet-class>tokkist1.fw</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>fw</servlet-name>
+    <url-pattern>/fw</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+    <servlet-name>fr</servlet-name>
+    <servlet-class>tokkist1.fr</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>fr</servlet-name>
+    <url-pattern>/fr</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+    <servlet-name>qq</servlet-name>
+    <servlet-class>tokkist1.qq</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qq</servlet-name>
+    <url-pattern>/qq</url-pattern>
+  </servlet-mapping>
+
+  
+    <servlet>
+    <servlet-name>greetServlet</servlet-name>
+    <servlet-class>tokkist1.server.GreetingServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>greetServlet</servlet-name>
+    <url-pattern>/toklist1/greet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>Toklist1.html</welcome-file>
+  </welcome-file-list>
+
+  <servlet>
+    <servlet-name>SystemServiceServlet</servlet-name>
+    <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+    <init-param>
+      <param-name>services</param-name>
+      <param-value/>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SystemServiceServlet</servlet-name>
+    <url-pattern>/_ah/spi/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>

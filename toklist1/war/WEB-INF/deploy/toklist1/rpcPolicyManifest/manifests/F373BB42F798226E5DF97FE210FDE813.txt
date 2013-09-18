@@ -1,0 +1,2 @@
+serviceClass: tokkist1.client.GreetingService
+path: 7254920F6D70C8F0EFB2FD61C9A63D14.gwt.rpc
