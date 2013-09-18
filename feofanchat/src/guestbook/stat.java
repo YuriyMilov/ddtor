@@ -1,5 +1,8 @@
 package guestbook;
 
+import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -47,11 +50,20 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -87,7 +99,6 @@ import com.google.appengine.api.files.FileReadChannel;
 import com.google.appengine.api.files.FileService;
 import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
-
 
 public class stat {
 	public static String sqq7 = "";
@@ -431,7 +442,7 @@ public class stat {
 			// qq.isSubClassOf(человек, смертен);
 
 			String[] sss = prep_all(s).split("[.]+");
- 
+
 			for (int i = 0; i < sss.length; i++) {
 
 				String[] ss = sss[i].trim().split("[ ]+");
@@ -462,8 +473,7 @@ public class stat {
 
 		return s;
 	}
-	
-	
+
 	public static String get_owl81(String s) {
 
 		Owl2Model qq = new Owl2Model("http://owl.feofan.com/1");
@@ -471,7 +481,7 @@ public class stat {
 		try {
 
 			String[] sss = prep_all(s).split("[.]+");
- 
+
 			for (int i = 0; i < sss.length; i++) {
 
 				String[] ss = sss[i].trim().split("[ ]+");
@@ -486,107 +496,285 @@ public class stat {
 				}
 
 				else if (socrat(ss[0]) && socrat(ss[2])) {
-					//qq.getProperty(ss[1]);
+					// qq.getProperty(ss[1]);
 					qq.assertFact(ss[1], ss[0], ss[2]);
 				}
 
 				else if (!socrat(ss[0]) && !socrat(ss[2])) {
 					qq.assertDomainAndRange(qq.getProperty(ss[1]),
 							qq.getOwlClass(ss[0]), qq.getOwlClass(ss[2]));
-				}
-				else if (socrat(ss[0]) && !socrat(ss[2])) {
-					
+				} else if (socrat(ss[0]) && !socrat(ss[2])) {
+
 					qq.hasClass(qq.getIndividual(ss[0]), qq.getOwlClass(ss[2]));
-					qq.assertRange(qq.getProperty(ss[1]), qq.getOwlClass(ss[2]));					
-					
+					qq.assertRange(qq.getProperty(ss[1]), qq.getOwlClass(ss[2]));
+
 				}
 			}
 
 			s = qq.sowl();
-			
+
 		} catch (Exception e) {
 			s = qq.sowl();
 		}
 
 		return s;
 	}
-	
-	public static String get_owl82(String s)
-	{
-		
-	
-		
+
+	public static void get_owl82() {
 		try {
-			try {
-				
-				st.ontologyIRI = IRI.create(st.sh+"/rff?1.owl");
-				//st.ontologyIRI = IRI.create(st.sh+"/n1.owl");
-				st.ontology = st.manager.loadOntology(st.ontologyIRI);	
-				}
-		catch(Exception e1){
-			if(!(e1.toString().indexOf("Ontology already exists.")>-1))
-			{
-				st.ontologyIRI = IRI.create(st.sh+"/1.owl");
-				st.ontology = st.manager.loadOntology(st.ontologyIRI);
-			}
-			
-		}
-		
-		st.factory = st.manager.getOWLDataFactory();
-		
-		
-		//OWLClass человек=st.что("человек");
-		//OWLClass дурак=st.что("дурак");
-		//OWLIndividual Вася=st.кто("Вася");
-		//st.что_что(человек, дурак);
-		//st.кто_что(Вася, дурак);
-		
-		String[] sss = prep_all(s).split("[.]+");
-		 
-		for (int i = 0; i < sss.length; i++) {
+			Owl2Model qw = new Owl2Model("http://owl.feofan.com/rff?82.owl");
 
-			String[] ss = sss[i].trim().split("[ ]+");
+			// OWLClass человек=st.что("человек");
+			// OWLClass дурак=st.что("дурак");
+			// OWLIndividual Вася=st.кто("Вася");
+			// st.что_что(человек, дурак);
+			// st.кто_что(Вася, дурак);
 
-			if (ss.length != 3) {
-				;
-			} else if (ss[1].equals("-")) {
-				st.что_что(st.что(ss[0]), st.что(ss[2]));
-			
-			} else if (ss[1].equals("это")) {
-				st.кто_что(st.кто(ss[0]), st.что(ss[2]));
-			}
+			OWLIndividual john = qw.getIndividual("John");
+			OWLIndividual mary = qw.getIndividual("Mary");
+			OWLIndividual susan = qw.getIndividual("Susan");
+			OWLIndividual bill = qw.getIndividual("Bill");
+			OWLIndividual david = qw.getIndividual("David");
+			OWLIndividual kate = qw.getIndividual("Kate");
+			OWLObjectProperty hasWife = qw.getProperty("hasWife");
+			OWLObjectProperty hasHusband = qw.getProperty("hasHusband");
+			OWLObjectProperty hasChild = qw.getProperty("hasChild");
+			qw.assertFact(hasWife, john, mary);
+			qw.assertFact(hasHusband, mary, john);
+			qw.assertFact(hasWife, david, kate);
+			qw.assertFact(hasHusband, kate, david);
+			OWLObjectProperty hasSon = qw.getProperty("hasSon");
+			OWLObjectProperty hasDaughter = qw.getProperty("hasDaughter");
+			qw.assertFact(hasSon, john, bill);
+			qw.assertFact(hasDaughter, john, susan);
+			OWLDataProperty hasAge2 = null;
+			OWLDataProperty hasAge = qw.getDataProperty("hasAge");
+			qw.assertFact(hasAge, john, 33);
+			qw.assertFact(hasAge, david, 32);
+			qw.assertFact(hasAge, kate, 21);
+			// qw.assertFact(hasAge, susan, 17);
+			qw.assertFact(hasSon, mary, bill);
+			qw.assertFact(hasDaughter, mary, susan);
+			qw.assertFact(hasAge, mary, 31);
+			qw.assertFact(hasAge, bill, 13);
+			qw.assertFact(hasAge, susan, 8);
+			OWLIndividual male = qw.getIndividual("male");
+			OWLIndividual female = qw.getIndividual("female");
+			OWLObjectProperty hasGender = qw.getProperty("hasGender");
+			qw.assertFact(hasGender, john, male);
+			qw.assertFact(hasGender, mary, female);
+			qw.assertFact(hasGender, bill, male);
+			qw.assertFact(hasGender, susan, female);
+			qw.assertFact(hasGender, david, male);
+			qw.assertFact(hasGender, kate, female);
+			OWLClass person = qw.getOwlClass("Person");
+			qw.assertDomain(hasWife, person);
+			qw.assertRange(hasWife, person);
+			qw.assertDomain(hasSon, person);
+			qw.assertRange(hasSon, person);
+			qw.assertDomain(hasDaughter, person);
+			qw.assertRange(hasDaughter, person);
+			qw.assertDataDomain(hasAge, person);
+			qw.assertRangeAsInteger(hasAge);
+			qw.hasClass(david, person);
+			qw.hasClass(bill, person);
+			qw.hasClass(kate, person);
+			qw.hasClass(mary, person);
+			qw.hasClass(susan, person);
+			qw.hasClass(john, person);
+			OWLDatatype integerDatatype = qw.factory.getIntegerOWLDatatype();
+			qw.inverseProperties(hasWife, hasHusband);
+			qw.subPropertyOf(hasSon, hasChild);
+			qw.subPropertyOf(hasDaughter, hasChild);
+			qw.isFunctional(hasAge);
+			qw.isFunctional(hasWife);
+			qw.isIrreflexive(hasWife);
+			qw.isInverseFunctional(hasWife);
+			qw.isAsymmetric(hasWife);
+			OWLClass man = qw.getOwlClass("Man");
+			OWLClass woman = qw.getOwlClass("Woman");
+			OWLClass parent = qw.getOwlClass("Parent");
+			qw.isSubClassOf(man, person);
+			qw.isSubClassOf(woman, person);
+			qw.isSubClassOf(parent, person);
+			OWLDataProperty hasGender2 = qw.getDataProperty("hasGender2");
+			OWLClassExpression hasAgeRestriction = qw.exactCardinality(hasAge,
+					1);
+			OWLClassExpression hasGenderRestriction = qw.exactCardinality(
+					hasGender2, 1);
+			OWLObjectOneOf maleOrFemale = qw.factory.getOWLObjectOneOf(male,
+					female);
+			OWLObjectAllValuesFrom hasGenderOnlyMaleFemale = qw.factory
+					.getOWLObjectAllValuesFrom(hasGender, maleOrFemale);
 
-			else if (socrat(ss[0]) && socrat(ss[2])) {
-				//qq.getProperty(ss[1]);
-				st.assertFact(ss[1], ss[0], ss[2]);
-			}
+			// Finally, we bundle these restrictions up into an
+			// intersection, since we want person
+			// to be a subclass of the intersection of them
+			OWLObjectIntersectionOf intersection = qw.factory
+					.getOWLObjectIntersectionOf(hasAgeRestriction,
+							hasGenderRestriction, hasGenderOnlyMaleFemale);
+			// And now we set this anonymous intersection class to be a
+			// superclass of Person using a subclass axiom
+			qw.manager.addAxiom(qw.ontology,
+					qw.factory.getOWLSubClassOfAxiom(person, intersection));
 
-			else if (!socrat(ss[0]) && !socrat(ss[2])) {
-				st.assertDomainAndRange(st.getProperty(ss[1]),
-						st.getOwlClass(ss[0]), st.getOwlClass(ss[2]));
-			}
-			else if (socrat(ss[0]) && !socrat(ss[2])) {
-				
-				st.hasClass(st.getIndividual(ss[0]), st.getOwlClass(ss[2]));
-				st.assertRange(st.getProperty(ss[1]), st.getOwlClass(ss[2]));					
-				
-			}
-		}
-		
-		byte [] b = st.get_bowl();
-		
-			s= new String(b, "UTF-8");		
-			
-			stat.posti(st.sh+"/w2f","1.owl",s);
-	
-			
+			// Restrictions and other anonymous classes can also be used
+			// anywhere a named class can be used.
+			// Let's set the range of hasSon to be Person and hasGender
+			// value male. This requires an anonymous
+			// class that is the intersection of Person, and also,
+			// hasGender value male. We need to create
+			// the hasGender value male restriction - this describes the
+			// class of things that have a hasGender
+			// relationship to the individual male.
+			OWLObjectHasValue hasGenderValueMaleRestriction = qw.factory
+					.getOWLObjectHasValue(hasGender, male);
+			// Now combine this with Person in an intersection
+			OWLClassExpression personAndHasGenderValueMale = qw.factory
+					.getOWLObjectIntersectionOf(person,
+							hasGenderValueMaleRestriction);
+			// Now specify this anonymous class as the range of hasSon
+			// using an object property range axioms
+			qw.manager.addAxiom(qw.ontology, qw.factory
+					.getOWLObjectPropertyRangeAxiom(hasSon,
+							personAndHasGenderValueMale));
+
+			// We can do a similar thing for hasDaughter, by specifying
+			// that hasDaughter has a range
+			// of Person and hasGender value female. This time, we will
+			// make things a little more compact by
+			// not using so many variables
+
+			OWLClassExpression rangeOfHasDaughter = qw.factory
+					.getOWLObjectIntersectionOf(person,
+							qw.factory.getOWLObjectHasValue(hasGender, female));
+			qw.manager.addAxiom(qw.ontology, qw.factory
+					.getOWLObjectPropertyRangeAxiom(hasDaughter,
+							rangeOfHasDaughter));
+
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+			//
+			// Data Ranges and Equivalent Classes axioms
+			//
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+
+			// In OWL 2, we can specify expressive data ranges. Here, we
+			// will specify the classes
+			// Teenage, Adult and Child by saying something about
+			// individuals ages.
+
+			// First we take the class Teenager, all of whose instance
+			// have an age greater or equal to
+			// 13 and less than 20. In Manchester Syntax this is written
+			// as Person and hasAge some int[>=13, <20]
+			// We create a data range by taking the integer datatype and
+			// applying facet restrictions to it.
+			// Note that we have statically imported the data range
+			// facet vocabulary OWLFacet
+			OWLFacetRestriction geq13 = qw.factory.getOWLFacetRestriction(
+					MIN_INCLUSIVE, 12);
+			// We don't have to explicitly create the typed constant,
+			// there are convenience methods to do this
+			OWLFacetRestriction lt20 = qw.factory.getOWLFacetRestriction(
+					MAX_EXCLUSIVE, 25);
+			// Restrict the base type, integer (which is just an XML
+			// Schema Datatype) with the facet
+			// restrictions.
+			OWLFacetRestriction lt30 = qw.factory.getOWLFacetRestriction(
+					MAX_EXCLUSIVE, 30);
+			OWLDataRange dataRng = qw.factory.getOWLDatatypeRestriction(
+					integerDatatype, geq13, lt20);
+			OWLDataRange dataRng2 = qw.factory.getOWLDatatypeRestriction(
+					integerDatatype, geq13, lt30);
+			// Now we have the data range of greater than equal to 13
+			// and less than 20 we can use this in a
+			// restriction.
+			OWLDataSomeValuesFrom teenagerAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, dataRng);
+			OWLDataSomeValuesFrom lessThanThirtyAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, dataRng2);
+			// Now make Teenager equivalent to Person and hasAge some
+			// int[>=13, <20]
+			// First create the class Person and hasAge some int[>=13,
+			// <20]
+			OWLClassExpression teenagePerson = qw.factory
+					.getOWLObjectIntersectionOf(person, teenagerAgeRestriction);
+
+			OWLClass teenager = qw.factory.getOWLClass(IRI
+					.create(qw.ontologyIRI + "#Teenager"));
+			OWLEquivalentClassesAxiom teenagerDefinition = qw.factory
+					.getOWLEquivalentClassesAxiom(teenager, teenagePerson);
+			qw.manager.addAxiom(qw.ontology, teenagerDefinition);
+
+			// Do the same for Adult that has an age greater than 21
+			OWLDataRange geq21 = qw.factory.getOWLDatatypeRestriction(
+					integerDatatype,
+					qw.factory.getOWLFacetRestriction(MIN_INCLUSIVE, 21));
+			OWLClass adult = qw.factory.getOWLClass(IRI.create(qw.ontologyIRI
+					+ "#Adult"));
+			OWLClassExpression adultAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, geq21);
+			OWLClassExpression adultPerson = qw.factory
+					.getOWLObjectIntersectionOf(person, adultAgeRestriction);
+			OWLAxiom adultDefinition = qw.factory.getOWLEquivalentClassesAxiom(
+					adult, adultPerson);
+			qw.manager.addAxiom(qw.ontology, adultDefinition);
+
+			// And finally Child
+			OWLDataRange notGeq21 = qw.factory.getOWLDataComplementOf(geq21);
+			OWLClass child = qw.factory.getOWLClass(IRI.create(qw.ontologyIRI
+					+ "#Child"));
+			OWLClassExpression childAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, notGeq21);
+			OWLClassExpression childPerson = qw.factory
+					.getOWLObjectIntersectionOf(person, childAgeRestriction);
+			OWLAxiom childDefinition = qw.factory.getOWLEquivalentClassesAxiom(
+					child, childPerson);
+			qw.manager.addAxiom(qw.ontology, childDefinition);
+
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+			//
+			// Different individuals
+			//
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+
+			// In OWL, we can say that individuals are different from
+			// each other. To do this we use a
+			// different individuals axiom. Since John, Mary, Bill and
+			// Susan are all different individuals,
+			// we can express this using a different individuals axiom.
+			OWLDifferentIndividualsAxiom diffInds = qw.factory
+					.getOWLDifferentIndividualsAxiom(john, mary, bill, susan,
+							david, kate);
+			qw.manager.addAxiom(qw.ontology, diffInds);
+			// Male and Female are also different
+			qw.manager.addAxiom(qw.ontology,
+					qw.factory.getOWLDifferentIndividualsAxiom(male, female));
+
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+			//
+			// Disjoint classes
+			//
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+
+			// Two say that two classes do not have any instances in
+			// common we use a disjoint classes
+			// axiom:
+			OWLDisjointClassesAxiom disjointClassesAxiom = qw.factory
+					.getOWLDisjointClassesAxiom(man, woman);
+			qw.manager.addAxiom(qw.ontology, disjointClassesAxiom);
+
+			// //////////////////////////////
+
+			String s = qw.sowl();
+
+			s = stat.posti(st.sh + "/w2f", "82.owl", s);
+
 		} catch (Exception e2) {
-			s=e2.toString();
+			stat.posti(st.sh + "/w2f", "82.owl", e2.toString());
 		}
-		return s;
+
 	}
-   
-   
 
 	public static void init(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -635,22 +823,21 @@ public class stat {
 		s = blobKey.toString();
 		return s.substring(10).replace(">", "");
 	}
-	
-	
 
 	public static String w2f(String sname, String s) throws IOException {
-		
-		Query query = new Query("__BlobInfo__");
-		query.setFilter(FilterOperator.EQUAL.of("filename",sname));
 
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); 
-		PreparedQuery pq = datastore.prepare(query); 
-		List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder.withLimit(10)); 
-	
-		if(!entList.isEmpty()) 		
+		Query query = new Query("__BlobInfo__");
+		query.setFilter(FilterOperator.EQUAL.of("filename", sname));
+
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		PreparedQuery pq = datastore.prepare(query);
+		List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder
+				.withLimit(10));
+
+		if (!entList.isEmpty())
 			BlobstoreFS.delete(new BlobKey(entList.get(0).getKey().getName()));
-		
-		
+
 		FileService fileService = FileServiceFactory.getFileService();
 		AppEngineFile file = fileService.createNewBlobFile("text/plain", sname);
 		boolean lock = false;
@@ -659,7 +846,7 @@ public class stat {
 		PrintWriter out = new PrintWriter(Channels.newWriter(writeChannel,
 				"UTF8"));
 		out.println(s);
-		out.close();		
+		out.close();
 		file = new AppEngineFile(file.getFullPath());
 		lock = true;
 		writeChannel = fileService.openWriteChannel(file, lock);
@@ -752,74 +939,13 @@ public class stat {
 			return;
 		}
 		if (s.equals("мир")) {
-		s = rfu_utf(sh + "/qq7");
+			s = rfu_utf(sh + "/qq7");
 			stat.page(req, resp, s);
 			return;
 		}
 
-	
-		
-		
 		stat.page(req, resp, "не знаю такой команды");
 		return;
-	}
-
-
-
-	public static void text8(String s, HttpServletRequest req,
-			HttpServletResponse resp) throws IOException {
-
-		s = prep_all(s);
-
-		String[] sss = s.split("[.]+");
-
-		for (int i = 0; i < sss.length; i++) {
-			s = sss[i].trim();
-			String[] ss = s.split("[ ]+");
-
-			
-			if (ss.length != 3) {
-				
-				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
-		
-				
-				s=" ожидал три слова здесь: " +s;
-				page(req, resp, s);
-				return;
-			} 
-			else
-			if (Character.isDigit(ss[1].charAt(0)))
-			{
-				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
-				
-				s="Отношение (-"+ss[1]+"->) в высказывании (\""+s+"\") в данной версии Феофана не может начинаться с числа";
-				page(req, resp, s);
-				return;
-			}
-				
-			else {
-				
-				///////////////////////////////////
-				// комментарий - пока добавляется мир
-				///////////////////////////////////
-				
-				stat.stop = stat.stop + "<br> <b><i> - </i></b> добавить: " + s;
-
-				
-				if (sr.indexOf(s) < 0) {
-					sr = sr + " " + s + ". ";
-
-					// sowl = get_owl(sr);
-					//sowl = get_owl7(sr);
-				}
-			}
-		}
-		
-		//sowl = get_owl8(sr);
-		sowl = get_owl81("");
-		
-		
-		stat.page(req, resp, " Новый мир: \"" + stat.sr.trim()+"\"");
 	}
 
 	public static boolean socrat(String s) {
@@ -833,9 +959,6 @@ public class stat {
 			return false;
 	}
 
-	
-	
-	
 	public static String para8(String s) {
 
 		try {
@@ -844,18 +967,11 @@ public class stat {
 			OWLOntologyManager mm = OWLManager.createOWLOntologyManager();
 			OWLDataFactory ff = mm.getOWLDataFactory();
 			String base = "http://owl.feofan.com/1#";
-			
+
 			PrefixManager pre = new DefaultPrefixManager(base);
 			OWLOntology oo = mm.createOntology(IRI.create(base));
 
-		
-			
-			
-			////////////////////////////////
-			
-			
-			
-			
+			// //////////////////////////////
 
 			// /////////////////////////
 			// Классы
@@ -988,7 +1104,7 @@ public class stat {
 			return e.toString();
 		}
 	}
-		
+
 	public static String para(String s) {
 
 		try {
@@ -1133,26 +1249,29 @@ public class stat {
 			return e.toString();
 		}
 	}
-	
+
 	public static String scrt(String s) {
 		try {
-			OWLOntologyManager начальник = OWLManager.createOWLOntologyManager();
-            OWLDataFactory работник = начальник.getOWLDataFactory();
-            String где = "http://owl.feofan.com/1#";
-            PrefixManager приставка= new DefaultPrefixManager(где);
-            OWLOntology онтология = начальник.createOntology(IRI.create(где));
-           
-            OWLClass человек = работник.getOWLClass(":человек", приставка);
-            OWLClass смертен = работник.getOWLClass(":смертен", приставка);
-            OWLNamedIndividual Сократ = работник.getOWLNamedIndividual(":Сократ", приставка);           
-           
-            OWLClassAssertionAxiom Сократ_это_человек = работник.getOWLClassAssertionAxiom(человек, Сократ);           
-            начальник.addAxiom(онтология, Сократ_это_человек);
-           
-            OWLSubClassOfAxiom человек_смертен = работник.getOWLSubClassOfAxiom(человек,смертен);       
-            начальник.addAxiom(онтология, человек_смертен);
-	
-			
+			OWLOntologyManager начальник = OWLManager
+					.createOWLOntologyManager();
+			OWLDataFactory работник = начальник.getOWLDataFactory();
+			String где = "http://owl.feofan.com/1#";
+			PrefixManager приставка = new DefaultPrefixManager(где);
+			OWLOntology онтология = начальник.createOntology(IRI.create(где));
+
+			OWLClass человек = работник.getOWLClass(":человек", приставка);
+			OWLClass смертен = работник.getOWLClass(":смертен", приставка);
+			OWLNamedIndividual Сократ = работник.getOWLNamedIndividual(
+					":Сократ", приставка);
+
+			OWLClassAssertionAxiom Сократ_это_человек = работник
+					.getOWLClassAssertionAxiom(человек, Сократ);
+			начальник.addAxiom(онтология, Сократ_это_человек);
+
+			OWLSubClassOfAxiom человек_смертен = работник
+					.getOWLSubClassOfAxiom(человек, смертен);
+			начальник.addAxiom(онтология, человек_смертен);
+
 			// /////////////////////////
 			// /////////////////////////
 			// /////////////////////////
@@ -1165,92 +1284,545 @@ public class stat {
 			return e.toString();
 		}
 	}
-	
-	
-	  public static String posti(String surl, String sname, String scontent) throws IOException {
-	       // Encode the query
-		  String postData = "f="+ URLEncoder.encode(sname, "UTF-8")+"&s=" + URLEncoder.encode(scontent, "UTF-8");
-	       
-		   URL url = new URL(surl);
-	       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-	       connection.setDoOutput(true);
-	       connection.setRequestMethod("POST");
-	       connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-	       connection.setRequestProperty("Content-Length",  String.valueOf(postData.length()));
-	        
-	       // Write data
-	       OutputStream os = connection.getOutputStream();
-	       os.write(postData.getBytes());
-	        
-	       // Read response
-	       StringBuilder responseSB = new StringBuilder();
-	       BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-	         
-	       String line;
-	       while ( (line = br.readLine()) != null)
-	           responseSB.append(line);
-	                
-	       // Close streams
-	       br.close();
-	       os.close();
-	        
-	       return responseSB.toString();
-	        
-	   }
-	  
-		
-		public static String get_is(InputStream is) throws Exception {
-			StringBuilder sb = new StringBuilder();
-			int i = 0;
-			while ((i = is.read()) != -1)
-				sb.append((char) i);
-			return sb.toString();
+
+	public static String posti(String surl, String sname, String scontent) {
+
+		try {
+			// Encode the query
+			String postData = "f=" + URLEncoder.encode(sname, "UTF-8") + "&s="
+					+ URLEncoder.encode(scontent, "UTF-8");
+
+			URL url = new URL(surl);
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			connection.setDoOutput(true);
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded");
+			connection.setRequestProperty("Content-Length",
+					String.valueOf(postData.length()));
+
+			// Write data
+			OutputStream os = connection.getOutputStream();
+			os.write(postData.getBytes());
+
+			// Read response
+			StringBuilder responseSB = new StringBuilder();
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
+
+			String line;
+			while ((line = br.readLine()) != null)
+				responseSB.append(line);
+
+			// Close streams
+			br.close();
+			os.close();
+
+			return responseSB.toString();
+		} catch (Exception e) {
+			return e.toString();
+		}
+	}
+
+	public static String get_is(InputStream is) throws Exception {
+		StringBuilder sb = new StringBuilder();
+		int i = 0;
+		while ((i = is.read()) != -1)
+			sb.append((char) i);
+		return sb.toString();
+	}
+
+	public static String rff(String s) {
+
+		try {
+
+			Query query = new Query("__BlobInfo__");
+
+			// query.addFilter("filename", FilterOperator.EQUAL, "test4");
+			query.setFilter(FilterOperator.EQUAL.of("filename", s));
+
+			// /////
+
+			DatastoreService datastore = DatastoreServiceFactory
+					.getDatastoreService();
+			PreparedQuery pq = datastore.prepare(query);
+			List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder
+					.withLimit(10));
+
+			if (entList.isEmpty())
+				return "нет такого файла";
+
+			s = entList.get(0).getKey().getName();
+
+			// ///
+
+			BlobKey blobKey = new BlobKey(s);
+			FileService fileService = FileServiceFactory.getFileService();
+			AppEngineFile file = fileService.getBlobFile(blobKey);
+			FileReadChannel readChannel = fileService.openReadChannel(file,
+					false);
+			BufferedReader reader = new BufferedReader(Channels.newReader(
+					readChannel, "UTF8"));
+
+			String thisLine = "";
+			s = "";
+			while ((thisLine = reader.readLine()) != null)
+				s = s + thisLine + " \r\n ";
+			readChannel.close();
+
+		} catch (Exception ee) {
+			s = ee.toString();
 		}
 
+		return s;
+	}
 
-		public static String rff(String s) {
+	public static boolean n(String str) {
+		for (char c : str.toCharArray()) {
+			if (!Character.isDigit(c))
+				return false;
+		}
+		return true;
+	}
 
-			try {
-	
-				
-				Query query = new Query("__BlobInfo__");
-				
+	public static void text8(String s, HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
 
-				
-				//query.addFilter("filename", FilterOperator.EQUAL, "test4"); 
-				query.setFilter(FilterOperator.EQUAL.of("filename",s));
-				
-				///////
-				
-				DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); 
-				PreparedQuery pq = datastore.prepare(query); 
-				List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder.withLimit(10)); 
-				
-				if(entList.isEmpty()) 
-					return "нет такого файла";
-				
-				s = entList.get(0).getKey().getName();
-				
-				/////
-				
-				BlobKey blobKey = new BlobKey(s);	
-				FileService fileService = FileServiceFactory.getFileService();
-				AppEngineFile file= fileService.getBlobFile(blobKey);
-				FileReadChannel readChannel = fileService.openReadChannel(file,
-						false);
-				BufferedReader reader = new BufferedReader(Channels.newReader(
-						readChannel, "UTF8"));
-				
-				 String thisLine="";
-				 s=""; 
-				 while ((thisLine = reader.readLine()) != null)
-				s = s + thisLine+" \r\n ";
-				readChannel.close();
-				
-			} catch (Exception ee) {
-				s = ee.toString();
+		s = prep_all(s);
+
+		String[] sss = s.split("[.]+");
+
+		for (int i = 0; i < sss.length; i++) {
+			s = sss[i].trim();
+			String[] ss = s.split("[ ]+");
+
+			if (ss.length != 3) {
+
+				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
+
+				s = " ожидал три слова здесь: " + s;
+				page(req, resp, s);
+				return;
+			} else if (Character.isDigit(ss[1].charAt(0))) {
+				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
+
+				s = "Отношение (-"
+						+ ss[1]
+						+ "->) в высказывании (\""
+						+ s
+						+ "\") в данной версии Феофана не может начинаться с числа";
+				page(req, resp, s);
+				return;
 			}
-			
-			return s;
+
+			else {
+
+				// /////////////////////////////////
+				// комментарий - пока добавляется мир
+				// /////////////////////////////////
+
+				stat.stop = stat.stop + "<br> <b><i> - </i></b> добавить: " + s;
+
+				if (sr.indexOf(s) < 0) {
+					sr = sr + " " + s + ". ";
+
+					// sowl = get_owl(sr);
+					// sowl = get_owl7(sr);
+				}
+			}
 		}
+
+		// ///////////////////////////////////
+
+		// get_owl82();
+		get_owl83(sr);
+
+		// ///////////////////////////////////
+
+		sowl = get_owl81(sr);
+
+		stat.page(req, resp, " Новый мир: \"" + stat.sr.trim() + "\"");
+	}
+
+	public static String get_owl83(String s) {
+		try {
+			Owl2Model qw = new Owl2Model("http://owl.feofan.com/rff?83.owl");
+
+			// OWLClass человек=st.что("человек");
+			// OWLClass дурак=st.что("дурак");
+			// OWLIndividual Вася=st.кто("Вася");
+			// st.что_что(человек, дурак);
+			// st.кто_что(Вася, дурак);
+
+			s = "John hasWife Mary. Mary hasHusband John. David hasWife Kate. "
+					+ "John hasSon Bill. John hasDaughter Susan.	John hasAge 33. "
+					+ "David hasAge 32. Kate hasAge 31. Mary hasSon Bill. "
+					+ "Mary hasDaughter Susan. Mary hasAge 31. Bill hasAge 13.	"
+					+ "Susan hasAge 8. John hasGender male. Mary hasGender female. "
+					+ "Bill hasGender male. Susan hasGender female. David hasGender male. "
+					+ "Kate hasGender female.	man - person. woman - person. parent - person.";
+
+			String[] sss = prep_all(s).split("[.]+");
+
+			for (int i = 0; i < sss.length; i++) {
+
+				String[] ss = sss[i].trim().split("[ ]+");
+
+				// /////////////////////////////////////////
+				// /////////////////////////////////////////
+				// /////////////////////////////////////////
+
+				s = "(Давным-давно это было. В некотором царстве, в некотором государстве жил-был) Феофан."
+						+ "Феофан (был) бот(ом). "
+						+ "(Как всем хорошо известно, что) бот это робот. (Ещё известно, что) бот - не человек."
+						+ "(Сейчас любой) робот понимает слово. слово состоит-из букв. Феофан это Феофаныч. люди это Петя."
+						+ "Маня не Ваня. класс. (Вопрос Феофану:)";// кто понимает то, что состоит-из
+												// букв?";
+
+				s = remove83(s);
+
+				String[] sss2 = prep_all(s).split("[.]+");
+
+				for (int i2 = 0; i2 < sss2.length; i2++) {
+					String[] ss2 = sss2[i2].trim().split("[ ]+");
+
+					if (ss2.length == 1) {
+						if (socrat(ss2[0])) {
+							qw.manager.applyChange(new AddAxiom(qw.ontology,
+									qw.factory.getOWLSameIndividualAxiom(
+											qw.getIndividual(ss2[0]),
+											qw.getIndividual(ss2[0]))));
+						} else if (!socrat(ss2[0])) {
+							qw.isSubClassOf(qw
+									.getOwlClass(ss2[0]), qw.factory.getOWLThing());
+						}
+					}
+
+					if (ss2.length == 2) {
+
+						if (socrat(ss2[0]) && !socrat(ss2[1])) {
+							qw.hasClass(qw.getIndividual(ss2[0]),
+									qw.getOwlClass(ss2[1]));
+						} else if (!socrat(ss2[0]) && !socrat(ss2[1])) {
+							qw.isSubClassOf(qw.getOwlClass(ss2[0]),
+									qw.getOwlClass(ss2[1]));
+						} else if (socrat(ss2[0]) && socrat(ss2[1])) {
+							qw.manager.applyChange(new AddAxiom(qw.ontology,
+									qw.factory.getOWLSameIndividualAxiom(
+											qw.getIndividual(ss2[0]),
+											qw.getIndividual(ss2[1]))));
+						} else if (!socrat(ss2[0]) && socrat(ss2[1])) {
+
+							qw.hasClass(qw.getIndividual(ss2[1]),
+									qw.getOwlClass(ss2[0]));
+						}
+					}
+
+					if (ss2.length == 3) {
+
+						if (socrat(ss2[0]) && socrat(ss2[2])
+								&& ss2[1].equals("не")) {
+							qw.differentIndividuals(qw.getIndividual(ss2[0]),
+									qw.getIndividual(ss2[2]));
+						}
+						if (!socrat(ss2[0]) && !socrat(ss2[2])
+								&& ss2[1].equals("не")) {
+							qw.manager.applyChange(new AddAxiom(qw.ontology,
+									qw.factory.getOWLDisjointClassesAxiom(
+											qw.getOwlClass(ss2[0]),
+											qw.getOwlClass(ss2[2]))));
+
+						}
+
+					}
+				}
+				s = qw.sowl();
+				// stat.posti(st.sh + "/w2f", "83.owl", s);
+				s = w2f("83.owl", s);
+
+				if (s.length() > -1)
+					return s;
+
+				// /////////////////////////////////////////
+				// /////////////////////////////////////////
+				// /////////////////////////////////////////
+
+				if (ss.length == 3) {
+
+					if (ss[1].equals("-")) {
+						qw.isSubClassOf(qw.getOwlClass(ss[0]),
+								qw.getOwlClass(ss[2]));
+					} else if (ss[1].equals("это")) {
+						qw.hasClass(qw.getIndividual(ss[0]),
+								qw.getOwlClass(ss[2]));
+					}
+
+					else if (socrat(ss[0]) && n(ss[2])) {
+
+						OWLDataProperty hasAge = qw.getDataProperty(ss[1]);
+						String sn = ss[2].trim();
+						int n = Integer.parseInt(sn);
+						OWLIndividual ind = qw.getIndividual(ss[0]);
+
+						qw.assertFact(hasAge, ind, n);
+
+					}
+
+					else if (socrat(ss[0]) && socrat(ss[2])) {
+
+						qw.assertFact(ss[1], ss[0], ss[2]);
+
+					}
+
+					else if (!socrat(ss[0]) && !socrat(ss[2])) {
+						// qw.assertDomainAndRange(qw.getProperty(ss[1]),
+						// qw.getOwlClass(ss[0]), qw.getOwlClass(ss[2]));
+						qw.assertFact(ss[1], ss[0], ss[2]);
+					}
+
+				}
+
+				// else if (socrat(ss[0]) && !socrat(ss[2])) {
+				// qw.hasClass(qw.getIndividual(ss[0]), qw.getOwlClass(ss[2]));
+				// qw.assertRange(qw.getProperty(ss[1]), qw.getOwlClass(ss[2]));
+				// }
+
+			}
+
+			// //////////////////////////////////
+
+			OWLIndividual john = qw.getIndividual("John");
+			OWLIndividual mary = qw.getIndividual("Mary");
+			OWLIndividual susan = qw.getIndividual("Susan");
+			OWLIndividual bill = qw.getIndividual("Bill");
+			OWLIndividual david = qw.getIndividual("David");
+			OWLIndividual kate = qw.getIndividual("Kate");
+			OWLDataProperty hasAge = qw.getDataProperty("hasAge");
+			OWLObjectProperty hasSon = qw.getProperty("hasSon");
+			OWLObjectProperty hasDaughter = qw.getProperty("hasDaughter");
+			OWLObjectProperty hasWife = qw.getProperty("hasWife");
+			OWLObjectProperty hasHusband = qw.getProperty("hasHusband");
+			OWLObjectProperty hasChild = qw.getProperty("hasChild");
+			OWLIndividual male = qw.getIndividual("male");
+			OWLIndividual female = qw.getIndividual("female");
+			OWLObjectProperty hasGender = qw.getProperty("hasGender");
+			OWLClass man = qw.getOwlClass("man");
+			OWLClass woman = qw.getOwlClass("woman");
+			// OWLClass parent = qw.getOwlClass("parent");
+			OWLClass person = qw.getOwlClass("person");
+
+			qw.assertDomain(hasWife, person);
+			qw.assertRange(hasWife, person);
+			qw.assertDomain(hasSon, person);
+			qw.assertRange(hasSon, person);
+			qw.assertDomain(hasDaughter, person);
+			qw.assertRange(hasDaughter, person);
+			qw.assertDataDomain(hasAge, person);
+			qw.assertRangeAsInteger(hasAge);
+			qw.hasClass(david, person);
+			qw.hasClass(bill, person);
+			qw.hasClass(kate, person);
+			qw.hasClass(mary, person);
+			qw.hasClass(susan, person);
+			qw.hasClass(john, person);
+			qw.inverseProperties(hasWife, hasHusband);
+			qw.subPropertyOf(hasSon, hasChild);
+			qw.subPropertyOf(hasDaughter, hasChild);
+			qw.isFunctional(hasAge);
+			qw.isFunctional(hasWife);
+			qw.isIrreflexive(hasWife);
+			qw.isInverseFunctional(hasWife);
+			qw.isAsymmetric(hasWife);
+
+			OWLDataProperty hasGender2 = qw.getDataProperty("hasGender2");
+			OWLClassExpression hasAgeRestriction = qw.exactCardinality(hasAge,
+					1);
+			OWLClassExpression hasGenderRestriction = qw.exactCardinality(
+					hasGender2, 1);
+			OWLObjectOneOf maleOrFemale = qw.factory.getOWLObjectOneOf(male,
+					female);
+			OWLObjectAllValuesFrom hasGenderOnlyMaleFemale = qw.factory
+					.getOWLObjectAllValuesFrom(hasGender, maleOrFemale);
+
+			// Finally, we bundle these restrictions up into an
+			// intersection, since we want person
+			// to be a subclass of the intersection of them
+			OWLObjectIntersectionOf intersection = qw.factory
+					.getOWLObjectIntersectionOf(hasAgeRestriction,
+							hasGenderRestriction, hasGenderOnlyMaleFemale);
+			// And now we set this anonymous intersection class to be a
+			// superclass of Person using a subclass axiom
+			qw.manager.addAxiom(qw.ontology,
+					qw.factory.getOWLSubClassOfAxiom(person, intersection));
+
+			// Restrictions and other anonymous classes can also be used
+			// anywhere a named class can be used.
+			// Let's set the range of hasSon to be Person and hasGender
+			// value male. This requires an anonymous
+			// class that is the intersection of Person, and also, hasGender
+			// value male. We need to create
+			// the hasGender value male restriction - this describes the
+			// class of things that have a hasGender
+			// relationship to the individual male.
+			OWLObjectHasValue hasGenderValueMaleRestriction = qw.factory
+					.getOWLObjectHasValue(hasGender, male);
+			// Now combine this with Person in an intersection
+			OWLClassExpression personAndHasGenderValueMale = qw.factory
+					.getOWLObjectIntersectionOf(person,
+							hasGenderValueMaleRestriction);
+			// Now specify this anonymous class as the range of hasSon using
+			// an object property range axioms
+			qw.manager.addAxiom(qw.ontology, qw.factory
+					.getOWLObjectPropertyRangeAxiom(hasSon,
+							personAndHasGenderValueMale));
+
+			// We can do a similar thing for hasDaughter, by specifying that
+			// hasDaughter has a range
+			// of Person and hasGender value female. This time, we will make
+			// things a little more compact by
+			// not using so many variables
+
+			OWLClassExpression rangeOfHasDaughter = qw.factory
+					.getOWLObjectIntersectionOf(person,
+							qw.factory.getOWLObjectHasValue(hasGender, female));
+			qw.manager.addAxiom(qw.ontology, qw.factory
+					.getOWLObjectPropertyRangeAxiom(hasDaughter,
+							rangeOfHasDaughter));
+
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+			//
+			// Data Ranges and Equivalent Classes axioms
+			//
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+
+			// In OWL 2, we can specify expressive data ranges. Here, we
+			// will specify the classes
+			// Teenage, Adult and Child by saying something about
+			// individuals ages.
+
+			// First we take the class Teenager, all of whose instance have
+			// an age greater or equal to
+			// 13 and less than 20. In Manchester Syntax this is written as
+			// Person and hasAge some int[>=13, <20]
+			// We create a data range by taking the integer datatype and
+			// applying facet restrictions to it.
+			// Note that we have statically imported the data range facet
+			// vocabulary OWLFacet
+			OWLFacetRestriction geq13 = qw.factory.getOWLFacetRestriction(
+					MIN_INCLUSIVE, 12);
+			// We don't have to explicitly create the typed constant, there
+			// are convenience methods to do this
+			OWLFacetRestriction lt20 = qw.factory.getOWLFacetRestriction(
+					MAX_EXCLUSIVE, 25);
+			// Restrict the base type, integer (which is just an XML Schema
+			// Datatype) with the facet
+			// restrictions.
+			OWLFacetRestriction lt30 = qw.factory.getOWLFacetRestriction(
+					MAX_EXCLUSIVE, 30);
+
+			OWLClass teenager = qw.factory.getOWLClass(IRI
+					.create(qw.ontologyIRI + "#Teenager"));
+
+			OWLClass adult = qw.factory.getOWLClass(IRI.create(qw.ontologyIRI
+					+ "#Adult"));
+
+			// And finally Child
+			OWLClass child = qw.factory.getOWLClass(IRI.create(qw.ontologyIRI
+					+ "#Child"));
+
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+			//
+			// Different individuals
+			//
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+
+			// In OWL, we can say that individuals are different from each
+			// other. To do this we use a
+			// different individuals axiom. Since John, Mary, Bill and Susan
+			// are all different individuals,
+			// we can express this using a different individuals axiom.
+			OWLDifferentIndividualsAxiom diffInds = qw.factory
+					.getOWLDifferentIndividualsAxiom(john, mary, bill, susan,
+							david, kate);
+			qw.manager.addAxiom(qw.ontology, diffInds);
+			// Male and Female are also different
+			qw.manager.addAxiom(qw.ontology,
+					qw.factory.getOWLDifferentIndividualsAxiom(male, female));
+
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+			//
+			// Disjoint classes
+			//
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+
+			// Two say that two classes do not have any instances in common
+			// we use a disjoint classes
+			// axiom:
+			OWLDisjointClassesAxiom disjointClassesAxiom = qw.factory
+					.getOWLDisjointClassesAxiom(man, woman);
+			qw.manager.addAxiom(qw.ontology, disjointClassesAxiom);
+
+			OWLDatatype integerDatatype = qw.factory.getIntegerOWLDatatype();
+			OWLDataRange dataRng = qw.factory.getOWLDatatypeRestriction(
+					integerDatatype, geq13, lt20);
+			OWLDataRange dataRng2 = qw.factory.getOWLDatatypeRestriction(
+					integerDatatype, geq13, lt30);
+			// Now we have the data range of greater than equal to 13 and
+			// less than 20 we can use this in a
+			// restriction.
+			OWLDataSomeValuesFrom teenagerAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, dataRng);
+			OWLDataSomeValuesFrom lessThanThirtyAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, dataRng2);
+			// Now make Teenager equivalent to Person and hasAge some
+			// int[>=13, <20]
+			// First create the class Person and hasAge some int[>=13, <20]
+			OWLClassExpression teenagePerson = qw.factory
+					.getOWLObjectIntersectionOf(person, teenagerAgeRestriction);
+			// Do the same for Adult that has an age greater than 21
+			OWLDataRange geq21 = qw.factory.getOWLDatatypeRestriction(
+					integerDatatype,
+					qw.factory.getOWLFacetRestriction(MIN_INCLUSIVE, 21));
+			OWLEquivalentClassesAxiom teenagerDefinition = qw.factory
+					.getOWLEquivalentClassesAxiom(teenager, teenagePerson);
+			qw.manager.addAxiom(qw.ontology, teenagerDefinition);
+			OWLClassExpression adultAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, geq21);
+			OWLClassExpression adultPerson = qw.factory
+					.getOWLObjectIntersectionOf(person, adultAgeRestriction);
+			OWLAxiom adultDefinition = qw.factory.getOWLEquivalentClassesAxiom(
+					adult, adultPerson);
+			qw.manager.addAxiom(qw.ontology, adultDefinition);
+			OWLDataRange notGeq21 = qw.factory.getOWLDataComplementOf(geq21);
+			OWLClassExpression childAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, notGeq21);
+			OWLClassExpression childPerson = qw.factory
+					.getOWLObjectIntersectionOf(person, childAgeRestriction);
+			OWLAxiom childDefinition = qw.factory.getOWLEquivalentClassesAxiom(
+					child, childPerson);
+			qw.manager.addAxiom(qw.ontology, childDefinition);
+
+			// //////////////////////////////////
+			s = qw.sowl();
+
+			stat.posti(st.sh + "/w2f", "83.owl", s);
+
+		} catch (Exception e2) {
+			stat.posti(st.sh + "/w2f", "83.owl", e2.toString());
+		}
+		return s;
+	}
+
+	public static String remove83(String s) {
+
+		while (s.indexOf("(") > -1 && s.indexOf(")") > -1
+				&& s.indexOf(")") > s.indexOf("("))
+			s = s.replace(s.substring(s.indexOf("("), s.indexOf(")") + 1), "");
+
+		s = s.replace("-", "");
+		s = s.replace("это", "");
+
+		return s;
+	}
 }

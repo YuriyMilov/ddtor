@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.*;
+
 import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
 
@@ -57,10 +58,10 @@ public class Owl2Model {
         Owl2Model owl2model= new Owl2Model();
         owl2model.test();
     }
-    private OWLOntologyManager manager;
-    private IRI ontologyIRI;
-    private OWLOntology ontology;
-    private OWLDataFactory factory;
+    public OWLOntologyManager manager;
+    public IRI ontologyIRI;
+    public OWLOntology ontology;
+    public OWLDataFactory factory;
     public OWLDataFactory getDataFactory()
     {
         return factory;
@@ -616,4 +617,5 @@ public class Owl2Model {
         }       
         return s;  
     }
+    
 }

@@ -51,7 +51,7 @@ public class rff extends HttpServlet {
 			s = stat.rff(s);
 	
 		resp.setCharacterEncoding("UTF8");
-		resp.setContentType("text/html");
+		resp.setContentType("text/plain");
 		PrintWriter out = resp.getWriter();
 		out.write(s);
 		out.flush();
