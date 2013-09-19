@@ -260,6 +260,13 @@ public class Owl2Model {
          manager.applyChange(an_axiom_to_add);
          return;        
     }
+    public void isSymmetric(OWLObjectProperty property)
+    {
+         OWLSymmetricObjectPropertyAxiom myaxiom = factory.getOWLSymmetricObjectPropertyAxiom(property);
+         AddAxiom an_axiom_to_add = new AddAxiom(ontology, myaxiom);
+         manager.applyChange(an_axiom_to_add);
+         return;        
+    }
     public void isFunctional(OWLObjectProperty property)
     {
         OWLFunctionalObjectPropertyAxiom myaxiom = factory.getOWLFunctionalObjectPropertyAxiom(property);
@@ -618,4 +625,41 @@ public class Owl2Model {
         return s;  
     }
     
+	 public void любит_в_точности_N_Сократов(OWLClassExpression человек,
+			OWLObjectPropertyExpression любит, int N, OWLIndividual Сократ) {
+
+		OWLObjectOneOf сократ = factory.getOWLObjectOneOf(Сократ);
+
+		OWLObjectExactCardinality человек_любит_в_точности_N = factory
+				.getOWLObjectExactCardinality(N, любит, человек);
+		
+		OWLObjectIntersectionOf ии = factory.getOWLObjectIntersectionOf(сократ,человек,
+				человек_любит_в_точности_N);
+
+		OWLClassAxiom аксиома = factory.getOWLEquivalentClassesAxiom(человек,ии);
+		manager.addAxiom(ontology, аксиома);
+
+	}
+	 
+		public void класс_Платон_или_Сократ(OWLClassExpression класс, OWLIndividual Сократ, OWLIndividual Платон) {
+			OWLObjectOneOf сократы = factory.getOWLObjectOneOf(Сократ,Платон);
+			OWLClassAxiom аксиома = factory.getOWLEquivalentClassesAxiom(класс,сократы);
+			manager.addAxiom(ontology, аксиома);
+
+		}
+		
+		public void учитель_учит_N_учеников(OWLClassExpression учитель,
+				OWLObjectPropertyExpression учит, int N, OWLClassExpression ученик) {
+
+		
+			OWLObjectExactCardinality учит_N_учеников = factory
+					.getOWLObjectExactCardinality(N, учит, ученик);
+			
+			//OWLObjectIntersectionOf ии = factory.getOWLObjectIntersectionOf(учит_N);
+
+			OWLClassAxiom аксиома = factory.getOWLEquivalentClassesAxiom(учитель,учит_N_учеников);
+				
+			manager.addAxiom(ontology, аксиома);
+
+		}
 }

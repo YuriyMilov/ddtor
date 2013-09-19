@@ -12,6 +12,7 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -49,17 +50,32 @@ import com.google.appengine.api.files.FileService;
 import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 import com.google.gwt.core.client.EntryPoint;
+import com.hp.hpl.jena.graph.Graph;
+import com.hp.hpl.jena.graph.query.QueryHandler;
+import com.hp.hpl.jena.ontology.Individual;
+import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.ResIterator;
+import com.hp.hpl.jena.rdf.model.SimpleSelector;
+import com.hp.hpl.jena.rdf.model.Statement;
+
+import com.hp.hpl.jena.reasoner.InfGraph;
+import com.hp.hpl.jena.reasoner.ValidityReport;
+import com.hp.hpl.jena.reasoner.ValidityReport.Report;
+import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -81,8 +97,15 @@ public class qq extends HttpServlet implements EntryPoint {
 			doPost(req, resp);
 	}
 
+
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
+		
+	
+
+		
+		/////////////////////
+		
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
 
@@ -117,7 +140,9 @@ public class qq extends HttpServlet implements EntryPoint {
 		// /////////////////////////////
 
 		if (s.indexOf("?") != s.length() - 1) {
-			stat.text8(s, req, resp);
+			
+	
+			stat.text83(s, req, resp);
 			return;
 		} else {
 
@@ -132,11 +157,43 @@ public class qq extends HttpServlet implements EntryPoint {
 			boolean bb = s5.indexOf("Кто ") == 0 || s5.indexOf("кто ") == 0
 					|| s5.indexOf("Что ") == 0 || s5.indexOf("что ") == 0;
 			if (bb) {
+				
+					/*
+						  
+				InfGraph graph = mm.getReasoner().bind(mm.getGraph());
+				
+				  InfModel im = ModelFactory.createInfModel(graph);
+				 
+				  //<owl:onProperty rdf:resource="http://owl.feofan.com/rff?83.owl#любит"/> 				  
+				  //ResIterator rit = im.listSubjectsWithProperty(im.getProperty("любит"));				
+				 // bb= rit.hasNext();
+				  
+				  
+	                List<Statement> sts = im.listStatements().toList();
+	               s=s +"\r\n<br>"+"\r\n<br>";
+	                for(Statement st : sts) {
+	                	String ss = st.toString();
+	                	// if(ss.indexOf("любит")>-1 ) 
+		                {
+	                		 ss=ss.replace("http://owl.feofan.com/rff?83.owl#","");
+	                		 if(ss.indexOf("http")<0 ) {  
+	                			 
+                        	s=s+ss+"\r\n<br>";
+	                		 }
+                       }
+                }
+			*/
+	
+		
+				stat.stop = stat.stop + "<br> <b><i> - "+ s5 + "</i></b>";
+				
 
 				s5 = s5.replace("Кто ", "").replace("кто ", "")
 						.replace("Что ", "").replace("что ", "")
 						.replace("?", "").trim();
-
+				String[] ss = s5.split("[ ]+");
+				int i5 = ss.length;
+				
 				if (s5.indexOf(" ") == -1) {
 					// stat.sowl = stat.get_owl(stat.sr);
 					// s = wf("test.owl", stat.sowl);
@@ -146,7 +203,7 @@ public class qq extends HttpServlet implements EntryPoint {
 					String body = "p1=" + URLEncoder.encode(sowl, "UTF-8")
 							+ "&p2=" + URLEncoder.encode(s5, "UTF-8");
 
-					stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
+					//stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
 
 					s = stat.get_post(surl, body);
 
@@ -160,9 +217,38 @@ public class qq extends HttpServlet implements EntryPoint {
 				//
 				// ///////////////////////////////////////////
 
-				if (s5.indexOf(" ") > -1) {
+				
+			
+				
+				if(i5==2)
+				{
+					
+			
+					OntModel mm = ModelFactory
+							.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+					
+					mm.read(sh+"/owl");
+					
+					s = stat.spref 
+							//+"SELECT ?кто  WHERE {?кто qq:любит qq:Миша}";
+							//+"SELECT ?кто  WHERE {qq:Маша qq:любит ?кто}";
+							+"SELECT ?кто  WHERE {?кто qq:"+ss[0]+" qq:"+ss[1]+"}";
+					
+					
+					Query qq = QueryFactory.create(s);
+					ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
+					s="";
+					while(r.hasNext())
+					s=s+r.next().toString();
+					
+					s=s.replace("( ?кто = <http://owl.feofan.com/rff?83.owl#","").replace("> ) -> [Root]", "");
+					
+					stat.page(req, resp, s);
+					return;
+				}
+				if (i5>2) {
 
-					String[] ss = s5.split("[ ]+");
+	
 					if (ss.length == 2) {
 						
 						try {

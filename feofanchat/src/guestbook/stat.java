@@ -18,6 +18,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -101,19 +103,21 @@ import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 
 public class stat {
-	public static String sqq7 = "";
+	public static String sqq7 = "", sufix="";;
 
 	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
 	public static String skon = "<form  action=qq method=post>"
 			+ "<br><input type=text id=id name=p2 size=82>"
 			+
 			// "&nbsp;&nbsp; <a href=qq?p2=owl.txt>txt</a>" +
-			" <br><br>&nbsp;<a href=qq>чист</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a> &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"
-			+ // &nbsp;&nbsp; <a href>сохранить мир</a>" +
-			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a>  &nbsp;&nbsp; <a href=owl>owl</a> &nbsp;&nbsp; <a href=qq?p2=мир>мир</a>  &nbsp;&nbsp; <a href=/donate.htm>Феофану на пропитание</a> "
+			" <br><br>&nbsp;<a href=qq>чист</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a>" +
+			//" &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"+
+			 // &nbsp;&nbsp; <a href>сохранить мир</a>" +
+			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что тут есть?</a>  &nbsp;&nbsp; <a href=owl>owl</a> &nbsp;&nbsp; <a href=qq?p2=мир>мир</a>  &nbsp;&nbsp; <a href=/donate.htm>Феофану на пропитание</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
-	public static String siri = "http://owl.feofan.com/1#";
+	//public static String siri = "http://owl.feofan.com/1#";
+	public static String siri = "http://owl.feofan.com/rff?83.owl#";
 
 	public static String spref = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
 			+ "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
@@ -1386,9 +1390,12 @@ public class stat {
 		return true;
 	}
 
-	public static void text8(String s, HttpServletRequest req,
+	public static void text8_old(String s, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-
+		
+	
+		
+	
 		s = prep_all(s);
 
 		String[] sss = s.split("[.]+");
@@ -1397,14 +1404,19 @@ public class stat {
 			s = sss[i].trim();
 			String[] ss = s.split("[ ]+");
 
-			if (ss.length != 3) {
+			
+			if (ss.length > 4) {
 
 				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
 
-				s = " ожидал три слова здесь: " + s;
+				s = "это предложение пока слишком длинное для меня: " + s;
 				page(req, resp, s);
 				return;
-			} else if (Character.isDigit(ss[1].charAt(0))) {
+				
+			} 
+				
+			
+			if (Character.isDigit(ss[1].charAt(0))) {
 				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
 
 				s = "Отношение (-"
@@ -1436,58 +1448,86 @@ public class stat {
 		// ///////////////////////////////////
 
 		// get_owl82();
-		get_owl83(sr);
+		sowl = get_owl83(sr);
 
 		// ///////////////////////////////////
 
-		sowl = get_owl81(sr);
+		//sowl = get_owl81(sr);
 
 		stat.page(req, resp, " Новый мир: \"" + stat.sr.trim() + "\"");
+	}
+
+	public static void text83(String s, HttpServletRequest req,
+			HttpServletResponse resp) throws IOException {
+
+	stat.stop = stat.stop + "<br> <b><i> - </i></b> добавить: " + s;
+
+
+		//sr = sr + " " + s + ". ";
+	sr = " " + s;
+	
+		String sok = get_owl83(s);
+		//sowl = get_owl83(s);
+		
+		
+		stat.page(req, resp, sok+" Новый мир: \"" + stat.sr.trim() + "\"");
+	
 	}
 
 	public static String get_owl83(String s) {
 		try {
 			Owl2Model qw = new Owl2Model("http://owl.feofan.com/rff?83.owl");
 
-			// OWLClass человек=st.что("человек");
-			// OWLClass дурак=st.что("дурак");
-			// OWLIndividual Вася=st.кто("Вася");
-			// st.что_что(человек, дурак);
-			// st.кто_что(Вася, дурак);
-
-			s = "John hasWife Mary. Mary hasHusband John. David hasWife Kate. "
-					+ "John hasSon Bill. John hasDaughter Susan.	John hasAge 33. "
-					+ "David hasAge 32. Kate hasAge 31. Mary hasSon Bill. "
-					+ "Mary hasDaughter Susan. Mary hasAge 31. Bill hasAge 13.	"
-					+ "Susan hasAge 8. John hasGender male. Mary hasGender female. "
-					+ "Bill hasGender male. Susan hasGender female. David hasGender male. "
-					+ "Kate hasGender female.	man - person. woman - person. parent - person.";
-
-			String[] sss = prep_all(s).split("[.]+");
-
-			for (int i = 0; i < sss.length; i++) {
-
-				String[] ss = sss[i].trim().split("[ ]+");
-
-				// /////////////////////////////////////////
-				// /////////////////////////////////////////
-				// /////////////////////////////////////////
-
-				s = "(Давным-давно это было. В некотором царстве, в некотором государстве жил-был) Феофан."
-						+ "Феофан (был) бот(ом). "
-						+ "(Как всем хорошо известно, что) бот это робот. (Ещё известно, что) бот - не человек."
-						+ "(Сейчас любой) робот понимает слово. слово состоит-из букв. Феофан это Феофаныч. люди это Петя."
-						+ "Маня не Ваня. класс. (Вопрос Феофану:)";// кто понимает то, что состоит-из
-												// букв?";
-
+				s=prep_all(s);
 				s = remove83(s);
+				
+				String[] sss = prep_all(s).split("[.]+");
 
-				String[] sss2 = prep_all(s).split("[.]+");
+				for (int i = 0; i < sss.length; i++) {
+
+					String[] ss = sss[i].trim().split("[ ]+");
+				
+				String[] sss2 = s.split("[.]+");
+				
+				
+				// проверка свойств на симметричность и т.п.
+				
+				for (int i4 = 0; i4 < sss2.length; i4++) {
+					String[] ss4= sss2[i4].trim().split("[ ]+");
+					
+					if (ss4[0].toLowerCase().equals("если")) {
+						
+						/////////////
+						s=s.replace(sss2[i4], "").trim();
+						if(s.indexOf(".")==0)
+							s=s.substring(1).trim();
+						
+						sufix="/сим";
+						
+						s=s.replace(ss4[2], ss4[2]+sufix);
+						//////////////
+						 
+					}
+					
+				}
+				sss2 = s.split("[.]+");	
+				///////////////////////////////
+					
+				
 
 				for (int i2 = 0; i2 < sss2.length; i2++) {
 					String[] ss2 = sss2[i2].trim().split("[ ]+");
+					
+					
+	
+					
 
-					if (ss2.length == 1) {
+					if (ss2.length == 4) {	
+							qw.учитель_учит_N_учеников(qw.getOwlClass(ss2[0]), qw.getProperty(ss2[1].replace(sufix,"")), Integer.parseInt(ss2[2]), qw.getOwlClass(ss2[3]));
+							
+					}
+							
+					if (ss2.length == 1) {	
 						if (socrat(ss2[0])) {
 							qw.manager.applyChange(new AddAxiom(qw.ontology,
 									qw.factory.getOWLSameIndividualAxiom(
@@ -1501,6 +1541,26 @@ public class stat {
 
 					if (ss2.length == 2) {
 
+						
+						if (socrat(ss2[0]) && ss2[0].indexOf("_")>-1 && !socrat(ss2[1]))
+							
+						{
+							String sss3=ss2[0].replace("_", " ");
+							String[] ss3 = sss3.split("[ ]+");
+							
+							
+							Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+							for (int i3 = 0; i3 < ss3.length; i3++)							
+								inds.add(qw.getIndividual(ss3[i3]));
+							
+							OWLClassAxiom аксиома = qw.factory.getOWLEquivalentClassesAxiom(qw.getOwlClass(ss2[1]),qw.factory.getOWLObjectOneOf(inds));
+							qw.manager.addAxiom(qw.ontology, аксиома);
+
+							qw.manager.addAxiom(qw.ontology, qw.factory.getOWLDifferentIndividualsAxiom(inds));
+						}
+						
+						else
+						
 						if (socrat(ss2[0]) && !socrat(ss2[1])) {
 							qw.hasClass(qw.getIndividual(ss2[0]),
 									qw.getOwlClass(ss2[1]));
@@ -1521,11 +1581,20 @@ public class stat {
 
 					if (ss2.length == 3) {
 
+						 if(ss2[1].indexOf("/сим")>-1)
+						 { 
+							// ss2[1]=ss2[1].replace("/сим","");
+							 qw.isSymmetric(qw.getProperty(ss2[1].replace(sufix,"")));							 
+						 
+						 }
+						 
+						 
 						if (socrat(ss2[0]) && socrat(ss2[2])
 								&& ss2[1].equals("не")) {
 							qw.differentIndividuals(qw.getIndividual(ss2[0]),
 									qw.getIndividual(ss2[2]));
 						}
+						else
 						if (!socrat(ss2[0]) && !socrat(ss2[2])
 								&& ss2[1].equals("не")) {
 							qw.manager.applyChange(new AddAxiom(qw.ontology,
@@ -1534,16 +1603,54 @@ public class stat {
 											qw.getOwlClass(ss2[2]))));
 
 						}
+						else
+						if (socrat(ss2[0]) && n(ss2[2])) {
+
+							OWLDataProperty hasAge = qw.getDataProperty(ss2[1].replace(sufix,""));
+							String sn = ss2[2].trim();
+							int n = Integer.parseInt(sn);
+							OWLIndividual ind = qw.getIndividual(ss2[0]);
+
+							qw.assertFact(hasAge, ind, n);
+
+						}
+						else
+
+						if (socrat(ss2[0]) && socrat(ss2[2])) {
+
+							qw.assertFact(ss2[1].replace(sufix,""), ss2[0], ss2[2]);
+						
+						}
+						else
+						if (!socrat(ss2[0]) && !socrat(ss2[2])) {
+							 qw.assertDomainAndRange(qw.getProperty(ss2[1].replace(sufix,"")),
+							 qw.getOwlClass(ss2[0]), qw.getOwlClass(ss2[2]));	
+						}
 
 					}
 				}
-				s = qw.sowl();
+				sowl = qw.sowl();
 				// stat.posti(st.sh + "/w2f", "83.owl", s);
-				s = w2f("83.owl", s);
+				s = w2f("83.owl", sowl);
+				
+				
+				
 
 				if (s.length() > -1)
 					return s;
 
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				// /////////////////////////////////////////
 				// /////////////////////////////////////////
 				// /////////////////////////////////////////
@@ -1820,9 +1927,9 @@ public class stat {
 				&& s.indexOf(")") > s.indexOf("("))
 			s = s.replace(s.substring(s.indexOf("("), s.indexOf(")") + 1), "");
 
-		s = s.replace("-", "");
-		s = s.replace("это", "");
+		s = s.replace("-", "").replace("это", "").replace(" и ", "_");
 
-		return s;
+		
+		return s.trim();
 	}
 }
