@@ -81,15 +81,15 @@ public class mh extends HttpServlet {
 			spre=spre.replace("\r\n", "<br>");
 			
 			sbody = spre + get_html(", "+stxt.substring(stxt.indexOf("Orders")),
-							rfu_utf(sh + "/1.htm"));
+							rfu_utf(sh + "/2.htm"));
 			//send_admin("UFOS Daily Activity - POST method", sbody, stxt);
 			
 			//if (s4.equals("admins"))
 			//	send_admin(subject, sbody, stxt);
 			//else
-				send_mail(sadr, subject, sbody, stxt);
+				send_mail(sadr, subject+" ..", sbody, stxt);
 
-			//send_admin(subject, sbody, stxt);
+			send_admin(subject, sbody, stxt);
 			
 		} catch (Exception e) {
 				s = e.toString();
@@ -277,6 +277,10 @@ public class mh extends HttpServlet {
 		// msg.setText(body);
 
 		// msg.setText("<b>UFOS</b> <i>Daily Activity Report</i> attached");
+		
+		body= "The test on admins: " + body;
+		
+		
 		msg.setText(body);
 
 		Multipart mp = new MimeMultipart();
@@ -410,7 +414,9 @@ public class mh extends HttpServlet {
 
 		s = stemp;
 		while (i < k) {
-
+		//	if(i==121)
+		//		System.out.println(i + " 111111111  " + ss[i]);
+			
 			if (!(i < 8 || (i > 11 && i < 14) || (i > 17 && i < 21)
 					|| (i > 24 && i < 29) || (i == 33) || (i == 38)
 					|| (i == 43) || (i == 48) || (i == 53) || (i == 58)
@@ -419,15 +425,18 @@ public class mh extends HttpServlet {
 					|| (i == 91) || (i == 92) || (i == 93) || (i == 94)
 					|| (i == 95) || (i == 100) || (i == 105) || (i == 110)
 					|| (i == 115) || (i == 120) || (i == 125) || (i == 126) || (i == 127))) {
-				sa = "<td>" + String.valueOf(i) + "</td>";
+				sa = "<td><!-- " + String.valueOf(i) + " --></td>";
+				if(i==121)
+					System.out.println(i + " 222222222  " + ss[i]);
+				
 				s = s.replace(sa, "<td> " + ss[i] + " </td>");
-				// System.out.println(i + "   " + ss[i]);
+				 // System.out.println(i + "   " + ss[i]);
 			}
 			i++;
 		}
 		// System.out.println(s);
 		
-		if (s.indexOf("Currency: </td><td>128</td>")>-1)		
+		if (s.indexOf("Currency: </td><td><!-- 128 --></td>")>-1)		
 			s=s.substring(0,s.indexOf("<td>______________________</td>"))+"<td>______________________</td></tr></table>";
 		
 		return s;
