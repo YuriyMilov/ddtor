@@ -1,89 +1,19 @@
 package guestbook;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.nio.channels.Channels;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.mindswap.pellet.jena.PelletReasonerFactory;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-
 import com.clarkparsia.pellet.sparqldl.jena.SparqlDLExecutionFactory;
-import com.google.appengine.api.blobstore.BlobInfo;
-import com.google.appengine.api.blobstore.BlobInfoFactory;
-import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.files.AppEngineFile;
-import com.google.appengine.api.files.FileService;
-import com.google.appengine.api.files.FileServiceFactory;
-import com.google.appengine.api.files.FileWriteChannel;
 import com.google.gwt.core.client.EntryPoint;
-import com.hp.hpl.jena.graph.Graph;
-import com.hp.hpl.jena.graph.query.QueryHandler;
-import com.hp.hpl.jena.ontology.Individual;
-import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.ResIterator;
-import com.hp.hpl.jena.rdf.model.SimpleSelector;
-import com.hp.hpl.jena.rdf.model.Statement;
-
-import com.hp.hpl.jena.reasoner.InfGraph;
-import com.hp.hpl.jena.reasoner.ValidityReport;
-import com.hp.hpl.jena.reasoner.ValidityReport.Report;
-import com.hp.hpl.jena.util.iterator.ExtendedIterator;
-
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
-
 import para.st;
 
 public class qq extends HttpServlet implements EntryPoint {
@@ -91,10 +21,39 @@ public class qq extends HttpServlet implements EntryPoint {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		
+		st.sh=sh;
+		/*
 		if (req.getQueryString() == null)
 			stat.init(req, resp);
 		else if (req.getQueryString().indexOf("p2=") > -1)
 			doPost(req, resp);
+			
+*/		
+	
+String ss="Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x любит y, то y любит x. Феофан любит Синеглазка. малыш любит 1 малышка. малышка любит 1 малыш. Пончик любит Синеглазка. Кого любит Кнопочка?";
+	ss="человек смертен. Сократ - человек. Кто Сократ?";
+String s1 = ss.trim();
+String s="", s2 ="", s3 ="", s4 ="", s5 =""; 
+
+int i3 = ss.indexOf("?");
+if (i3 > 0) {
+	s4 = ss.substring(0, i3 + 1);
+	i3 = ss.lastIndexOf(".");
+
+	if (i3 > 0) {
+		s5 = ss.substring(0, i3 + 1).trim();
+		s4 = s4.substring(i3 + 1).trim();
+	}
+
+	s3 = stat.get_owl83(s5);
+	ss = s1 + "\r\n------\r\n" + get_ans(sh,s4);
+}
+stat.page(req, resp, ss);
+
+
 	}
 
 
@@ -141,8 +100,12 @@ public class qq extends HttpServlet implements EntryPoint {
 
 		if (s.indexOf("?") != s.length() - 1) {
 			
-	
-			stat.text83(s, req, resp);
+			stat.sr=stat.sr+" "+s+".";
+			if(stat.sr.trim().equals(""))
+				stat.w2f("83.owl",stat.sr);
+			
+			stat.text83(stat.sr, req, resp);
+			
 			return;
 		} else {
 
@@ -152,10 +115,22 @@ public class qq extends HttpServlet implements EntryPoint {
 			//
 			// /////////////////////////////
 
+			
+			//if(stat.sr.trim().equals(""))
+			//	stat.sr=stat.rff("83.owl");
+			
+			
 			String s5 = s;
+			s5=s5.replace("?", "");
+			String[] ss = s5.split("[ ]+");
+			int i5 = ss.length;
+			
+			
 			String s6 = s;
-			boolean bb = s5.indexOf("Кто ") == 0 || s5.indexOf("кто ") == 0
-					|| s5.indexOf("Что ") == 0 || s5.indexOf("что ") == 0;
+
+			boolean bb = ss[0].toLowerCase().equals("кто") || ss[0].toLowerCase().equals("что") || ss[0].toLowerCase().equals("кого");
+					
+					
 			if (bb) {
 				
 					/*
@@ -185,23 +160,22 @@ public class qq extends HttpServlet implements EntryPoint {
 			*/
 	
 		
-				stat.stop = stat.stop + "<br> <b><i> - "+ s5 + "</i></b>";
+				stat.stop = stat.stop + "<br> <b><i> - "+ s5 + "?</i></b>";
 				
 
-				s5 = s5.replace("Кто ", "").replace("кто ", "")
-						.replace("Что ", "").replace("что ", "")
-						.replace("?", "").trim();
-				String[] ss = s5.split("[ ]+");
-				int i5 = ss.length;
+				//s5 = s5.replace("Кто ", "").replace("кто ", "")
+				//		.replace("Что ", "").replace("что ", "")
+				//		.replace("?", "").trim();
+		
 				
-				if (s5.indexOf(" ") == -1) {
+				if (ss.length==2) {
 					// stat.sowl = stat.get_owl(stat.sr);
 					// s = wf("test.owl", stat.sowl);
 
 					String surl = sh + "/qq5";
 					String sowl = sh + "/qqr";
 					String body = "p1=" + URLEncoder.encode(sowl, "UTF-8")
-							+ "&p2=" + URLEncoder.encode(s5, "UTF-8");
+							+ "&p2=" + URLEncoder.encode(ss[1], "UTF-8");
 
 					//stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
 
@@ -220,7 +194,7 @@ public class qq extends HttpServlet implements EntryPoint {
 				
 			
 				
-				if(i5==2)
+				if(i5==3)
 				{
 					
 			
@@ -232,7 +206,7 @@ public class qq extends HttpServlet implements EntryPoint {
 					s = stat.spref 
 							//+"SELECT ?кто  WHERE {?кто qq:любит qq:Миша}";
 							//+"SELECT ?кто  WHERE {qq:Маша qq:любит ?кто}";
-							+"SELECT ?кто  WHERE {?кто qq:"+ss[0]+" qq:"+ss[1]+"}";
+							+"SELECT ?кто  WHERE {?кто qq:"+ss[1]+" qq:"+ss[2]+"}";
 					
 					
 					Query qq = QueryFactory.create(s);
@@ -246,10 +220,10 @@ public class qq extends HttpServlet implements EntryPoint {
 					stat.page(req, resp, s);
 					return;
 				}
-				if (i5>2) {
+				if (i5>3) {
 
 	
-					if (ss.length == 2) {
+					if (ss.length == 4) {
 						
 						try {
 							
@@ -260,7 +234,7 @@ public class qq extends HttpServlet implements EntryPoint {
 							//stat.sowl=stat.sqq7;
 							
 							
-							s = stat.spref + "SELECT ?кто  WHERE {?кто qq:"+ss[0]+" qq:"+ss[1]+"}";
+							s = stat.spref + "SELECT ?кто  WHERE {?кто qq:"+ss[1]+" qq:"+ss[2]+"}";
 							
 							///////////////////////////			
 							
@@ -319,6 +293,109 @@ public class qq extends HttpServlet implements EntryPoint {
 		}
 	}
 
+	public static String get_ans(String sh,String s) {
+
+		s = s.replace("?", "");
+		String[] ss = s.split("[ ]+");
+		int i = ss.length;
+
+		boolean bb = ss[0].toLowerCase().equals("кто")
+				|| ss[0].toLowerCase().equals("что")
+				|| ss[0].toLowerCase().equals("кого");
+
+		if (bb) {
+
+			// ///////////////////////////////////////////
+			//
+			// вопрос из 2-х слов
+			//
+			// ///////////////////////////////////////////
+
+			if (i == 2) {
+				OntModel mm = ModelFactory
+						.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+
+				mm.read(sh+"/owl");
+
+				s = stat.spref
+				// +"SELECT ?кто  WHERE {?кто qq:любит qq:Миша}";
+				// +"SELECT ?кто  WHERE {qq:Маша qq:любит ?кто}";
+				// +"SELECT ?кто  WHERE {?кто qq:"+ss[1]+" qq:"+ss[2]+"}";
+
+						+ "SELECT ?кто  WHERE {qq:" + ss[1] + " rdf:type ?кто}";
+
+				Query qq = QueryFactory.create(s);
+				ResultSet r = SparqlDLExecutionFactory.create(qq, mm)
+						.execSelect();
+				s = "";
+				while (r.hasNext())
+					s = s + r.next().toString();
+				s = s.replace("http://owl.feofan.com/rff?83.owl#", "");
+
+				s = s.replace("[Root]", "").trim();
+				s = s.replace(">", "").trim();
+				s = s.replace("<", "").trim();
+				s = s.replace("-", "").trim();
+				s = s.replace("(", "").trim();
+				s = s.replace(")", "").trim();
+				s = s.replace("=", "").trim();
+				s = s.replace("?кто", "").trim();
+				s = s.replace("owl:Thing", "").trim();
+
+				
+				String[] ss2 = s.split("[ ]+");
+				i = ss.length;
+				s="";
+				int n=0;
+				
+					while (n < i)
+						s = s + ss2[n++] + ", ";
+
+					n=s.lastIndexOf(",");
+					if(n>0)
+						s=s.substring(0,n);
+
+				s=ss[1] + " - " +s; 
+			
+
+			} else
+			// ///////////////////////////////////////////
+			//
+			// вопрос из 3-х слов
+			//
+			// ///////////////////////////////////////////
+
+			if (i == 3) {
+				OntModel mm = ModelFactory
+						.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+				
+				mm.read(sh+"/owl");
+				
+				s = stat.spref
+						// +"SELECT ?кто  WHERE {?кто qq:любит qq:Миша}";
+						// +"SELECT ?кто  WHERE {qq:Маша qq:любит ?кто}";
+						+ "SELECT ?кто  WHERE {?кто qq:" + ss[1] + " qq:"
+						+ ss[2] + "}";
+
+				Query qq = QueryFactory.create(s);
+				ResultSet r = SparqlDLExecutionFactory.create(qq, mm)
+						.execSelect();
+				s = "";
+				while (r.hasNext())
+					s = s + r.next().toString();
+
+				s = s.replace("( ?кто = <http://owl.feofan.com/rff?83.owl#", "")
+						.replace("> ) -> [Root]", "");
+
+			} else
+				s = "Пока что вопрос должен начинается со слов Кто, Что, Кого и состоять из 2-х или 3-х слов.";
+		}
+
+		return s;
+
+	}
+
+	
 	public void onModuleLoad() {
 	}
 

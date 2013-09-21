@@ -30,8 +30,10 @@ public class owl extends HttpServlet {
 					s=stat.sowl;
 			else
 				{
-				s = stat.get_owl83(stat.sr);
-				stat.sowl=s;
+				//if(stat.sr.trim().equals(""))
+				//	stat.sr=stat.rff("83.owl");
+				stat.get_owl83(stat.sr);
+				s=stat.sowl;
 				}
 		
 		

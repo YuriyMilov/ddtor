@@ -83,6 +83,7 @@ import para.st;
 
 import com.clarkparsia.pellet.owlapiv3.PelletReasoner;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
+import com.clarkparsia.pellet.sparqldl.jena.SparqlDLExecutionFactory;
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
@@ -102,6 +103,7 @@ import com.google.appengine.api.files.FileService;
 import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 
+
 public class stat {
 	public static String sqq7 = "", sufix="";;
 
@@ -113,7 +115,9 @@ public class stat {
 			" <br><br>&nbsp;<a href=qq>чист</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a>" +
 			//" &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"+
 			 // &nbsp;&nbsp; <a href>сохранить мир</a>" +
-			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что тут есть?</a>  &nbsp;&nbsp; <a href=owl>owl</a> &nbsp;&nbsp; <a href=qq?p2=мир>мир</a>  &nbsp;&nbsp; <a href=/donate.htm>Феофану на пропитание</a> "
+			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что тут есть?</a>  &nbsp;&nbsp; <a href=owl>owl</a> &nbsp;&nbsp; <a href=qq?p2=мир>мир</a> " +
+			"<br/><br/>" +
+			" &nbsp;&nbsp; <a href=/forum.htm>Форум</a>  &nbsp;&nbsp; <a href=/donate.htm>Феофану на пропитание</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
 	//public static String siri = "http://owl.feofan.com/1#";
@@ -1448,6 +1452,8 @@ public class stat {
 		// ///////////////////////////////////
 
 		// get_owl82();
+
+		
 		sowl = get_owl83(sr);
 
 		// ///////////////////////////////////
@@ -1460,12 +1466,13 @@ public class stat {
 	public static void text83(String s, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
 
-	stat.stop = stat.stop + "<br> <b><i> - </i></b> добавить: " + s;
+	//stat.stop = stat.stop + "<br> <b><i> - </i></b> добавить: " + s;
 
 
-		//sr = sr + " " + s + ". ";
-	sr = " " + s;
-	
+		
+
+		//stat.w2f("83.owl",s);
+		
 		String sok = get_owl83(s);
 		//sowl = get_owl83(s);
 		
@@ -1932,4 +1939,6 @@ public class stat {
 		
 		return s.trim();
 	}
+	
+	
 }

@@ -23,8 +23,13 @@ public class qq_s extends HttpServlet {
 		String s = "";
 		if (s3 == null && s4 == null) {
 			
+			//if(stat.sr.trim().equals(""))
+				//stat.sr=stat.rff("83.owl");
+				
 			stat.get_owl83(stat.sr);
 			s = stat.sowl;
+			
+			
 			byte[] b = s.getBytes("UTF8");
 			out.write(b);
 			return;
@@ -35,6 +40,7 @@ public class qq_s extends HttpServlet {
 			s = stat.rfu_utf(sh + "/" + URLEncoder.encode(s4, "UTF-8"));
 			if (s.indexOf("Ъ") > -1 && s.length() > s.indexOf("Ъ"))
 				s = s.substring(s.indexOf("Ъ") + 1);
+			stat.sr = s;
 			stat.text83(s, req, resp);
 			return;
 		}

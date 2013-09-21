@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/guestbook/GreetingChatbot.java=UTF-8
 encoding//src/guestbook/Owl2Model.java=UTF-8
+encoding//src/guestbook/donate.htm=UTF-8
 encoding//src/guestbook/mm.java=UTF-8
 encoding//src/guestbook/owl.java=UTF-8
 encoding//src/guestbook/para.java=UTF-8
@@ -25,6 +26,6 @@ encoding//war/3.rul=UTF-8
 encoding//war/add.txt=UTF-8
 encoding//war/cmd.txt=UTF-8
 encoding//war/dom.txt=UTF-8
-encoding//war/donate.htm=UTF-8
+encoding//war/forum.htm=UTF-8
 encoding//war/load.txt=UTF-8
 encoding//war/zz.txt=UTF-8
