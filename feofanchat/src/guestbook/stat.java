@@ -112,12 +112,12 @@ public class stat {
 			+ "<br><input type=text id=id name=p2 size=82>"
 			+
 			// "&nbsp;&nbsp; <a href=qq?p2=owl.txt>txt</a>" +
-			" <br><br>&nbsp;<a href=qq>чист</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a>" +
+			" <br><br>&nbsp; <a href=qq>Очистить мир и страницу</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>Загрузить мир из заранее описанных</a>" +
 			//" &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"+
 			 // &nbsp;&nbsp; <a href>сохранить мир</a>" +
-			" &nbsp;&nbsp; <a href=qq?p2=кря>кря</a>  &nbsp;&nbsp; <a href=qq?p2=что>что тут есть?</a>  &nbsp;&nbsp; <a href=owl>owl</a> &nbsp;&nbsp; <a href=qq?p2=мир>мир</a> " +
-			"<br/><br/>" +
-			" &nbsp;&nbsp; <a href=/forum.htm>Форум</a>  &nbsp;&nbsp; <a href=/donate.htm>Феофану на пропитание</a> "
+			" <br><br>&nbsp; <a href=qq?p2=кря>Описание КРЯ (контролируемого русского языка)</a>  &nbsp;&nbsp; <a href=qq?p2=что>Что тут есть сейчас?</a> " +
+			" <br><br>&nbsp; <a href=owl>Описание мира на OWL</a> &nbsp;&nbsp; <a href=qq?p2=мир>Описание мира на КРЯ</a> &nbsp;&nbsp; <a href=/forum.htm>Разговоры с Феофаном</a>  " +
+			" <br><br>&nbsp; <a href=/donate.htm>Подайте Феофану на пропитание</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
 	//public static String siri = "http://owl.feofan.com/1#";
@@ -859,7 +859,7 @@ public class stat {
 		lock = true;
 		writeChannel = fileService.openWriteChannel(file, lock);
 		writeChannel.closeFinally();
-		return "ok";
+		return "кря";
 	}
 
 	public static String prep_all(String s7) {
@@ -1463,7 +1463,7 @@ public class stat {
 		stat.page(req, resp, " Новый мир: \"" + stat.sr.trim() + "\"");
 	}
 
-	public static void text83(String s, HttpServletRequest req,
+	public static void text83_83(String s, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
 
 	//stat.stop = stat.stop + "<br> <b><i> - </i></b> добавить: " + s;
@@ -1939,6 +1939,29 @@ public class stat {
 		
 		return s.trim();
 	}
-	
-	
+
+	public static void add_sr(String s, HttpServletRequest req, HttpServletResponse resp){
+
+		String[] ss=s.split("[.]");
+		 for (String s7  : ss) {
+			 s7=s7.trim();
+	 		if(!sr.contains(s7))
+				sr=sr+" "+s7+".";
+	      }
+		 sr=sr.trim();
+		 sowl=sowl;
+		if(!sr.equals(""))
+			{
+			try {
+			stat.w2f("83.owl",sr);
+			//stat.text83(sr, req, resp);	
+			get_owl83(sr);
+			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			}
+		
+	} 
 }
+
