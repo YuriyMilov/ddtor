@@ -32,7 +32,8 @@ public class qq8 extends HttpServlet {
 			///////////////////////////		
 			
 			stat.sowl = stat.para("");
-			s = stat.spref + "SELECT ?кто  WHERE {?кто qq:пара qq:7}";
+			s = stat.get_prefix()
+					+ "SELECT ?кто  WHERE {?кто qq:пара qq:7}";
 			
 			///////////////////////////			
 			

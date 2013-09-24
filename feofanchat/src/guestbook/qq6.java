@@ -65,7 +65,8 @@ public class qq6 extends HttpServlet {
 		 try {
 		stat.sqq7 = para("");		
 		//stat.sqq7 = scrt("");
-		s = stat.spref + "SELECT ?Who  WHERE {?Who qq:пара qq:4}";
+		s = stat.get_prefix()
+				+ "SELECT ?Who  WHERE {?Who qq:пара qq:4}";
 		OntModel model = ModelFactory
 				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
 		model.read(sh + "/qq7");

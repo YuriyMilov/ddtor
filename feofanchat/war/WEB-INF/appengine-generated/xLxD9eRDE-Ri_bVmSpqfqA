@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://owl.feofan.com/rff?83.owl#"
+     xml:base="http://owl.feofan.com/rff?83.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl2="http://owl.feofan.com/rff?83.owl#">
+    <owl:Ontology rdf:about="http://owl.feofan.com/rff?83.owl"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://owl.feofan.com/rff?83.owl#любит -->
+
+    <owl:ObjectProperty rdf:about="http://owl.feofan.com/rff?83.owl#любит">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://owl.feofan.com/rff?83.owl#малыш -->
+
+    <owl:Class rdf:about="http://owl.feofan.com/rff?83.owl#малыш">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://owl.feofan.com/rff?83.owl#любит"/>
+                <owl:onClass rdf:resource="http://owl.feofan.com/rff?83.owl#малышка"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://owl.feofan.com/rff?83.owl#Незнайка"/>
+                    <rdf:Description rdf:about="http://owl.feofan.com/rff?83.owl#Пончик"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://owl.feofan.com/rff?83.owl#малышка -->
+
+    <owl:Class rdf:about="http://owl.feofan.com/rff?83.owl#малышка">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://owl.feofan.com/rff?83.owl#любит"/>
+                <owl:onClass rdf:resource="http://owl.feofan.com/rff?83.owl#малыш"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://owl.feofan.com/rff?83.owl#Синеглазка"/>
+                    <rdf:Description rdf:about="http://owl.feofan.com/rff?83.owl#Кнопочка"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://owl.feofan.com/rff?83.owl#Кнопочка -->
+
+    <owl:NamedIndividual rdf:about="http://owl.feofan.com/rff?83.owl#Кнопочка"/>
+    
+
+
+    <!-- http://owl.feofan.com/rff?83.owl#Кого -->
+
+    <owl:NamedIndividual rdf:about="http://owl.feofan.com/rff?83.owl#Кого">
+        <любит rdf:resource="http://owl.feofan.com/rff?83.owl#Кнопочка?"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://owl.feofan.com/rff?83.owl#Незнайка -->
+
+    <owl:NamedIndividual rdf:about="http://owl.feofan.com/rff?83.owl#Незнайка"/>
+    
+
+
+    <!-- http://owl.feofan.com/rff?83.owl#Пончик -->
+
+    <owl:NamedIndividual rdf:about="http://owl.feofan.com/rff?83.owl#Пончик">
+        <любит rdf:resource="http://owl.feofan.com/rff?83.owl#Синеглазка"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://owl.feofan.com/rff?83.owl#Синеглазка -->
+
+    <owl:NamedIndividual rdf:about="http://owl.feofan.com/rff?83.owl#Синеглазка"/>
+    
+
+
+    <!-- http://owl.feofan.com/rff?83.owl#Феофан -->
+
+    <owl:NamedIndividual rdf:about="http://owl.feofan.com/rff?83.owl#Феофан">
+        <любит rdf:resource="http://owl.feofan.com/rff?83.owl#Синеглазка"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://owl.feofan.com/rff?83.owl#Кнопочка? -->
+
+    <owl:NamedIndividual rdf:about="http://owl.feofan.com/rff?83.owl#Кнопочка?"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://owl.feofan.com/rff?83.owl#Кнопочка"/>
+            <rdf:Description rdf:about="http://owl.feofan.com/rff?83.owl#Синеглазка"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://owl.feofan.com/rff?83.owl#Незнайка"/>
+            <rdf:Description rdf:about="http://owl.feofan.com/rff?83.owl#Пончик"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.4) http://owlapi.sourceforge.net -->
+
+

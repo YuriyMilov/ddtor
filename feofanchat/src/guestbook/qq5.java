@@ -74,7 +74,7 @@ public class qq5 extends HttpServlet  {
 	
 	public String get_q1(String sowl, String  sq, HttpServletRequest req) {
 		
-		String  s = stat.spref 
+		String  s = stat.get_prefix()
 				+"SELECT ?кто  WHERE {qq:"+sq+" rdf:type ?кто}";
 		
 
@@ -118,7 +118,7 @@ public class qq5 extends HttpServlet  {
 	
 	public String get_q2(String sowl, String  sq, HttpServletRequest req) {
 		
-		String s = stat.spref 
+		String s = stat.get_prefix()
 				+"SELECT ?кто  WHERE {?кто a qq:"+sq+"}";
 
 		OntModel model = ModelFactory
@@ -162,7 +162,7 @@ public class qq5 extends HttpServlet  {
 public String get_q4(String sowl, String  sq, HttpServletRequest req) {
 		
 		String s = "" +
-				stat.spref
+				stat.get_prefix()
 				//+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
 				+"SELECT ?кто  WHERE {qq:"+sq+" rdfs:subClassOf ?кто}";
 		
@@ -207,7 +207,7 @@ public String get_q4(String sowl, String  sq, HttpServletRequest req) {
 
 public String get_q5(String sowl, String  sq, HttpServletRequest req) {
 	
-	String s = stat.spref 
+	String s = stat.get_prefix()
 			+"SELECT ?кто  WHERE {?кто rdfs:subClassOf qq:"+sq+"}";
 	
 
@@ -252,7 +252,7 @@ public String get_q5(String sowl, String  sq, HttpServletRequest req) {
 	
 public String get_q3(String sowl, String  sq, HttpServletRequest req) {
 		
-	String s = stat.spref 
+	String s = stat.get_prefix()
 +"SELECT ?кто ?какой WHERE {?кто a ?какой}";
 		
 
@@ -301,7 +301,7 @@ public String get_q3(String sowl, String  sq, HttpServletRequest req) {
 
 public String get_q6(String sowl, String  sq, HttpServletRequest req) {
 	
-	String s = stat.spref 
+	String s = stat.get_prefix()
 			+ "SELECT ?Who  WHERE {?Who qq:p qq:4}";
 
 	

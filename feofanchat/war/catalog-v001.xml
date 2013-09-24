@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1379072608681" name="http://www.feofan.com/1.owl" uri="1.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1379072608681" name="http://www.semanticweb.org/yuri/ontologies/2013/7/untitled-ontology-396" uri="n1.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1379072608681" name="http://www.w3.org/2002/07/owl" uri="fish.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1379864329563" name="http://localhost/n1.owl" uri="n1.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1379864329563" name="http://www.feofan.com/1.owl" uri="1.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1379864329563" name="http://www.w3.org/2002/07/owl" uri="fish.owl"/>
     </group>
 </catalog>

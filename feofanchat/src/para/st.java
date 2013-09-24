@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
 
 public class st {
-	public static String sh="";
+	public static String shst="";
 
 	static public  OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 	static public  IRI ontologyIRI;

@@ -44,7 +44,7 @@ public class rff extends HttpServlet {
 		String s = req.getQueryString();
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
-		
+		stat.sh=sh;
 		if(s==null)	
 			s=stat.posti(sh+"/w2f","w2f_null_query", " Query String - null");
 		else		

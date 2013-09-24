@@ -11,38 +11,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -78,9 +59,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
-
 import para.st;
-
 import com.clarkparsia.pellet.owlapiv3.PelletReasoner;
 import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 import com.clarkparsia.pellet.sparqldl.jena.SparqlDLExecutionFactory;
@@ -93,6 +72,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
@@ -102,36 +82,41 @@ import com.google.appengine.api.files.FileReadChannel;
 import com.google.appengine.api.files.FileService;
 import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
-
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 public class stat {
-	public static String sqq7 = "", sufix="";;
+	public static String sqq7 = "", sufix = "", sh="http://www.feofan.com";
 
 	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
 	public static String skon = "<form  action=qq method=post>"
 			+ "<br><input type=text id=id name=p2 size=82>"
 			+
 			// "&nbsp;&nbsp; <a href=qq?p2=owl.txt>txt</a>" +
-			" <br><br>&nbsp; <a href=qq>Очистить мир и страницу</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>Загрузить мир из заранее описанных</a>" +
-			//" &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"+
-			 // &nbsp;&nbsp; <a href>сохранить мир</a>" +
-			" <br><br>&nbsp; <a href=qq?p2=кря>Описание КРЯ (контролируемого русского языка)</a>  &nbsp;&nbsp; <a href=qq?p2=что>Что тут есть сейчас?</a> " +
-			" <br><br>&nbsp; <a href=owl>Описание мира на OWL</a> &nbsp;&nbsp; <a href=qq?p2=мир>Описание мира на КРЯ</a> &nbsp;&nbsp; <a href=/forum.htm>Разговоры с Феофаном</a>  " +
-			" <br><br>&nbsp; <a href=/donate.htm>Подайте Феофану на пропитание</a> "
+			" <br><br>&nbsp; <a href=qq>Очистить мир и страницу</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>Загрузить новый мир из хранилица миров</a>  &nbsp;&nbsp; <a href=qq?p2=добавить>Добавить к миру мир из хранилица миров</a>"
+			
+			// " &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"+
+			// &nbsp;&nbsp; <a href>сохранить мир</a>" +
+			+ " <br><br>&nbsp; <a href=qq?p2=кря>Описание КРЯ (контролируемого русского языка)</a>  &nbsp;&nbsp; <a href=qq?p2=что>Что тут есть сейчас?</a> "
+			+ " <br><br>&nbsp; <a href=owl>Описание мира на OWL</a> &nbsp;&nbsp; <a href=qq?p2=мир>Описание мира на КРЯ</a> &nbsp;&nbsp; <a href=/forum.htm>Разговоры с Феофаном</a>  "
+			+ " <br><br>&nbsp; <a href=/donate.htm>Подайте Феофану на пропитание</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
-	//public static String siri = "http://owl.feofan.com/1#";
-	public static String siri = "http://owl.feofan.com/rff?83.owl#";
-
-	public static String spref = "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-			+ "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-			+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
-			+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-			+ "PREFIX qq: <" + siri + ">";
+	// public static String siri = "http://owl.feofan.com/1#";
+	public static String siri = sh+"/rff?83.owl#";
 
 	public static String stop = "";
 	public static String sowl = "";
 	public static String sr = "";
+
+	public static String get_prefix() {
+
+		return "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+				+ "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+				+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
+				+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+				+ "PREFIX qq: <"+sh+"/rff?83.owl#> \r\n ";
+	}
 
 	public static String chto(String sir) {
 
@@ -195,14 +180,19 @@ public class stat {
 		if (sotvet.indexOf("Server Error") > -1)
 			sotvet = "какая-то проблема на сервере";
 
+		sotvet = sotvet.replace("\r\n", "<br>");
+
 		stop = stop + "<br>\r\n<b><i>Феофан: </i></b>\r\n \r\n<!--otvet-->"
 				+ sotvet + "<!--otvet-->\r\n";
+		int i = stop.length();
+		if (i > 20000)
+			stop = stop.substring(0, 20000);
+
+		// i =stop.length();
 
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
-		// String sh = req.getScheme() + "://" + req.getServerName() + ":"
-		// + req.getServerPort() + req.getContextPath();
-		String s = snach + stop + skon;
+		String s = snach + stop + skon + " <br/><br/>";
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);
 	}
@@ -274,57 +264,6 @@ public class stat {
 			s = ex.toString();
 		}
 		return s;
-	}
-
-	static void sm(String skomu, String s) throws Exception {
-		Properties props = new Properties();
-		Session session = Session.getDefaultInstance(props, null);
-		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("kuka@feofan.com", "Кука Тверской"));
-		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(skomu,
-				" "));
-		msg.setSubject("Кука Тверской " + new java.util.Date().toString());
-		msg.setText(s);
-		Transport.send(msg);
-	}
-
-	static void smtxt(String s) throws Exception {
-		Properties props = new Properties();
-		Session session = Session.getDefaultInstance(props, null);
-		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("kuka@feofan.com", "Example.com Admin"));
-		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-				"ymilov@gmail.com", "Mr. User"));
-		msg.setSubject("Your Example.com account has been activated");
-		msg.setText("msgBody");
-
-		// Create the message part
-		BodyPart messageBodyPart = new MimeBodyPart();
-
-		// Fill the message
-		messageBodyPart.setText(s);
-
-		// Create a multipar message
-		Multipart multipart = new MimeMultipart();
-
-		// Set text message part
-		multipart.addBodyPart(messageBodyPart);
-
-		// Part two is attachment
-		messageBodyPart = new MimeBodyPart();
-		String filename = "file.txt";
-
-		DataSource source = new ByteArrayDataSource(
-				"xmlData".getBytes("utf-8"), "text/xml; charset=utf-8");
-		messageBodyPart.setDataHandler(new DataHandler(source));
-		messageBodyPart.setFileName(filename);
-		messageBodyPart.addHeader("Content-Type", " text/xml; charset=utf-8");
-		multipart.addBodyPart(messageBodyPart);
-
-		// Send the complete message parts
-		msg.setContent(multipart);
-
-		Transport.send(msg);
 	}
 
 	public static String get_owl(String s1) {
@@ -776,10 +715,10 @@ public class stat {
 
 			String s = qw.sowl();
 
-			s = stat.posti(st.sh + "/w2f", "82.owl", s);
+			s = stat.posti(sh + "/w2f", "82.owl", s);
 
 		} catch (Exception e2) {
-			stat.posti(st.sh + "/w2f", "82.owl", e2.toString());
+			stat.posti(sh + "/w2f", "82.owl", e2.toString());
 		}
 
 	}
@@ -832,45 +771,99 @@ public class stat {
 		return s.substring(10).replace(">", "");
 	}
 
-	public static String w2f(String sname, String s) throws IOException {
+	public static String w2f(String sname, String s) {
+		try {
 
-		Query query = new Query("__BlobInfo__");
-		query.setFilter(FilterOperator.EQUAL.of("filename", sname));
+			Query query = new Query("__BlobInfo__");
+			query.setFilter(FilterOperator.EQUAL.of("filename", sname));
 
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-		PreparedQuery pq = datastore.prepare(query);
-		List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder
-				.withLimit(10));
+			DatastoreService datastore = DatastoreServiceFactory
+					.getDatastoreService();
+			PreparedQuery pq = datastore.prepare(query);
+			List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder
+					.withLimit(100));
 
-		if (!entList.isEmpty())
-			BlobstoreFS.delete(new BlobKey(entList.get(0).getKey().getName()));
+			//int ii = entList.size();
+			//System.err.println(ii);
 
-		FileService fileService = FileServiceFactory.getFileService();
-		AppEngineFile file = fileService.createNewBlobFile("text/plain", sname);
-		boolean lock = false;
-		FileWriteChannel writeChannel = fileService
-				.openWriteChannel(file, lock);
-		PrintWriter out = new PrintWriter(Channels.newWriter(writeChannel,
-				"UTF8"));
-		out.println(s);
-		out.close();
-		file = new AppEngineFile(file.getFullPath());
-		lock = true;
-		writeChannel = fileService.openWriteChannel(file, lock);
-		writeChannel.closeFinally();
+			if (!entList.isEmpty()) {
+				BlobKey blobKey = new BlobKey(entList.get(0).getKey().getName());
+				BlobstoreFS.save("text/html", blobKey, s, "test.txt");
+
+			} else {
+				FileService fileService = FileServiceFactory.getFileService();
+				AppEngineFile file = fileService.createNewBlobFile(
+						"text/plain", sname);
+
+				boolean lock = false;
+				FileWriteChannel writeChannel = fileService.openWriteChannel(
+						file, lock);
+				PrintWriter out = new PrintWriter(Channels.newWriter(
+						writeChannel, "UTF8"));
+				out.println(s);
+				out.close();
+				file = new AppEngineFile(file.getFullPath());
+				lock = true;
+				writeChannel = fileService.openWriteChannel(file, lock);
+				writeChannel.closeFinally();
+			}
+
+		} catch (IOException e) {
+
+			return "не кря";
+		}
 		return "кря";
 	}
 
-	public static String prep_all(String s7) {
-		s7 = s7.replace("\r", "").replace("\n", "");
-		s7 = s7.replace("\"", "");
-		s7 = s7.replace("&", "");
-		s7 = s7.replace("#", "");
-		s7 = s7.replace("<", "");
-		s7 = s7.replace(">", "");
+	public static String w2f_old(String sname, String s) {
+		try {
 
-		return s7.trim();
+			Query query = new Query("__BlobInfo__");
+			query.setFilter(FilterOperator.EQUAL.of("filename", sname));
+
+			DatastoreService datastore = DatastoreServiceFactory
+					.getDatastoreService();
+			PreparedQuery pq = datastore.prepare(query);
+			List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder
+					.withLimit(100));
+
+			int ii = entList.size();
+			System.err.println(ii);
+
+			if (!entList.isEmpty())
+				BlobstoreFS.delete(new BlobKey(entList.get(0).getKey()
+						.getName()));
+
+			// /////////////
+
+			FileService fileService = FileServiceFactory.getFileService();
+			AppEngineFile file = fileService.createNewBlobFile("text/plain",
+					sname);
+
+			boolean lock = false;
+			FileWriteChannel writeChannel = fileService.openWriteChannel(file,
+					lock);
+			PrintWriter out = new PrintWriter(Channels.newWriter(writeChannel,
+					"UTF8"));
+			out.println(s);
+			out.close();
+			file = new AppEngineFile(file.getFullPath());
+			lock = true;
+			writeChannel = fileService.openWriteChannel(file, lock);
+			writeChannel.closeFinally();
+
+		} catch (IOException e) {
+
+			return "не кря";
+		}
+		return "кря";
+	}
+
+	public static String prep_all(String s) {
+		s = s.replaceAll("&nbsp;", " ");
+		s = s.replaceAll("[\r\n\"&#<>]", "");
+		s = s.replaceAll("\\s+", " ").trim();
+		return s;
 	}
 
 	public static void command(String s, HttpServletRequest req,
@@ -879,20 +872,12 @@ public class stat {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
 
-		if (s.length() == 0) {
-			s = rfu_utf(sh + "/cmd.txt");
-			stat.page(req, resp, s.replace("\r\n", "<br>"));
-			return;
-		}
-
-		stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
+		stop = stop + "<br> <b><i> - </i></b> " + s;
 
 		if (s.indexOf("чист") == 0) {
 			stat.init(req, resp);
 			return;
-		}
-
-		if (s.equals("загрузить")) {
+		} else if (s.equals("загрузить")) {
 			s = rfu_utf(sh + "/load.txt");
 
 			ServletOutputStream out = resp.getOutputStream();
@@ -902,18 +887,19 @@ public class stat {
 			out.write(b);
 
 			return;
-		}
+		} else 
+			if (s.equals("добавить")){
+				s = rfu_utf(sh + "/add.txt");				
+				ServletOutputStream out = resp.getOutputStream();
+				resp.setContentType("text/html; charset=UTF-8");
+				s = s.replace("\r\n", "<br>");
+				byte[] b = s.getBytes("UTF8");
+				out.write(b);
 
-		if (s.equals("добавить")) {
-			s = rfu_utf(sh + "/add.txt");
-			ServletOutputStream out = resp.getOutputStream();
-			resp.setContentType("text/html; charset=UTF-8");
-			s = s.replace("\r\n", "<br>");
-			byte[] b = s.getBytes("UTF8");
-			out.write(b);
+				return;
+			}
 
-			return;
-		}
+		else
 
 		if (s.equals("кря")) {
 			// s = rfu_utf(sh+"/qq?p2="+URLEncoder.encode("дом", "UTF-8"));
@@ -927,9 +913,7 @@ public class stat {
 			out.write(b);
 
 			return;
-		}
-
-		if (s.equals("что")) {
+		} else if (s.equals("что")) {
 			s = chto(sh + "/qq_s");
 
 			stat.page(req, resp, s);
@@ -940,9 +924,7 @@ public class stat {
 			// byte[] b = s.getBytes("UTF8");
 			// out.write(b);
 			return;
-		}
-
-		if (s.equals("фео")) {
+		} else if (s.equals("фео")) {
 			stat.page(req, resp, "кря");
 			return;
 		}
@@ -950,10 +932,13 @@ public class stat {
 			s = rfu_utf(sh + "/qq7");
 			stat.page(req, resp, s);
 			return;
-		}
+		} else if (s.length() == 0)
+			page(req, resp, rfu_utf(sh + "/cmd.txt"));
+		else
 
-		stat.page(req, resp, "не знаю такой команды");
-		return;
+			// page(req, resp, rfu_utf(sh + "/cmd.txt"));
+			page(req, resp, "qqqqqqqqqqqqqqq");
+
 	}
 
 	public static boolean socrat(String s) {
@@ -1396,10 +1381,7 @@ public class stat {
 
 	public static void text8_old(String s, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
-		
-	
-		
-	
+
 		s = prep_all(s);
 
 		String[] sss = s.split("[.]+");
@@ -1408,7 +1390,6 @@ public class stat {
 			s = sss[i].trim();
 			String[] ss = s.split("[ ]+");
 
-			
 			if (ss.length > 4) {
 
 				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
@@ -1416,10 +1397,9 @@ public class stat {
 				s = "это предложение пока слишком длинное для меня: " + s;
 				page(req, resp, s);
 				return;
-				
-			} 
-				
-			
+
+			}
+
 			if (Character.isDigit(ss[1].charAt(0))) {
 				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s;
 
@@ -1453,121 +1433,101 @@ public class stat {
 
 		// get_owl82();
 
-		
-		sowl = get_owl83(sr);
+		sowl = get_owl83(sr, "http://owl.feofan.com");
 
 		// ///////////////////////////////////
 
-		//sowl = get_owl81(sr);
+		// sowl = get_owl81(sr);
 
 		stat.page(req, resp, " Новый мир: \"" + stat.sr.trim() + "\"");
 	}
 
-	public static void text83_83(String s, HttpServletRequest req,
-			HttpServletResponse resp) throws IOException {
-
-	//stat.stop = stat.stop + "<br> <b><i> - </i></b> добавить: " + s;
-
-
-		
-
-		//stat.w2f("83.owl",s);
-		
-		String sok = get_owl83(s);
-		//sowl = get_owl83(s);
-		
-		
-		stat.page(req, resp, sok+" Новый мир: \"" + stat.sr.trim() + "\"");
-	
-	}
-
-	public static String get_owl83(String s) {
+	public static String get_owl83(String s, String sh) {
 		try {
-			Owl2Model qw = new Owl2Model("http://owl.feofan.com/rff?83.owl");
+			Owl2Model qw = new Owl2Model(sh + "/rff?83.owl");
 
-				s=prep_all(s);
-				s = remove83(s);
-				
-				String[] sss = prep_all(s).split("[.]+");
+			s = prep_all(s);
+			s = prepare_83(s);
 
-				for (int i = 0; i < sss.length; i++) {
+			String[] sss = prep_all(s).split("[.]+");
 
-					String[] ss = sss[i].trim().split("[ ]+");
-				
+			for (int i = 0; i < sss.length; i++) {
+
+				String[] ss = sss[i].trim().split("[ ]+");
+
 				String[] sss2 = s.split("[.]+");
-				
-				
+
 				// проверка свойств на симметричность и т.п.
-				
+
 				for (int i4 = 0; i4 < sss2.length; i4++) {
-					String[] ss4= sss2[i4].trim().split("[ ]+");
-					
+					String[] ss4 = sss2[i4].trim().split("[ ]+");
+
 					if (ss4[0].toLowerCase().equals("если")) {
-						
-						/////////////
-						s=s.replace(sss2[i4], "").trim();
-						if(s.indexOf(".")==0)
-							s=s.substring(1).trim();
-						
-						sufix="/сим";
-						
-						s=s.replace(ss4[2], ss4[2]+sufix);
-						//////////////
-						 
+
+						// ///////////
+						s = s.replace(sss2[i4], "").trim();
+						if (s.indexOf(".") == 0)
+							s = s.substring(1).trim();
+
+						sufix = "/сим";
+
+						s = s.replace(ss4[2], ss4[2] + sufix);
+						// ////////////
+
 					}
-					
+
 				}
-				sss2 = s.split("[.]+");	
-				///////////////////////////////
-					
-				
+				sss2 = s.split("[.]+");
+				// /////////////////////////////
 
 				for (int i2 = 0; i2 < sss2.length; i2++) {
 					String[] ss2 = sss2[i2].trim().split("[ ]+");
-					
-					
-	
-					
 
-					if (ss2.length == 4) {	
-							qw.учитель_учит_N_учеников(qw.getOwlClass(ss2[0]), qw.getProperty(ss2[1].replace(sufix,"")), Integer.parseInt(ss2[2]), qw.getOwlClass(ss2[3]));
-							
+					if (ss2.length == 4) {
+						qw.учитель_учит_N_учеников(qw.getOwlClass(ss2[0]),
+								qw.getProperty(ss2[1].replace(sufix, "")),
+								Integer.parseInt(ss2[2]),
+								qw.getOwlClass(ss2[3]));
+
 					}
-							
-					if (ss2.length == 1) {	
+
+					if (ss2.length == 1) {
 						if (socrat(ss2[0])) {
 							qw.manager.applyChange(new AddAxiom(qw.ontology,
 									qw.factory.getOWLSameIndividualAxiom(
 											qw.getIndividual(ss2[0]),
 											qw.getIndividual(ss2[0]))));
 						} else if (!socrat(ss2[0])) {
-							qw.isSubClassOf(qw
-									.getOwlClass(ss2[0]), qw.factory.getOWLThing());
+							qw.isSubClassOf(qw.getOwlClass(ss2[0]),
+									qw.factory.getOWLThing());
 						}
 					}
 
 					if (ss2.length == 2) {
 
-						
-						if (socrat(ss2[0]) && ss2[0].indexOf("_")>-1 && !socrat(ss2[1]))
-							
+						if (socrat(ss2[0]) && ss2[0].indexOf("_") > -1
+								&& !socrat(ss2[1]))
+
 						{
-							String sss3=ss2[0].replace("_", " ");
+							String sss3 = ss2[0].replace("_", " ");
 							String[] ss3 = sss3.split("[ ]+");
-							
-							
+
 							Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
-							for (int i3 = 0; i3 < ss3.length; i3++)							
+							for (int i3 = 0; i3 < ss3.length; i3++)
 								inds.add(qw.getIndividual(ss3[i3]));
-							
-							OWLClassAxiom аксиома = qw.factory.getOWLEquivalentClassesAxiom(qw.getOwlClass(ss2[1]),qw.factory.getOWLObjectOneOf(inds));
+
+							OWLClassAxiom аксиома = qw.factory
+									.getOWLEquivalentClassesAxiom(
+											qw.getOwlClass(ss2[1]),
+											qw.factory.getOWLObjectOneOf(inds));
 							qw.manager.addAxiom(qw.ontology, аксиома);
 
-							qw.manager.addAxiom(qw.ontology, qw.factory.getOWLDifferentIndividualsAxiom(inds));
+							qw.manager.addAxiom(qw.ontology, qw.factory
+									.getOWLDifferentIndividualsAxiom(inds));
 						}
-						
+
 						else
-						
+
 						if (socrat(ss2[0]) && !socrat(ss2[1])) {
 							qw.hasClass(qw.getIndividual(ss2[0]),
 									qw.getOwlClass(ss2[1]));
@@ -1588,50 +1548,46 @@ public class stat {
 
 					if (ss2.length == 3) {
 
-						 if(ss2[1].indexOf("/сим")>-1)
-						 { 
+						if (ss2[1].indexOf("/сим") > -1) {
 							// ss2[1]=ss2[1].replace("/сим","");
-							 qw.isSymmetric(qw.getProperty(ss2[1].replace(sufix,"")));							 
-						 
-						 }
-						 
-						 
+							qw.isSymmetric(qw.getProperty(ss2[1].replace(sufix,
+									"")));
+
+						}
+
 						if (socrat(ss2[0]) && socrat(ss2[2])
 								&& ss2[1].equals("не")) {
 							qw.differentIndividuals(qw.getIndividual(ss2[0]),
 									qw.getIndividual(ss2[2]));
-						}
-						else
-						if (!socrat(ss2[0]) && !socrat(ss2[2])
+						} else if (!socrat(ss2[0]) && !socrat(ss2[2])
 								&& ss2[1].equals("не")) {
 							qw.manager.applyChange(new AddAxiom(qw.ontology,
 									qw.factory.getOWLDisjointClassesAxiom(
 											qw.getOwlClass(ss2[0]),
 											qw.getOwlClass(ss2[2]))));
 
-						}
-						else
-						if (socrat(ss2[0]) && n(ss2[2])) {
+						} else if (socrat(ss2[0]) && n(ss2[2])) {
 
-							OWLDataProperty hasAge = qw.getDataProperty(ss2[1].replace(sufix,""));
+							OWLDataProperty hasAge = qw.getDataProperty(ss2[1]
+									.replace(sufix, ""));
 							String sn = ss2[2].trim();
 							int n = Integer.parseInt(sn);
 							OWLIndividual ind = qw.getIndividual(ss2[0]);
 
 							qw.assertFact(hasAge, ind, n);
 
-						}
-						else
+						} else
 
 						if (socrat(ss2[0]) && socrat(ss2[2])) {
 
-							qw.assertFact(ss2[1].replace(sufix,""), ss2[0], ss2[2]);
-						
-						}
-						else
-						if (!socrat(ss2[0]) && !socrat(ss2[2])) {
-							 qw.assertDomainAndRange(qw.getProperty(ss2[1].replace(sufix,"")),
-							 qw.getOwlClass(ss2[0]), qw.getOwlClass(ss2[2]));	
+							qw.assertFact(ss2[1].replace(sufix, ""), ss2[0],
+									ss2[2]);
+
+						} else if (!socrat(ss2[0]) && !socrat(ss2[2])) {
+							qw.assertDomainAndRange(
+									qw.getProperty(ss2[1].replace(sufix, "")),
+									qw.getOwlClass(ss2[0]),
+									qw.getOwlClass(ss2[2]));
 						}
 
 					}
@@ -1639,25 +1595,10 @@ public class stat {
 				sowl = qw.sowl();
 				// stat.posti(st.sh + "/w2f", "83.owl", s);
 				s = w2f("83.owl", sowl);
-				
-				
-				
 
 				if (s.length() > -1)
 					return s;
 
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				// /////////////////////////////////////////
 				// /////////////////////////////////////////
 				// /////////////////////////////////////////
@@ -1920,15 +1861,15 @@ public class stat {
 			// //////////////////////////////////
 			s = qw.sowl();
 
-			stat.posti(st.sh + "/w2f", "83.owl", s);
+			stat.posti(sh + "/w2f", "83.owl", s);
 
 		} catch (Exception e2) {
-			stat.posti(st.sh + "/w2f", "83.owl", e2.toString());
+			System.err.println(e2.toString());
 		}
 		return s;
 	}
 
-	public static String remove83(String s) {
+	public static String prepare_83(String s) {
 
 		while (s.indexOf("(") > -1 && s.indexOf(")") > -1
 				&& s.indexOf(")") > s.indexOf("("))
@@ -1936,32 +1877,107 @@ public class stat {
 
 		s = s.replace("-", "").replace("это", "").replace(" и ", "_");
 
-		
 		return s.trim();
 	}
 
-	public static void add_sr(String s, HttpServletRequest req, HttpServletResponse resp){
+	public static void add_sr_old(String s, String sh) {
 
-		String[] ss=s.split("[.]");
-		 for (String s7  : ss) {
-			 s7=s7.trim();
-	 		if(!sr.contains(s7))
-				sr=sr+" "+s7+".";
-	      }
-		 sr=sr.trim();
-		 sowl=sowl;
-		if(!sr.equals(""))
-			{
-			try {
-			stat.w2f("83.owl",sr);
-			//stat.text83(sr, req, resp);	
-			get_owl83(sr);
-			
-			} catch (IOException e) {
-				e.printStackTrace();
-			}	
-			}
-		
-	} 
+		String[] ss = s.split("[.]");
+		for (String s7 : ss) {
+			s7 = s7.trim();
+			if (!sr.contains(s7))
+				sr = sr + " " + s7 + ".";
+		}
+		sr = sr.trim();
+		sowl = sowl;
+		if (!sr.equals("")) {
+			stat.w2f("83.owl", sr);
+			// stat.text83(sr, req, resp);
+			get_owl83(sr, sh);
+		}
+
+	}
+
+	public static String fwr2(String sname, String s) {
+		try {
+			Query query = new Query("__BlobInfo__");
+			query.setFilter(FilterOperator.EQUAL.of("filename", sname));
+
+			DatastoreService datastore = DatastoreServiceFactory
+					.getDatastoreService();
+			PreparedQuery pq = datastore.prepare(query);
+			List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder
+					.withLimit(10));
+
+			if (!entList.isEmpty())
+
+				BlobstoreFS.delete(new BlobKey(entList.get(0).getKey()
+						.getName()));
+
+			FileService fileService = FileServiceFactory.getFileService();
+			AppEngineFile file = fileService.createNewBlobFile("text/plain",
+					sname);
+			boolean lock = false;
+			FileWriteChannel writeChannel = fileService.openWriteChannel(file,
+					lock);
+			PrintWriter out = new PrintWriter(Channels.newWriter(writeChannel,
+					"UTF8"));
+			out.println(s);
+			out.close();
+			file = new AppEngineFile(file.getFullPath());
+			lock = true;
+			writeChannel = fileService.openWriteChannel(file, lock);
+			writeChannel.closeFinally();
+
+		} catch (IOException e) {
+
+			return "не кря";
+		}
+		return "кря";
+	}
+
+	public static String fwr1(String s) {
+
+		try {
+
+			Query query = new Query("__BlobInfo__");
+
+			// query.addFilter("filename", FilterOperator.EQUAL, "test4");
+			query.setFilter(FilterOperator.EQUAL.of("filename", s));
+
+			// /////
+
+			DatastoreService datastore = DatastoreServiceFactory
+					.getDatastoreService();
+			PreparedQuery pq = datastore.prepare(query);
+			List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder
+					.withLimit(10));
+
+			if (entList.isEmpty())
+				return "нет такого файла";
+
+			s = entList.get(0).getKey().getName();
+
+			// ///
+
+			BlobKey blobKey = new BlobKey(s);
+			FileService fileService = FileServiceFactory.getFileService();
+			AppEngineFile file = fileService.getBlobFile(blobKey);
+			FileReadChannel readChannel = fileService.openReadChannel(file,
+					false);
+			BufferedReader reader = new BufferedReader(Channels.newReader(
+					readChannel, "UTF8"));
+
+			String thisLine = "";
+			s = "";
+			while ((thisLine = reader.readLine()) != null)
+				s = s + thisLine + " \r\n ";
+			readChannel.close();
+
+		} catch (Exception ee) {
+			s = ee.toString();
+		}
+
+		return s;
+	}
 }
-

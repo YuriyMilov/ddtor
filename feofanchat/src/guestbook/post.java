@@ -26,9 +26,9 @@ public class post extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		
-
-		String sh = req.getScheme() + "://" + req.getServerName() + ":"		
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
+		stat.sh=sh;
 
 		String s = stat.posti(sh+"/w2f","post","привет - это я, post servlet ");
 		

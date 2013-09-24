@@ -19,20 +19,24 @@ public class owl extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/xml; charset=UTF8");
 		
 		resp.setCharacterEncoding("UTF8");
 		String s = "";
+		
+
 		if(stat.sowl!=null)
 			if(stat.sowl.length()>0)
 					s=stat.sowl;
 			else
 				{
 				//if(stat.sr.trim().equals(""))
-				//	stat.sr=stat.rff("83.owl");
-				stat.get_owl83(stat.sr);
+				
+				stat.get_owl83(stat.sr,sh);
 				s=stat.sowl;
 				}
 		

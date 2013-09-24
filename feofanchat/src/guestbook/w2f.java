@@ -50,6 +50,10 @@ public class w2f extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
+		
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		stat.sh=sh;
 
 		String f = req.getParameter("f"), s = req.getParameter("s");
 		if (f != null && s != null)

@@ -23,6 +23,9 @@ public class qqw extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		stat.sh=sh;
 		String s = req.getQueryString();
 		clear_blobstore();
 		 s=wf("test.owl",s);
@@ -36,14 +39,14 @@ public class qqw extends HttpServlet {
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		stat.sh=sh;
+	
 		String sname = req.getParameter("name");	
 		String scontent = req.getParameter("content");		
 
 		String s=wf("qqw_"+sname,scontent);
-		 
-			String sh = req.getScheme() + "://" + req.getServerName() + ":"		
-					+ req.getServerPort() + req.getContextPath();
 			
 			
 			s="<a href="+sh+"/qqr?"+s+">"+s+"</a>";
