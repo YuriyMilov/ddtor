@@ -56,18 +56,14 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
-public class qq7 extends HttpServlet {
+public class CopyOfqq7 extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/plain; charset=UTF8");
 
-		//String s = сократ("");
-		
 		String s=stat.sr;
-		
-		s=s;
 		
 		byte[] b = s.getBytes("UTF8");
 		out.write(b);

@@ -93,7 +93,7 @@ public class stat {
 			+ "<br><input type=text id=id name=p2 size=82>&nbsp;<input type=\"submit\" value=\"&nbsp;кляк&nbsp;\">"
 			+ "<br><br>&nbsp;<a href=qq>очистить</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a>  &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"
 			+ " &nbsp; <a href=qq?p2=помощь>помощь</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a> "
-			+ " &nbsp; <a href=qq?p2=мир>кря</a> &nbsp;&nbsp; <a href=owl>owl</a> &nbsp;&nbsp; <a href=/forum.htm>форум</a>  "
+			+ " &nbsp; <a href=qq?p2=мир>мир</a> &nbsp;&nbsp; <a href=owl>owl</a> &nbsp;&nbsp; <a href=/forum.htm>форум</a>  "
 			+ " &nbsp; <a href=/donate.htm>деньги</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
@@ -170,7 +170,9 @@ public class stat {
 	public static void page(HttpServletRequest req, HttpServletResponse resp,
 			String sotvet) {
 
-		if(sotvet.length()>0)
+		
+		if(sotvet.trim().length()!=0){
+			
 		
 		if (sotvet.indexOf("Server Error") > -1)
 			sotvet = "какая-то проблема на сервере";
@@ -182,6 +184,7 @@ public class stat {
 		if (stop.length()>50000)			
 			stop = stop.substring(stop.length()-50000);
 			
+		}
 		
 		ServletOutputStream out;
 		try {
@@ -729,7 +732,7 @@ public class stat {
 			throws IOException {
 		stat.stop = "";
 		stat.sr = "";
-		String s = "привет :-)";
+		String s = "привет";
 		stat.page(req, resp, s);
 	}
 
@@ -871,10 +874,7 @@ public class stat {
 	public static void command(String s, HttpServletRequest req,
 			HttpServletResponse resp) throws IOException {
 
-		String sh = req.getScheme() + "://" + req.getServerName() + ":"
-				+ req.getServerPort() + req.getContextPath();
-		//stop = stop + "<br> <b><i> - </i></b> " + s;
-		if (s.indexOf("очистить") == 0) {
+	if (s.indexOf("очистить") == 0) {
 			stat.init(req, resp);
 			return;
 		} else if (s.equals("загрузить")) {
@@ -905,16 +905,22 @@ public class stat {
 			byte[] b = s.getBytes("UTF8");
 			out.write(b);
 			return;
-		} else if (s.equals("что")) {
-			s = chto(sh + "/qq_s");
-			stat.page(req, resp, s);
+		} else if (s.equals("что")) {			
+			stat.page(req, resp, chto(sh + "/qq_s"));
 			return;
 		} 
 		if (s.equals("мир")) {
-			s = rfu_utf(sh + "/qq7");
-			stat.page(req, resp, s);
+			stat.page(req, resp, stat.sr);
 			return;
-		} else 
+		} else 		
+			if (s.equals("фео")) {
+				stat.page(req, resp, "");
+			return;
+		} else 			
+			if (s.equals("")) {
+			stat.page(req, resp, "");
+		return;
+	} else 
 			page(req, resp, rfu_utf(sh + "/cmd.txt"));
 		
 	}
