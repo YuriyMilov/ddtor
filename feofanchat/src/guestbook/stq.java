@@ -81,11 +81,14 @@ public class stq {
 		}
 	}
 
-	public static String get_ans(String sh, String s) {
+	public static String get_ans(String sh, String s, HttpServletRequest req,
+			HttpServletResponse resp) {
 
+		boolean ber = false;
 		s = s.replace("?", "");
 		String[] ss = s.split("[ ]+");
 		int i = ss.length;
+		String s3 = "";
 
 		boolean bb = ss[0].toLowerCase().equals("кто")
 				|| ss[0].toLowerCase().equals("что")
@@ -95,62 +98,59 @@ public class stq {
 
 			// ///////////////////////////////////////////
 			//
-			// вопрос из 2-х слов
+			// вопрос из 2-х слов - "кто Сократ?"
 			//
 			// ///////////////////////////////////////////
 
 			if (i == 2) {
+				
 				OntModel mm = ModelFactory
 						.createOntologyModel(PelletReasonerFactory.THE_SPEC);
-
 				StringReader reader = new StringReader(stat.sowl);
 				mm.read(reader, "");
-				//mm.read(sh+"/owl");
+				s = stat.sowl;
+				
+				String[] ssss = {
+						//"SELECT ?кто  WHERE {?кто a qq:" + ss[1] + "}",
+						"SELECT ?кто  WHERE {qq:" + ss[1] + " rdf:type ?кто}",
+						"SELECT ?кто  WHERE {?кто rdf:type qq:" + ss[1] + "}" };
 
-				s = stat.get_prefix()				
-						+ "SELECT ?кто  WHERE {qq:" + ss[1] + " rdf:type ?кто}";
+				for (String str : ssss) {
+	
+					s = stat.get_prefix() + str;
 
-				Query qq = QueryFactory.create(s);
-				ResultSet r = SparqlDLExecutionFactory.create(qq, mm)
-						.execSelect();
-				s = "";
-				while (r.hasNext())
-					s = s + r.next().toString();
-				s = s.replace(stat.sh+"/rff?83.owl#", "");
+					Query qq = QueryFactory.create(s);
+					s = stat.sowl;
+					s = "";
+					ResultSet r = null;
+					
+					try {
+						r = SparqlDLExecutionFactory.create(qq, mm)
+								.execSelect();
+						while (r.hasNext())
+						{
+							s= r.next().toString();
+							if(!s3.contains(s))
+								s3=s3+s;
+							}
+					} catch (Exception er) {
+						s = er.toString();
+						ber = true;
+					}
+					s3 = s3 + s;
+				}
 
-				s = s.replace("[Root]", "").trim();
-				s = s.replace(">", "").trim();
-				s = s.replace("<", "").trim();
-				s = s.replace("-", "").trim();
-				s = s.replace("(", "").trim();
-				s = s.replace(")", "").trim();
-				s = s.replace("=", "").trim();
-				s = s.replace("?кто", "").trim();
-				s = s.replace("owl:Thing", "").trim();
-
-				String[] ss2 = s.split("[ ]+");
-				i = ss2.length;
-				s = "";
-				int n = 0;
-
-				while (n < i)
-					s = s + ss2[n++] + ", ";
-
-				n = s.lastIndexOf(",");
-				if (n > -1)
-					s = s.substring(0, n);
-
-				s = s.trim();
+				s = s3;
 				if (s.length() == 0)
 					s = "Не знаю. Расскажи мне об этом";
-				s = s + ".";
+			}
 
-			} else
 			// ///////////////////////////////////////////
 			//
-			// вопрос из 3-х слов
+			// вопрос из 3-х слов - "кто любит Кнопочку?"
 			//
 			// ///////////////////////////////////////////
+			else
 
 			if (i == 3) {
 				OntModel mm = ModelFactory
@@ -158,64 +158,81 @@ public class stq {
 
 				StringReader reader = new StringReader(stat.sowl);
 				mm.read(reader, "");
-				// mm.read(sh + "/owl");
-
 				s = stat.sowl;
 
-				s = stat.get_prefix()
-						// +"SELECT ?кто  WHERE {?кто qq:любит qq:Миша}";
-						// +"SELECT ?кто  WHERE {qq:Маша qq:любит ?кто}";
-						+ "SELECT ?кто  WHERE {?кто qq:" + ss[1] + " qq:"
-						+ ss[2] + "}";
+				String[] ssss = {
+						"SELECT ?кто  WHERE {?кто qq:" + ss[1] + " qq:" + ss[2] + "}",
+						"SELECT ?кто  WHERE { qq:" + ss[2] + " qq:" + ss[1] + " ?кто }" };
 
-				Query qq = QueryFactory.create(s);
-				ResultSet r = SparqlDLExecutionFactory.create(qq, mm)
-						.execSelect();
-				s = "";
-				while (r.hasNext())
-					s = s + r.next().toString();
-				
-				s = s.replace("( ?кто = <"+stat.sh+"/rff?83.owl#", " ")
-						.replace("> ) -> [Root]", " ");
-				
-				
+				for (String str : ssss) {
+	
+					s = stat.get_prefix() + str;
 
-				if (s.trim().length() == 0) {
-					s = stat.get_prefix()
-							// +"SELECT ?кто  WHERE {?кто qq:любит qq:Миша}";
-							// +"SELECT ?кто  WHERE {qq:Маша qq:любит ?кто}";
-							// +"SELECT ?кто  WHERE {?кто qq:"+ss[1]+" qq:"+ss[2]+"}";
-							+ "SELECT ?кто  WHERE {qq:" + ss[2] + " qq:"
-							+ ss[1] + " ?кто}";
-
-					qq = QueryFactory.create(s);
-					r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
+					Query qq = QueryFactory.create(s);
+					s = stat.sowl;
 					s = "";
-					while (r.hasNext())
-						s = s + r.next().toString();
+					ResultSet r = null;
+					
+					try {
+						r = SparqlDLExecutionFactory.create(qq, mm)
+								.execSelect();
+						while (r.hasNext())
+						{
+							s= r.next().toString();
+							if(!s3.contains(s))
+								s3=s3+s;
+							}
+					} catch (Exception er) {
+						s = er.toString();
+						ber = true;
+					}
+					s3 = s3 + s;
+				}
 
-					s = s.replace(
-							"( ?кто = <"+stat.sh+"/rff?83.owl#", " ")
-							.replace("> ) -> [Root]", " ");
-					
+				s = s3;
+				if (s.length() == 0)
+					s = "Не знаю :-(";
 				
-				}	
-					
-				s = stat.prep_all(s).trim();
-					if(s.contains(" "))
-						s=s.replaceAll(" ", ", ") + ".";
 				
 			} else
 				s = "Пока что вопрос должен начинается со слов Кто, Что, Кого и состоять из 2-х или 3-х слов.";
 		}
 
-		return s;
+		if (ber) {
+			stat.page(req, resp, s);
+		}
 
+	
+
+		if (s.indexOf("#") > 0) {
+			s = s.substring(s.indexOf("#") + 1);
+
+			s = s.replaceAll("[<>]", "").replace("[", "");
+			
+			ss = s.split("[#]");
+			s = "";
+			s3=",";
+			for (String sd : ss) {
+				if (sd.indexOf(")") > 0)
+				{
+					s = sd.substring(0, sd.indexOf(")")).trim();
+					if(!s3.contains(s))
+						s3=s3+", "+s;
+				
+				}
+				s = s3.replace(",," ,"");
+			}
+		} else
+			s = "не знаю :-(";
+
+		s = s + ".";
+		return s;
 	}
 
-	public static String get_mm(String sh, String sb, String s) {
+	public static String get_mm(String sh, String sb, String s,
+			HttpServletRequest req, HttpServletResponse resp) {
 
-		String s1 = s, s3 = "", svopros = "", sotvet="";
+		String s1 = s, s3 = "", svopros = "", sotvet = "";
 
 		int i1 = s.toLowerCase().indexOf("йй");
 		int i2 = s.toLowerCase().indexOf("ййй");
@@ -226,31 +243,35 @@ public class stq {
 		if (bkrk) {
 			s = s.substring(i1 + 2, i2);
 			s = stat.prep_all(s);
-			
 
 			i3 = s.indexOf("?");
 			if (i3 > 0) {
-				
-				svopros  = s.substring(s.lastIndexOf(".")+1).trim();
 
-				s = s.substring(0,s.lastIndexOf(".")+1).trim();
-				add_sr(s,sh);
-		
-				
-				//s3 = stat.get_owl83(s1);				
-				//System.err.println("get_mm_s3 "+s3);
-				
-				sotvet =	stq.get_ans(sh, svopros);
-				
-			s ="\r\n"+ s + "\r\n \r\n- " +svopros+ "\r\n \r\n- " + sotvet+"";
+				svopros = s.substring(s.lastIndexOf(".") + 1).trim();
+
+				s = s.substring(0, s.lastIndexOf(".") + 1).trim();
+				add_sr(s, sh);
+
+				// s3 = stat.get_owl83(s1);
+				// System.err.println("get_mm_s3 "+s3);
+
+				try {
+					sotvet = stq.get_ans(sh, svopros, req, resp);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				s = "\r\n" + s + "\r\n \r\n- " + svopros + "\r\n \r\n- "
+						+ sotvet + "";
 
 				System.err.println(s);
-				
+
 				// stq.sm("ymilov@gmail.com", "stq.get_mm", s);
 
 			} else {
 
-				s3 = stat.get_owl83(s1,sh);
+				s3 = stat.get_owl83(s1, sh);
 
 				s = s
 						+ "\r\n Не увидел вопроса. Сгенерил онтологию "
@@ -274,7 +295,7 @@ public class stq {
 				if (!stat.sr.contains(s7))
 					stat.sr = stat.sr.trim() + " " + s7.trim() + ".";
 
-			stat.get_owl83(stat.sr,sh);
+			stat.get_owl83(stat.sr, sh);
 			stat.w2f("83.owl", stat.sowl);
 
 		} catch (Exception e) {
@@ -347,6 +368,5 @@ public class stq {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 }

@@ -83,7 +83,7 @@ public class mm extends HttpServlet {
 			
 			stat.sr="";
 			
-			stq.get_mm(sh,sbj,ss);		
+			stq.get_mm(sh,sbj,ss, req,resp);		
 
 		} catch (Exception e) {
 			System.err.println(e.toString());

@@ -36,7 +36,7 @@ public class qq extends HttpServlet implements EntryPoint {
 				// ss="человек смертен. Сократ - человек. Кто Сократ?";
 				ss=stat.rfu_utf(sh+"/qq.txt");
 				
-				ss = stq.get_mm(sh, "mailing test /qq?mm", ss);
+				ss = stq.get_mm(sh, "mailing test /qq?mm", ss, null, null);
 				stat.page(req, resp, ss.replace("\r\n", "<br/>"));
 			}
 		}
@@ -119,7 +119,7 @@ public class qq extends HttpServlet implements EntryPoint {
 					|| ss[0].toLowerCase().equals("чего");
 
 			if (bb) {
-				s = stq.get_ans(sh, s5);
+				s = stq.get_ans(sh, s5,req, resp);
 				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s6;
 				stat.page(req, resp, s.replace("\r\n", "<br>"));
 			}

@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -87,24 +88,16 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 public class stat {
 	public static String sqq7 = "", sufix = "", sh="http://www.feofan.com";
-
 	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
 	public static String skon = "<form  action=qq method=post>"
-			+ "<br><input type=text id=id name=p2 size=82>"
-			+
-			// "&nbsp;&nbsp; <a href=qq?p2=owl.txt>txt</a>" +
-			" <br><br>&nbsp; <a href=qq>Очистить мир и страницу</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>Загрузить новый мир из хранилица миров</a>  &nbsp;&nbsp; <a href=qq?p2=добавить>Добавить к миру мир из хранилица миров</a>"
-			
-			// " &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"+
-			// &nbsp;&nbsp; <a href>сохранить мир</a>" +
-			+ " <br><br>&nbsp; <a href=qq?p2=кря>Описание КРЯ (контролируемого русского языка)</a>  &nbsp;&nbsp; <a href=qq?p2=что>Что тут есть сейчас?</a> "
-			+ " <br><br>&nbsp; <a href=owl>Описание мира на OWL</a> &nbsp;&nbsp; <a href=qq?p2=мир>Описание мира на КРЯ</a> &nbsp;&nbsp; <a href=/forum.htm>Разговоры с Феофаном</a>  "
-			+ " <br><br>&nbsp; <a href=/donate.htm>Подайте Феофану на пропитание</a> "
+			+ "<br><input type=text id=id name=p2 size=82>&nbsp;<input type=\"submit\" value=\"&nbsp;кляк&nbsp;\">"
+			+ "<br><br>&nbsp;<a href=qq>очистить</a> &nbsp;&nbsp; <a href=qq?p2=загрузить>загрузить</a>  &nbsp;&nbsp; <a href=qq?p2=добавить>добавить</a>"
+			+ " &nbsp; <a href=qq?p2=помощь>помощь</a>  &nbsp;&nbsp; <a href=qq?p2=что>что</a> "
+			+ " &nbsp; <a href=qq?p2=мир>кря</a> &nbsp;&nbsp; <a href=owl>owl</a> &nbsp;&nbsp; <a href=/forum.htm>форум</a>  "
+			+ " &nbsp; <a href=/donate.htm>деньги</a> "
 			+ "<br>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
-	// public static String siri = "http://owl.feofan.com/1#";
 	public static String siri = sh+"/rff?83.owl#";
-
 	public static String stop = "";
 	public static String sowl = "";
 	public static String sr = "";
@@ -175,26 +168,35 @@ public class stat {
 	}
 
 	public static void page(HttpServletRequest req, HttpServletResponse resp,
-			String sotvet) throws IOException {
+			String sotvet) {
 
+		if(sotvet.length()>0)
+		
 		if (sotvet.indexOf("Server Error") > -1)
 			sotvet = "какая-то проблема на сервере";
 
-		sotvet = sotvet.replace("\r\n", "<br>");
-
+		sotvet = sotvet.replace("\r\n", "<br>").trim();
 		stop = stop + "<br>\r\n<b><i>Феофан: </i></b>\r\n \r\n<!--otvet-->"
 				+ sotvet + "<!--otvet-->\r\n";
-		int i = stop.length();
-		if (i > 20000)
-			stop = stop.substring(0, 20000);
 
-		// i =stop.length();
+		if (stop.length()>50000)			
+			stop = stop.substring(stop.length()-50000);
+			
+		
+		ServletOutputStream out;
+		try {
+			out = resp.getOutputStream();
 
-		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");
 		String s = snach + stop + skon + " <br/><br/>";
-		byte[] b = s.getBytes("UTF8");
-		out.write(b);
+		byte[] b;
+	
+			b = s.getBytes("UTF8");
+			out.write(b);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static String rfu_utf(String s) {
@@ -727,7 +729,7 @@ public class stat {
 			throws IOException {
 		stat.stop = "";
 		stat.sr = "";
-		String s = "кря";
+		String s = "привет :-)";
 		stat.page(req, resp, s);
 	}
 
@@ -810,9 +812,9 @@ public class stat {
 
 		} catch (IOException e) {
 
-			return "не кря";
+			return "не кряк";
 		}
-		return "кря";
+		return "кряк";
 	}
 
 	public static String w2f_old(String sname, String s) {
@@ -854,9 +856,9 @@ public class stat {
 
 		} catch (IOException e) {
 
-			return "не кря";
+			return "не кряк";
 		}
-		return "кря";
+		return "кряк";
 	}
 
 	public static String prep_all(String s) {
@@ -871,15 +873,12 @@ public class stat {
 
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
-
-		stop = stop + "<br> <b><i> - </i></b> " + s;
-
-		if (s.indexOf("чист") == 0) {
+		//stop = stop + "<br> <b><i> - </i></b> " + s;
+		if (s.indexOf("очистить") == 0) {
 			stat.init(req, resp);
 			return;
 		} else if (s.equals("загрузить")) {
 			s = rfu_utf(sh + "/load.txt");
-
 			ServletOutputStream out = resp.getOutputStream();
 			resp.setContentType("text/html; charset=UTF-8");
 			s = s.replace("\r\n", "<br>");
@@ -895,50 +894,29 @@ public class stat {
 				s = s.replace("\r\n", "<br>");
 				byte[] b = s.getBytes("UTF8");
 				out.write(b);
-
 				return;
 			}
-
 		else
-
-		if (s.equals("кря")) {
-			// s = rfu_utf(sh+"/qq?p2="+URLEncoder.encode("дом", "UTF-8"));
-			// stat.page(req, resp, s);
-
+		if (s.equals("помощь")) {
 			s = stat.rfu_utf(sh + "/dom.txt");
 			ServletOutputStream out = resp.getOutputStream();
 			resp.setContentType("text/html; charset=UTF-8");
 			s = s.replace("\r\n", "<br>");
 			byte[] b = s.getBytes("UTF8");
 			out.write(b);
-
 			return;
 		} else if (s.equals("что")) {
 			s = chto(sh + "/qq_s");
-
 			stat.page(req, resp, s);
-
-			// ServletOutputStream out = resp.getOutputStream();
-			// resp.setContentType("text/xml; charset=UTF8");
-			// resp.setCharacterEncoding("UTF8");
-			// byte[] b = s.getBytes("UTF8");
-			// out.write(b);
 			return;
-		} else if (s.equals("фео")) {
-			stat.page(req, resp, "кря");
-			return;
-		}
+		} 
 		if (s.equals("мир")) {
 			s = rfu_utf(sh + "/qq7");
 			stat.page(req, resp, s);
 			return;
-		} else if (s.length() == 0)
+		} else 
 			page(req, resp, rfu_utf(sh + "/cmd.txt"));
-		else
-
-			// page(req, resp, rfu_utf(sh + "/cmd.txt"));
-			page(req, resp, "qqqqqqqqqqqqqqq");
-
+		
 	}
 
 	public static boolean socrat(String s) {
