@@ -1,6 +1,7 @@
 package guestbook;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URLEncoder;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -22,20 +23,21 @@ public class qq extends HttpServlet implements EntryPoint {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		//BasicConfigurator.configure();
+		// BasicConfigurator.configure();
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
-		stat.sh=sh;
+		stat.sh = sh;
 		if (req.getQueryString() == null)
 			stat.init(req, resp);
 		else {
 			if (req.getQueryString().indexOf("p2=") > -1)
 				doPost(req, resp);
 			if (req.getQueryString().indexOf("mm") > -1) {
-				String ss = "йй Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x любит y, то y любит x. Феофан любит Синеглазка. малыш любит 1 малышка. малышка любит 1 малыш. Пончик любит Синеглазка. Кого любит Кнопочка? ййй";
+				String ss = "(Феофану)Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x любит y, то y любит x. Феофан любит Синеглазка. малыш любит 1 малышка. малышка любит 1 малыш. Пончик любит Синеглазка. Кого любит Кнопочка?";
 				// ss="человек смертен. Сократ - человек. Кто Сократ?";
-				ss=stat.rfu_utf(sh+"/qq.txt");
-				
+				ss = "qqqqqqqqq (Феофану) человек смертен. Сократ - человек. Кто Сократ?";
+				ss = stat.rfu_utf(sh + "/qq.txt");
+
 				ss = stq.get_mm(sh, "mailing test /qq?mm", ss, null, null);
 				stat.page(req, resp, ss.replace("\r\n", "<br/>"));
 			}
@@ -52,18 +54,72 @@ public class qq extends HttpServlet implements EntryPoint {
 
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
-		stat.sh=sh;
-		
+		stat.sh = sh;
+
 		String s = req.getParameter("p2");
-		String s5 = s, s55 = "", s6 = "";
+		String s5 = s, s55 = "";
 		String[] ss = null;
 
 		if (s == null) {
 			stat.init(req, resp);
 			return;
 		}
-		s = s.trim();
 
+		if (s.toLowerCase().contains("спаркля("))
+		{
+			s=stq.sparql(s,req,resp);
+			stat.page(req, resp, s);
+			return;
+		}
+		else
+			
+		if (s.contains("sparql")) {
+			s55 = req.getParameter("txt");
+			if(s55!=null)
+			if (s55.toLowerCase().contains("спаркля("))
+			{
+				s=stq.sparql(s55,req,resp);
+				stat.page(req, resp, s);
+				return;
+			}
+			if (stat.sowl == null)
+				stat.sowl = "";	
+			stq.add_sr(stat.sr, sh);
+		
+			
+			
+			
+			s = stat.get_prefix(sh)+s55.replace(":", "qq:").replace("НАЙТИ", "select")
+					.replace("ГДЕ", "where");
+			
+			OntModel mm = ModelFactory
+					.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+
+			mm.read(new StringReader(stat.sowl), "");	
+			
+			try {
+				Query qq = QueryFactory.create(s);
+				s = "";
+				ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
+				while (r.hasNext())
+					s = s + r.next().toString();
+
+			} catch (Exception ee) {
+				s = ee.toString();
+			}
+			stat.stop = stat.stop + "<br> <b><i> - </i></b>" + s55;
+
+			s = s.replace("<", "[").replace(">", "]")
+					.replace(sh+"/rff?83.owl#", "");
+			s = s.replace("[Root]", "<br/>");
+
+			if (s.trim().length() == 0)
+				s = "ответа нет.<br/>мир можно дописать, загрузить или добавить.";
+
+			stat.page(req, resp, "\r\n"+s);
+			return;
+		}
+		s = s.trim();
 
 		// /////////////////////////////
 		//
@@ -81,14 +137,17 @@ public class qq extends HttpServlet implements EntryPoint {
 			if (s.indexOf(" ") < 0) {
 				stat.command(s, req, resp);
 				return;
-			}
-			else
-			{
-			stq.add_sr(s, sh);
-			stat.stop = stat.stop + "<br> <b><i> - </i></b>" + s;
-			s = stat.sr;
-			stat.page(req, resp, " Теперь мир слов и выражений устроет так: \r\n<i>"+ s+"</i>\r\n Об этом мире можно расспросить Феофана, начиная вопрос словами  Кто Кого Что (и пока не больше 3-х слов в вопросе) и не забыть знак вопроса в конце. Ага?");
-			return;
+			} else {
+				stq.add_sr(s, sh);
+				stat.stop = stat.stop + "<br> <b><i> - </i></b>" + s;
+				s = stat.sr;
+				stat.page(
+						req,
+						resp,
+						"\r\n<i>"
+								+ s
+								+ "</i>\r\nВопросы на КРЯ пока не больше трёх слов и начинаются на Что Кто Кого. Можно задать более сложный вопрос на Спаркле.");
+				return;
 			}
 		}
 
@@ -99,14 +158,13 @@ public class qq extends HttpServlet implements EntryPoint {
 		//
 		// /////////////////////////////
 
-
 		{
-			s6 = s;
+			String s6 = s;
 			if (s5.contains(".")) {
 				s55 = s5.substring(0, s5.lastIndexOf(".")).trim();
-				
-				s55=stat.prep_all(s55);
-				stq.add_sr(s55,sh);
+
+				s55 = stat.prep_all(s55);
+				stq.add_sr(s55, sh);
 				s5 = s5.substring(s5.lastIndexOf(".") + 1).trim();
 			}
 			s5 = s5.replace("?", "").trim();
@@ -119,14 +177,12 @@ public class qq extends HttpServlet implements EntryPoint {
 					|| ss[0].toLowerCase().equals("чего");
 
 			if (bb) {
-				s = stq.get_ans(sh, s5,req, resp);
+				s = stq.get_ans(sh, s5, req, resp);
 				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s6;
 				stat.page(req, resp, s.replace("\r\n", "<br>"));
-			}
-			else
-			{
+			} else {
 				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s6;
-				stat.page(req, resp, ("не понял вопроса - см. кря"));
+				stat.page(req, resp, ("Вопросы на КРЯ пока не больше трёх слов и начинаются на Что Кто Кого. Можно задать более сложный вопрос на Спаркле. См. описане КРЯ и Спаркля"));
 			}
 		}
 	}

@@ -84,6 +84,10 @@ public class stq {
 	public static String get_ans(String sh, String s, HttpServletRequest req,
 			HttpServletResponse resp) {
 
+		// sh = req.getScheme() + "://" + req.getServerName() + ":"
+		// + req.getServerPort() + req.getContextPath();
+		// stat.sh=sh;
+
 		boolean ber = false;
 		s = s.replace("?", "");
 		String[] ss = s.split("[ ]+");
@@ -103,36 +107,35 @@ public class stq {
 			// ///////////////////////////////////////////
 
 			if (i == 2) {
-				
+
 				OntModel mm = ModelFactory
 						.createOntologyModel(PelletReasonerFactory.THE_SPEC);
 				StringReader reader = new StringReader(stat.sowl);
 				mm.read(reader, "");
 				s = stat.sowl;
-				
+
 				String[] ssss = {
-						//"SELECT ?кто  WHERE {?кто a qq:" + ss[1] + "}",
+						// "SELECT ?кто  WHERE {?кто a qq:" + ss[1] + "}",
 						"SELECT ?кто  WHERE {qq:" + ss[1] + " rdf:type ?кто}",
 						"SELECT ?кто  WHERE {?кто rdf:type qq:" + ss[1] + "}" };
 
 				for (String str : ssss) {
-	
-					s = stat.get_prefix() + str;
+
+					s = stat.get_prefix(sh) + str;
 
 					Query qq = QueryFactory.create(s);
 					s = stat.sowl;
 					s = "";
 					ResultSet r = null;
-					
+
 					try {
 						r = SparqlDLExecutionFactory.create(qq, mm)
 								.execSelect();
-						while (r.hasNext())
-						{
-							s= r.next().toString();
-							if(!s3.contains(s))
-								s3=s3+s;
-							}
+						while (r.hasNext()) {
+							s = r.next().toString();
+							if (!s3.contains(s))
+								s3 = s3 + s;
+						}
 					} catch (Exception er) {
 						s = er.toString();
 						ber = true;
@@ -160,40 +163,54 @@ public class stq {
 				mm.read(reader, "");
 				s = stat.sowl;
 
-				String[] ssss = {
-						"SELECT ?кто  WHERE {?кто qq:" + ss[1] + " qq:" + ss[2] + "}",
-						"SELECT ?кто  WHERE { qq:" + ss[2] + " qq:" + ss[1] + " ?кто }" };
+				// ///////////////////////////////////////////////////////
+				String[] ss1 = {
+						"SELECT ?кто  WHERE {?кто qq:" + ss[1] + " qq:" + ss[2]
+								+ "}",
+						"SELECT ?кто  WHERE { qq:" + ss[2] + " qq:" + ss[1]
+								+ " ?кто }" };
+				String[] ss2 = {
+						"select ?кто where {qq:" + ss[1]
+								+ " rdfs:domain ?кто }",
+						"select ?кто where {qq:" + ss[1] + " rdfs:range ?кто }"
 
-				for (String str : ssss) {
-	
-					s = stat.get_prefix() + str;
+				};
+
+				String[] sss = ss1;
+
+				if (!bim(ss[2]))
+					sss = ss2;
+
+				for (String str : sss) {
+
+					s = stat.get_prefix(sh) + str;
 
 					Query qq = QueryFactory.create(s);
 					s = stat.sowl;
 					s = "";
 					ResultSet r = null;
-					
+
 					try {
 						r = SparqlDLExecutionFactory.create(qq, mm)
 								.execSelect();
-						while (r.hasNext())
-						{
-							s= r.next().toString();
-							if(!s3.contains(s))
-								s3=s3+s;
-							}
+						while (r.hasNext()) {
+							s = r.next().toString();
+							if (!s3.contains(s) && !s.contains(ss[2]))
+								s3 = s3 + s;
+						}
 					} catch (Exception er) {
 						s = er.toString();
 						ber = true;
 					}
-					s3 = s3 + s;
+					// s3 = s3 + s;
 				}
+
+				// ///////////////////////////////////////////////////////
 
 				s = s3;
 				if (s.length() == 0)
 					s = "Не знаю :-(";
-				
-				
+
 			} else
 				s = "Пока что вопрос должен начинается со слов Кто, Что, Кого и состоять из 2-х или 3-х слов.";
 		}
@@ -202,25 +219,22 @@ public class stq {
 			stat.page(req, resp, s);
 		}
 
-	
-
 		if (s.indexOf("#") > 0) {
 			s = s.substring(s.indexOf("#") + 1);
 
 			s = s.replaceAll("[<>]", "").replace("[", "");
-			
+
 			ss = s.split("[#]");
 			s = "";
-			s3=",";
+			s3 = ",";
 			for (String sd : ss) {
-				if (sd.indexOf(")") > 0)
-				{
+				if (sd.indexOf(")") > 0) {
 					s = sd.substring(0, sd.indexOf(")")).trim();
-					if(!s3.contains(s))
-						s3=s3+", "+s;
-				
+					if (!s3.contains(s))
+						s3 = s3 + ", " + s;
+
 				}
-				s = s3.replace(",," ,"");
+				s = s3.replace(",,", "");
 			}
 		} else
 			s = "не знаю :-(";
@@ -234,56 +248,92 @@ public class stq {
 
 		String s1 = s, s3 = "", svopros = "", sotvet = "";
 
-		int i1 = s.toLowerCase().indexOf("йй");
-		int i2 = s.toLowerCase().indexOf("ййй");
-		int i3 = 0;
+		//отрезаем ненужное
+		int i = s
+				.indexOf("-- Вы получили это сообщение, поскольку подписаны на группу Разговоры с логической программой на контролируемом русском языке.");
+		if (i > -1)
+			s = s.substring(0, i);
+		
+int i2 = s.indexOf("Фeoфaн"); //FeoФан - уже отвечал
+int i7 = s.indexOf("?");
 
-		boolean bkrk = i2 > i1 && i1 > -1;
+int i3 = s.toLowerCase().indexOf("(феофану)"); // - есть вопрос к феофану
+int i5 = s.toLowerCase().indexOf("йй");
+int i6 = s.toLowerCase().indexOf("qq");
 
-		if (bkrk) {
-			s = s.substring(i1 + 2, i2);
-			s = stat.prep_all(s);
 
-			i3 = s.indexOf("?");
-			if (i3 > 0) {
 
-				svopros = s.substring(s.lastIndexOf(".") + 1).trim();
+boolean b1= (i2 == -1) && (i7 == -1); // не отвечал и нет вопроса
+boolean b2= (i2 > -1) && (i7 == -1); //  отвечал но нет вопроса
+boolean b3= (i2 == -1) && (i7 > -1); // не отвечал и есть вопрос 
+boolean b4= (i2 > -1) && (i7 > -1); // отвечал и есть вопрос 
 
-				s = s.substring(0, s.lastIndexOf(".") + 1).trim();
-				add_sr(s, sh);
 
-				// s3 = stat.get_owl83(s1);
-				// System.err.println("get_mm_s3 "+s3);
+		if (b1 || b2)			
+			System.err.println("-- b1 || b2 -- mm not sent -----> ne otvechat' - uzhe otvetil ili net voprosa");
+		else
+			if (i3 == -1 && i5 == -1 && i6 == -1) {
+				System.err.println("---------> net qq qq (feofanu)");
 
+				s = "Фeoфaн читает в письме текст от слов \"(Феофану)\" (в скобках), или \"йй\", или \"qq\" и до вопросительного знака."
+						
+						+ "\r\n---\r\nФeoфaн http://www.feofan.com/\r\n----\r\n"+s1;
+			} else {
 				try {
-					sotvet = stq.get_ans(sh, svopros, req, resp);
+					i = s.toLowerCase().indexOf("(феофану)"); 
+					if(i3>-1)
+						s = s.substring(i3 + 9).trim();
+					else						
+					if(i5>-1)
+						s = s.substring(i5 + 2).trim();
+					else						
+						if(i6>-1)
+						s = s.substring(i6 + 2).trim();
+					else
+						s=". что есть?";
+					
+				
+					i = s.indexOf("?");
+					if (i > 0) {
+						s = s.substring(0, i + 1);
+						
+						s = stat.prepare_83(s).trim();
+						s = stat.prep_all(s).trim();
+						
+						
+						svopros = s.substring(s.lastIndexOf(".") + 1).trim();
+						s = s.substring(0, s.lastIndexOf(".") + 1).trim();
+						
+						/////////////////////////////////
+						
+						s = stat.prepare_83(s).trim();
+						s = stat.prep_all(s).trim();
+						add_sr(s, sh);
+
+				
+						/////////////////////////////////
+						sotvet = stq.get_ans(sh, svopros, req, resp);
+						s = s+" "+ svopros + "\r\n\r\n-"
+								+ sotvet + "\r\n---\r\nФeoфaн http://www.feofan.com/";
+
+					} else {
+						s = "\r\n Фeoфaн читает текст до вопроса. "
+								+ "Вопросительного знака в тексте не нашёл."
+								+ "\r\n---\r\nФeoфaн http://www.feofan.com/\r\n\r\n"
+								+ "====================================\r\n\r\n"
+								+ s1;
+
+					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
-				s = "\r\n" + s + "\r\n \r\n- " + svopros + "\r\n \r\n- "
-						+ sotvet + "";
+				System.err.println("------------------> sent to the admins");
+				stq.mail_admins(sb, s);
 
-				System.err.println(s);
-
-				// stq.sm("ymilov@gmail.com", "stq.get_mm", s);
-
-			} else {
-
-				s3 = stat.get_owl83(s1, sh);
-
-				s = s
-						+ "\r\n Не увидел вопроса. Сгенерил онтологию "
-						+ " http://www.feofan.com/rff?83.owl \r\n-------------\r\n// ответ парсера get_owl83: \r\n---\r\n"
-						+ s3;
 			}
-
-			stq.mail_admins(sb, s);
-			System.err.println("------------------> sent to the forum");
-		} else
-			System.err.println("------------------> NOT sent");
-
+	
 		return s;
 	}
 
@@ -367,6 +417,104 @@ public class stq {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static boolean bim(String s) {
+
+		if (s.length() > 0)
+			if (s.substring(0, 1).toUpperCase().equals(s.substring(0, 1)))
+				return true;
+			else
+				return false;
+		else
+			return false;
+	}
+
+	public static String sparql(String s, HttpServletRequest req,	HttpServletResponse resp){
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		stat.sh = sh;
+		String s55=s;
+		
+		if (s.contains("Феофан, загрузи новый мир \"Сократ\"."))
+			stat.sr=stq.pripare(stat.rfu_utf(sh+"/1.rul").substring(2));
+
+		if (s.contains("Феофан, загрузи новый мир \"Незнайка\"."))
+			stat.sr=stq.pripare(stat.rfu_utf(sh+"/2.rul").substring(2));
+
+
+		stq.add_sr(stat.sr, sh);
+		s=s.substring(s.indexOf("спаркля("));		
+		s=s.replace("спаркля(", "").replace(")", "");
+		
+		String[] ss = s.split("[ ]+");
+		String svar="";
+		s="SELECT var  WHERE {";
+		for (String str : ss){
+			
+			str=str.trim();
+			
+		if(str.equals("это"))
+			s=s+" rdf:type";
+		else
+		if (str.indexOf("?")==0)
+			{
+			svar=svar + str.trim()+ " ";
+			s=s+" "+str;
+			}
+		else
+				s=s+" qq:"+str;
+		
+		}
+		s=s+".}";
+		s=s.replace("var", svar);
+		s=stat.get_prefix(sh)+s;
+		
+		
+	//	s=stat.get_prefix(sh)+"SELECT ?кто  WHERE {qq:Сократ rdf:type  ?кто}";
+		
+		//"SELECT ?кто  WHERE {qq:" + ss[1] + " rdf:type ?кто}";
+		//"SELECT ?кто  WHERE {?кто rdf:type qq:" + ss[1] + "}" };
+
+		
+		OntModel mm = ModelFactory
+				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+
+		mm.read(new StringReader(stat.sowl), "");	
+		
+		try {
+			Query qq = QueryFactory.create(s);
+			s = "";
+			ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
+			while (r.hasNext())
+				s = s + r.next().toString();
+
+		} catch (Exception ee) {
+			s = ee.toString();
+		}
+		stat.stop = stat.stop + "<br> <b><i> - </i></b>" + s55;
+
+		s = s.replace("<", "[").replace(">", "]")
+				.replace(sh+"/rff?83.owl#", "");
+		s = s.replace("[Root]", "<br/>").replace("-]", "");
+
+		if (s.trim().length() == 0)
+			s = "ответа нет.<br/>мир можно дописать, загрузить или добавить.";
+
+s="\r\n"+s;
+		
+		
+		return s;}
+	
+	public static String pripare(String s) {
+
+		while (s.indexOf("(") > -1 && s.indexOf(")") > -1
+				&& s.indexOf(")") > s.indexOf("("))
+			s = s.replace(s.substring(s.indexOf("("), s.indexOf(")") + 1), "");
+
+		s = s.replace("-", "").replace("это", "");
+
+		return s.trim();
 	}
 
 }

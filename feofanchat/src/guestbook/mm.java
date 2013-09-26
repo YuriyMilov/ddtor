@@ -78,8 +78,13 @@ public class mm extends HttpServlet {
 			String sbj = ms1.getSubject();
 			System.err.println( ms1.getSender().toString() + " ------> "+ sbj);
 			System.err.println( " encoding ------> "+ ms1.getEncoding());
+			
+			
+			
 			String ss = Jsoup.parse(s).body().text();
-			ss=MimeUtility.encodeText(ss, "utf-8", "B");
+			
+			
+			//ss=MimeUtility.encodeText(ss, "utf-8", "B");
 			
 			stat.sr="";
 			

@@ -20,6 +20,10 @@ public class qq5 extends HttpServlet  {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
+		stat.sh=sh;
+
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/html; charset=UTF8");		
 		
@@ -74,7 +78,7 @@ public class qq5 extends HttpServlet  {
 	
 	public String get_q1(String sowl, String  sq, HttpServletRequest req) {
 		
-		String  s = stat.get_prefix()
+		String  s = stat.get_prefix(stat.sh)
 				+"SELECT ?кто  WHERE {qq:"+sq+" rdf:type ?кто}";
 		
 
@@ -118,7 +122,7 @@ public class qq5 extends HttpServlet  {
 	
 	public String get_q2(String sowl, String  sq, HttpServletRequest req) {
 		
-		String s = stat.get_prefix()
+		String s = stat.get_prefix(stat.sh)
 				+"SELECT ?кто  WHERE {?кто a qq:"+sq+"}";
 
 		OntModel model = ModelFactory
@@ -162,7 +166,7 @@ public class qq5 extends HttpServlet  {
 public String get_q4(String sowl, String  sq, HttpServletRequest req) {
 		
 		String s = "" +
-				stat.get_prefix()
+				stat.get_prefix(stat.sh)
 				//+"SELECT ?кто  WHERE {?кто a :"+sq+"}";
 				+"SELECT ?кто  WHERE {qq:"+sq+" rdfs:subClassOf ?кто}";
 		
@@ -207,7 +211,7 @@ public String get_q4(String sowl, String  sq, HttpServletRequest req) {
 
 public String get_q5(String sowl, String  sq, HttpServletRequest req) {
 	
-	String s = stat.get_prefix()
+	String s = stat.get_prefix(stat.sh)
 			+"SELECT ?кто  WHERE {?кто rdfs:subClassOf qq:"+sq+"}";
 	
 
@@ -252,7 +256,7 @@ public String get_q5(String sowl, String  sq, HttpServletRequest req) {
 	
 public String get_q3(String sowl, String  sq, HttpServletRequest req) {
 		
-	String s = stat.get_prefix()
+	String s = stat.get_prefix(stat.sh)
 +"SELECT ?кто ?какой WHERE {?кто a ?какой}";
 		
 
@@ -301,7 +305,7 @@ public String get_q3(String sowl, String  sq, HttpServletRequest req) {
 
 public String get_q6(String sowl, String  sq, HttpServletRequest req) {
 	
-	String s = stat.get_prefix()
+	String s = stat.get_prefix(stat.sh)
 			+ "SELECT ?Who  WHERE {?Who qq:p qq:4}";
 
 	
