@@ -53,8 +53,9 @@ public class qq_s extends HttpServlet {
 		if (s3.equals("add")) {
 			s = stat.rfu_utf(sh + "/" + URLEncoder.encode(s4, "UTF-8"));
 			s = s.substring(s.indexOf("Ъ") + 1);
-			stat.sr = (stat.sr+" "+s).replace("\r\n", "");
-			stat.get_owl83(stat.sr,sh);
+			//stat.sr = (stat.sr+" "+s).replace("\r\n", "");
+			stq.add_sr(s, sh);
+			
 			//stat.stop = stat.stop + "<br> <b><i> - </i></b> Добавить мир: <i>" + s + "</i>";
 			stat.page(req, resp, stat.sr);
 	
