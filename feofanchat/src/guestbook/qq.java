@@ -32,7 +32,7 @@ public class qq extends HttpServlet implements EntryPoint {
 		else {
 			if (req.getQueryString().indexOf("p2=") > -1)
 				doPost(req, resp);
-			if (req.getQueryString().indexOf("mm") > -1) {
+			else if (req.getQueryString().indexOf("mm") > -1) {
 				String ss = "(Феофану)Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x любит y, то y любит x. Феофан любит Синеглазка. малыш любит 1 малышка. малышка любит 1 малыш. Пончик любит Синеглазка. Кого любит Кнопочка?";
 				// ss="человек смертен. Сократ - человек. Кто Сократ?";
 				ss = "qqqqqqqqq (Феофану) человек смертен. Сократ - человек. Кто Сократ?";
@@ -56,51 +56,43 @@ public class qq extends HttpServlet implements EntryPoint {
 				+ req.getServerPort() + req.getContextPath();
 		stat.sh = sh;
 
-		String s = req.getParameter("p2");
+		String s = req.getParameter("p2").trim();
 		String s5 = s, s55 = "";
 		String[] ss = null;
 
 		if (s == null) {
 			stat.init(req, resp);
 			return;
-		}
-
-		if (s.toLowerCase().contains("спаркля("))
-		{
-			s=stq.sparql(s,req,resp);
+		} else if (s.toLowerCase().contains("спаркля(")) {
+			s = stq.sparql(s, req, resp);
 			stat.page(req, resp, s);
 			return;
-		}
-		else
-			
-		if (s.contains("sparql")) {
+		} else if (s.contains("sparql")) {
 			s55 = req.getParameter("txt");
-			if(s55!=null)
-			if (s55.toLowerCase().contains("спаркля("))
-			{
-				s=stq.sparql(s55,req,resp);
-				stat.page(req, resp, s);
-				return;
-			}
+			if (s55 != null)
+				if (s55.toLowerCase().contains("спаркля(")) {
+					s = stq.sparql(s55, req, resp);
+					stat.page(req, resp, s);
+					return;
+				}
 			if (stat.sowl == null)
-				stat.sowl = "";	
+				stat.sowl = "";
 			stq.add_sr(stat.sr, sh);
-		
-			
-			
-			
-			s = stat.get_prefix(sh)+s55.replace(":", "qq:").replace("НАЙТИ", "select")
-					.replace("ГДЕ", "where");
-			
+
+			s = stat.get_prefix(sh)
+					+ s55.replace(":", "qq:").replace("НАЙТИ", "select")
+							.replace("ГДЕ", "where");
+
 			OntModel mm = ModelFactory
 					.createOntologyModel(PelletReasonerFactory.THE_SPEC);
 
-			mm.read(new StringReader(stat.sowl), "");	
-			
+			mm.read(new StringReader(stat.sowl), "");
+
 			try {
 				Query qq = QueryFactory.create(s);
 				s = "";
-				ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
+				ResultSet r = SparqlDLExecutionFactory.create(qq, mm)
+						.execSelect();
 				while (r.hasNext())
 					s = s + r.next().toString();
 
@@ -110,31 +102,26 @@ public class qq extends HttpServlet implements EntryPoint {
 			stat.stop = stat.stop + "<br> <b><i> - </i></b>" + s55;
 
 			s = s.replace("<", "[").replace(">", "]")
-					.replace(sh+"/rff?83.owl#", "");
+					.replace(sh + "/rff?83.owl#", "");
 			s = s.replace("[Root]", "<br/>");
 
 			if (s.trim().length() == 0)
 				s = "ответа нет.<br/>мир можно дописать, загрузить или добавить.";
 
-			stat.page(req, resp, "\r\n"+s);
+			stat.page(req, resp, "\r\n" + s);
 			return;
-		}
-		s = s.trim();
-
-		// /////////////////////////////
-		//
-		// текст
-		//
-		// /////////////////////////////
-
-		if (!s.contains("?")) {
+		} else if (!s.contains("?")) {
 			// /////////////////////////////
 			//
-			// команда
+			// текст
 			//
 			// /////////////////////////////
-
 			if (s.indexOf(" ") < 0) {
+				// /////////////////////////////
+				//
+				// команда
+				//
+				// /////////////////////////////
 				stat.command(s, req, resp);
 				return;
 			} else {
@@ -149,16 +136,13 @@ public class qq extends HttpServlet implements EntryPoint {
 								+ "</i>\r\nВопросы на КРЯ пока не больше трёх слов и начинаются на Что Кто Кого. Можно задать более сложный вопрос на Спаркле.");
 				return;
 			}
-		}
+		} else {
+			// /////////////////////////////
+			//
+			// вопрос
+			//
+			// /////////////////////////////
 
-		else
-		// /////////////////////////////
-		//
-		// вопрос
-		//
-		// /////////////////////////////
-
-		{
 			String s6 = s;
 			if (s5.contains(".")) {
 				s55 = s5.substring(0, s5.lastIndexOf(".")).trim();
@@ -182,7 +166,10 @@ public class qq extends HttpServlet implements EntryPoint {
 				stat.page(req, resp, s.replace("\r\n", "<br>"));
 			} else {
 				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s6;
-				stat.page(req, resp, ("Вопросы на КРЯ пока не больше трёх слов и начинаются на Что Кто Кого. Можно задать более сложный вопрос на Спаркле. См. описане КРЯ и Спаркля"));
+				stat.page(
+						req,
+						resp,
+						("Вопросы на КРЯ пока не больше трёх слов и начинаются на Что Кто Кого. Можно задать более сложный вопрос на Спаркле. См. описане КРЯ и Спаркля"));
 			}
 		}
 	}

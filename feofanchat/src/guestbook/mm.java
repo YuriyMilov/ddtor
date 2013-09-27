@@ -60,7 +60,6 @@ public class mm extends HttpServlet {
 
 			String s = "";
 			if (msgContent instanceof Multipart) {
-
 				Multipart multipart = (Multipart) msgContent;
 				for (int j = 0; j < multipart.getCount(); j++) {
 					BodyPart bodyPart = multipart.getBodyPart(j);
@@ -74,22 +73,22 @@ public class mm extends HttpServlet {
 				}
 			} else
 				s = ms1.getContent().toString();
-
 			String sbj = ms1.getSubject();
-			System.err.println( ms1.getSender().toString() + " ------> "+ sbj);
-			System.err.println( " encoding ------> "+ ms1.getEncoding());
-			
-			
-			
+			String srp = "";
+			int i=ms1.getReplyTo().length;
+			while(i>0)
+				srp=srp+ms1.getReplyTo()[--i].toString();
 			String ss = Jsoup.parse(s).body().text();
-			
-			
 			//ss=MimeUtility.encodeText(ss, "utf-8", "B");
-			
 			stat.sr="";
-			
-			stq.get_mm(sh,sbj,ss, req,resp);		
-
+			if(!srp.contains("kuka@feofan.com"))
+			{	
+				stq.get_mm(sh,sbj,ss, req,resp);
+				System.err.println( "-- kto --> "+ srp+" "+
+				 ms1.getSender().toString() + " -- subj --> "+ sbj);
+			}
+			else
+				System.err.println( " === kuka@feofan.com ===>> sebe net otveta");
 		} catch (Exception e) {
 			System.err.println(e.toString());
 		}

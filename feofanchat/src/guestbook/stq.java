@@ -70,12 +70,15 @@ public class stq {
 		Session session = Session.getDefaultInstance(props, null);
 		try {
 			MimeMessage msg = new MimeMessage(session);
+			msg.addHeader("Content-Type",
+					" text/html; charset=utf-8");
 			msg.setFrom(new InternetAddress("kuka@feofan.com", MimeUtility
 					.encodeText("Феофан", "utf-8", "B")));
 			msg.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(
 					"admins"));
 			msg.setSubject(MimeUtility.encodeText(subject, "utf-8", "B"));
 			msg.setText(text);
+			
 			Transport.send(msg);
 		} catch (Exception e) {
 		}
@@ -237,7 +240,7 @@ public class stq {
 				s = s3.replace(",,", "");
 			}
 		} else
-			s = "не знаю :-(";
+			s = "не знаю :-( ";
 
 		s = s + ".";
 		return s;
@@ -247,93 +250,30 @@ public class stq {
 			HttpServletRequest req, HttpServletResponse resp) {
 
 		String s1 = s, s3 = "", svopros = "", sotvet = "";
-
-		//отрезаем ненужное
-		int i = s
-				.indexOf("-- Вы получили это сообщение, поскольку подписаны на группу Разговоры с логической программой на контролируемом русском языке.");
-		if (i > -1)
-			s = s.substring(0, i);
 		
-int i2 = s.indexOf("Фeoфaн"); //FeoФан - уже отвечал
-int i7 = s.indexOf("?");
-
-int i3 = s.toLowerCase().indexOf("(феофану)"); // - есть вопрос к феофану
-int i5 = s.toLowerCase().indexOf("йй");
-int i6 = s.toLowerCase().indexOf("qq");
-
-
-
-boolean b1= (i2 == -1) && (i7 == -1); // не отвечал и нет вопроса
-boolean b2= (i2 > -1) && (i7 == -1); //  отвечал но нет вопроса
-boolean b3= (i2 == -1) && (i7 > -1); // не отвечал и есть вопрос 
-boolean b4= (i2 > -1) && (i7 > -1); // отвечал и есть вопрос 
-
-
-		if (b1 || b2)			
-			System.err.println("-- b1 || b2 -- mm not sent -----> ne otvechat' - uzhe otvetil ili net voprosa");
-		else
-			if (i3 == -1 && i5 == -1 && i6 == -1) {
-				System.err.println("---------> net qq qq (feofanu)");
-
-				s = "Фeoфaн читает в письме текст от слов \"(Феофану)\" (в скобках), или \"йй\", или \"qq\" и до вопросительного знака."
-						
-						+ "\r\n---\r\nФeoфaн http://www.feofan.com/\r\n----\r\n"+s1;
-			} else {
-				try {
-					i = s.toLowerCase().indexOf("(феофану)"); 
-					if(i3>-1)
-						s = s.substring(i3 + 9).trim();
-					else						
-					if(i5>-1)
-						s = s.substring(i5 + 2).trim();
-					else						
-						if(i6>-1)
-						s = s.substring(i6 + 2).trim();
-					else
-						s=". что есть?";
-					
-				
-					i = s.indexOf("?");
-					if (i > 0) {
-						s = s.substring(0, i + 1);
-						
-						s = stat.prepare_83(s).trim();
-						s = stat.prep_all(s).trim();
-						
-						
-						svopros = s.substring(s.lastIndexOf(".") + 1).trim();
-						s = s.substring(0, s.lastIndexOf(".") + 1).trim();
-						
-						/////////////////////////////////
-						
-						s = stat.prepare_83(s).trim();
-						s = stat.prep_all(s).trim();
-						add_sr(s, sh);
-
-				
-						/////////////////////////////////
-						sotvet = stq.get_ans(sh, svopros, req, resp);
-						s = s+" "+ svopros + "\r\n\r\n-"
-								+ sotvet + "\r\n---\r\nФeoфaн http://www.feofan.com/";
-
-					} else {
-						s = "\r\n Фeoфaн читает текст до вопроса. "
-								+ "Вопросительного знака в тексте не нашёл."
-								+ "\r\n---\r\nФeoфaн http://www.feofan.com/\r\n\r\n"
-								+ "====================================\r\n\r\n"
-								+ s1;
-
-					}
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		int i = s.lastIndexOf("--");		
+		if (i > -1)
+			s = s.substring(0, i);		
+				if (s.indexOf(".") > 0 && s.indexOf("?") > s.indexOf(".")) {
+					i = s.indexOf("?");					
+					s = s.substring(0, i + 1);
+					svopros = s.substring(s.lastIndexOf(".") + 1).trim();					
+					s = s.substring(0, s.lastIndexOf(".") + 1).trim();					
+					s = stq.pripare(s);
+					s = stat.prep_all(s);
+					add_sr(s, sh);
+					sotvet = stq.get_ans(sh, svopros, req, resp);
+					s = s + " " + svopros 
+							+ "\r\n\r\n\r\n\r\nФеофан:  " + sotvet
+					+ "\r\n\r\nhttp://www.feofan.com";
+				} else {
+					if(s1.lastIndexOf(" -- ")>-1)
+						s1=s1.substring(0,s1.lastIndexOf(" -- "));
+					s ="Не понял.\r\n\r\nФеофан\r\nhttp://www.feofan.com"
+					+"\r\n\r\n\r\n"+s1;
 				}
-
-				System.err.println("------------------> sent to the admins");
-				stq.mail_admins(sb, s);
-
-			}
-	
+			System.err.println(" *** stq.mail_admins(sb, s) ***");
+			stq.mail_admins(sb, s);
 		return s;
 	}
 
@@ -430,58 +370,53 @@ boolean b4= (i2 > -1) && (i7 > -1); // отвечал и есть вопрос
 			return false;
 	}
 
-	public static String sparql(String s, HttpServletRequest req,	HttpServletResponse resp){
+	public static String sparql(String s, HttpServletRequest req,
+			HttpServletResponse resp) {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
 		stat.sh = sh;
-		String s55=s;
-		
+		String s55 = s;
+
 		if (s.contains("Феофан, загрузи новый мир \"Сократ\"."))
-			stat.sr=stq.pripare(stat.rfu_utf(sh+"/1.rul").substring(2));
+			stat.sr = stq.pripare(stat.rfu_utf(sh + "/1.rul").substring(2));
 
 		if (s.contains("Феофан, загрузи новый мир \"Незнайка\"."))
-			stat.sr=stq.pripare(stat.rfu_utf(sh+"/2.rul").substring(2));
-
+			stat.sr = stq.pripare(stat.rfu_utf(sh + "/2.rul").substring(2));
 
 		stq.add_sr(stat.sr, sh);
-		s=s.substring(s.indexOf("спаркля("));		
-		s=s.replace("спаркля(", "").replace(")", "");
-		
-		String[] ss = s.split("[ ]+");
-		String svar="";
-		s="SELECT var  WHERE {";
-		for (String str : ss){
-			
-			str=str.trim();
-			
-		if(str.equals("это"))
-			s=s+" rdf:type";
-		else
-		if (str.indexOf("?")==0)
-			{
-			svar=svar + str.trim()+ " ";
-			s=s+" "+str;
-			}
-		else
-				s=s+" qq:"+str;
-		
-		}
-		s=s+".}";
-		s=s.replace("var", svar);
-		s=stat.get_prefix(sh)+s;
-		
-		
-	//	s=stat.get_prefix(sh)+"SELECT ?кто  WHERE {qq:Сократ rdf:type  ?кто}";
-		
-		//"SELECT ?кто  WHERE {qq:" + ss[1] + " rdf:type ?кто}";
-		//"SELECT ?кто  WHERE {?кто rdf:type qq:" + ss[1] + "}" };
+		s = s.substring(s.indexOf("спаркля("));
+		s = s.replace("спаркля(", "").replace(")", "");
 
-		
+		String[] ss = s.split("[ ]+");
+		String svar = "";
+		s = "SELECT var  WHERE {";
+		for (String str : ss) {
+
+			str = str.trim();
+
+			if (str.equals("это"))
+				s = s + " rdf:type";
+			else if (str.indexOf("?") == 0) {
+				svar = svar + str.trim() + " ";
+				s = s + " " + str;
+			} else
+				s = s + " qq:" + str;
+
+		}
+		s = s + ".}";
+		s = s.replace("var", svar);
+		s = stat.get_prefix(sh) + s;
+
+		// s=stat.get_prefix(sh)+"SELECT ?кто  WHERE {qq:Сократ rdf:type  ?кто}";
+
+		// "SELECT ?кто  WHERE {qq:" + ss[1] + " rdf:type ?кто}";
+		// "SELECT ?кто  WHERE {?кто rdf:type qq:" + ss[1] + "}" };
+
 		OntModel mm = ModelFactory
 				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
 
-		mm.read(new StringReader(stat.sowl), "");	
-		
+		mm.read(new StringReader(stat.sowl), "");
+
 		try {
 			Query qq = QueryFactory.create(s);
 			s = "";
@@ -495,17 +430,17 @@ boolean b4= (i2 > -1) && (i7 > -1); // отвечал и есть вопрос
 		stat.stop = stat.stop + "<br> <b><i> - </i></b>" + s55;
 
 		s = s.replace("<", "[").replace(">", "]")
-				.replace(sh+"/rff?83.owl#", "");
+				.replace(sh + "/rff?83.owl#", "");
 		s = s.replace("[Root]", "<br/>").replace("-]", "");
 
 		if (s.trim().length() == 0)
 			s = "ответа нет.<br/>мир можно дописать, загрузить или добавить.";
 
-s="\r\n"+s;
-		
-		
-		return s;}
-	
+		s = "\r\n" + s;
+
+		return s;
+	}
+
 	public static String pripare(String s) {
 
 		while (s.indexOf("(") > -1 && s.indexOf(")") > -1
