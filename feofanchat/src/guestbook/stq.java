@@ -414,8 +414,6 @@ public class stq {
 		} catch (Exception ee) {
 			s = ee.toString();
 		}
-		stat.stop = stat.stop + "<br> <b><i> - </i></b>" + s55;
-
 		s = s.replace("<", "[").replace(">", "]")
 				.replace(sh + "/rff?83.owl#", "");
 		// s = s.replace("[Root]", "<br/>").replace("-]", "");
@@ -442,7 +440,7 @@ public class stq {
 			if (sd.contains("["))
 			s = s + sd +"\r\n";
 		}
-		s=s.replace("[Root]", "\r\n").replace(" -] ", "");
+		s=s.replace("[Root]", "\r\n").replace(" -] ", "").substring(0,s.length()-4);
 		return "\r\n" + s;
 	}
 }
