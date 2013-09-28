@@ -440,7 +440,8 @@ public class stq {
 			if (sd.contains("["))
 			s = s + sd +"\r\n";
 		}
-		s=s.replace("[Root]", "\r\n").replace(" -] ", "").substring(0,s.length()-4);
+		s=s.replace("[Root]", "\r\n").replace(" -] ", "");
+		s=s.substring(0,s.length()-4);
 		return "\r\n" + s;
 	}
 }
