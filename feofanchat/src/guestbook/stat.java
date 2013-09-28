@@ -92,17 +92,15 @@ public class stat {
 	public static String sqq7 = "", sufix = "", sh = "http://www.feofan.com";
 	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
 	public static String skon = "<form  action=qq method=post>" +
-			"<br><input type=text id=id name=p2 size=82>&nbsp;<input type=\"submit\" value=\"&nbsp;кляк&nbsp;\">" +
-			"<br><br> &nbsp;<a href=qq>очистить</a> &nbsp;" +
-			" <a href=qq?p2=загрузить>загрузить</a>" +
-			" &nbsp; <a href=qq?p2=добавить>добавить</a>" +
-			" &nbsp; <a href=qq?p2=что>что</a> " +
+			"<br><input type=text id=id name=p2 size=62>&nbsp;<input type=\"submit\" value=\"&nbsp;кляк&nbsp;\">" +
+			"<br><br>" +
+			" &nbsp; <a href=qq>очистить</a>" +
+			" &nbsp; <a href=/sparql.htm>примеры</a>" +
 			" &nbsp; <a href=qq?p2=мир>мир</a>" +
 			" &nbsp; <a href=/forum.htm>форум</a>" +
-			" &nbsp; <a href=/sparql.htm>спаркля</a>" +
-			" &nbsp; <a href=owl>owl</a> " +
+			" &nbsp; <a href=/rubli.htm>деньги</a>" +
+			" &nbsp; <a href=owl>owl</a>" +
 			" &nbsp; <a href=qq?p2=помощь>про</a>"+
-			 " &nbsp; <a href=/donate.htm>деньги</a>" +
 			 "<br.>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
 
 	public static String siri = sh + "/rff?83.owl#";

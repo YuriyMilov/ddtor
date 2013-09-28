@@ -65,7 +65,7 @@ public class mm extends HttpServlet {
 			stat.sr="";
 			if(!srp.contains("kuka@feofan.com"))
 			{	
-				stq.mm_send(sbj,sotvet);
+				stq.mail_admins(sbj,sotvet);				
 				System.err.println( "-- KTO --> "+ srp +" "+
 				 ms1.getSender().toString() + " -- SUBJ --> "+ sbj);
 			}

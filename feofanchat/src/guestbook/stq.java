@@ -73,6 +73,8 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 public class stq {
 
+	private static Object String;
+
 	public static void mail_admins(String subject, String text) {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
@@ -93,11 +95,6 @@ public class stq {
 
 	public static String get_ans1(String sh, String s) {
 
-		// sh = req.getScheme() + "://" + req.getServerName() + ":"
-		// + req.getServerPort() + req.getContextPath();
-		// stat.sh=sh;
-
-		// boolean ber = false;
 		s = s.replace("?", "");
 		String[] ss = s.split("[ ]+");
 		int i = ss.length;
@@ -259,13 +256,6 @@ public class stq {
 		s = smot(sh, s) + "\r\n__________\r\n\r\nЭто ответ для " + srp
 				+ ", который написал Феофану:\r\n\r\n" + s;
 		return s;
-	}	
-	
-	
-	public static void mm_send(String sb, String s) {
-
-		stq.mail_admins(sb, s);
-
 	}
 
 	public static void add_sr(String s, String sh) {
@@ -277,11 +267,10 @@ public class stq {
 					stat.sr = stat.sr.trim() + " " + s7.trim() + ".";
 
 			stat.get_owl83(stat.sr, sh);
-			
+
 			stat.w2f1("83.owl", stat.sowl);
 			stat.w2f1("sr.txt", stat.sr);
 
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -307,52 +296,6 @@ public class stq {
 		}
 	}
 
-	static void smtxt(String s) {
-		Properties props = new Properties();
-		Session session = Session.getDefaultInstance(props, null);
-		Message msg = new MimeMessage(session);
-		try {
-			msg.setFrom(new InternetAddress("kuka@feofan.com",
-					"Example.com Admin"));
-
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					"ymilov@gmail.com", "Mr. User"));
-			msg.setSubject("Your Example.com account has been activated");
-			msg.setText("msgBody");
-
-			// Create the message part
-			BodyPart messageBodyPart = new MimeBodyPart();
-
-			// Fill the message
-			messageBodyPart.setText(s);
-
-			// Create a multipar message
-			Multipart multipart = new MimeMultipart();
-
-			// Set text message part
-			multipart.addBodyPart(messageBodyPart);
-
-			// Part two is attachment
-			messageBodyPart = new MimeBodyPart();
-			String filename = "file.txt";
-
-			DataSource source = new ByteArrayDataSource(
-					"xmlData".getBytes("utf-8"), "text/xml; charset=utf-8");
-			messageBodyPart.setDataHandler(new DataHandler(source));
-			messageBodyPart.setFileName(filename);
-			messageBodyPart.addHeader("Content-Type",
-					" text/xml; charset=utf-8");
-			multipart.addBodyPart(messageBodyPart);
-
-			// Send the complete message parts
-			msg.setContent(multipart);
-
-			Transport.send(msg);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public static boolean bim(String s) {
 
 		if (s.length() > 0)
@@ -362,146 +305,6 @@ public class stq {
 				return false;
 		else
 			return false;
-	}
-
-	public static String sparql(String s, HttpServletRequest req,
-			HttpServletResponse resp) {
-		String sh = req.getScheme() + "://" + req.getServerName() + ":"
-				+ req.getServerPort() + req.getContextPath();
-		stat.sh = sh;
-		String s55 = s;
-
-		if (s.contains("Феофан, загрузи мир \"Сократ\"."))
-			stat.sr = stq.pripare(stat.rfu_utf(sh + "/1.rul").substring(2));
-
-		if (s.contains("Феофан, загрузи мир \"Незнайка\"."))
-			stat.sr = stq.pripare(stat.rfu_utf(sh + "/2.rul").substring(2));
-
-		stq.add_sr(stat.sr, sh);
-		s = s.substring(s.indexOf("спаркля("));
-		s = s.replace("спаркля(", "").replace(")", "");
-
-		String[] ss = s.split("[ ]+");
-		String svar = "";
-		s = "SELECT var  WHERE {";
-		for (String str : ss) {
-
-			str = str.trim();
-
-			if (str.equals("это"))
-				s = s + " rdf:type";
-			else if (str.indexOf("?") == 0) {
-				svar = svar + str.trim() + " ";
-				s = s + " " + str;
-			} else
-				s = s + " qq:" + str;
-
-		}
-		s = s + ".}";
-		s = s.replace("var", svar);
-		s = stat.get_prefix(sh) + s;
-
-		// s=stat.get_prefix(sh)+"SELECT ?кто  WHERE {qq:Сократ rdf:type  ?кто}";
-
-		// "SELECT ?кто  WHERE {qq:" + ss[1] + " rdf:type ?кто}";
-		// "SELECT ?кто  WHERE {?кто rdf:type qq:" + ss[1] + "}" };
-
-		OntModel mm = ModelFactory
-				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
-
-		mm.read(new StringReader(stat.sowl), "");
-
-		try {
-			Query qq = QueryFactory.create(s);
-			s = "";
-			ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
-			while (r.hasNext())
-				s = s + r.next().toString();
-
-		} catch (Exception ee) {
-			s = ee.toString();
-		}
-		stat.stop = stat.stop + "<br> <b><i> - </i></b>" + s55;
-
-		s = s.replace("<", "[").replace(">", "]")
-				.replace(sh + "/rff?83.owl#", "");
-		s = s.replace("[Root]", "<br/>").replace("-]", "");
-
-		if (s.trim().length() == 0)
-			s = "ответа нет.<br/>мир можно дописать, загрузить или добавить.";
-
-		s = "\r\n" + s;
-
-		return s;
-	}
-
-	public static String sparql(String sh, String s) {
-
-		stat.sh = sh;
-		String s55 = s;
-
-		if (s.contains("Феофан, загрузи мир \"Сократ\"."))
-			stat.sr = stq.pripare(stat.rfu_utf(sh + "/1.rul").substring(2));
-
-		if (s.contains("Феофан, загрузи мир \"Незнайка\"."))
-			stat.sr = stq.pripare(stat.rfu_utf(sh + "/2.rul").substring(2));
-
-		stq.add_sr(stat.sr, sh);
-		s = s.substring(s.indexOf("спаркля("));
-		s = s.replace("спаркля(", "").replace(")", "");
-
-		String[] ss = s.split("[ ]+");
-		String svar = "";
-		s = "SELECT var  WHERE {";
-		for (String str : ss) {
-
-			str = str.trim();
-
-			if (str.equals("это"))
-				s = s + " rdf:type";
-			else if (str.indexOf("?") == 0) {
-				svar = svar + str.trim() + " ";
-				s = s + " " + str;
-			} else
-				s = s + " qq:" + str;
-
-		}
-		s = s + ".}";
-		s = s.replace("var", svar);
-		s = stat.get_prefix(sh) + s;
-
-		// s=stat.get_prefix(sh)+"SELECT ?кто  WHERE {qq:Сократ rdf:type  ?кто}";
-
-		// "SELECT ?кто  WHERE {qq:" + ss[1] + " rdf:type ?кто}";
-		// "SELECT ?кто  WHERE {?кто rdf:type qq:" + ss[1] + "}" };
-
-		OntModel mm = ModelFactory
-				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
-
-		mm.read(new StringReader(stat.sowl), "");
-
-		try {
-			Query qq = QueryFactory.create(s);
-			s = "";
-			ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
-			while (r.hasNext())
-				s = s + r.next().toString();
-
-		} catch (Exception ee) {
-			s = ee.toString();
-		}
-		stat.stop = stat.stop + "<br> <b><i> - </i></b>" + s55;
-
-		s = s.replace("<", "[").replace(">", "]")
-				.replace(sh + "/rff?83.owl#", "");
-		s = s.replace("[Root]", "<br/>").replace("-]", "");
-
-		if (s.trim().length() == 0)
-			s = "ответа нет.<br/>мир можно дописать, загрузить или добавить.";
-
-		s = "\r\n" + s;
-
-		return s;
 	}
 
 	public static String pripare(String s) {
@@ -516,98 +319,130 @@ public class stq {
 	}
 
 	public static String smot(String sh, String s) {
-		int i = s.indexOf("спаркля(");
-		if (i > -1) {
-			s = stq.sparql(sh, s);
-		} else {
-			i = s.indexOf("?");
-			if (i > -1) {
-				s = s.substring(0, i + 1);
-				s = smotvet(sh, s);
+		int i = s.indexOf("?");			
+		String s1 = "";			
+		if(i>-1)
+			s1=s.substring(0, i);			
+		i = s1.indexOf(".");
+		if (i > 0) {
+			s1 = s1.substring(0, s1.lastIndexOf(".") + 1);
+			stat.sr="";
+			stq.add_sr(s1, sh);
+		}
+		s = stq.otvet(sh, s);
+		return "смот "+s;
+	}
+
+	public static String otvet(String sh, String s) {
+		if (s.toLowerCase().contains("спаркля(")) {
+			s = sparql(sh, s);
+			return s;
+		}
+
+		if (s.contains("?")) {
+			int i = s.indexOf("?");			
+			String s1 = "";			
+			if(i>-1)
+				s1=s.substring(0, i);			
+			i = s1.indexOf(".");
+			if (i > 0) {
+				s1 = s1.substring(0, s1.lastIndexOf(".") + 1);
+				
+				add_sr(s1, sh);
+			}
+			
+			if (s.contains(".")) 
+				s = s.substring(s.lastIndexOf(".") + 1).trim();
+	
+			String[] ss = s.split("[ ]+");
+			boolean bb = ss[0].toLowerCase().equals("кто")
+					|| ss[0].toLowerCase().equals("что")
+					|| ss[0].toLowerCase().equals("кого");
+			if (bb) {
+				s = get_ans1(sh, s);
+			} else {
+				s = "Не понял вопрос. См. описание КРЯ и Спаркля";
 			}
 		}
 		return s;
 	}
 
-	public static String smotvet(String sh, String s)
+	public static String sparql(String sh, String s) {
 
-	{
-		try {
-			
-			s=s.replace(new String("&nbsp;".getBytes(),"UTF-8"), " ");
+		stat.sh = sh;
+		String s55 = s;
+
+
+		add_sr(stat.sr, sh);
+		int i=s.toLowerCase().indexOf("спаркля(");
 		
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		s = s.substring(i+8);
+		s = s.replace(")", "");
+
+		String[] ss = s.split("[ ]+");
+		String svar = "";
+		s = "SELECT var  WHERE {";
+		for (String str : ss) {
+
+			str = str.trim();
+
+			if (str.equals("это"))
+				s = s + " rdf:type";
+			else if (str.indexOf("?") == 0) {
+				svar = svar + str.trim() + " ";
+				s = s + " " + str;
+			} else
+				s = s + " qq:" + str;
+
 		}
-		s=s.replace("&nbsp;", " ");
-		String s44=s;
-		stat.w2f1("mmm", s44);
+		s = s + ".}";
+		s = s.replace("var", svar);
+		s = stat.get_prefix(sh) + s;
+
+		OntModel mm = ModelFactory
+				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+
+		mm.read(new StringReader(stat.sowl), "");
+
+		try {
+			Query qq = QueryFactory.create(s);
+			s = "";
+			ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
+			while (r.hasNext())
+				s = s + r.next().toString();
+
+		} catch (Exception ee) {
+			s = ee.toString();
+		}
+		stat.stop = stat.stop + "<br> <b><i> - </i></b>" + s55;
+
+		s = s.replace("<", "[").replace(">", "]")
+				.replace(sh + "/rff?83.owl#", "");
+		// s = s.replace("[Root]", "<br/>").replace("-]", "");
+
+		if (s.trim().length() == 0)
+			s = "ответа нет.<br/>мир можно дописать, загрузить или добавить.";
+
+		s = s.replace(")(", ")\r\n(");
+
+		ss = s.split("\r\n");
+		s = "";
 		
-		String s5 = s, s55 = "";
-		String[] ss = null;
-
-		int i = s.indexOf("--");// отрезаем подпись
-		if (i > -1)
-			s = s.substring(0, i);
-
-		if (s.contains("?")) {
-
-			// /////////////////////////////
-			//
-			// вопрос
-			//
-			// /////////////////////////////
-
-			if (s55.toLowerCase().contains("спаркля(")) {
-				s = stq.sparql(sh, s55);
-				return s;
-			} else {
-
-				String s6 = s;
-				if (s5.contains(".")) {
-					s55 = s5.substring(0, s5.lastIndexOf(".")).trim();
-					s55 = stat.prepare_83(s55);
-					s55 = stat.prep_all(s55);
-					stq.add_sr(s55, sh);
-					s5 = s5.substring(s5.lastIndexOf(".") + 1).trim();
-				}
-				s5 = s5.replace("?", "").trim();
-				ss = s5.split("[ ]+");
-				int i5 = ss.length;
-
-				boolean bb = ss[0].toLowerCase().equals("кто")
-						|| ss[0].toLowerCase().equals("что")
-						|| ss[0].toLowerCase().equals("кого")
-						|| ss[0].toLowerCase().equals("чего");
-
-				if (bb) {
-					s = stq.get_ans1(sh, s5);
-					return s;
-				} else {
-					return "Вопросы на КРЯ пока не больше трёх слов и начинаются на Что Кто Кого. Можно задать более сложный вопрос на Спаркле. См. описане КРЯ и Спаркля";
+		for (String sd: ss) {
+			
+			String[] sss=sd.split("[(]");
+			boolean bb=false;			
+			for (String sf: sss) 	
+			{
+				if(sss.length>3){
+				//	bb=sss[1].contains("[") && sss[2].contains("[") && sss[3].contains("[");
+					sd="( "+sss[1]+" ( "+sss[2]+" ("+sss[3];
 				}
 			}
-		} else
-			return "не понял - тут должен был быть вопрос :-(";
-
+			if (sd.contains("["))
+			s = s + sd +"\r\n";
+		}
+		s=s.replace("[Root]", "\r\n").replace(" -] ", "");
+		return "\r\n" + s;
 	}
-	
-	public void send_mail(Multipart mp, String sadr, String subject, String sbody, String stxt)
-			throws Exception {
-		Properties props = new Properties();
-		Session session = Session.getDefaultInstance(props, null);
-		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("kuka@gmail.com",
-				"Kuka"));
-		msg.setSubject(subject);
-		msg.setText("UFOS Daily Activity Report attached");
-		//Multipart mp = new MimeMultipart();
-		MimeBodyPart textPart = new MimeBodyPart();
-		textPart.setContent(sbody, "text/html");
-		mp.addBodyPart(textPart);
-		msg.setContent(mp);
-		Transport.send(msg);
-	}
-
 }
