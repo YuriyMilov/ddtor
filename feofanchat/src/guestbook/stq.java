@@ -1,18 +1,26 @@
 package guestbook;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.channels.Channels;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.TimeZone;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -70,28 +78,26 @@ public class stq {
 		Session session = Session.getDefaultInstance(props, null);
 		try {
 			MimeMessage msg = new MimeMessage(session);
-			msg.addHeader("Content-Type",
-					" text/html; charset=utf-8");
+			msg.addHeader("Content-Type", " text/html; charset=utf-8");
 			msg.setFrom(new InternetAddress("kuka@feofan.com", MimeUtility
 					.encodeText("Феофан", "utf-8", "B")));
 			msg.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(
 					"admins"));
 			msg.setSubject(MimeUtility.encodeText(subject, "utf-8", "B"));
 			msg.setText(text);
-			
+
 			Transport.send(msg);
 		} catch (Exception e) {
 		}
 	}
 
-	public static String get_ans(String sh, String s, HttpServletRequest req,
-			HttpServletResponse resp) {
+	public static String get_ans1(String sh, String s) {
 
 		// sh = req.getScheme() + "://" + req.getServerName() + ":"
 		// + req.getServerPort() + req.getContextPath();
 		// stat.sh=sh;
 
-		boolean ber = false;
+		// boolean ber = false;
 		s = s.replace("?", "");
 		String[] ss = s.split("[ ]+");
 		int i = ss.length;
@@ -141,7 +147,7 @@ public class stq {
 						}
 					} catch (Exception er) {
 						s = er.toString();
-						ber = true;
+						// ber = true;
 					}
 					s3 = s3 + s;
 				}
@@ -203,7 +209,7 @@ public class stq {
 						}
 					} catch (Exception er) {
 						s = er.toString();
-						ber = true;
+						// ber = true;
 					}
 					// s3 = s3 + s;
 				}
@@ -218,9 +224,9 @@ public class stq {
 				s = "Пока что вопрос должен начинается со слов Кто, Что, Кого и состоять из 2-х или 3-х слов.";
 		}
 
-		if (ber) {
-			stat.page(req, resp, s);
-		}
+		// if (ber) {
+		// stat.page(req, resp, s);
+		// }
 
 		if (s.indexOf("#") > 0) {
 			s = s.substring(s.indexOf("#") + 1);
@@ -246,35 +252,20 @@ public class stq {
 		return s;
 	}
 
-	public static String get_mm(String sh, String sb, String s,
-			HttpServletRequest req, HttpServletResponse resp) {
-
-		String s1 = s, s3 = "", svopros = "", sotvet = "";
-		
-		int i = s.lastIndexOf("--");		
-		if (i > -1)
-			s = s.substring(0, i);		
-				if (s.indexOf(".") > 0 && s.indexOf("?") > s.indexOf(".")) {
-					i = s.indexOf("?");					
-					s = s.substring(0, i + 1);
-					svopros = s.substring(s.lastIndexOf(".") + 1).trim();					
-					s = s.substring(0, s.lastIndexOf(".") + 1).trim();					
-					s = stq.pripare(s);
-					s = stat.prep_all(s);
-					add_sr(s, sh);
-					sotvet = stq.get_ans(sh, svopros, req, resp);
-					s = s + " " + svopros 
-							+ "\r\n\r\n\r\n\r\nФеофан:  " + sotvet
-					+ "\r\n\r\nhttp://www.feofan.com";
-				} else {
-					if(s1.lastIndexOf(" -- ")>-1)
-						s1=s1.substring(0,s1.lastIndexOf(" -- "));
-					s ="Не понял.\r\n\r\nФеофан\r\nhttp://www.feofan.com"
-					+"\r\n\r\n\r\n"+s1;
-				}
-			System.err.println(" *** stq.mail_admins(sb, s) ***");
-			stq.mail_admins(sb, s);
+	public static String mm_get_otvet(String sh, String sb, String s, String srp) {
+		int i = s.lastIndexOf("-- ");
+		if (i > 0)
+			s = s.substring(0, i);
+		s = smot(sh, s) + "\r\n__________\r\n\r\nЭто ответ для " + srp
+				+ ", который написал Феофану:\r\n\r\n" + s;
 		return s;
+	}	
+	
+	
+	public static void mm_send(String sb, String s) {
+
+		stq.mail_admins(sb, s);
+
 	}
 
 	public static void add_sr(String s, String sh) {
@@ -286,8 +277,11 @@ public class stq {
 					stat.sr = stat.sr.trim() + " " + s7.trim() + ".";
 
 			stat.get_owl83(stat.sr, sh);
-			stat.w2f("83.owl", stat.sowl);
+			
+			stat.w2f1("83.owl", stat.sowl);
+			stat.w2f1("sr.txt", stat.sr);
 
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -377,10 +371,79 @@ public class stq {
 		stat.sh = sh;
 		String s55 = s;
 
-		if (s.contains("Феофан, загрузи новый мир \"Сократ\"."))
+		if (s.contains("Феофан, загрузи мир \"Сократ\"."))
 			stat.sr = stq.pripare(stat.rfu_utf(sh + "/1.rul").substring(2));
 
-		if (s.contains("Феофан, загрузи новый мир \"Незнайка\"."))
+		if (s.contains("Феофан, загрузи мир \"Незнайка\"."))
+			stat.sr = stq.pripare(stat.rfu_utf(sh + "/2.rul").substring(2));
+
+		stq.add_sr(stat.sr, sh);
+		s = s.substring(s.indexOf("спаркля("));
+		s = s.replace("спаркля(", "").replace(")", "");
+
+		String[] ss = s.split("[ ]+");
+		String svar = "";
+		s = "SELECT var  WHERE {";
+		for (String str : ss) {
+
+			str = str.trim();
+
+			if (str.equals("это"))
+				s = s + " rdf:type";
+			else if (str.indexOf("?") == 0) {
+				svar = svar + str.trim() + " ";
+				s = s + " " + str;
+			} else
+				s = s + " qq:" + str;
+
+		}
+		s = s + ".}";
+		s = s.replace("var", svar);
+		s = stat.get_prefix(sh) + s;
+
+		// s=stat.get_prefix(sh)+"SELECT ?кто  WHERE {qq:Сократ rdf:type  ?кто}";
+
+		// "SELECT ?кто  WHERE {qq:" + ss[1] + " rdf:type ?кто}";
+		// "SELECT ?кто  WHERE {?кто rdf:type qq:" + ss[1] + "}" };
+
+		OntModel mm = ModelFactory
+				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+
+		mm.read(new StringReader(stat.sowl), "");
+
+		try {
+			Query qq = QueryFactory.create(s);
+			s = "";
+			ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
+			while (r.hasNext())
+				s = s + r.next().toString();
+
+		} catch (Exception ee) {
+			s = ee.toString();
+		}
+		stat.stop = stat.stop + "<br> <b><i> - </i></b>" + s55;
+
+		s = s.replace("<", "[").replace(">", "]")
+				.replace(sh + "/rff?83.owl#", "");
+		s = s.replace("[Root]", "<br/>").replace("-]", "");
+
+		if (s.trim().length() == 0)
+			s = "ответа нет.<br/>мир можно дописать, загрузить или добавить.";
+
+		s = "\r\n" + s;
+
+		return s;
+	}
+
+	public static String sparql(String sh, String s) {
+
+		stat.sh = sh;
+		String s55 = s;
+
+		if (s.contains("Феофан, загрузи мир \"Сократ\"."))
+			stat.sr = stq.pripare(stat.rfu_utf(sh + "/1.rul").substring(2));
+
+		if (s.contains("Феофан, загрузи мир \"Незнайка\"."))
 			stat.sr = stq.pripare(stat.rfu_utf(sh + "/2.rul").substring(2));
 
 		stq.add_sr(stat.sr, sh);
@@ -450,6 +513,101 @@ public class stq {
 		s = s.replace("-", "").replace("это", "");
 
 		return s.trim();
+	}
+
+	public static String smot(String sh, String s) {
+		int i = s.indexOf("спаркля(");
+		if (i > -1) {
+			s = stq.sparql(sh, s);
+		} else {
+			i = s.indexOf("?");
+			if (i > -1) {
+				s = s.substring(0, i + 1);
+				s = smotvet(sh, s);
+			}
+		}
+		return s;
+	}
+
+	public static String smotvet(String sh, String s)
+
+	{
+		try {
+			
+			s=s.replace(new String("&nbsp;".getBytes(),"UTF-8"), " ");
+		
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		s=s.replace("&nbsp;", " ");
+		String s44=s;
+		stat.w2f1("mmm", s44);
+		
+		String s5 = s, s55 = "";
+		String[] ss = null;
+
+		int i = s.indexOf("--");// отрезаем подпись
+		if (i > -1)
+			s = s.substring(0, i);
+
+		if (s.contains("?")) {
+
+			// /////////////////////////////
+			//
+			// вопрос
+			//
+			// /////////////////////////////
+
+			if (s55.toLowerCase().contains("спаркля(")) {
+				s = stq.sparql(sh, s55);
+				return s;
+			} else {
+
+				String s6 = s;
+				if (s5.contains(".")) {
+					s55 = s5.substring(0, s5.lastIndexOf(".")).trim();
+					s55 = stat.prepare_83(s55);
+					s55 = stat.prep_all(s55);
+					stq.add_sr(s55, sh);
+					s5 = s5.substring(s5.lastIndexOf(".") + 1).trim();
+				}
+				s5 = s5.replace("?", "").trim();
+				ss = s5.split("[ ]+");
+				int i5 = ss.length;
+
+				boolean bb = ss[0].toLowerCase().equals("кто")
+						|| ss[0].toLowerCase().equals("что")
+						|| ss[0].toLowerCase().equals("кого")
+						|| ss[0].toLowerCase().equals("чего");
+
+				if (bb) {
+					s = stq.get_ans1(sh, s5);
+					return s;
+				} else {
+					return "Вопросы на КРЯ пока не больше трёх слов и начинаются на Что Кто Кого. Можно задать более сложный вопрос на Спаркле. См. описане КРЯ и Спаркля";
+				}
+			}
+		} else
+			return "не понял - тут должен был быть вопрос :-(";
+
+	}
+	
+	public void send_mail(Multipart mp, String sadr, String subject, String sbody, String stxt)
+			throws Exception {
+		Properties props = new Properties();
+		Session session = Session.getDefaultInstance(props, null);
+		Message msg = new MimeMessage(session);
+		msg.setFrom(new InternetAddress("kuka@gmail.com",
+				"Kuka"));
+		msg.setSubject(subject);
+		msg.setText("UFOS Daily Activity Report attached");
+		//Multipart mp = new MimeMultipart();
+		MimeBodyPart textPart = new MimeBodyPart();
+		textPart.setContent(sbody, "text/html");
+		mp.addBodyPart(textPart);
+		msg.setContent(mp);
+		Transport.send(msg);
 	}
 
 }

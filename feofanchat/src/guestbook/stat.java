@@ -756,7 +756,7 @@ public class stat {
 		}
 	}
 
-	public static String wf(String sname, String s) throws IOException {
+	public static String wf1(String sname, String s) throws IOException {
 		FileService fileService = FileServiceFactory.getFileService();
 		AppEngineFile file = fileService.createNewBlobFile("text/plain", sname);
 		boolean lock = false;
@@ -776,7 +776,7 @@ public class stat {
 		return s.substring(10).replace(">", "");
 	}
 
-	public static String w2f(String sname, String s) {
+	public static String w2f1(String sname, String s) {
 		try {
 
 			Query query = new Query("__BlobInfo__");
@@ -786,16 +786,15 @@ public class stat {
 					.getDatastoreService();
 			PreparedQuery pq = datastore.prepare(query);
 			List<Entity> entList = pq.asQueryResultList(FetchOptions.Builder
-					.withLimit(100));
-
-			// int ii = entList.size();
-			// System.err.println(ii);
+					.withLimit(8));
 
 			if (!entList.isEmpty()) {
 				BlobKey blobKey = new BlobKey(entList.get(0).getKey().getName());
-				BlobstoreFS.save("text/html", blobKey, s, "test.txt");
+				BlobstoreFS.save("text/html", blobKey, s, sname);
 
-			} else {
+			} 			
+			else 
+			{
 				FileService fileService = FileServiceFactory.getFileService();
 				AppEngineFile file = fileService.createNewBlobFile(
 						"text/plain", sname);
@@ -1583,7 +1582,7 @@ public class stat {
 				}
 				sowl = qw.sowl();
 				// stat.posti(st.sh + "/w2f", "83.owl", s);
-				s = w2f("83.owl", sowl);
+				//s = w2f("83.owl", sowl);
 
 				if (s.length() > -1)
 					return s;
@@ -1865,27 +1864,13 @@ public class stat {
 			s = s.replace(s.substring(s.indexOf("("), s.indexOf(")") + 1), "");
 
 		s = s.replace("-", "").replace("это", "").replace(" и ", "_");
-
+		s = s.replaceAll("[ ]+", " ");
 		return s.trim();
 	}
 
-	public static void add_sr_old(String s, String sh) {
+	
 
-		String[] ss = s.split("[.]");
-		for (String s7 : ss) {
-			s7 = s7.trim();
-			if (!sr.contains(s7))
-				sr = sr + " " + s7 + ".";
-		}
-		sr = sr.trim();
-		sowl = sowl;
-		if (!sr.equals("")) {
-			stat.w2f("83.owl", sr);
-			// stat.text83(sr, req, resp);
-			get_owl83(sr, sh);
-		}
-
-	}
+	
 
 	public static String fwr2(String sname, String s) {
 		try {

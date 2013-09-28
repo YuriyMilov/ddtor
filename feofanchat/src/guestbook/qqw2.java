@@ -38,9 +38,9 @@ public class qqw2 extends HttpServlet {
 
 		String f = req.getParameter("f"), s = req.getParameter("s");
 		if (f != null && s != null)
-			s = stat.w2f(f, s);
+			s = stat.w2f1(f, s);
 		else
-			stat.w2f("1", "content привет");
+			stat.w2f1("1", "content привет");
 
 		PrintWriter out = resp.getWriter();
 		out.write(s);
@@ -53,9 +53,9 @@ public class qqw2 extends HttpServlet {
 
 		String f = req.getParameter("f"), s = req.getParameter("s");
 		if (f != null && s != null)
-			s = stat.w2f(f, s);
+			s = stat.w2f1(f, s);
 		else
-			stat.w2f("1", "content привет");
+			stat.w2f1("1", "qqw2 servlet");
 
 		PrintWriter out = resp.getWriter();
 		out.write(s);

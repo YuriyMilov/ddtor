@@ -37,8 +37,12 @@ public class qq extends HttpServlet implements EntryPoint {
 				// ss="человек смертен. Сократ - человек. Кто Сократ?";
 				ss = "qqqqqqqqq (Феофану) человек смертен. Сократ - человек. Кто Сократ?";
 				ss = stat.rfu_utf(sh + "/qq.txt");
-
-				ss = stq.get_mm(sh, "mailing test /qq?mm", ss, null, null);
+ss="Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x "+      
+"любит    y, то y любит x. Феофан любит Синеглазка. малыш любит 1 &nbsp;  "+
+"малышка.    малышка  &nbsp;  любит 1 малыш. Пончик любит Синеглазка. кто любит " +  
+"Кнопочка?   ";
+ss=stq.mm_get_otvet(sh, "sb", ss, "ymilov@gmail.com");
+				stq.mail_admins("mailing test /qq?mm", ss);
 				stat.page(req, resp, ss.replace("\r\n", "<br/>"));
 			}
 		}
@@ -60,6 +64,10 @@ public class qq extends HttpServlet implements EntryPoint {
 		String s5 = s, s55 = "";
 		String[] ss = null;
 
+		
+		//s= stq.smot(sh,"Феофан, загрузи мир \"Незнайка\". спаркля(Незнайка любит ?кого)");
+		//s= stq.smot(sh,"Феофан, загрузи мир \"Незнайка\". спаркля(Незнайка любит ?кого)");
+		
 		if (s == null) {
 			stat.init(req, resp);
 			return;
@@ -161,7 +169,7 @@ public class qq extends HttpServlet implements EntryPoint {
 					|| ss[0].toLowerCase().equals("чего");
 
 			if (bb) {
-				s = stq.get_ans(sh, s5, req, resp);
+				s = stq.get_ans1(sh, s5);
 				stat.stop = stat.stop + "<br> <b><i> - </i></b> " + s6;
 				stat.page(req, resp, s.replace("\r\n", "<br>"));
 			} else {

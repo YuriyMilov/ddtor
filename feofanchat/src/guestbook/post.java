@@ -30,8 +30,8 @@ public class post extends HttpServlet {
 				+ req.getServerPort() + req.getContextPath();
 		stat.sh=sh;
 
-		String s = stat.posti(sh+"/w2f","post","привет - это я, post servlet ");
-		
+		String s = "Феофан, загрузи новый мир \"Сократ\".спаркля(?кто это смертен)";//stat.posti(sh+"/w2f","post","привет - это я, post servlet ");
+		//s= stq.f(sh, s);
 		
 		///////////
 		
