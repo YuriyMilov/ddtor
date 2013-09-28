@@ -259,11 +259,11 @@ public class stq {
 	}
 
 	public static void add_sr(String s, String sh) {
-
+		s = s.replaceAll("[ ]+", " ");
 		String[] ss = s.split("[.]");
 		try {
 			for (String s7 : ss)
-				if (!stat.sr.contains(s7))
+				if (!stat.sr.contains(s7.trim()))
 					stat.sr = stat.sr.trim() + " " + s7.trim() + ".";
 
 			stat.get_owl83(stat.sr, sh);
@@ -275,6 +275,13 @@ public class stq {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static String get_sr() {
+		if (stat.sr == null)
+			return "";
+		else
+			return stat.sr;
 	}
 
 	static void sm(String skomu, String sbj, String s) {
@@ -319,18 +326,18 @@ public class stq {
 	}
 
 	public static String smot(String sh, String s) {
-		int i = s.indexOf("?");			
-		String s1 = "";			
-		if(i>-1)
-			s1=s.substring(0, i);			
+		int i = s.indexOf("?");
+		String s1 = "";
+		if (i > -1)
+			s1 = s.substring(0, i);
 		i = s1.indexOf(".");
 		if (i > 0) {
 			s1 = s1.substring(0, s1.lastIndexOf(".") + 1);
-			stat.sr="";
+			stat.sr = "";
 			stq.add_sr(s1, sh);
 		}
 		s = stq.otvet(sh, s);
-		return "смот "+s;
+		return s;
 	}
 
 	public static String otvet(String sh, String s) {
@@ -340,20 +347,20 @@ public class stq {
 		}
 
 		if (s.contains("?")) {
-			int i = s.indexOf("?");			
-			String s1 = "";			
-			if(i>-1)
-				s1=s.substring(0, i);			
+			int i = s.indexOf("?");
+			String s1 = "";
+			if (i > -1)
+				s1 = s.substring(0, i);
 			i = s1.indexOf(".");
 			if (i > 0) {
 				s1 = s1.substring(0, s1.lastIndexOf(".") + 1);
-				
+				stat.sr = stat.sr + "";
 				add_sr(s1, sh);
 			}
-			
-			if (s.contains(".")) 
+
+			if (s.contains("."))
 				s = s.substring(s.lastIndexOf(".") + 1).trim();
-	
+
 			String[] ss = s.split("[ ]+");
 			boolean bb = ss[0].toLowerCase().equals("кто")
 					|| ss[0].toLowerCase().equals("что")
@@ -372,11 +379,10 @@ public class stq {
 		stat.sh = sh;
 		String s55 = s;
 
-
 		add_sr(stat.sr, sh);
-		int i=s.toLowerCase().indexOf("спаркля(");
-		
-		s = s.substring(i+8);
+		int i = s.toLowerCase().indexOf("спаркля(");
+
+		s = s.substring(i + 8);
 		s = s.replace(")", "");
 
 		String[] ss = s.split("[ ]+");
@@ -425,23 +431,23 @@ public class stq {
 
 		ss = s.split("\r\n");
 		s = "";
-		
-		for (String sd: ss) {
-			
-			String[] sss=sd.split("[(]");
-			boolean bb=false;			
-			for (String sf: sss) 	
-			{
-				if(sss.length>3){
-				//	bb=sss[1].contains("[") && sss[2].contains("[") && sss[3].contains("[");
-					sd="( "+sss[1]+" ( "+sss[2]+" ("+sss[3];
+
+		for (String sd : ss) {
+
+			String[] sss = sd.split("[(]");
+			boolean bb = false;
+			for (String sf : sss) {
+				if (sss.length > 3) {
+					// bb=sss[1].contains("[") && sss[2].contains("[") &&
+					// sss[3].contains("[");
+					sd = "( " + sss[1] + " ( " + sss[2] + " (" + sss[3];
 				}
 			}
 			if (sd.contains("["))
-			s = s + sd +"\r\n";
+				s = s + sd + "\r\n";
 		}
-		s=s.replace("[Root]", "\r\n").replace(" -] ", "");
-		s=s.substring(0,s.length()-4);
+		s = s.replace("[Root]", "\r\n").replace(" -] ", "");
+		s = s.substring(0, s.length() - 4);
 		return "\r\n" + s;
 	}
 }

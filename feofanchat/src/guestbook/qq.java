@@ -40,6 +40,7 @@ public class qq extends HttpServlet implements EntryPoint {
 				stat.sr="";
 				stq.add_sr(s1, sh);
 			}
+			stat.sr=stat.sr+"";
 			s = stq.otvet(sh, s);
 		}
 
