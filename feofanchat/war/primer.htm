@@ -1,0 +1,125 @@
+﻿<html>
+<body bgcolor=#efefef>
+
+ <a href=qq?p2=фео>Вернуться</a>
+ <br/> <br/>  
+ Более сложные вопросы пока можно задавать
+ Феофану на языке СПАРКЛЯ - русский вариант языка SPARQL.
+<br/><br/> 
+
+<table>
+
+<tr><td>КРЯ-1</td><td>СПАРКЛЯ-1</td></tr>
+
+
+<tr><td>
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="3" cols="44" name="p2" >
+человек - смертен. Сократ это человек.  Кто Сократ?
+
+</textarea>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+<br/>
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="3" cols="44" name="p2" >
+человек - смертен. Сократ это человек. Кто смертен?
+
+</textarea>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+
+<br/>
+
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="3" cols="44" name="p2" >
+кот любит Молоко. Васька - кот. Кто любит Молоко?
+
+</textarea>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+<br/>
+
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="6" cols="44" name="p2" >
+Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x дружитъс y, то y  дружитъс x. малыш  дружитъс 1 малышка. малышка  дружитъс 1 малыш. Пончик  дружитъс Синеглазка. Кто дружитъс Кнопочка?
+
+</textarea>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+
+<br/>
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="6" cols="44" name="p2" >
+Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x дружитъс y, то y  дружитъс x. малыш  дружитъс 1 малышка. малышка  дружитъс 1 малыш. Пончик  дружитъс Синеглазка. Кто дружитъс Незнайка?
+
+</textarea>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+<br/>
+
+</td><td>
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="3" cols="44" name="p2" >
+человек - смертен. Сократ это человек. СПАРКЛЯ(?кто это смертен)
+
+</textarea>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+<br/>
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="3" cols="44" name="p2" >
+человек - смертен. Сократ это человек. СПАРКЛЯ(Сократ это ?кто)
+
+</textarea>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+
+<br/>
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="6" cols="44" name="p2" >
+Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x дружитъс y, то y  дружит_с x. малыш  дружитъс 1 малышка. малышка  дружитъс 1 малыш. Пончик  дружитъс Синеглазка. СПАРКЛЯ(Незнайка дружитъс ?кем)
+
+</textarea>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+
+<br/>
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="6" cols="44" name="p2" >
+Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x дружитъс y, то y  дружит_с x. малыш  дружитъс 1 малышка. малышка  дружитъс 1 малыш. Пончик  дружитъс Синеглазка. СПАРКЛЯ(Незнайка ?чтоделаетъс Кнопочка)
+
+</textarea>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+<br/>
+
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="3" cols="44" name="p2" >
+кот любит Молоко. Васька - кот. спаркля(?кто ?делает ?что)
+
+</textarea>
+<br/><input type="submit" value=" кляк ">
+</form>
+<br/></td></tr></table>
+
+</body></html>

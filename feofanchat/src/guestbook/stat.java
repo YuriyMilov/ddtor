@@ -89,27 +89,21 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 public class stat {
-	public static String sqq7 = "", sufix = "", sh = "http://www.feofan.com";
+	public static String sqq7 = "", sh = "http://www.feofan.com";
 	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
 	public static String skon = 
 			
-			
+		 	
 			"<form  action=qq method=post>" +
-			//"<br><input type=text id=id name=p2 size=82>&nbsp;" +
+			"<br><input type=text id=id name=p2 size=82>&nbsp;" +
 			
-			"<br/>" +
-			"<textarea rows=4 cols=77 id=id name=p2>"+
-			
-			//" \r\n человек смертен. Сократ - человек.\r\n Кто смертен?"+
-			//" \r\n "+ stq.get_sr() +" \r\n"+
-			
-			"</textarea>"+		
+			//"<br/><textarea rows=4 cols=77 id=id name=p2></textarea>"+		
 			
 			"<br/><br>&nbsp;&nbsp;<input type=\"submit\" value=\"&nbsp;кляк&nbsp;\">" +
 			
 			//"<br><br>" +
 			" &nbsp; <a href=qq>очистить</a>" +
-			" &nbsp; <a href=/sparql.htm>примеры</a>" +
+			" &nbsp; <a href=/primer.htm>примеры</a>" +
 			" &nbsp; <a href=qq?p2=мир>мир</a>" +
 			" &nbsp; <a href=/forum.htm>форум</a>" +
 			" &nbsp; <a href=/rubli.htm>деньги</a>" +
@@ -741,12 +735,7 @@ public class stat {
 
 	}
 
-	public static void init(HttpServletRequest req, HttpServletResponse resp) {
-		stat.stop = "";
-		stat.sr = "";
-		String s = "привет";
-		stat.page(req, resp, s);
-	}
+
 
 	public static void send_file(HttpServletRequest req,
 			HttpServletResponse resp, String s) throws IOException {
@@ -792,6 +781,9 @@ public class stat {
 		try {
 
 			Query query = new Query("__BlobInfo__");
+			
+			if(query!=null)
+			{
 			query.setFilter(FilterOperator.EQUAL.of("filename", sname));
 
 			DatastoreService datastore = DatastoreServiceFactory
@@ -823,9 +815,9 @@ public class stat {
 				writeChannel = fileService.openWriteChannel(file, lock);
 				writeChannel.closeFinally();
 			}
-
+			}
 		} catch (IOException e) {
-
+		
 			return "не кряк";
 		}
 		return "кряк";
@@ -888,7 +880,7 @@ public class stat {
 			HttpServletResponse resp) throws IOException {
 
 		if (s.indexOf("очистить") == 0) {
-			stat.init(req, resp);
+			stq.init(req, resp);
 			return;
 		} else if (s.equals("загрузить")) {
 			s = rfu_utf(sh + "/load.txt");
@@ -1469,9 +1461,9 @@ public class stat {
 						if (s.indexOf(".") == 0)
 							s = s.substring(1).trim();
 
-						sufix = "/сим";
+						stq.sfx = "/сим";
 
-						s = s.replace(ss4[2], ss4[2] + sufix);
+						s = s.replace(ss4[2], ss4[2] + stq.sfx);
 						// ////////////
 
 					}
@@ -1485,7 +1477,7 @@ public class stat {
 
 					if (ss2.length == 4) {
 						qw.учитель_учит_N_учеников(qw.getOwlClass(ss2[0]),
-								qw.getProperty(ss2[1].replace(sufix, "")),
+								qw.getProperty(ss2[1].replace(stq.sfx, "")),
 								Integer.parseInt(ss2[2]),
 								qw.getOwlClass(ss2[3]));
 
@@ -1550,45 +1542,59 @@ public class stat {
 
 						if (ss2[1].indexOf("/сим") > -1) {
 							// ss2[1]=ss2[1].replace("/сим","");
-							qw.isSymmetric(qw.getProperty(ss2[1].replace(sufix,
+							qw.isSymmetric(qw.getProperty(ss2[1].replace(stq.sfx,
 									"")));
-
 						}
 
 						if (socrat(ss2[0]) && socrat(ss2[2])
 								&& ss2[1].equals("не")) {
 							qw.differentIndividuals(qw.getIndividual(ss2[0]),
 									qw.getIndividual(ss2[2]));
-						} else if (!socrat(ss2[0]) && !socrat(ss2[2])
+						} else 
+							if (!socrat(ss2[0]) && !socrat(ss2[2])) {
+							qw.assertDomainAndRange(
+									qw.getProperty(ss2[1].replace(stq.sfx, "")),
+									qw.getOwlClass(ss2[0]),
+									qw.getOwlClass(ss2[2]));
+						}
+						else 
+							if (!socrat(ss2[0]) && !socrat(ss2[2])
 								&& ss2[1].equals("не")) {
 							qw.manager.applyChange(new AddAxiom(qw.ontology,
 									qw.factory.getOWLDisjointClassesAxiom(
 											qw.getOwlClass(ss2[0]),
 											qw.getOwlClass(ss2[2]))));
 
-						} else if (socrat(ss2[0]) && n(ss2[2])) {
+						} else 
+							if (socrat(ss2[0]) && n(ss2[2])) {
 
 							OWLDataProperty hasAge = qw.getDataProperty(ss2[1]
-									.replace(sufix, ""));
+									.replace(stq.sfx, ""));
 							String sn = ss2[2].trim();
 							int n = Integer.parseInt(sn);
 							OWLIndividual ind = qw.getIndividual(ss2[0]);
-
 							qw.assertFact(hasAge, ind, n);
-
 						} else
 
 						if (socrat(ss2[0]) && socrat(ss2[2])) {
-
-							qw.assertFact(ss2[1].replace(sufix, ""), ss2[0],
+							qw.assertFact(ss2[1].replace(stq.sfx, ""), ss2[0],
 									ss2[2]);
-
-						} else if (!socrat(ss2[0]) && !socrat(ss2[2])) {
+						} else 
+							if (!socrat(ss2[0]) && !socrat(ss2[2])) {
 							qw.assertDomainAndRange(
-									qw.getProperty(ss2[1].replace(sufix, "")),
+									qw.getProperty(ss2[1].replace(stq.sfx, "")),
 									qw.getOwlClass(ss2[0]),
 									qw.getOwlClass(ss2[2]));
 						}
+						else 
+							if (!socrat(ss2[0]) && socrat(ss2[2])) {
+								qw.любит_в_точности_N_Сократов(qw.getOwlClass(ss2[0]),
+										qw.getProperty(ss2[1].replace(stq.sfx, "")),
+										1,
+										qw.getIndividual(ss2[2]));
+
+					}
+
 
 					}
 				}

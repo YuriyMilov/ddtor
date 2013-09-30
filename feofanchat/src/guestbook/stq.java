@@ -1,5 +1,8 @@
 package guestbook;
 
+import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
+import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -44,9 +47,25 @@ import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.mindswap.pellet.jena.PelletReasonerFactory;
 import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 import para.st;
 
@@ -73,8 +92,481 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 public class stq {
 
-	private static Object String;
+	//private static Object String;
+public static String sfx="";
+	public static void init(HttpServletRequest req, HttpServletResponse resp) {
+		stat.stop = "";
+		stat.sr = "";	
+		String sh = req.getScheme() + "://" + req.getServerName() + ":"
+				+ req.getServerPort() + req.getContextPath();
 
+		add_sr("", sh);
+		stat.page(req, resp, "");
+	}
+	
+	public static String srowl(String s, String sh,String sf) {
+		try {
+			sf="84";
+			Owl2Model qw = new Owl2Model(sh + "/rff?"+sf);
+
+			s = stat.prep_all(s);
+			s = stat.prepare_83(s);
+			
+			/////////////
+			
+
+			String[] sss = s.split("[.]+");
+
+			for (int i = 0; i < sss.length; i++) {
+
+				String[] ss = sss[i].trim().split("[ ]+");
+
+				String[] sss2 = s.split("[.]+");
+
+				// проверка свойств на симметричность и т.п.
+
+				for (int i4 = 0; i4 < sss2.length; i4++) {
+					String[] ss4 = sss2[i4].trim().split("[ ]+");
+
+					if (ss4[0].toLowerCase().equals("если")) {
+
+						// ///////////
+						s = s.replace(sss2[i4], "").trim();
+						if (s.indexOf(".") == 0)
+							s = s.substring(1).trim();
+
+						sfx = "/сим";
+
+						s = s.replace(ss4[2], ss4[2] + sfx);
+						// ////////////
+
+					}
+
+				}
+				sss2 = s.split("[.]+");
+				// /////////////////////////////
+
+				for (int i2 = 0; i2 < sss2.length; i2++) {
+					String[] ss2 = sss2[i2].trim().split("[ ]+");
+
+					if (ss2.length == 4) {
+						qw.учитель_учит_N_учеников(qw.getOwlClass(ss2[0]),
+								qw.getProperty(ss2[1].replace(sfx, "")),
+								Integer.parseInt(ss2[2]),
+								qw.getOwlClass(ss2[3]));
+
+					}
+
+					if (ss2.length == 1) {
+						if (bim(ss2[0])) {
+							qw.manager.applyChange(new AddAxiom(qw.ontology,
+									qw.factory.getOWLSameIndividualAxiom(
+											qw.getIndividual(ss2[0]),
+											qw.getIndividual(ss2[0]))));
+						} else if (!bim(ss2[0])) {
+							qw.isSubClassOf(qw.getOwlClass(ss2[0]),
+									qw.factory.getOWLThing());
+						}
+					}
+
+					if (ss2.length == 2) {
+
+						if (bim(ss2[0]) && ss2[0].indexOf("_") > -1
+								&& !bim(ss2[1]))
+
+						{
+							String sss3 = ss2[0].replace("_", " ");
+							String[] ss3 = sss3.split("[ ]+");
+
+							Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+							for (int i3 = 0; i3 < ss3.length; i3++)
+								inds.add(qw.getIndividual(ss3[i3]));
+
+							OWLClassAxiom аксиома = qw.factory
+									.getOWLEquivalentClassesAxiom(
+											qw.getOwlClass(ss2[1]),
+											qw.factory.getOWLObjectOneOf(inds));
+							qw.manager.addAxiom(qw.ontology, аксиома);
+
+							qw.manager.addAxiom(qw.ontology, qw.factory
+									.getOWLDifferentIndividualsAxiom(inds));
+						}
+
+						else
+
+						if (bim(ss2[0]) && !bim(ss2[1])) {
+							qw.hasClass(qw.getIndividual(ss2[0]),
+									qw.getOwlClass(ss2[1]));
+						} else if (!bim(ss2[0]) && !bim(ss2[1])) {
+							qw.isSubClassOf(qw.getOwlClass(ss2[0]),
+									qw.getOwlClass(ss2[1]));
+						} else if (bim(ss2[0]) && bim(ss2[1])) {
+							qw.manager.applyChange(new AddAxiom(qw.ontology,
+									qw.factory.getOWLSameIndividualAxiom(
+											qw.getIndividual(ss2[0]),
+											qw.getIndividual(ss2[1]))));
+						} else if (!bim(ss2[0]) && bim(ss2[1])) {
+
+							qw.hasClass(qw.getIndividual(ss2[1]),
+									qw.getOwlClass(ss2[0]));
+						}
+					}
+
+					if (ss2.length == 3) {
+
+						if (ss2[1].indexOf("/сим") > -1) {
+							// ss2[1]=ss2[1].replace("/сим","");
+							qw.isSymmetric(qw.getProperty(ss2[1].replace(sfx,
+									"")));
+
+						}
+
+						if (bim(ss2[0]) && bim(ss2[2])
+								&& ss2[1].equals("не")) {
+							qw.differentIndividuals(qw.getIndividual(ss2[0]),
+									qw.getIndividual(ss2[2]));
+						} else if (!bim(ss2[0]) && !bim(ss2[2])
+								&& ss2[1].equals("не")) {
+							qw.manager.applyChange(new AddAxiom(qw.ontology,
+									qw.factory.getOWLDisjointClassesAxiom(
+											qw.getOwlClass(ss2[0]),
+											qw.getOwlClass(ss2[2]))));
+
+						} else if (bim(ss2[0]) && n(ss2[2])) {
+
+							OWLDataProperty hasAge = qw.getDataProperty(ss2[1]
+									.replace(sfx, ""));
+							String sn = ss2[2].trim();
+							int n = Integer.parseInt(sn);
+							OWLIndividual ind = qw.getIndividual(ss2[0]);
+
+							qw.assertFact(hasAge, ind, n);
+
+						} else
+
+						if (bim(ss2[0]) && bim(ss2[2])) {
+
+							qw.assertFact(ss2[1].replace(sfx, ""), ss2[0],
+									ss2[2]);
+
+						} else if (!bim(ss2[0]) && !bim(ss2[2])) {
+							qw.assertDomainAndRange(
+									qw.getProperty(ss2[1].replace(sfx, "")),
+									qw.getOwlClass(ss2[0]),
+									qw.getOwlClass(ss2[2]));
+						}
+						else if (!bim(ss2[0]) && bim(ss2[2])) {
+							OWLDataProperty любит = qw.getDataProperty(ss2[1]
+									.replace(sfx, ""));
+							String sn = ss2[2].trim();
+							//int n = Integer.parseInt(sn);
+							OWLIndividual Молоко = qw.getIndividual(ss2[0]);
+
+							qw.assertFact(любит, Молоко, 1);
+					}
+
+					}
+				}
+				stat.sowl = qw.sowl();
+
+				if (s.length() > -1)
+					return s;
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				// /////////////////////////////////////////
+				// /////////////////////////////////////////
+				// /////////////////////////////////////////
+
+				if (ss.length == 3) {
+
+					if (ss[1].equals("-")) {
+						qw.isSubClassOf(qw.getOwlClass(ss[0]),
+								qw.getOwlClass(ss[2]));
+					} else if (ss[1].equals("это")) {
+						qw.hasClass(qw.getIndividual(ss[0]),
+								qw.getOwlClass(ss[2]));
+					}
+
+					else if (bim(ss[0]) && n(ss[2])) {
+
+						OWLDataProperty hasAge = qw.getDataProperty(ss[1]);
+						String sn = ss[2].trim();
+						int n = Integer.parseInt(sn);
+						OWLIndividual ind = qw.getIndividual(ss[0]);
+
+						qw.assertFact(hasAge, ind, n);
+
+					}
+
+					else if (bim(ss[0]) && bim(ss[2])) {
+
+						qw.assertFact(ss[1], ss[0], ss[2]);
+
+					}
+
+					else if (!bim(ss[0]) && !bim(ss[2])) {
+						// qw.assertDomainAndRange(qw.getProperty(ss[1]),
+						// qw.getOwlClass(ss[0]), qw.getOwlClass(ss[2]));
+						qw.assertFact(ss[1], ss[0], ss[2]);
+					}
+
+				}
+
+				// else if (socrat(ss[0]) && !socrat(ss[2])) {
+				// qw.hasClass(qw.getIndividual(ss[0]), qw.getOwlClass(ss[2]));
+				// qw.assertRange(qw.getProperty(ss[1]), qw.getOwlClass(ss[2]));
+				// }
+
+			}
+
+			// //////////////////////////////////
+
+			OWLIndividual john = qw.getIndividual("John");
+			OWLIndividual mary = qw.getIndividual("Mary");
+			OWLIndividual susan = qw.getIndividual("Susan");
+			OWLIndividual bill = qw.getIndividual("Bill");
+			OWLIndividual david = qw.getIndividual("David");
+			OWLIndividual kate = qw.getIndividual("Kate");
+			OWLDataProperty hasAge = qw.getDataProperty("hasAge");
+			OWLObjectProperty hasSon = qw.getProperty("hasSon");
+			OWLObjectProperty hasDaughter = qw.getProperty("hasDaughter");
+			OWLObjectProperty hasWife = qw.getProperty("hasWife");
+			OWLObjectProperty hasHusband = qw.getProperty("hasHusband");
+			OWLObjectProperty hasChild = qw.getProperty("hasChild");
+			OWLIndividual male = qw.getIndividual("male");
+			OWLIndividual female = qw.getIndividual("female");
+			OWLObjectProperty hasGender = qw.getProperty("hasGender");
+			OWLClass man = qw.getOwlClass("man");
+			OWLClass woman = qw.getOwlClass("woman");
+			// OWLClass parent = qw.getOwlClass("parent");
+			OWLClass person = qw.getOwlClass("person");
+
+			qw.assertDomain(hasWife, person);
+			qw.assertRange(hasWife, person);
+			qw.assertDomain(hasSon, person);
+			qw.assertRange(hasSon, person);
+			qw.assertDomain(hasDaughter, person);
+			qw.assertRange(hasDaughter, person);
+			qw.assertDataDomain(hasAge, person);
+			qw.assertRangeAsInteger(hasAge);
+			qw.hasClass(david, person);
+			qw.hasClass(bill, person);
+			qw.hasClass(kate, person);
+			qw.hasClass(mary, person);
+			qw.hasClass(susan, person);
+			qw.hasClass(john, person);
+			qw.inverseProperties(hasWife, hasHusband);
+			qw.subPropertyOf(hasSon, hasChild);
+			qw.subPropertyOf(hasDaughter, hasChild);
+			qw.isFunctional(hasAge);
+			qw.isFunctional(hasWife);
+			qw.isIrreflexive(hasWife);
+			qw.isInverseFunctional(hasWife);
+			qw.isAsymmetric(hasWife);
+
+			OWLDataProperty hasGender2 = qw.getDataProperty("hasGender2");
+			OWLClassExpression hasAgeRestriction = qw.exactCardinality(hasAge,
+					1);
+			OWLClassExpression hasGenderRestriction = qw.exactCardinality(
+					hasGender2, 1);
+			OWLObjectOneOf maleOrFemale = qw.factory.getOWLObjectOneOf(male,
+					female);
+			OWLObjectAllValuesFrom hasGenderOnlyMaleFemale = qw.factory
+					.getOWLObjectAllValuesFrom(hasGender, maleOrFemale);
+
+			// Finally, we bundle these restrictions up into an
+			// intersection, since we want person
+			// to be a subclass of the intersection of them
+			OWLObjectIntersectionOf intersection = qw.factory
+					.getOWLObjectIntersectionOf(hasAgeRestriction,
+							hasGenderRestriction, hasGenderOnlyMaleFemale);
+			// And now we set this anonymous intersection class to be a
+			// superclass of Person using a subclass axiom
+			qw.manager.addAxiom(qw.ontology,
+					qw.factory.getOWLSubClassOfAxiom(person, intersection));
+
+			// Restrictions and other anonymous classes can also be used
+			// anywhere a named class can be used.
+			// Let's set the range of hasSon to be Person and hasGender
+			// value male. This requires an anonymous
+			// class that is the intersection of Person, and also, hasGender
+			// value male. We need to create
+			// the hasGender value male restriction - this describes the
+			// class of things that have a hasGender
+			// relationship to the individual male.
+			OWLObjectHasValue hasGenderValueMaleRestriction = qw.factory
+					.getOWLObjectHasValue(hasGender, male);
+			// Now combine this with Person in an intersection
+			OWLClassExpression personAndHasGenderValueMale = qw.factory
+					.getOWLObjectIntersectionOf(person,
+							hasGenderValueMaleRestriction);
+			// Now specify this anonymous class as the range of hasSon using
+			// an object property range axioms
+			qw.manager.addAxiom(qw.ontology, qw.factory
+					.getOWLObjectPropertyRangeAxiom(hasSon,
+							personAndHasGenderValueMale));
+
+			// We can do a similar thing for hasDaughter, by specifying that
+			// hasDaughter has a range
+			// of Person and hasGender value female. This time, we will make
+			// things a little more compact by
+			// not using so many variables
+
+			OWLClassExpression rangeOfHasDaughter = qw.factory
+					.getOWLObjectIntersectionOf(person,
+							qw.factory.getOWLObjectHasValue(hasGender, female));
+			qw.manager.addAxiom(qw.ontology, qw.factory
+					.getOWLObjectPropertyRangeAxiom(hasDaughter,
+							rangeOfHasDaughter));
+
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+			//
+			// Data Ranges and Equivalent Classes axioms
+			//
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+
+			// In OWL 2, we can specify expressive data ranges. Here, we
+			// will specify the classes
+			// Teenage, Adult and Child by saying something about
+			// individuals ages.
+
+			// First we take the class Teenager, all of whose instance have
+			// an age greater or equal to
+			// 13 and less than 20. In Manchester Syntax this is written as
+			// Person and hasAge some int[>=13, <20]
+			// We create a data range by taking the integer datatype and
+			// applying facet restrictions to it.
+			// Note that we have statically imported the data range facet
+			// vocabulary OWLFacet
+			OWLFacetRestriction geq13 = qw.factory.getOWLFacetRestriction(
+					MIN_INCLUSIVE, 12);
+			// We don't have to explicitly create the typed constant, there
+			// are convenience methods to do this
+			OWLFacetRestriction lt20 = qw.factory.getOWLFacetRestriction(
+					MAX_EXCLUSIVE, 25);
+			// Restrict the base type, integer (which is just an XML Schema
+			// Datatype) with the facet
+			// restrictions.
+			OWLFacetRestriction lt30 = qw.factory.getOWLFacetRestriction(
+					MAX_EXCLUSIVE, 30);
+
+			OWLClass teenager = qw.factory.getOWLClass(IRI
+					.create(qw.ontologyIRI + "#Teenager"));
+
+			OWLClass adult = qw.factory.getOWLClass(IRI.create(qw.ontologyIRI
+					+ "#Adult"));
+
+			// And finally Child
+			OWLClass child = qw.factory.getOWLClass(IRI.create(qw.ontologyIRI
+					+ "#Child"));
+
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+			//
+			// Different individuals
+			//
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+
+			// In OWL, we can say that individuals are different from each
+			// other. To do this we use a
+			// different individuals axiom. Since John, Mary, Bill and Susan
+			// are all different individuals,
+			// we can express this using a different individuals axiom.
+			OWLDifferentIndividualsAxiom diffInds = qw.factory
+					.getOWLDifferentIndividualsAxiom(john, mary, bill, susan,
+							david, kate);
+			qw.manager.addAxiom(qw.ontology, diffInds);
+			// Male and Female are also different
+			qw.manager.addAxiom(qw.ontology,
+					qw.factory.getOWLDifferentIndividualsAxiom(male, female));
+
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+			//
+			// Disjoint classes
+			//
+			// ////////////////////////////////////////////////////////////////////////////////////////////
+
+			// Two say that two classes do not have any instances in common
+			// we use a disjoint classes
+			// axiom:
+			OWLDisjointClassesAxiom disjointClassesAxiom = qw.factory
+					.getOWLDisjointClassesAxiom(man, woman);
+			qw.manager.addAxiom(qw.ontology, disjointClassesAxiom);
+
+			OWLDatatype integerDatatype = qw.factory.getIntegerOWLDatatype();
+			OWLDataRange dataRng = qw.factory.getOWLDatatypeRestriction(
+					integerDatatype, geq13, lt20);
+			OWLDataRange dataRng2 = qw.factory.getOWLDatatypeRestriction(
+					integerDatatype, geq13, lt30);
+			// Now we have the data range of greater than equal to 13 and
+			// less than 20 we can use this in a
+			// restriction.
+			OWLDataSomeValuesFrom teenagerAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, dataRng);
+			OWLDataSomeValuesFrom lessThanThirtyAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, dataRng2);
+			// Now make Teenager equivalent to Person and hasAge some
+			// int[>=13, <20]
+			// First create the class Person and hasAge some int[>=13, <20]
+			OWLClassExpression teenagePerson = qw.factory
+					.getOWLObjectIntersectionOf(person, teenagerAgeRestriction);
+			// Do the same for Adult that has an age greater than 21
+			OWLDataRange geq21 = qw.factory.getOWLDatatypeRestriction(
+					integerDatatype,
+					qw.factory.getOWLFacetRestriction(MIN_INCLUSIVE, 21));
+			OWLEquivalentClassesAxiom teenagerDefinition = qw.factory
+					.getOWLEquivalentClassesAxiom(teenager, teenagePerson);
+			qw.manager.addAxiom(qw.ontology, teenagerDefinition);
+			OWLClassExpression adultAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, geq21);
+			OWLClassExpression adultPerson = qw.factory
+					.getOWLObjectIntersectionOf(person, adultAgeRestriction);
+			OWLAxiom adultDefinition = qw.factory.getOWLEquivalentClassesAxiom(
+					adult, adultPerson);
+			qw.manager.addAxiom(qw.ontology, adultDefinition);
+			OWLDataRange notGeq21 = qw.factory.getOWLDataComplementOf(geq21);
+			OWLClassExpression childAgeRestriction = qw.factory
+					.getOWLDataSomeValuesFrom(hasAge, notGeq21);
+			OWLClassExpression childPerson = qw.factory
+					.getOWLObjectIntersectionOf(person, childAgeRestriction);
+			OWLAxiom childDefinition = qw.factory.getOWLEquivalentClassesAxiom(
+					child, childPerson);
+			qw.manager.addAxiom(qw.ontology, childDefinition);
+
+			// //////////////////////////////////
+			s = qw.sowl();
+
+			stat.posti(sh + "/w2f", "83.owl", s);
+
+		} catch (Exception e2) {
+			System.err.println(e2.toString());
+		}
+		return s;
+	}
+
+
+	
 	public static void mail_admins(String subject, String text) {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
@@ -268,8 +760,8 @@ public class stq {
 
 			stat.get_owl83(stat.sr, sh);
 
-			stat.w2f1("83.owl", stat.sowl);
-			stat.w2f1("sr.txt", stat.sr);
+//			stat.w2f1("83.owl", stat.sowl);
+//			stat.w2f1("sr.txt", stat.sr);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -449,5 +941,12 @@ public class stq {
 		s = s.replace("[Root]", "\r\n").replace(" -] ", "");
 		s = s.substring(0, s.length() - 4);
 		return "\r\n" + s;
+	}
+	public static boolean n(String str) {
+		for (char c : str.toCharArray()) {
+			if (!Character.isDigit(c))
+				return false;
+		}
+		return true;
 	}
 }

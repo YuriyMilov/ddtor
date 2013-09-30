@@ -54,5 +54,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jxl.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/owlapi-distribution-3.4.4-bin.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jsoup-1.7.2.jar"/>
+	<classpathentry kind="con" path="com.google.gdt.eclipse.managedapis.MANAGED_API_CONTAINER/androidpublisher-v1.1r8lv1.16.0-rc"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
