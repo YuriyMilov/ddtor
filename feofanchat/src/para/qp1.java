@@ -20,7 +20,7 @@ public class qp1 extends HttpServlet {
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/xml; charset=UTF8");		
 		resp.setHeader("Content-Disposition", "attachment; filename="
-				+ "test.txt");
+				+ "test.owl");
 		resp.setCharacterEncoding("UTF8");
 		
 		String s = "";

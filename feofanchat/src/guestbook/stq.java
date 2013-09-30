@@ -66,6 +66,7 @@ import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 import para.st;
 
@@ -92,28 +93,29 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 public class stq {
 
-	//private static Object String;
-public static String sfx="";
+	// private static Object String;
+	public static String sfx = "";
+
 	public static void init(HttpServletRequest req, HttpServletResponse resp) {
 		stat.stop = "";
-		stat.sr = "";	
+		stat.sr = "";
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
 
 		add_sr("", sh);
 		stat.page(req, resp, "");
 	}
-	
-	public static String srowl(String s, String sh,String sf) {
+
+	public static String srowl(String s, String sh, String sf) {
 		try {
-			sf="84";
-			Owl2Model qw = new Owl2Model(sh + "/rff?"+sf);
+			stat.owl_file = "rff?83.owl";
+		
+			Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
 
 			s = stat.prep_all(s);
 			s = stat.prepare_83(s);
-			
-			/////////////
-			
+
+			// ///////////
 
 			String[] sss = s.split("[.]+");
 
@@ -124,38 +126,31 @@ public static String sfx="";
 				String[] sss2 = s.split("[.]+");
 
 				// проверка свойств на симметричность и т.п.
-
 				for (int i4 = 0; i4 < sss2.length; i4++) {
 					String[] ss4 = sss2[i4].trim().split("[ ]+");
 
 					if (ss4[0].toLowerCase().equals("если")) {
-
-						// ///////////
 						s = s.replace(sss2[i4], "").trim();
 						if (s.indexOf(".") == 0)
 							s = s.substring(1).trim();
-
 						sfx = "/сим";
-
 						s = s.replace(ss4[2], ss4[2] + sfx);
-						// ////////////
-
 					}
-
-				}
+				}				
 				sss2 = s.split("[.]+");
+
 				// /////////////////////////////
 
 				for (int i2 = 0; i2 < sss2.length; i2++) {
 					String[] ss2 = sss2[i2].trim().split("[ ]+");
-
-					if (ss2.length == 4) {
-						qw.учитель_учит_N_учеников(qw.getOwlClass(ss2[0]),
-								qw.getProperty(ss2[1].replace(sfx, "")),
-								Integer.parseInt(ss2[2]),
-								qw.getOwlClass(ss2[3]));
-
-					}
+					
+					
+					
+		
+					
+					
+					
+					// ///////////// 1 //////////////////
 
 					if (ss2.length == 1) {
 						if (bim(ss2[0])) {
@@ -168,6 +163,8 @@ public static String sfx="";
 									qw.factory.getOWLThing());
 						}
 					}
+
+					// ///////////// 2 //////////////////
 
 					if (ss2.length == 2) {
 
@@ -194,10 +191,23 @@ public static String sfx="";
 
 						else
 
-						if (bim(ss2[0]) && !bim(ss2[1])) {
-							qw.hasClass(qw.getIndividual(ss2[0]),
-									qw.getOwlClass(ss2[1]));
-						} else if (!bim(ss2[0]) && !bim(ss2[1])) {
+						//if (bim(ss2[0]) && !bim(ss2[1])) {
+						//	qw.hasClass(qw.getIndividual(ss2[0]),
+						//			qw.getOwlClass(ss2[1]));
+						//} 
+							
+							if (bim(ss2[0]) && !bim(ss2[1])) {
+								Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+								inds.add(qw.getIndividual(ss2[0]));
+								OWLClassAxiom аксиома = qw.factory
+										.getOWLEquivalentClassesAxiom(
+												qw.getOwlClass(ss2[1]),
+												qw.factory.getOWLObjectOneOf(inds));
+								qw.manager.addAxiom(qw.ontology, аксиома);
+
+								} 
+					
+							else if (!bim(ss2[0]) && !bim(ss2[1])) {
 							qw.isSubClassOf(qw.getOwlClass(ss2[0]),
 									qw.getOwlClass(ss2[1]));
 						} else if (bim(ss2[0]) && bim(ss2[1])) {
@@ -211,28 +221,31 @@ public static String sfx="";
 									qw.getOwlClass(ss2[0]));
 						}
 					}
+					
+					else
+						
+					// ///////////// 3 //////////////////
 
 					if (ss2.length == 3) {
 
-						if (ss2[1].indexOf("/сим") > -1) {
-							// ss2[1]=ss2[1].replace("/сим","");
-							qw.isSymmetric(qw.getProperty(ss2[1].replace(sfx,
-									"")));
 
-						}
-
-						if (bim(ss2[0]) && bim(ss2[2])
-								&& ss2[1].equals("не")) {
+						/*if (bim(ss2[0]) && bim(ss2[2]) && ss2[1].equals("не")) {
 							qw.differentIndividuals(qw.getIndividual(ss2[0]),
 									qw.getIndividual(ss2[2]));
-						} else if (!bim(ss2[0]) && !bim(ss2[2])
+						} else
+						
+						
+						if (!bim(ss2[0]) && !bim(ss2[2])
 								&& ss2[1].equals("не")) {
 							qw.manager.applyChange(new AddAxiom(qw.ontology,
 									qw.factory.getOWLDisjointClassesAxiom(
 											qw.getOwlClass(ss2[0]),
 											qw.getOwlClass(ss2[2]))));
 
-						} else if (bim(ss2[0]) && n(ss2[2])) {
+						} else 
+							
+						*/	
+							if (bim(ss2[0]) && n(ss2[2])) {
 
 							OWLDataProperty hasAge = qw.getDataProperty(ss2[1]
 									.replace(sfx, ""));
@@ -244,57 +257,96 @@ public static String sfx="";
 
 						} else
 
-						if (bim(ss2[0]) && bim(ss2[2])) {
+						
+							if (bim(ss2[0]) && bim(ss2[2])) {
+							OWLObjectProperty любит = qw
+									.getProperty(ss2[1].replace(sfx, ""));		
+							
+							if (ss2[1].indexOf("/сим") > -1)
+								qw.isSymmetric(любит);		
+							
+						        OWLIndividual малыш = qw.getIndividual(ss2[0]);
+						        OWLIndividual малышка = qw.getIndividual(ss2[2]);
+						        qw.assertFact(любит, малыш, малышка);
 
-							qw.assertFact(ss2[1].replace(sfx, ""), ss2[0],
-									ss2[2]);
-
-						} else if (!bim(ss2[0]) && !bim(ss2[2])) {
+						} else 
+							
+							
+							if (!bim(ss2[0]) && !bim(ss2[2])) {
+							
+							OWLObjectProperty любит = qw
+									.getProperty(ss2[1].replace(sfx, ""));	
+							
+							if (ss2[1].indexOf("/сим") > -1)
+								qw.isSymmetric(любит);
+							
 							qw.assertDomainAndRange(
-									qw.getProperty(ss2[1].replace(sfx, "")),
+									любит,
 									qw.getOwlClass(ss2[0]),
 									qw.getOwlClass(ss2[2]));
 						}
-						else if (!bim(ss2[0]) && bim(ss2[2])) {
-							OWLDataProperty любит = qw.getDataProperty(ss2[1]
-									.replace(sfx, ""));
-							String sn = ss2[2].trim();
-							//int n = Integer.parseInt(sn);
-							OWLIndividual Молоко = qw.getIndividual(ss2[0]);
-
-							qw.assertFact(любит, Молоко, 1);
 					}
+					
+					else
+						
+						
+						// ///////////// 4 //////////////////
 
-					}
+						if (ss2.length == 4) {
+
+		
+							if (bim(ss2[0]) && n(ss2[2]) && !bim(ss2[3]))
+
+							{
+								OWLIndividual Васька = qw.getIndividual(ss2[0]);
+								OWLObjectProperty любит = qw
+										.getProperty(ss2[1].replace(sfx, ""));							
+								if (ss2[1].indexOf("/сим") > -1)
+									qw.isSymmetric(любит);
+								int N = Integer.parseInt(ss2[2]);
+								OWLClassExpression молоко = qw
+										.getOwlClass(ss2[3]);
+								qw.любит_в_точности_N_Сократов(молоко, любит,
+										N, Васька);
+							}
+
+							else
+							if (!bim(ss2[0]) && n(ss2[2]) && bim(ss2[3]))
+
+							{
+								OWLClassExpression малыш = qw
+										.getOwlClass(ss2[0]);
+								OWLObjectProperty любит = qw
+										.getProperty(ss2[1].replace(sfx, ""));							
+								if (ss2[1].indexOf("/сим") > -1)
+									qw.isSymmetric(любит);		
+								int N = Integer.parseInt(ss2[2]);
+								OWLIndividual Синеглазка = qw.getIndividual(ss2[3]);
+								qw.любит_в_точности_N_Сократов(малыш, любит,
+										N, Синеглазка);
+							}
+
+							else
+
+							if (!bim(ss2[0]) && n(ss2[2]) && !bim(ss2[3])) {
+								OWLObjectProperty любит = qw
+										.getProperty(ss2[1].replace(sfx, ""));							
+								if (ss2[1].indexOf("/сим") > -1)
+									qw.isSymmetric(любит);
+								qw.малыш_любит_N_малышек(
+										qw.getOwlClass(ss2[0]),любит,
+										Integer.parseInt(ss2[2]),
+										qw.getOwlClass(ss2[3]));
+							}
+
+						}					
+	
 				}
 				stat.sowl = qw.sowl();
 
 				if (s.length() > -1)
 					return s;
 
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				// /////////////////////////////////////////
 				// /////////////////////////////////////////
 				// /////////////////////////////////////////
@@ -565,8 +617,6 @@ public static String sfx="";
 		return s;
 	}
 
-
-	
 	public static void mail_admins(String subject, String text) {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
@@ -758,10 +808,11 @@ public static String sfx="";
 				if (!stat.sr.contains(s7.trim()))
 					stat.sr = stat.sr.trim() + " " + s7.trim() + ".";
 
-			stat.get_owl83(stat.sr, sh);
+			//stat.get_owl83(stat.sr, sh);
+			srowl(stat.sr, sh, "");
 
-//			stat.w2f1("83.owl", stat.sowl);
-//			stat.w2f1("sr.txt", stat.sr);
+			// stat.w2f1("83.owl", stat.sowl);
+			// stat.w2f1("sr.txt", stat.sr);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -942,6 +993,7 @@ public static String sfx="";
 		s = s.substring(0, s.length() - 4);
 		return "\r\n" + s;
 	}
+
 	public static boolean n(String str) {
 		for (char c : str.toCharArray()) {
 			if (!Character.isDigit(c))

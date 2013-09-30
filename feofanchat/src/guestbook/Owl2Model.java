@@ -648,7 +648,7 @@ public class Owl2Model {
 
 		}
 		
-		public void учитель_учит_N_учеников(OWLClassExpression учитель,
+		public void малыш_любит_N_малышек(OWLClassExpression учитель,
 				OWLObjectPropertyExpression учит, int N, OWLClassExpression ученик) {
 
 		

@@ -96,22 +96,19 @@ public class stat {
 		 	
 			"<form  action=qq method=post>" +
 			"<br><input type=text id=id name=p2 size=82>&nbsp;" +
-			
-			//"<br/><textarea rows=4 cols=77 id=id name=p2></textarea>"+		
-			
-			"<br/><br>&nbsp;&nbsp;<input type=\"submit\" value=\"&nbsp;кляк&nbsp;\">" +
-			
-			//"<br><br>" +
-			" &nbsp; <a href=qq>очистить</a>" +
+			"<input type=\"submit\" value=\"&nbsp;кляк&nbsp;\"></form>" +
+			" &nbsp; <a href=/owl><button> OWL </button></a>" +
+			//"<br/>" +
 			" &nbsp; <a href=/primer.htm>примеры</a>" +
+			" &nbsp; <a href=qq>очистить</a>" +
 			" &nbsp; <a href=qq?p2=мир>мир</a>" +
 			" &nbsp; <a href=/forum.htm>форум</a>" +
 			" &nbsp; <a href=/rubli.htm>деньги</a>" +
-			" &nbsp; <a href=owl>owl</a>" +
 			" &nbsp; <a href=qq?p2=помощь>записки</a>"+
-			 "<br.>&nbsp;<br>&nbsp;<br>&nbsp;<br></form><br>&nbsp;<br>&nbsp;<br><br></html>";
+			 "<br.>&nbsp;<br>&nbsp;<br>&nbsp;<br><br>&nbsp;<br>&nbsp;<br><br></html>";
 
-	public static String siri = sh + "/rff?83.owl#";
+	public static String owl_file = "rff?83.owl";
+	public static String siri = sh + "/"+ owl_file +"#";
 	public static String stop = "";
 	public static String sowl = "";
 	public static String sr = "";
@@ -1476,7 +1473,7 @@ public class stat {
 					String[] ss2 = sss2[i2].trim().split("[ ]+");
 
 					if (ss2.length == 4) {
-						qw.учитель_учит_N_учеников(qw.getOwlClass(ss2[0]),
+						qw.малыш_любит_N_малышек(qw.getOwlClass(ss2[0]),
 								qw.getProperty(ss2[1].replace(stq.sfx, "")),
 								Integer.parseInt(ss2[2]),
 								qw.getOwlClass(ss2[3]));

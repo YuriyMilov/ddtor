@@ -42,6 +42,7 @@ public class owl extends HttpServlet {
 		
 		
 		byte[] b = s.getBytes("UTF8");
+		resp.setHeader("Content-Disposition", "attachment; filename=mir.owl");
 		out.write(b);
 	}
 
