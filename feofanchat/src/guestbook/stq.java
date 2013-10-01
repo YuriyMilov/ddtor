@@ -106,10 +106,10 @@ public class stq {
 		stat.page(req, resp, "");
 	}
 
-	public static String srowl(String s, String sh, String sf) {
+	public static String srowl1(String s, String sh, String sf) {
 		try {
 			stat.owl_file = "rff?83.owl";
-		
+
 			Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
 
 			s = stat.prep_all(s);
@@ -125,7 +125,11 @@ public class stq {
 
 				String[] sss2 = s.split("[.]+");
 
-				// проверка свойств на симметричность и т.п.
+				// //////////////////////////////////////////////////////
+				// проверка 1) свойства на симметричность, 2) замкнутость группы
+				// индвидов и т.п.
+				// //////////////////////////////////////////////////////
+
 				for (int i4 = 0; i4 < sss2.length; i4++) {
 					String[] ss4 = sss2[i4].trim().split("[ ]+");
 
@@ -136,20 +140,35 @@ public class stq {
 						sfx = "/сим";
 						s = s.replace(ss4[2], ss4[2] + sfx);
 					}
-				}				
-				sss2 = s.split("[.]+");
 
-				// /////////////////////////////
+					if (ss4[0].toLowerCase().equals("все")
+							&& ss4[0].equals("это") && ss4[0].equals("только")) {
+						s = s.replace(sss2[i4], "").trim();
+						if (s.indexOf(".") == 0)
+							s = s.substring(1).trim();
+						sfx = "/сим";
+						s = s.replace(ss4[2], ss4[2] + sfx);
+
+						// Set<OWLIndividual> inds = new
+						// HashSet<OWLIndividual>();
+						// inds.add(qw.getIndividual(ss2[0]));
+						// OWLClassAxiom аксиома = qw.factory
+						// .getOWLEquivalentClassesAxiom(
+						// qw.getOwlClass(ss2[1]),
+						// qw.factory.getOWLObjectOneOf(inds));
+						// qw.manager.addAxiom(qw.ontology, аксиома);
+
+					}
+
+					// //////////////////////////////////////////////////////
+					// //////////////////////////////////////////////////////
+
+				}
+				sss2 = s.split("[.]+");
 
 				for (int i2 = 0; i2 < sss2.length; i2++) {
 					String[] ss2 = sss2[i2].trim().split("[ ]+");
-					
-					
-					
-		
-					
-					
-					
+
 					// ///////////// 1 //////////////////
 
 					if (ss2.length == 1) {
@@ -191,23 +210,25 @@ public class stq {
 
 						else
 
-						//if (bim(ss2[0]) && !bim(ss2[1])) {
-						//	qw.hasClass(qw.getIndividual(ss2[0]),
-						//			qw.getOwlClass(ss2[1]));
-						//} 
-							
-							if (bim(ss2[0]) && !bim(ss2[1])) {
-								Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
-								inds.add(qw.getIndividual(ss2[0]));
-								OWLClassAxiom аксиома = qw.factory
-										.getOWLEquivalentClassesAxiom(
-												qw.getOwlClass(ss2[1]),
-												qw.factory.getOWLObjectOneOf(inds));
-								qw.manager.addAxiom(qw.ontology, аксиома);
+						if (bim(ss2[0]) && !bim(ss2[1])) {
+							qw.hasClass(qw.getIndividual(ss2[0]),
+									qw.getOwlClass(ss2[1]));
+						}
 
-								} 
-					
-							else if (!bim(ss2[0]) && !bim(ss2[1])) {
+						if (bim(ss2[0]) && !bim(ss2[1])) {
+
+							// Set<OWLIndividual> inds = new
+							// HashSet<OWLIndividual>();
+							// inds.add(qw.getIndividual(ss2[0]));
+							// OWLClassAxiom аксиома = qw.factory
+							// .getOWLEquivalentClassesAxiom(
+							// qw.getOwlClass(ss2[1]),
+							// qw.factory.getOWLObjectOneOf(inds));
+							// qw.manager.addAxiom(qw.ontology, аксиома);
+
+						}
+
+						else if (!bim(ss2[0]) && !bim(ss2[1])) {
 							qw.isSubClassOf(qw.getOwlClass(ss2[0]),
 									qw.getOwlClass(ss2[1]));
 						} else if (bim(ss2[0]) && bim(ss2[1])) {
@@ -221,31 +242,29 @@ public class stq {
 									qw.getOwlClass(ss2[0]));
 						}
 					}
-					
+
 					else
-						
+
 					// ///////////// 3 //////////////////
 
 					if (ss2.length == 3) {
 
-
-						/*if (bim(ss2[0]) && bim(ss2[2]) && ss2[1].equals("не")) {
-							qw.differentIndividuals(qw.getIndividual(ss2[0]),
-									qw.getIndividual(ss2[2]));
-						} else
-						
-						
-						if (!bim(ss2[0]) && !bim(ss2[2])
-								&& ss2[1].equals("не")) {
-							qw.manager.applyChange(new AddAxiom(qw.ontology,
-									qw.factory.getOWLDisjointClassesAxiom(
-											qw.getOwlClass(ss2[0]),
-											qw.getOwlClass(ss2[2]))));
-
-						} else 
-							
-						*/	
-							if (bim(ss2[0]) && n(ss2[2])) {
+						/*
+						 * if (bim(ss2[0]) && bim(ss2[2]) &&
+						 * ss2[1].equals("не")) {
+						 * qw.differentIndividuals(qw.getIndividual(ss2[0]),
+						 * qw.getIndividual(ss2[2])); } else
+						 * 
+						 * 
+						 * if (!bim(ss2[0]) && !bim(ss2[2]) &&
+						 * ss2[1].equals("не")) { qw.manager.applyChange(new
+						 * AddAxiom(qw.ontology,
+						 * qw.factory.getOWLDisjointClassesAxiom(
+						 * qw.getOwlClass(ss2[0]), qw.getOwlClass(ss2[2]))));
+						 * 
+						 * } else
+						 */
+						if (bim(ss2[0]) && n(ss2[2])) {
 
 							OWLDataProperty hasAge = qw.getDataProperty(ss2[1]
 									.replace(sfx, ""));
@@ -257,90 +276,81 @@ public class stq {
 
 						} else
 
-						
-							if (bim(ss2[0]) && bim(ss2[2])) {
-							OWLObjectProperty любит = qw
-									.getProperty(ss2[1].replace(sfx, ""));		
-							
-							if (ss2[1].indexOf("/сим") > -1)
-								qw.isSymmetric(любит);		
-							
-						        OWLIndividual малыш = qw.getIndividual(ss2[0]);
-						        OWLIndividual малышка = qw.getIndividual(ss2[2]);
-						        qw.assertFact(любит, малыш, малышка);
+						if (bim(ss2[0]) && bim(ss2[2])) {
+							OWLObjectProperty любит = qw.getProperty(ss2[1]
+									.replace(sfx, ""));
 
-						} else 
-							
-							
-							if (!bim(ss2[0]) && !bim(ss2[2])) {
-							
-							OWLObjectProperty любит = qw
-									.getProperty(ss2[1].replace(sfx, ""));	
-							
 							if (ss2[1].indexOf("/сим") > -1)
 								qw.isSymmetric(любит);
-							
-							qw.assertDomainAndRange(
-									любит,
+
+							OWLIndividual малыш = qw.getIndividual(ss2[0]);
+							OWLIndividual малышка = qw.getIndividual(ss2[2]);
+							qw.assertFact(любит, малыш, малышка);
+
+						} else
+
+						if (!bim(ss2[0]) && !bim(ss2[2])) {
+
+							OWLObjectProperty любит = qw.getProperty(ss2[1]
+									.replace(sfx, ""));
+
+							if (ss2[1].indexOf("/сим") > -1)
+								qw.isSymmetric(любит);
+
+							qw.assertDomainAndRange(любит,
 									qw.getOwlClass(ss2[0]),
 									qw.getOwlClass(ss2[2]));
 						}
 					}
-					
+
 					else
-						
-						
-						// ///////////// 4 //////////////////
 
-						if (ss2.length == 4) {
+					// ///////////// 4 //////////////////
 
-		
-							if (bim(ss2[0]) && n(ss2[2]) && !bim(ss2[3]))
+					if (ss2.length == 4) {
 
-							{
-								OWLIndividual Васька = qw.getIndividual(ss2[0]);
-								OWLObjectProperty любит = qw
-										.getProperty(ss2[1].replace(sfx, ""));							
-								if (ss2[1].indexOf("/сим") > -1)
-									qw.isSymmetric(любит);
-								int N = Integer.parseInt(ss2[2]);
-								OWLClassExpression молоко = qw
-										.getOwlClass(ss2[3]);
-								qw.любит_в_точности_N_Сократов(молоко, любит,
-										N, Васька);
-							}
+						if (bim(ss2[0]) && n(ss2[2]) && !bim(ss2[3]))
 
-							else
-							if (!bim(ss2[0]) && n(ss2[2]) && bim(ss2[3]))
+						{
+							OWLIndividual Васька = qw.getIndividual(ss2[0]);
+							OWLObjectProperty любит = qw.getProperty(ss2[1]
+									.replace(sfx, ""));
+							if (ss2[1].indexOf("/сим") > -1)
+								qw.isSymmetric(любит);
+							int N = Integer.parseInt(ss2[2]);
+							OWLClassExpression молоко = qw.getOwlClass(ss2[3]);
+							qw.любит_в_точности_N_Сократов(молоко, любит, N,
+									Васька);
+						}
 
-							{
-								OWLClassExpression малыш = qw
-										.getOwlClass(ss2[0]);
-								OWLObjectProperty любит = qw
-										.getProperty(ss2[1].replace(sfx, ""));							
-								if (ss2[1].indexOf("/сим") > -1)
-									qw.isSymmetric(любит);		
-								int N = Integer.parseInt(ss2[2]);
-								OWLIndividual Синеглазка = qw.getIndividual(ss2[3]);
-								qw.любит_в_точности_N_Сократов(малыш, любит,
-										N, Синеглазка);
-							}
+						else if (!bim(ss2[0]) && n(ss2[2]) && bim(ss2[3]))
 
-							else
+						{
+							OWLClassExpression малыш = qw.getOwlClass(ss2[0]);
+							OWLObjectProperty любит = qw.getProperty(ss2[1]
+									.replace(sfx, ""));
+							if (ss2[1].indexOf("/сим") > -1)
+								qw.isSymmetric(любит);
+							int N = Integer.parseInt(ss2[2]);
+							OWLIndividual Синеглазка = qw.getIndividual(ss2[3]);
+							qw.любит_в_точности_N_Сократов(малыш, любит, N,
+									Синеглазка);
+						}
 
-							if (!bim(ss2[0]) && n(ss2[2]) && !bim(ss2[3])) {
-								OWLObjectProperty любит = qw
-										.getProperty(ss2[1].replace(sfx, ""));							
-								if (ss2[1].indexOf("/сим") > -1)
-									qw.isSymmetric(любит);
-								qw.малыш_любит_N_малышек(
-										qw.getOwlClass(ss2[0]),любит,
-										Integer.parseInt(ss2[2]),
-										qw.getOwlClass(ss2[3]));
-							}
+						else
 
-						}					
-	
+						if (!bim(ss2[0]) && n(ss2[2]) && !bim(ss2[3])) {
+							OWLObjectProperty любит = qw.getProperty(ss2[1]
+									.replace(sfx, ""));
+							if (ss2[1].indexOf("/сим") > -1)
+								qw.isSymmetric(любит);
+							qw.малыш_любит_N_малышек(qw.getOwlClass(ss2[0]),
+									любит, Integer.parseInt(ss2[2]),
+									qw.getOwlClass(ss2[3]));
+						}
+
+					}
+
 				}
 				stat.sowl = qw.sowl();
 
@@ -808,7 +818,7 @@ public class stq {
 				if (!stat.sr.contains(s7.trim()))
 					stat.sr = stat.sr.trim() + " " + s7.trim() + ".";
 
-			//stat.get_owl83(stat.sr, sh);
+			// stat.get_owl83(stat.sr, sh);
 			srowl(stat.sr, sh, "");
 
 			// stat.w2f1("83.owl", stat.sowl);
@@ -863,7 +873,7 @@ public class stq {
 				&& s.indexOf(")") > s.indexOf("("))
 			s = s.replace(s.substring(s.indexOf("("), s.indexOf(")") + 1), "");
 
-		s = s.replace("-", "").replace("это", "");
+		s = s.replace("-", "").replace("это", "").replace(" и ", ", ");
 
 		return s.trim();
 	}
@@ -1001,4 +1011,252 @@ public class stq {
 		}
 		return true;
 	}
+
+	public static String srowl(String s, String sh, String sf) {
+		boolean bb = true;
+		stat.owl_file = "rff?83.owl";
+		Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
+		// s = stat.prep_all(s);
+		// s = stat.prepare_83(s);
+		s = pripare(s);
+
+		String[] ss = s.split("[.]+");
+		s = "";
+		for (String s2 : ss) {
+
+			s2 = s2.trim().replaceAll("[ ]+", " ");
+			String[] sss = s2.split("[.]+");
+
+			// //////////////////////////////////////////////////////
+			//
+			// переделка входного текста под нрорму кря
+			//
+			// //////////////////////////////////////////////////////
+			
+			bb = true;
+			String[] ss1 = s2.split("[ ]");
+
+			if (s2.toLowerCase().indexOf("если") == 0){
+				bb=true;
+				s2 = ss1[2] + "/сим";
+			}
+			
+
+			if (s2.contains("только")) {
+				s2 = s2.substring(s2.indexOf("только") + 7);
+				String[] ss5 = s2.split("[,]");
+
+				Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+
+				for (int i = 0; i < ss5.length; i++) {
+					if (bim(ss5[i]))
+						inds.add(qw.getIndividual(ss5[i].trim()));
+				}
+				OWLClassAxiom аксиома = qw.factory
+						.getOWLEquivalentClassesAxiom(qw.getOwlClass(ss1[0]),
+								qw.factory.getOWLObjectOneOf(inds));
+				qw.manager.addAxiom(qw.ontology, аксиома);
+				bb = false;
+
+			}
+			if (bb)
+				s = s + s2 + ". ";
+		}
+		
+		
+		
+		// /////////////////////////////////
+		//
+		// 2-й проход (обработка нормализованного КРЯ без ограничителей)
+		//
+		// /////////////////////////////////
+
+		ss = s.split("[.]+");
+		if (ss.length > 1)
+			for (String s3 : ss) {
+
+				s3 = s3.trim().replaceAll("[ ]+", " ");
+				String[] ss2 = s3.split("[ ]+");
+
+
+				
+				// ///////////// 2 //////////////////
+
+				if (ss2.length == 2) {
+
+					if (bim(ss2[0]) && ss2[0].indexOf("_") > -1 && !bim(ss2[1]))
+
+					{
+						String sss3 = ss2[0].replace("_", " ");
+						String[] ss3 = sss3.split("[ ]+");
+
+						Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+						for (int i3 = 0; i3 < ss3.length; i3++)
+							inds.add(qw.getIndividual(ss3[i3]));
+
+						OWLClassAxiom аксиома = qw.factory
+								.getOWLEquivalentClassesAxiom(
+										qw.getOwlClass(ss2[1]),
+										qw.factory.getOWLObjectOneOf(inds));
+						qw.manager.addAxiom(qw.ontology, аксиома);
+
+						qw.manager.addAxiom(qw.ontology, qw.factory
+								.getOWLDifferentIndividualsAxiom(inds));
+					}
+
+					else
+
+					if (bim(ss2[0]) && !bim(ss2[1])) {
+						qw.hasClass(qw.getIndividual(ss2[0]),
+								qw.getOwlClass(ss2[1]));
+					}
+
+					if (bim(ss2[0]) && !bim(ss2[1])) {
+
+						// Set<OWLIndividual> inds = new
+						// HashSet<OWLIndividual>();
+						// inds.add(qw.getIndividual(ss2[0]));
+						// OWLClassAxiom аксиома = qw.factory
+						// .getOWLEquivalentClassesAxiom(
+						// qw.getOwlClass(ss2[1]),
+						// qw.factory.getOWLObjectOneOf(inds));
+						// qw.manager.addAxiom(qw.ontology, аксиома);
+
+					}
+
+					else if (!bim(ss2[0]) && !bim(ss2[1])) {
+						qw.isSubClassOf(qw.getOwlClass(ss2[0]),
+								qw.getOwlClass(ss2[1]));
+					} else if (bim(ss2[0]) && bim(ss2[1])) {
+						qw.manager.applyChange(new AddAxiom(qw.ontology,
+								qw.factory.getOWLSameIndividualAxiom(
+										qw.getIndividual(ss2[0]),
+										qw.getIndividual(ss2[1]))));
+					} else if (!bim(ss2[0]) && bim(ss2[1])) {
+
+						qw.hasClass(qw.getIndividual(ss2[1]),
+								qw.getOwlClass(ss2[0]));
+					}
+				}
+
+				else
+
+				// ///////////// 3 //////////////////
+
+				if (ss2.length == 3) {
+
+					/*
+					 * if (bim(ss2[0]) && bim(ss2[2]) && ss2[1].equals("не")) {
+					 * qw.differentIndividuals(qw.getIndividual(ss2[0]),
+					 * qw.getIndividual(ss2[2])); } else
+					 * 
+					 * 
+					 * if (!bim(ss2[0]) && !bim(ss2[2]) && ss2[1].equals("не"))
+					 * { qw.manager.applyChange(new AddAxiom(qw.ontology,
+					 * qw.factory.getOWLDisjointClassesAxiom(
+					 * qw.getOwlClass(ss2[0]), qw.getOwlClass(ss2[2]))));
+					 * 
+					 * } else
+					 */
+					if (bim(ss2[0]) && n(ss2[2])) {
+
+						OWLDataProperty hasAge = qw.getDataProperty(ss2[1]
+								.replace(sfx, ""));
+						String sn = ss2[2].trim();
+						int n = Integer.parseInt(sn);
+						OWLIndividual ind = qw.getIndividual(ss2[0]);
+
+						qw.assertFact(hasAge, ind, n);
+
+					} else
+
+					if (bim(ss2[0]) && bim(ss2[2])) {
+						OWLObjectProperty любит = qw.getProperty(ss2[1]
+								.replace(sfx, ""));
+
+						if (ss2[1].indexOf("/сим") > -1)
+							qw.isSymmetric(любит);
+
+						OWLIndividual малыш = qw.getIndividual(ss2[0]);
+						OWLIndividual малышка = qw.getIndividual(ss2[2]);
+						qw.assertFact(любит, малыш, малышка);
+
+					} else
+
+					if (!bim(ss2[0]) && !bim(ss2[2])) {
+
+						OWLObjectProperty любит = qw.getProperty(ss2[1]
+								.replace(sfx, ""));
+
+						if (ss2[1].indexOf("/сим") > -1)
+							qw.isSymmetric(любит);
+
+						qw.assertDomainAndRange(любит, qw.getOwlClass(ss2[0]),
+								qw.getOwlClass(ss2[2]));
+					}
+				}
+
+				else
+
+				// ///////////// 4 //////////////////
+
+				if (ss2.length == 4) {
+
+					if (bim(ss2[0]) && n(ss2[2]) && !bim(ss2[3]))
+
+					{
+						OWLIndividual Васька = qw.getIndividual(ss2[0]);
+						OWLObjectProperty любит = qw.getProperty(ss2[1]
+								.replace(sfx, ""));
+						if (ss2[1].indexOf("/сим") > -1)
+							qw.isSymmetric(любит);
+						int N = Integer.parseInt(ss2[2]);
+						OWLClassExpression молоко = qw.getOwlClass(ss2[3]);
+						qw.любит_в_точности_N_Сократов(молоко, любит, N, Васька);
+					}
+
+					else if (!bim(ss2[0]) && n(ss2[2]) && bim(ss2[3]))
+
+					{
+						OWLClassExpression малыш = qw.getOwlClass(ss2[0]);
+						OWLObjectProperty любит = qw.getProperty(ss2[1]
+								.replace(sfx, ""));
+						if (ss2[1].indexOf("/сим") > -1)
+							qw.isSymmetric(любит);
+						int N = Integer.parseInt(ss2[2]);
+						OWLIndividual Синеглазка = qw.getIndividual(ss2[3]);
+						qw.любит_в_точности_N_Сократов(малыш, любит, N,
+								Синеглазка);
+					}
+
+					else
+
+					if (!bim(ss2[0]) && n(ss2[2]) && !bim(ss2[3])) {
+						OWLObjectProperty любит = qw.getProperty(ss2[1]
+								.replace(sfx, ""));
+						if (ss2[1].indexOf("/сим") > -1)
+							qw.isSymmetric(любит);
+						qw.малыш_любит_N_малышек(qw.getOwlClass(ss2[0]), любит,
+								Integer.parseInt(ss2[2]),
+								qw.getOwlClass(ss2[3]));
+					}
+
+				}
+				// ///////////// 1 -    ПОСЛЕДНИЙ ШТРИХ     //////////////////
+
+				if (ss2.length == 1) {
+
+					if (ss2[0].contains("/сим")) {
+						ss2[0]=ss2[0].replace("/сим", "");
+						OWLObjectProperty любит = qw.getProperty(ss2[0]);
+							qw.isSymmetric(любит);
+					}
+				}
+				s=s+"";
+			}
+		stat.sowl = qw.sowl();
+
+		return "ok";
+	}
+
 }
