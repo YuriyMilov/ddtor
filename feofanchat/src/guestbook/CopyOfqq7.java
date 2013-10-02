@@ -59,13 +59,13 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 public class CopyOfqq7 extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
+			throws IOException { 
 		ServletOutputStream out = resp.getOutputStream();
 		resp.setContentType("text/plain; charset=UTF8");
-
-		String s=stat.sr;
-		
-		byte[] b = s.getBytes("UTF8");
+  
+		String s=stat.sr;           
+		    
+		byte[] b = s.getBytes("UTF8"); 
 		out.write(b);
 	}
 

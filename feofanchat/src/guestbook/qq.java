@@ -69,7 +69,7 @@ public class qq extends HttpServlet implements EntryPoint {
 				}
 
 				else if (s.indexOf("mmm") == 0) {
-					String ss = "Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x дружитъс y, то y  дружит_с x. малыш  дружитъс 1 малышка. малышка  дружитъс 1 малыш. Пончик  дружитъс Синеглазка. СПАРКЛЯ(Незнайка дружитъс ?кем)";
+					String ss = "Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x дружитъс y, то y  дружит_с x. малыш  дружитъс 1 малышка. малышка  дружитъс 1 малыш. Пончик  дружитъс Синеглазка. СПРАШКЛ(Незнайка дружитъс ?кем)";
 					ss = stq.mm_get_otvet(sh, "sb", ss, "ymilov@gmail.com");
 					stq.mail_admins("mailing test /qq?mm", ss);
 					stat.page(req, resp, ss.replace("\r\n", "<br/>"));

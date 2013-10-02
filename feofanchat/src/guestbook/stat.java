@@ -95,16 +95,19 @@ public class stat {
 			
 		 	
 			"<form  action=qq method=post>" +
-			"<br><input type=text id=id name=p2 size=82>&nbsp;" +
+			"<br><input type=text id=id name=p2 size=100>&nbsp;" +
 			"<input type=\"submit\" value=\"&nbsp;кляк&nbsp;\"></form>" +
-			" &nbsp; <a href=/owl><button> OWL </button></a>" +
 			//"<br/>" +
-			" &nbsp; <a href=/primer.htm>примеры</a>" +
-			" &nbsp; <a href=qq>очистить</a>" +
-			" &nbsp; <a href=qq?p2=мир>мир</a>" +
-			" &nbsp; <a href=/forum.htm>форум</a>" +
-			" &nbsp; <a href=/rubli.htm>деньги</a>" +
-			" &nbsp; <a href=qq?p2=помощь>записки</a>"+
+			" &nbsp; <a href=/primer.htm><button> примеры </button></a>" +
+			" &nbsp; <a href=qq?p2=мир><button> мир </button></a>" +
+			" &nbsp; <a href=qq><button> очистить </button></a>" +
+			" &nbsp; <a href=zagruzi.htm><button> загрузить </button></a>" +
+			//" &nbsp; <a href=qq><button> добавить </button></a>" +
+			//" &nbsp; <a href=qq><button> сохранить </button></a>" +
+			" &nbsp; <a href=/forum.htm><button> форум </button></a>" +
+			" &nbsp; <a href=/rubli.htm><button> деньги </button></a>" +
+			" &nbsp; <a href=qq?p2=помощь><button> записки </button></a>"+
+			" &nbsp; <a href=/owl><button> owl </button></a>" +
 			 "<br.>&nbsp;<br>&nbsp;<br>&nbsp;<br><br>&nbsp;<br>&nbsp;<br><br></html>";
 
 	public static String owl_file = "rff?83.owl";
@@ -886,7 +889,6 @@ public class stat {
 			s = s.replace("\r\n", "<br>");
 			byte[] b = s.getBytes("UTF8");
 			out.write(b);
-
 			return;
 		} else if (s.equals("добавить")) {
 			s = rfu_utf(sh + "/add.txt");
@@ -911,11 +913,11 @@ public class stat {
 		if (s.equals("мир")) {
 			s = stat.sr;
 			if (s == null) {
+				s = "";
 				stat.sr = "";
-				s="мир пуст.<br/>мир можно написать, загрузить или добавить.";
-			} else 
-				if (s.trim().length() == 0)
-				s="мир пуст.<br/>мир можно написать, загрузить или добавить.";
+			}
+			if (s.trim().length() == 0)
+				s = "мир пуст.<br/>мир можно написать (см. примеры), загрузить, добавить, сохранить (скоро появятся такие возможности).";
 
 			stat.page(req, resp, s);
 			return;

@@ -894,7 +894,7 @@ public class stq {
 	}
 
 	public static String otvet(String sh, String s) {
-		if (s.toLowerCase().contains("спаркля(")) {
+		if (s.toLowerCase().contains("спрашкл(")) {
 			s = sparql(sh, s);
 			return s;
 		}
@@ -921,7 +921,7 @@ public class stq {
 			if (bb) {
 				s = get_ans1(sh, s);
 			} else {
-				s = "Не понял вопрос. См. описание КРЯ и Спаркля";
+				s = "Не понял вопрос. См. описание КРЯ и СПРАКЛя";
 			}
 		}
 		return s;
@@ -933,7 +933,7 @@ public class stq {
 		String s55 = s;
 
 		add_sr(stat.sr, sh);
-		int i = s.toLowerCase().indexOf("спаркля(");
+		int i = s.toLowerCase().indexOf("спрашкл(");
 
 		s = s.substring(i + 8);
 		s = s.replace(")", "");
@@ -1000,7 +1000,7 @@ public class stq {
 				s = s + sd + "\r\n";
 		}
 		s = s.replace("[Root]", "\r\n").replace(" -] ", "");
-		s = s.substring(0, s.length() - 4);
+		//s = s.substring(0, s.length() - 4);
 		return "\r\n" + s;
 	}
 
@@ -1013,9 +1013,26 @@ public class stq {
 	}
 
 	public static String srowl(String s, String sh, String sf) {
+	
+		
+		
 		boolean bb = true;
 		stat.owl_file = "rff?83.owl";
 		Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
+
+		
+/////////////////////////////////////
+		
+	if(s.contains("qq"))			
+		{
+		qw.test2();
+		stat.sowl = qw.sowl();
+		return "ok";				
+		}
+/////////////////////////////////////
+	
+		
+		
 		// s = stat.prep_all(s);
 		// s = stat.prepare_83(s);
 		s = pripare(s);
@@ -1242,7 +1259,7 @@ public class stq {
 					}
 
 				}
-				// ///////////// 1 -    ПОСЛЕДНИЙ ШТРИХ     //////////////////
+				// /////////////    1 слово -  ПОСЛЕДНИЙ ШТРИХ     //////////////////
 
 				if (ss2.length == 1) {
 
@@ -1252,6 +1269,8 @@ public class stq {
 							qw.isSymmetric(любит);
 					}
 				}
+				
+				
 				s=s+"";
 			}
 		stat.sowl = qw.sowl();

@@ -3,21 +3,18 @@
 
  <a href=qq?p2=фео>Вернуться</a>
  <br/> <br/>  
- Вопросы пока можно задавать и на КРЯ-SPARQL но ответы КРЯвые пока :-).
+ Вопросы Феофану о мире можно задавать на КРЯке и на SPARQL подобном СПРАШКЛе, но вопросы и ответы там КРЯвые пока :-).
 <br/><br/> 
 
 <table>
-
-<tr><td>КРЯ-1</td><td>СПАРКЛЯ-1</td></tr>
-
 
 <tr><td>
 
 
 <form name="input" action="/qq" method="post">
 
- <textarea rows="7" cols="44" name="p2" >
-буквы здесь только А, Б и С. Незнайка - малыш. Кнопочка - малышка. малышка здесь пока что одна только Кнопочка. малыш  любит 1 малышка. Кто любит Кнопочка?
+ <textarea rows="5" cols="88" name="p2" >
+Незнайка - малыш. Кнопочка - малышка. малышка здесь только Кнопочка. малыш  любит 1 малышка. Кто любит Кнопочка?
  
 
 </textarea>
@@ -29,7 +26,7 @@
 
 <form name="input" action="/qq" method="post">
 
- <textarea rows="3" cols="44" name="p2" >
+ <textarea rows="3" cols="88" name="p2" >
 человек смертен. Сократ - человек. Кто смертен?
 
 </textarea>
@@ -40,7 +37,7 @@
 <br/>
 
 <form name="input" action="/qq" method="post">
- <textarea rows="3" cols="44" name="p2" >
+ <textarea rows="4" cols="88" name="p2" >
 Незнайка - малыш. Кнопочка - малышка. малыш  любит 1 малышка. Кто любит Кнопочка?
 
 </textarea>
@@ -50,7 +47,7 @@
 <br/>
 <form name="input" action="/qq" method="post">
 
- <textarea rows="6" cols="44" name="p2" >
+ <textarea rows="5" cols="88" name="p2" >
 малыш  друг 1 малышка. малышка  друг 1 малыш. малыш только Пончик и Незнайка. малышка только Синеглазка и Кнопочка. Пончик друг Синеглазка. Если малыш друг малышка, то малышка  друг малыш.  Кто друг Незнайка?
 
 </textarea>
@@ -60,29 +57,41 @@
 <br/>
 <form name="input" action="/qq" method="post">
 
- <textarea rows="3" cols="44" name="p2" >
-кот любит молоко. Васька - кот. Кто любит молоко?
-(кто кот?)
+ <textarea rows="4" cols="88" name="p2" >
+Васька кот. Свежеемолоко молоко. молоко здесь только Свежеемолоко. кот любит 1 молоко. Кто любит Свежеемолоко?
+</textarea>
+<br/>кто кот? - Васька
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+<br/>
+
+<br/>
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="4" cols="88" name="p2" >
+кот любит молоко. Васька кот. Кто любит молоко?
+</textarea>
+<br/>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+<br/>
+
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="3" cols="88" name="p2" >
+человек - смертен. Сократ это человек. СПРАШКЛ(?кто это смертен)
+
 </textarea>
 <br/>
 <input type="submit" value=" кляк ">
 </form>
 <br/>
-</td><td>
 <form name="input" action="/qq" method="post">
 
- <textarea rows="3" cols="44" name="p2" >
-человек - смертен. Сократ это человек. СПАРКЛЯ(?кто это смертен)
-
-</textarea>
-<br/>
-<input type="submit" value=" кляк ">
-</form>
-<br/>
-<form name="input" action="/qq" method="post">
-
- <textarea rows="3" cols="44" name="p2" >
-человек - смертен. Сократ это человек. СПАРКЛЯ(Сократ это ?кто)
+ <textarea rows="3" cols="88" name="p2" >
+человек - смертен. Сократ это человек. СПРАШКЛ(Сократ это ?кто)
 
 </textarea>
 <br/>
@@ -92,8 +101,8 @@
 <br/>
 <form name="input" action="/qq" method="post">
 
- <textarea rows="6" cols="44" name="p2" >
-Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x дружитъс y, то y  дружит_с x. малыш  дружитъс 1 малышка. малышка  дружитъс 1 малыш. Пончик  дружитъс Синеглазка. СПАРКЛЯ(Незнайка дружитъс ?кем)
+ <textarea rows="5" cols="88" name="p2" >
+малыш  друг 1 малышка. малышка  друг 1 малыш. малыш только Пончик и Незнайка. малышка только Синеглазка и Кнопочка. Пончик друг Синеглазка. Если малыш друг малышка, то малышка  друг малыш. СПРАШКЛ(Незнайка друг ?кого)
 
 </textarea>
 <br/>
@@ -103,8 +112,9 @@
 
 <form name="input" action="/qq" method="post">
 
- <textarea rows="3" cols="44" name="p2" >
-кот любит молоко. Васька - кот. спаркля(?кто ?делает ?что)
+ <textarea rows="4" cols="88" name="p2" >
+кот любит молоко. Васька - кот. 
+СПРАШКЛ(?кто ?делает ?что)
 
 </textarea>
 <br/><input type="submit" value=" кляк ">
