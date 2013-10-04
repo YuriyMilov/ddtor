@@ -934,9 +934,11 @@ public class stq {
 	}
 
 	public static String sparql(String sh, String s) {
-
+		
+		s=Jsoup.parse(s).text().replaceAll("[ ]+", " ").trim();
+		
 		stat.sh = sh;
-		String s55 = s;
+		//String s55 = s;
 
 		add_sr(stat.sr, sh);
 		int i = s.toLowerCase().indexOf("вопрос(");
@@ -1020,6 +1022,8 @@ public class stq {
 
 	public static String srowl(String s, String sh, String sf) {
 	
+		//s=Jsoup.parse(s).text().replaceAll("[ ]+", " ").trim();
+		
 		boolean bb = true;
 		stat.owl_file = "rff?83.owl";
 		Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
