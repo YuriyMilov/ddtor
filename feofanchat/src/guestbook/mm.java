@@ -52,7 +52,11 @@ public class mm extends HttpServlet {
 			int i = s.indexOf("-- ");
 			if (i > 0)
 				s = s.substring(0,i);
-			s=s.replace("&nbsp;", " ");			
+			s=s.replace("&nbsp;", " ");	
+			
+			System.err.println( "****** \r\n" + s);
+
+			
 			s=Jsoup.parse(s).text().replaceAll("[ ]+", " ").trim();
 			String sbj = ms1.getSubject();
 			String srp = "";
@@ -65,7 +69,7 @@ public class mm extends HttpServlet {
 			stat.sr="";
 			if(!srp.contains("kuka@feofan.com"))
 			{	
-				stq.mail_admins(sbj,sotvet);				
+				stq.mail_admins("Re: "+sbj,sotvet);				
 				System.err.println( "-- KTO --> "+ srp +" "+
 				 ms1.getSender().toString() + " -- SUBJ --> "+ sbj);
 			}
